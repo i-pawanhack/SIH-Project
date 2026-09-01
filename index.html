@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>RetinaXAI — Explainable AI for Diabetic Retinopathy Screening</title>
+  <meta name="description" content="AI-assisted clinical decision support system for faster, explainable Diabetic Retinopathy screening in rural Indian healthcare centres (SIH26038).">
+  
+  <!-- Modern Typography -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=Outfit:wght@500;600;700;800&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+  
+  <!-- Lucide Icons via CDN -->
+  <script src="https://unpkg.com/lucide@latest/dist/umd/lucide.js"></script>
+  
+  <!-- Canvas Confetti for celebratory success feedback -->
+  <script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.9.3/dist/confetti.browser.min.js"></script>
+
+  <!-- Application Stylesheet -->
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body class="theme-light">
+  <div id="app" class="app-root">
+    <!-- Top Medical Safety Banner -->
+    <div id="safety-banner-root"></div>
+
+    <!-- Main Navigation Bar -->
+    <header id="navbar-root"></header>
+
+    <!-- Main Content Container -->
+    <main id="main-content" class="main-content-wrapper">
+      <!-- Dynamic Views injected by Router / App State -->
+      <div id="view-dashboard" class="app-view active"></div>
+      <div id="view-new-screening" class="app-view"></div>
+      <div id="view-screening-history" class="app-view"></div>
+      <div id="view-doctor-review" class="app-view"></div>
+      <div id="view-analytics" class="app-view"></div>
+      <div id="view-rural-mode" class="app-view"></div>
+      <div id="view-capacity-simulation" class="app-view"></div>
+      <div id="view-datasets" class="app-view"></div>
+    </main>
+
+    <!-- Global Modal Root for Clinical Reports and Popups -->
+    <div id="modal-root" class="modal-overlay hidden"></div>
+
+    <!-- Toast Notification Container -->
+    <div id="toast-container" class="toast-container"></div>
+  </div>
+
+  <!-- Application Modules -->
+  <script type="module" src="src/app.js"></script>
+</body>
+</html>
