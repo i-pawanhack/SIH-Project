@@ -189,6 +189,21 @@ h1, h2, h3, h4, h5, h6 {
   cursor: pointer;
 }
 
+.brand-logo-img {
+  width: 44px;
+  height: 44px;
+  border-radius: 50%;
+  object-fit: contain;
+  filter: drop-shadow(0 3px 8px rgba(13, 148, 136, 0.35));
+  transition: transform 0.2s ease, filter 0.2s ease;
+  display: block;
+}
+
+.brand-wrapper:hover .brand-logo-img {
+  transform: scale(1.06);
+  filter: drop-shadow(0 4px 12px rgba(13, 148, 136, 0.5));
+}
+
 .brand-logo-icon {
   width: 40px;
   height: 40px;

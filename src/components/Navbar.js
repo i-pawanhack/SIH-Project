@@ -13,9 +13,7 @@ export function renderNavbar(container, currentView, onNavigate, onDemoToggle) {
       <div class="navbar-container">
         <!-- Brand / Logo -->
         <div class="brand-wrapper" id="nav-brand-btn">
-          <div class="brand-logo-icon">
-            <i data-lucide="eye" style="width:24px;height:24px;"></i>
-          </div>
+          <img src="assets/logo.png" alt="RetinaXAI Logo" class="brand-logo-img" />
           <div class="brand-info">
             <div class="brand-title">
               RetinaXAI

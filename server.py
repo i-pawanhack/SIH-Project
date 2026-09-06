@@ -25,9 +25,11 @@ def start_server():
     httpd = None
     selected_port = None
     
+    ServerClass = getattr(http.server, 'ThreadingHTTPServer', socketserver.ThreadingTCPServer)
+
     for port in PORTS:
         try:
-            httpd = socketserver.TCPServer(("", port), Handler)
+            httpd = ServerClass(("", port), Handler)
             selected_port = port
             break
         except (OSError, PermissionError):
@@ -35,7 +37,7 @@ def start_server():
             
     if not httpd:
         # Fallback to ephemeral port
-        httpd = socketserver.TCPServer(("", 0), Handler)
+        httpd = ServerClass(("", 0), Handler)
         selected_port = httpd.server_address[1]
 
     with httpd:
