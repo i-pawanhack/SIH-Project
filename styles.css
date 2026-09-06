@@ -940,6 +940,10 @@ h1, h2, h3, h4, h5, h6 {
     color: black !important;
   }
 
+  #main-content,
+  #navbar-root,
+  #toast-container,
+  #safety-banner-root,
   .safety-banner,
   .navbar,
   .wizard-stepper,
