@@ -42,7 +42,6 @@ export function openReportModal(screeningCase, onClose) {
           <div>
             <div style="font-size:1.4rem; font-weight:800; color:var(--slate-900); font-family:var(--font-heading); display:flex; align-items:center; gap:0.5rem;">
               RetinaXAI
-              <span style="font-size:0.75rem; background:var(--slate-900); color:white; padding:0.15rem 0.45rem; border-radius:4px;">SIH26038</span>
             </div>
             <div style="font-size:0.8125rem; color:var(--slate-600);">
               AI-Assisted Diabetic Retinopathy Screening & Decision Support System

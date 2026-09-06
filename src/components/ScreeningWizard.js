@@ -23,14 +23,14 @@ export function renderScreeningWizard(container, onCompleteScreening, onOpenRepo
   let activeOverlayLayer = 'overlay'; // 'original', 'heatmap', 'overlay', 'structures'
 
   let patientData = {
-    id: `PT-IND-${Math.floor(1000 + Math.random() * 9000)}`,
-    name: 'Savitri Devi',
-    age: 56,
-    gender: 'Female',
-    diabetesDuration: '9 Years',
-    diabetesStatus: 'Type 2 Diabetes',
-    centre: SCREENING_CENTRES[0],
-    contact: '+91 98765 01234'
+    id: '',
+    name: '',
+    age: '',
+    gender: '',
+    diabetesDuration: '',
+    diabetesStatus: '',
+    centre: '',
+    contact: ''
   };
 
   function updateView() {
@@ -134,6 +134,7 @@ export function renderScreeningWizard(container, onCompleteScreening, onOpenRepo
           <div class="form-group">
             <label class="form-label">Biological Gender</label>
             <select id="p-gender" class="form-select">
+              <option value="" disabled ${!patientData.gender ? 'selected' : ''}>Select Gender</option>
               <option value="Female" ${patientData.gender === 'Female' ? 'selected' : ''}>Female</option>
               <option value="Male" ${patientData.gender === 'Male' ? 'selected' : ''}>Male</option>
               <option value="Other" ${patientData.gender === 'Other' ? 'selected' : ''}>Other</option>
@@ -143,27 +144,30 @@ export function renderScreeningWizard(container, onCompleteScreening, onOpenRepo
           <div class="form-group">
             <label class="form-label">Known Diabetes Duration</label>
             <select id="p-duration" class="form-select">
-              <option value="Newly Diagnosed (< 1 yr)">Newly Diagnosed (< 1 yr)</option>
-              <option value="1 - 5 Years">1 - 5 Years</option>
-              <option value="6 - 10 Years" selected>6 - 10 Years</option>
-              <option value="11 - 20 Years">11 - 20 Years</option>
-              <option value="> 20 Years">> 20 Years</option>
+              <option value="" disabled ${!patientData.diabetesDuration ? 'selected' : ''}>Select Duration</option>
+              <option value="Newly Diagnosed (< 1 yr)" ${patientData.diabetesDuration === 'Newly Diagnosed (< 1 yr)' ? 'selected' : ''}>Newly Diagnosed (< 1 yr)</option>
+              <option value="1 - 5 Years" ${patientData.diabetesDuration === '1 - 5 Years' ? 'selected' : ''}>1 - 5 Years</option>
+              <option value="6 - 10 Years" ${patientData.diabetesDuration === '6 - 10 Years' ? 'selected' : ''}>6 - 10 Years</option>
+              <option value="11 - 20 Years" ${patientData.diabetesDuration === '11 - 20 Years' ? 'selected' : ''}>11 - 20 Years</option>
+              <option value="> 20 Years" ${patientData.diabetesDuration === '> 20 Years' ? 'selected' : ''}>> 20 Years</option>
             </select>
           </div>
 
           <div class="form-group">
             <label class="form-label">Diabetes Clinical Status</label>
             <select id="p-status" class="form-select">
-              <option value="Type 2 Diabetes" selected>Type 2 Diabetes</option>
-              <option value="Type 1 Diabetes">Type 1 Diabetes</option>
-              <option value="Gestational Diabetes">Gestational Diabetes</option>
-              <option value="Pre-diabetic">Pre-diabetic</option>
+              <option value="" disabled ${!patientData.diabetesStatus ? 'selected' : ''}>Select Status</option>
+              <option value="Type 2 Diabetes" ${patientData.diabetesStatus === 'Type 2 Diabetes' ? 'selected' : ''}>Type 2 Diabetes</option>
+              <option value="Type 1 Diabetes" ${patientData.diabetesStatus === 'Type 1 Diabetes' ? 'selected' : ''}>Type 1 Diabetes</option>
+              <option value="Gestational Diabetes" ${patientData.diabetesStatus === 'Gestational Diabetes' ? 'selected' : ''}>Gestational Diabetes</option>
+              <option value="Pre-diabetic" ${patientData.diabetesStatus === 'Pre-diabetic' ? 'selected' : ''}>Pre-diabetic</option>
             </select>
           </div>
 
           <div class="form-group" style="grid-column:1 / -1;">
             <label class="form-label">Rural Screening Centre</label>
             <select id="p-centre" class="form-select">
+              <option value="" disabled ${!patientData.centre ? 'selected' : ''}>Select Centre</option>
               ${SCREENING_CENTRES.map(c => `<option value="${c}" ${patientData.centre === c ? 'selected' : ''}>${c}</option>`).join('')}
             </select>
           </div>
@@ -196,8 +200,15 @@ export function renderScreeningWizard(container, onCompleteScreening, onOpenRepo
     });
 
     target.querySelector('#step1-next-btn').addEventListener('click', () => {
-      patientData.id = target.querySelector('#p-id').value;
-      patientData.name = target.querySelector('#p-name').value;
+      const id = target.querySelector('#p-id').value;
+      const name = target.querySelector('#p-name').value;
+      if (!id || !name) {
+        alert("Please enter at least the Patient ID and Name before proceeding.");
+        return;
+      }
+      
+      patientData.id = id;
+      patientData.name = name;
       patientData.age = target.querySelector('#p-age').value;
       patientData.gender = target.querySelector('#p-gender').value;
       patientData.diabetesDuration = target.querySelector('#p-duration').value;
@@ -272,6 +283,8 @@ export function renderScreeningWizard(container, onCompleteScreening, onOpenRepo
           <div style="display:flex; flex-direction:column; align-items:center; justify-content:center; background:var(--slate-900); border-radius:var(--radius-xl); padding:1rem; position:relative;">
             <div style="position:relative; width:280px; height:280px; border-radius:var(--radius-lg); overflow:hidden; border:2px solid rgba(255,255,255,0.2);">
               <img id="preview-fundus-img" src="${rawImageDataUrl}" alt="Fundus Preview" style="width:100%; height:100%; object-fit:contain; background:#000;">
+              <video id="camera-video" autoplay playsinline style="width:100%; height:100%; object-fit:cover; display:none; background:#000;"></video>
+              <canvas id="camera-canvas" style="display:none;"></canvas>
               ${isUngradableCase ? `
                 <div style="position:absolute; top:10px; left:10px; background:rgba(239,68,68,0.9); color:white; font-size:0.75rem; font-weight:700; padding:0.25rem 0.6rem; border-radius:var(--radius-full);">
                   <i data-lucide="alert-triangle" style="width:12px;height:12px; display:inline-block; vertical-align:middle;"></i>
@@ -322,26 +335,75 @@ export function renderScreeningWizard(container, onCompleteScreening, onOpenRepo
       }
     });
 
-    // Camera Capture Simulation
-    target.querySelector('#camera-capture-btn').addEventListener('click', () => {
-      alert('Fundus Camera Connected: Capturing 45° Posterior Pole Macular Field...');
-      rawImageDataUrl = ImageProcessor.generateFundusImage(selectedStage, isUngradableCase);
-      previewImg.src = rawImageDataUrl;
+    // Camera Capture
+    const cameraBtn = target.querySelector('#camera-capture-btn');
+    const video = target.querySelector('#camera-video');
+    const canvas = target.querySelector('#camera-canvas');
+    let videoStream = null;
+
+    function stopCamera() {
+      if (videoStream) {
+        videoStream.getTracks().forEach(track => track.stop());
+        videoStream = null;
+      }
+    }
+
+    cameraBtn.addEventListener('click', async () => {
+      if (!videoStream) {
+        try {
+          videoStream = await navigator.mediaDevices.getUserMedia({ video: { facingMode: 'environment' } });
+          video.srcObject = videoStream;
+          previewImg.style.display = 'none';
+          video.style.display = 'block';
+          cameraBtn.innerHTML = '<i data-lucide="camera" style="width:16px;height:16px;"></i> Capture Photo';
+          if (window.lucide) window.lucide.createIcons();
+        } catch (err) {
+          alert('Could not access camera: ' + err.message);
+        }
+      } else {
+        canvas.width = video.videoWidth || 512;
+        canvas.height = video.videoHeight || 512;
+        const ctx = canvas.getContext('2d');
+        ctx.drawImage(video, 0, 0, canvas.width, canvas.height);
+        
+        rawImageDataUrl = canvas.toDataURL('image/jpeg');
+        isUngradableCase = false;
+        
+        stopCamera();
+        video.style.display = 'none';
+        previewImg.src = rawImageDataUrl;
+        previewImg.style.display = 'block';
+        cameraBtn.innerHTML = '<i data-lucide="camera" style="width:16px;height:16px;"></i> Connect USB Fundus Camera';
+        if (window.lucide) window.lucide.createIcons();
+      }
     });
 
     target.querySelector('#regen-preset-btn').addEventListener('click', () => {
+      stopCamera();
+      video.style.display = 'none';
+      previewImg.style.display = 'block';
+      cameraBtn.innerHTML = '<i data-lucide="camera" style="width:16px;height:16px;"></i> Connect USB Fundus Camera';
+      if (window.lucide) window.lucide.createIcons();
+      
       rawImageDataUrl = ImageProcessor.generateFundusImage(selectedStage, isUngradableCase);
       previewImg.src = rawImageDataUrl;
     });
 
     target.querySelector('#step2-prev-btn').addEventListener('click', () => {
+      stopCamera();
       currentStep = 1;
       updateView();
     });
 
-    target.querySelector('#step2-start-screening-btn').addEventListener('click', () => {
+    target.querySelector('#step2-start-screening-btn').addEventListener('click', async () => {
+      stopCamera();
       qualityResult = ImageProcessor.assessImageQuality(isUngradableCase);
-      currentStep = 3;
+      if (qualityResult.overall !== 'UNGRADABLE') {
+        enhancedImageDataUrl = await ImageProcessor.enhanceImage(rawImageDataUrl);
+        currentStep = 4;
+      } else {
+        currentStep = 3;
+      }
       updateView();
     });
   }

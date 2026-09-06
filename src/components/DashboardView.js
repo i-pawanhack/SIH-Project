@@ -105,35 +105,6 @@ export function renderDashboardView(container, onNavigate, onOpenReport) {
       </div>
     </div>
 
-    <!-- Quick Screening Action Banner -->
-    <div class="card" style="background: linear-gradient(135deg, #0f172a 0%, #1e293b 100%); color:white; margin-bottom:1.75rem; border:none; position:relative; overflow:hidden;">
-      <div style="position:absolute; right:-20px; bottom:-20px; opacity:0.1; pointer-events:none;">
-        <i data-lucide="eye" style="width:220px;height:220px;"></i>
-      </div>
-      <div style="display:flex; justify-content:space-between; align-items:center; flex-wrap:wrap; gap:1.25rem; position:relative; z-index:2;">
-        <div style="max-width:650px;">
-          <div class="safety-pill" style="margin-bottom:0.6rem; background:rgba(20, 184, 166, 0.2); color:#2dd4bf; border-color:rgba(20, 184, 166, 0.4);">
-            <i data-lucide="zap" style="width:12px;height:12px;"></i>
-            AI CLINICAL SCREENING PIPELINE
-          </div>
-          <h2 style="color:white; font-size:1.4rem; margin-bottom:0.4rem;">Empowering Rural Primary Health Centres</h2>
-          <p style="color:#cbd5e1; font-size:0.875rem; line-height:1.6;">
-            Perform instant image quality assessment, CLAHE enhancement, AI severity grading, Grad-CAM attention explainability, and tele-ophthalmology referral in under 60 seconds.
-          </p>
-        </div>
-        <div style="display:flex; gap:0.75rem; flex-wrap:wrap;">
-          <button class="btn btn-primary" id="banner-screen-btn" style="box-shadow:0 0 20px rgba(13,148,136,0.4);">
-            <i data-lucide="plus-circle" style="width:18px;height:18px;"></i>
-            Start New Screening
-          </button>
-          <button class="btn btn-secondary" id="banner-sim-btn" style="background:rgba(255,255,255,0.1); color:white; border-color:rgba(255,255,255,0.2);">
-            <i data-lucide="cpu" style="width:18px;height:18px;"></i>
-            Capacity Simulation
-          </button>
-        </div>
-      </div>
-    </div>
-
     <!-- Recent Screenings Table Section -->
     <div class="card">
       <div class="card-header">
@@ -310,8 +281,6 @@ export function renderDashboardView(container, onNavigate, onOpenReport) {
 
   // Navigation Button Handlers
   container.querySelector('#dash-start-btn').addEventListener('click', () => onNavigate('new-screening'));
-  container.querySelector('#banner-screen-btn').addEventListener('click', () => onNavigate('new-screening'));
-  container.querySelector('#banner-sim-btn').addEventListener('click', () => onNavigate('capacity-simulation'));
 
   if (window.lucide) window.lucide.createIcons();
 }

@@ -13,11 +13,12 @@ export function renderNavbar(container, currentView, onNavigate, onDemoToggle) {
       <div class="navbar-container">
         <!-- Brand / Logo -->
         <div class="brand-wrapper" id="nav-brand-btn">
-          <img src="assets/logo.png" alt="RetinaXAI Logo" class="brand-logo-img" />
+          <div class="brand-logo-icon" style="background: transparent; box-shadow: none;">
+            <img src="src/logo.jpeg" alt="RetinaXAI Logo" style="width: 48px; height: 48px; object-fit: contain;">
+          </div>
           <div class="brand-info">
             <div class="brand-title">
               RetinaXAI
-              <span class="brand-badge">SIH26038</span>
             </div>
             <div class="brand-tagline">Explainable AI for Diabetic Retinopathy Screening</div>
           </div>
@@ -79,13 +80,6 @@ export function renderNavbar(container, currentView, onNavigate, onDemoToggle) {
 
         <!-- Right Controls -->
         <div class="nav-controls">
-          <!-- Demo Mode Switch -->
-          <div class="demo-mode-toggle" id="demo-mode-btn" title="Toggle Demo / Simulated AI Mode">
-            <span>DEMO MODE</span>
-            <div class="toggle-switch ${settings.demoMode ? 'active' : ''}">
-              <div class="toggle-thumb"></div>
-            </div>
-          </div>
 
           <!-- New Screening CTA Button -->
           <button class="btn-new-screening-cta" id="nav-new-screening-cta">
@@ -109,9 +103,5 @@ export function renderNavbar(container, currentView, onNavigate, onDemoToggle) {
     });
   });
 
-  const demoToggle = container.querySelector('#demo-mode-btn');
-  demoToggle.addEventListener('click', () => {
-    const newSettings = StorageService.updateSettings({ demoMode: !settings.demoMode });
-    onDemoToggle(newSettings.demoMode);
-  });
+
 }
