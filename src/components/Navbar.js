@@ -7,6 +7,8 @@ import { StorageService } from '../services/storageService.js';
 export function renderNavbar(container, currentView, onNavigate, onDemoToggle) {
   const stats = StorageService.getStats();
   const settings = StorageService.getSettings();
+  const logins = StorageService.getLogins();
+  const currentPHC = logins.length > 0 ? logins[logins.length - 1].phcId : 'PHC-001';
 
   container.innerHTML = `
     <nav class="navbar">
@@ -64,22 +66,20 @@ export function renderNavbar(container, currentView, onNavigate, onDemoToggle) {
               Rural Mode
             </a>
           </li>
-          <li>
-            <a class="nav-item ${currentView === 'capacity-simulation' ? 'active' : ''}" data-view="capacity-simulation">
-              <i data-lucide="cpu" style="width:16px;height:16px;"></i>
-              Capacity Simulation
-            </a>
-          </li>
-          <li>
-            <a class="nav-item ${currentView === 'datasets' ? 'active' : ''}" data-view="datasets">
-              <i data-lucide="database" style="width:16px;height:16px;"></i>
-              Datasets & API
-            </a>
-          </li>
         </ul>
 
         <!-- Right Controls -->
         <div class="nav-controls">
+          <!-- Profile Section -->
+          <div class="nav-profile-section" style="display: flex; align-items: center; gap: 8px; margin-right: 16px;">
+            <div style="width: 36px; height: 36px; background: #e0f2fe; color: #0ea5e9; border-radius: 50%; display: flex; align-items: center; justify-content: center;">
+              <i data-lucide="user" style="width:18px;height:18px;"></i>
+            </div>
+            <div style="display: flex; flex-direction: column;">
+              <span style="font-size: 14px; font-weight: 600; color: #1e293b;">${currentPHC}</span>
+              <span style="font-size: 12px; color: #64748b;">Primary Health Centre</span>
+            </div>
+          </div>
 
           <!-- New Screening CTA Button -->
           <button class="btn-new-screening-cta" id="nav-new-screening-cta">

@@ -15,10 +15,11 @@ import { renderRuralModeView } from './components/RuralModeView.js';
 import { renderCapacitySimulator } from './components/CapacitySimulator.js';
 import { renderDatasetsView } from './components/DatasetsView.js';
 import { openReportModal } from './components/ReportModal.js';
+import { renderLoginView } from './components/LoginView.js';
 
 class RetinaXAIApp {
   constructor() {
-    this.currentView = 'dashboard';
+    this.currentView = 'login';
     this.init();
   }
 
@@ -41,6 +42,12 @@ class RetinaXAIApp {
   renderHeader() {
     const bannerRoot = document.getElementById('safety-banner-root');
     const navRoot = document.getElementById('navbar-root');
+
+    if (this.currentView === 'login') {
+      if (bannerRoot) bannerRoot.innerHTML = '';
+      if (navRoot) navRoot.innerHTML = '';
+      return;
+    }
 
     if (bannerRoot) renderSafetyBanner(bannerRoot);
     if (navRoot) {
@@ -65,7 +72,15 @@ class RetinaXAIApp {
     if (targetContainer) {
       targetContainer.classList.add('active');
 
-      if (viewName === 'dashboard') {
+      if (viewName === 'login') {
+        renderLoginView(
+          targetContainer,
+          () => {
+            this.showToast('Login successful!');
+            this.navigateTo('dashboard');
+          }
+        );
+      } else if (viewName === 'dashboard') {
         renderDashboardView(
           targetContainer,
           (v) => this.navigateTo(v),

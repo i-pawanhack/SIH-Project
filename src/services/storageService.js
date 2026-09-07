@@ -37,6 +37,21 @@ export class StorageService {
         isOnline: navigator.onLine !== undefined ? navigator.onLine : true
       }));
     }
+
+    // Ensure default account PHC-001 exists with the correct password
+    if (!localStorage.getItem('retinaxai_accounts_v1')) {
+      const initialAccounts = [{ phcId: 'PHC-001', password: '12345678', createdAt: new Date().toISOString() }];
+      localStorage.setItem('retinaxai_accounts_v1', JSON.stringify(initialAccounts));
+    } else {
+      const accounts = JSON.parse(localStorage.getItem('retinaxai_accounts_v1'));
+      const phc001 = accounts.find(a => a.phcId === 'PHC-001');
+      if (phc001) {
+        phc001.password = '12345678';
+      } else {
+        accounts.push({ phcId: 'PHC-001', password: '12345678', createdAt: new Date().toISOString() });
+      }
+      localStorage.setItem('retinaxai_accounts_v1', JSON.stringify(accounts));
+    }
   }
 
   /**
@@ -177,5 +192,47 @@ export class StorageService {
     const updated = { ...current, ...newSettings };
     localStorage.setItem(SETTINGS_KEY, JSON.stringify(updated));
     return updated;
+  }
+
+  static getAccounts() {
+    try {
+      const data = localStorage.getItem('retinaxai_accounts_v1');
+      return data ? JSON.parse(data) : [];
+    } catch {
+      return [];
+    }
+  }
+
+  static createAccount(phcId, password) {
+    const accounts = this.getAccounts();
+    if (accounts.find(a => a.phcId === phcId)) {
+      return { success: false, message: 'Account already exists' };
+    }
+    accounts.push({ phcId, password, createdAt: new Date().toISOString() });
+    localStorage.setItem('retinaxai_accounts_v1', JSON.stringify(accounts));
+    return { success: true };
+  }
+
+  static verifyLogin(phcId, password) {
+    const accounts = this.getAccounts();
+    const account = accounts.find(a => a.phcId === phcId && a.password === password);
+    if (account) {
+      // Save timestamp
+      const logins = this.getLogins();
+      logins.push({ phcId, timestamp: new Date().toISOString() });
+      localStorage.setItem('retinaxai_logins_v1', JSON.stringify(logins));
+      
+      return { success: true };
+    }
+    return { success: false, message: 'Invalid credentials' };
+  }
+
+  static getLogins() {
+    try {
+      const data = localStorage.getItem('retinaxai_logins_v1');
+      return data ? JSON.parse(data) : [];
+    } catch {
+      return [];
+    }
   }
 }

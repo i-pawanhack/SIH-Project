@@ -21,10 +21,6 @@ export function renderDashboardView(container, onNavigate, onOpenReport) {
       </div>
       
       <div style="display:flex; gap:0.75rem; align-items:center;">
-        <span class="badge" style="background:#dbeafe; color:#1e40af; border:1px solid #bfdbfe; padding:0.4rem 0.8rem; font-size:0.8125rem;">
-          <i data-lucide="wifi" style="width:14px;height:14px;"></i>
-          ${settings.lowBandwidthMode ? 'Rural 2G Low-Bandwidth Mode' : 'Connected to Cloud AI Sync'}
-        </span>
         <button class="btn btn-primary btn-sm" id="dash-start-btn">
           <i data-lucide="plus-circle" style="width:16px;height:16px;"></i>
           New Screening
