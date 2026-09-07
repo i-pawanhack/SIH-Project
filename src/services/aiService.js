@@ -11,14 +11,21 @@ export class AIService {
    * Generates a realistic Grad-CAM Heatmap overlay focused on the detected pathological regions.
    * Utilizes Jet/Turbo thermal color mapping (Blue -> Cyan -> Green -> Yellow -> Red).
    */
-  static generateGradCAMHeatmap(stage = 0, width = 600, height = 600) {
+  static generateGradCAMHeatmap(stage = 0, width = 600, height = 600, eyeBox = null) {
     const canvas = document.createElement('canvas');
     canvas.width = width;
     canvas.height = height;
     const ctx = canvas.getContext('2d');
-    const cx = width / 2;
-    const cy = height / 2;
-    const radius = width * 0.45;
+    
+    let cx = width / 2;
+    let cy = height / 2;
+    let radius = width * 0.45;
+
+    if (eyeBox) {
+      cx = eyeBox.x + (eyeBox.width / 2);
+      cy = eyeBox.y + (eyeBox.height / 2);
+      radius = Math.max(eyeBox.width, eyeBox.height) * 0.8;
+    }
 
     // Blank transparent canvas
     ctx.clearRect(0, 0, width, height);
@@ -191,19 +198,29 @@ export class AIService {
   /**
    * Returns anatomical localization landmarks for overlays.
    */
-  static getAnatomicalLandmarks(stage = 0) {
+  static getAnatomicalLandmarks(stage = 0, eyeBox = null) {
+    let cx = 300;
+    let cy = 300;
+    let radius = 270;
+    
+    if (eyeBox) {
+       cx = eyeBox.x + (eyeBox.width / 2);
+       cy = eyeBox.y + (eyeBox.height / 2);
+       radius = Math.max(eyeBox.width, eyeBox.height) * 0.8;
+    }
+
     return {
       opticDisc: {
-        x: 195,
-        y: 300,
-        radius: 46,
+        x: cx - radius * 0.35,
+        y: cy,
+        radius: radius * 0.17,
         label: 'Optic Disc (Cup-to-Disc Ratio: 0.35)',
         status: stage === 4 ? 'Neovascularization Observed' : 'Clear Margins'
       },
       fovea: {
-        x: 375,
-        y: 315,
-        radius: 30,
+        x: cx + radius * 0.25,
+        y: cy + radius * 0.05,
+        radius: radius * 0.11,
         label: 'Fovea Centralis (Macula)',
         status: stage >= 2 ? 'Exudates in Perimacular Ring' : 'Intact Foveal Avascular Zone (FAZ)'
       },
@@ -218,7 +235,7 @@ export class AIService {
   /**
    * Evaluates DR classification from given stage.
    */
-  static evaluateClassification(stage = 0) {
+  static evaluateClassification(stage = 0, eyeBox = null) {
     const drMeta = DR_SEVERITY_LEVELS[stage] || DR_SEVERITY_LEVELS[0];
     
     // Realistic prototype confidence scores
@@ -243,7 +260,7 @@ export class AIService {
       color: drMeta.color,
       clinicalRecommendation: drMeta.clinicalRecommendation,
       evidence: this.extractRetinalEvidence(stage),
-      landmarks: this.getAnatomicalLandmarks(stage),
+      landmarks: this.getAnatomicalLandmarks(stage, eyeBox),
       timestamp: new Date().toISOString(),
       modelMetadata: {
         architecture: 'Ensemble EfficientNet-B5 + ResNet50-GradCAM (Demo Pipeline)',

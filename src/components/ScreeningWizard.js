@@ -285,6 +285,11 @@ export function renderScreeningWizard(container, onCompleteScreening, onOpenRepo
               <img id="preview-fundus-img" src="${rawImageDataUrl}" alt="Fundus Preview" style="width:100%; height:100%; object-fit:contain; background:#000;">
               <video id="camera-video" autoplay playsinline style="width:100%; height:100%; object-fit:cover; display:none; background:#000;"></video>
               <canvas id="camera-canvas" style="display:none;"></canvas>
+              <div id="eye-tracking-overlay" style="display:none; position:absolute; border:2px dashed #10b981; border-radius:4px; box-shadow:0 0 15px rgba(16,185,129,0.5); pointer-events:none; z-index:10; box-sizing:border-box;"></div>
+              <div id="auto-capture-toast" style="display:none; position:absolute; top:50%; left:50%; transform:translate(-50%, -50%); background:rgba(16,185,129,0.9); color:white; padding:0.5rem 1rem; border-radius:2rem; font-weight:700; font-size:0.875rem; z-index:20; white-space:nowrap;">
+                <i data-lucide="scan-eye" style="width:16px;height:16px; display:inline-block; vertical-align:middle; margin-right:4px;"></i>
+                Eye Detected - Capturing...
+              </div>
               ${isUngradableCase ? `
                 <div style="position:absolute; top:10px; left:10px; background:rgba(239,68,68,0.9); color:white; font-size:0.75rem; font-weight:700; padding:0.25rem 0.6rem; border-radius:var(--radius-full);">
                   <i data-lucide="alert-triangle" style="width:12px;height:12px; display:inline-block; vertical-align:middle;"></i>
@@ -327,9 +332,40 @@ export function renderScreeningWizard(container, onCompleteScreening, onOpenRepo
       if (file) {
         const reader = new FileReader();
         reader.onload = (evt) => {
-          rawImageDataUrl = evt.target.result;
-          isUngradableCase = false;
-          previewImg.src = rawImageDataUrl;
+          const originalSrc = previewImg.src;
+          const originalUrl = rawImageDataUrl;
+          
+          previewImg.onload = () => {
+             previewImg.onload = null; // Remove handler to prevent loops
+             
+             if (window.tracking) {
+               const tracker = new window.tracking.ObjectTracker('eye');
+               tracker.setInitialScale(4);
+               tracker.setStepSize(2);
+               tracker.setEdgesDensity(0.1);
+               
+               setTimeout(() => {
+                 const task = window.tracking.track('#preview-fundus-img', tracker);
+                 
+                 tracker.on('track', function(event) {
+                   task.stop();
+                   if (event.data.length === 0) {
+                     alert("Error: No eye detected in the uploaded image. Please upload a valid retinal or eye image.");
+                     // Revert
+                     previewImg.src = originalSrc;
+                     rawImageDataUrl = originalUrl;
+                   } else {
+                     rawImageDataUrl = evt.target.result;
+                     isUngradableCase = false;
+                   }
+                 });
+               }, 50);
+             } else {
+               rawImageDataUrl = evt.target.result;
+               isUngradableCase = false;
+             }
+          };
+          previewImg.src = evt.target.result;
         };
         reader.readAsDataURL(file);
       }
@@ -339,9 +375,63 @@ export function renderScreeningWizard(container, onCompleteScreening, onOpenRepo
     const cameraBtn = target.querySelector('#camera-capture-btn');
     const video = target.querySelector('#camera-video');
     const canvas = target.querySelector('#camera-canvas');
+    const trackingOverlay = target.querySelector('#eye-tracking-overlay');
+    const autoCaptureToast = target.querySelector('#auto-capture-toast');
     let videoStream = null;
+    let eyeTrackerTask = null;
+    let autoCaptureTimeout = null;
+    let lastEyeRect = null;
+
+    function captureImage(cropRect = null) {
+      if (!videoStream) return;
+      
+      const ctx = canvas.getContext('2d');
+      if (cropRect && video.videoWidth) {
+        // Add padding around the eye (1.5x width/height)
+        const paddingX = cropRect.width * 1.5;
+        const paddingY = cropRect.height * 1.5;
+        
+        let sx = Math.max(0, cropRect.x - paddingX);
+        let sy = Math.max(0, cropRect.y - paddingY);
+        let sWidth = Math.min(video.videoWidth - sx, cropRect.width + (paddingX * 2));
+        let sHeight = Math.min(video.videoHeight - sy, cropRect.height + (paddingY * 2));
+        
+        // Make it a square
+        const size = Math.min(sWidth, sHeight);
+        sx += (sWidth - size) / 2;
+        sy += (sHeight - size) / 2;
+        
+        canvas.width = 512;
+        canvas.height = 512;
+        ctx.drawImage(video, sx, sy, size, size, 0, 0, 512, 512);
+      } else {
+        canvas.width = video.videoWidth || 512;
+        canvas.height = video.videoHeight || 512;
+        ctx.drawImage(video, 0, 0, canvas.width, canvas.height);
+      }
+      
+      rawImageDataUrl = canvas.toDataURL('image/jpeg');
+      isUngradableCase = false;
+      
+      stopCamera();
+      video.style.display = 'none';
+      if (trackingOverlay) trackingOverlay.style.display = 'none';
+      if (autoCaptureToast) autoCaptureToast.style.display = 'none';
+      previewImg.src = rawImageDataUrl;
+      previewImg.style.display = 'block';
+      cameraBtn.innerHTML = '<i data-lucide="camera" style="width:16px;height:16px;"></i> Connect USB Fundus Camera';
+      if (window.lucide) window.lucide.createIcons();
+    }
 
     function stopCamera() {
+      if (eyeTrackerTask) {
+        eyeTrackerTask.stop();
+        eyeTrackerTask = null;
+      }
+      if (autoCaptureTimeout) {
+        clearTimeout(autoCaptureTimeout);
+        autoCaptureTimeout = null;
+      }
       if (videoStream) {
         videoStream.getTracks().forEach(track => track.stop());
         videoStream = null;
@@ -355,26 +445,72 @@ export function renderScreeningWizard(container, onCompleteScreening, onOpenRepo
           video.srcObject = videoStream;
           previewImg.style.display = 'none';
           video.style.display = 'block';
-          cameraBtn.innerHTML = '<i data-lucide="camera" style="width:16px;height:16px;"></i> Capture Photo';
+          cameraBtn.innerHTML = '<i data-lucide="camera" style="width:16px;height:16px;"></i> Capture Photo (Manual)';
           if (window.lucide) window.lucide.createIcons();
+
+          // Wait for video to be ready before setting up tracking
+          video.onloadedmetadata = () => {
+            // Setup Tracking.js for eye detection
+            if (window.tracking) {
+              const tracker = new window.tracking.ObjectTracker('eye');
+              tracker.setInitialScale(4);
+              tracker.setStepSize(2);
+              tracker.setEdgesDensity(0.1);
+
+              tracker.on('track', function(event) {
+                if (event.data.length === 0) {
+                  // No eyes detected
+                  lastEyeRect = null;
+                  if (trackingOverlay) trackingOverlay.style.display = 'none';
+                  if (autoCaptureTimeout) {
+                    clearTimeout(autoCaptureTimeout);
+                    autoCaptureTimeout = null;
+                    if (autoCaptureToast) autoCaptureToast.style.display = 'none';
+                  }
+                } else {
+                  // Eye(s) detected
+                  const rect = event.data[0]; // Take the first detected eye
+                  lastEyeRect = rect;
+                  
+                  // Calculate scale factors since video element size might differ from video stream size
+                  const rectDisplay = video.getBoundingClientRect();
+                  const scaleX = rectDisplay.width / video.videoWidth;
+                  const scaleY = rectDisplay.height / video.videoHeight;
+
+                  if (trackingOverlay) {
+                    trackingOverlay.style.display = 'block';
+                    trackingOverlay.style.left = (rect.x * scaleX) + 'px';
+                    trackingOverlay.style.top = (rect.y * scaleY) + 'px';
+                    trackingOverlay.style.width = (rect.width * scaleX) + 'px';
+                    trackingOverlay.style.height = (rect.height * scaleY) + 'px';
+                  }
+
+                  // Start auto-capture countdown if not already started
+                  if (!autoCaptureTimeout) {
+                    if (autoCaptureToast) {
+                      autoCaptureToast.style.display = 'block';
+                      if (window.lucide) window.lucide.createIcons();
+                    }
+                    autoCaptureTimeout = setTimeout(() => {
+                      captureImage(lastEyeRect);
+                    }, 1500); // 1.5 seconds of stable detection triggers capture
+                  }
+                }
+              });
+
+              eyeTrackerTask = window.tracking.track('#camera-video', tracker);
+            }
+          };
         } catch (err) {
           alert('Could not access camera: ' + err.message);
         }
       } else {
-        canvas.width = video.videoWidth || 512;
-        canvas.height = video.videoHeight || 512;
-        const ctx = canvas.getContext('2d');
-        ctx.drawImage(video, 0, 0, canvas.width, canvas.height);
-        
-        rawImageDataUrl = canvas.toDataURL('image/jpeg');
-        isUngradableCase = false;
-        
-        stopCamera();
-        video.style.display = 'none';
-        previewImg.src = rawImageDataUrl;
-        previewImg.style.display = 'block';
-        cameraBtn.innerHTML = '<i data-lucide="camera" style="width:16px;height:16px;"></i> Connect USB Fundus Camera';
-        if (window.lucide) window.lucide.createIcons();
+        // Manual capture fallback with validation
+        if (!lastEyeRect) {
+          alert('Error: No eye detected in the frame. Please ensure the camera is pointing at an eye before capturing.');
+          return;
+        }
+        captureImage(lastEyeRect);
       }
     });
 
@@ -791,9 +927,45 @@ export function renderScreeningWizard(container, onCompleteScreening, onOpenRepo
       if (window.lucide) window.lucide.createIcons();
     }, 1750);
 
-    setTimeout(() => {
-      aiDiagnosticResult = AIService.evaluateClassification(selectedStage);
-      gradCamDataUrl = AIService.generateGradCAMHeatmap(selectedStage);
+    setTimeout(async () => {
+      // Dynamically detect eye in the final image to position overlays correctly
+      let eyeBox = null;
+      if (window.tracking) {
+        const img = new Image();
+        img.src = enhancedImageDataUrl || rawImageDataUrl;
+        await new Promise(resolve => {
+           img.onload = () => {
+             const tracker = new window.tracking.ObjectTracker('eye');
+             tracker.setStepSize(1.7);
+             
+             // Must attach to DOM for tracking.js to process it properly in some versions,
+             // or tracking.js can handle HTMLImageElement directly.
+             const task = window.tracking.track(img, tracker);
+             tracker.on('track', function(event) {
+               task.stop();
+               if (event.data.length > 0) {
+                 const rect = event.data[0];
+                 // Map to 600x600 coordinate space used by the UI overlays
+                 const scaleX = 600 / img.width;
+                 const scaleY = 600 / img.height;
+                 eyeBox = {
+                   x: rect.x * scaleX,
+                   y: rect.y * scaleY,
+                   width: rect.width * scaleX,
+                   height: rect.height * scaleY
+                 };
+               }
+               resolve();
+             });
+             
+             // Fallback timeout in case tracking fails to fire
+             setTimeout(resolve, 500);
+           };
+        });
+      }
+
+      aiDiagnosticResult = AIService.evaluateClassification(selectedStage, eyeBox);
+      gradCamDataUrl = AIService.generateGradCAMHeatmap(selectedStage, 600, 600, eyeBox);
 
       // Trigger Confetti for completing analysis
       if (window.confetti) {
