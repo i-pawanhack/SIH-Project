@@ -416,10 +416,22 @@ export function renderScreeningWizard(container, onCompleteScreening, onOpenRepo
       stopCamera();
       video.style.display = 'none';
       if (trackingOverlay) trackingOverlay.style.display = 'none';
-      if (autoCaptureToast) autoCaptureToast.style.display = 'none';
+      
       previewImg.src = rawImageDataUrl;
       previewImg.style.display = 'block';
       cameraBtn.innerHTML = '<i data-lucide="camera" style="width:16px;height:16px;"></i> Connect USB Fundus Camera';
+
+      if (cropRect && autoCaptureToast) {
+        autoCaptureToast.innerHTML = '<i data-lucide="check-circle" style="width:16px;height:16px; display:inline-block; vertical-align:middle; margin-right:4px;"></i> Eye Captured!';
+        autoCaptureToast.style.display = 'block';
+        autoCaptureToast.style.background = 'rgba(16,185,129,0.9)';
+        setTimeout(() => {
+          autoCaptureToast.style.display = 'none';
+        }, 3000);
+      } else if (autoCaptureToast) {
+        autoCaptureToast.style.display = 'none';
+      }
+
       if (window.lucide) window.lucide.createIcons();
     }
 
@@ -483,18 +495,11 @@ export function renderScreeningWizard(container, onCompleteScreening, onOpenRepo
                     trackingOverlay.style.top = (rect.y * scaleY) + 'px';
                     trackingOverlay.style.width = (rect.width * scaleX) + 'px';
                     trackingOverlay.style.height = (rect.height * scaleY) + 'px';
+                    trackingOverlay.style.borderColor = '#10b981';
                   }
 
-                  // Start auto-capture countdown if not already started
-                  if (!autoCaptureTimeout) {
-                    if (autoCaptureToast) {
-                      autoCaptureToast.style.display = 'block';
-                      if (window.lucide) window.lucide.createIcons();
-                    }
-                    autoCaptureTimeout = setTimeout(() => {
-                      captureImage(lastEyeRect);
-                    }, 1500); // 1.5 seconds of stable detection triggers capture
-                  }
+                  // Instantly capture the picture
+                  captureImage(lastEyeRect);
                 }
               });
 
@@ -505,11 +510,7 @@ export function renderScreeningWizard(container, onCompleteScreening, onOpenRepo
           alert('Could not access camera: ' + err.message);
         }
       } else {
-        // Manual capture fallback with validation
-        if (!lastEyeRect) {
-          alert('Error: No eye detected in the frame. Please ensure the camera is pointing at an eye before capturing.');
-          return;
-        }
+        // Manual capture fallback with validation bypassed
         captureImage(lastEyeRect);
       }
     });
