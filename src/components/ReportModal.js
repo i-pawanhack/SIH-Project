@@ -4,6 +4,7 @@
  */
 
 import { DR_SEVERITY_LEVELS } from '../types.js';
+import { StorageService } from '../services/storageService.js';
 
 export function openReportModal(screeningCase, onClose) {
   const modalRoot = document.getElementById('modal-root');
@@ -40,6 +41,7 @@ export function openReportModal(screeningCase, onClose) {
         <!-- Official Hospital / Tele-Health Header -->
         <div style="display:flex; justify-content:space-between; align-items:center; border-bottom:2px solid var(--slate-900); padding-bottom:1rem; margin-bottom:1.5rem;">
           <div>
+            <img src="src/logo.jpeg" alt="RetinaXAI Logo" style="height: 48px; border-radius: 8px; margin-bottom: 8px; display: block;">
             <div style="font-size:1.4rem; font-weight:800; color:var(--slate-900); font-family:var(--font-heading); display:flex; align-items:center; gap:0.5rem;">
               RetinaXAI
             </div>
@@ -53,7 +55,7 @@ export function openReportModal(screeningCase, onClose) {
 
           <div style="text-align:right;">
             <div style="font-family:var(--font-mono); font-size:0.8125rem; font-weight:700; color:var(--slate-800);">
-              Report ID: ${screeningCase.id}
+              Report ID: ${screeningCase.id} | PHC ID: ${StorageService.getCurrentUser()}
             </div>
             <div style="font-size:0.75rem; color:var(--slate-500);">
               Date: ${new Date(screeningCase.createdAt || Date.now()).toLocaleDateString('en-IN', { day:'2-digit', month:'short', year:'numeric', hour:'2-digit', minute:'2-digit' })}

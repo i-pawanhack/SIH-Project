@@ -235,4 +235,12 @@ export class StorageService {
       return [];
     }
   }
+
+  static getCurrentUser() {
+    const logins = this.getLogins();
+    if (logins.length > 0) {
+      return logins[logins.length - 1].phcId;
+    }
+    return 'PHC-UNKNOWN';
+  }
 }

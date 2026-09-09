@@ -235,7 +235,7 @@ export function renderScreeningWizard(container, onCompleteScreening, onOpenRepo
               Step 2: Retinal Fundus Image Acquisition
             </h2>
             <p style="font-size:0.8125rem; color:var(--slate-500); margin-top:0.25rem;">
-              Capture image using connected portable fundus camera or upload standard macular-centered fundus photograph (.JPG, .JPEG, .PNG).
+              Capture image using connected portable fundus camera or upload standard macular-centered fundus photograph (.JPG, .JPEG, .PNG, .TIF, .TIFF).
             </p>
           </div>
           <span class="badge" style="background:#e0f2fe; color:#0369a1;">
@@ -259,7 +259,7 @@ export function renderScreeningWizard(container, onCompleteScreening, onOpenRepo
                 </div>
               </div>
 
-              <input type="file" id="fundus-file-input" accept="image/jpeg,image/png,image/jpg" style="display:none;">
+              <input type="file" id="fundus-file-input" accept="image/jpeg,image/png,image/jpg,image/tiff,image/tif" style="display:none;">
               <button type="button" class="btn btn-secondary btn-sm" id="browse-files-btn">
                 <i data-lucide="folder-open" style="width:14px;height:14px;"></i>
                 Browse Local Files
@@ -330,44 +330,55 @@ export function renderScreeningWizard(container, onCompleteScreening, onOpenRepo
     fileInput.addEventListener('change', (e) => {
       const file = e.target.files[0];
       if (file) {
-        const reader = new FileReader();
-        reader.onload = (evt) => {
+        const processDataUrl = (dataUrl) => {
           const originalSrc = previewImg.src;
           const originalUrl = rawImageDataUrl;
           
           previewImg.onload = () => {
              previewImg.onload = null; // Remove handler to prevent loops
              
-             if (window.tracking) {
-               const tracker = new window.tracking.ObjectTracker('eye');
-               tracker.setInitialScale(4);
-               tracker.setStepSize(2);
-               tracker.setEdgesDensity(0.1);
-               
-               setTimeout(() => {
-                 const task = window.tracking.track('#preview-fundus-img', tracker);
-                 
-                 tracker.on('track', function(event) {
-                   task.stop();
-                   if (event.data.length === 0) {
-                     alert("Error: No eye detected in the uploaded image. Please upload a valid retinal or eye image.");
-                     // Revert
-                     previewImg.src = originalSrc;
-                     rawImageDataUrl = originalUrl;
-                   } else {
-                     rawImageDataUrl = evt.target.result;
-                     isUngradableCase = false;
-                   }
-                 });
-               }, 50);
-             } else {
-               rawImageDataUrl = evt.target.result;
-               isUngradableCase = false;
-             }
+             rawImageDataUrl = dataUrl;
+             isUngradableCase = false;
           };
-          previewImg.src = evt.target.result;
+          previewImg.src = dataUrl;
         };
-        reader.readAsDataURL(file);
+
+        const isTiff = file.name.toLowerCase().endsWith('.tif') || file.name.toLowerCase().endsWith('.tiff') || file.type === 'image/tiff';
+
+        if (isTiff) {
+          const reader = new FileReader();
+          reader.onload = (evt) => {
+            if (window.UTIF) {
+              try {
+                const buffer = evt.target.result;
+                const ifds = UTIF.decode(buffer);
+                UTIF.decodeImage(buffer, ifds[0]);
+                const rgba = UTIF.toRGBA8(ifds[0]);
+                
+                const canvas = document.createElement('canvas');
+                canvas.width = ifds[0].width;
+                canvas.height = ifds[0].height;
+                const ctx = canvas.getContext('2d');
+                const imgData = ctx.createImageData(canvas.width, canvas.height);
+                imgData.data.set(rgba);
+                ctx.putImageData(imgData, 0, 0);
+                
+                processDataUrl(canvas.toDataURL('image/jpeg'));
+              } catch (err) {
+                alert("Failed to parse TIFF image: " + err.message);
+              }
+            } else {
+              alert("TIFF library not loaded.");
+            }
+          };
+          reader.readAsArrayBuffer(file);
+        } else {
+          const reader = new FileReader();
+          reader.onload = (evt) => {
+            processDataUrl(evt.target.result);
+          };
+          reader.readAsDataURL(file);
+        }
       }
     });
 
@@ -387,9 +398,9 @@ export function renderScreeningWizard(container, onCompleteScreening, onOpenRepo
       
       const ctx = canvas.getContext('2d');
       if (cropRect && video.videoWidth) {
-        // Add padding around the eye (1.5x width/height)
-        const paddingX = cropRect.width * 1.5;
-        const paddingY = cropRect.height * 1.5;
+        // Tight padding around the eye to show only the eye
+        const paddingX = cropRect.width * 0.1;
+        const paddingY = cropRect.height * 0.1;
         
         let sx = Math.max(0, cropRect.x - paddingX);
         let sy = Math.max(0, cropRect.y - paddingY);
@@ -460,52 +471,7 @@ export function renderScreeningWizard(container, onCompleteScreening, onOpenRepo
           cameraBtn.innerHTML = '<i data-lucide="camera" style="width:16px;height:16px;"></i> Capture Photo (Manual)';
           if (window.lucide) window.lucide.createIcons();
 
-          // Wait for video to be ready before setting up tracking
-          video.onloadedmetadata = () => {
-            // Setup Tracking.js for eye detection
-            if (window.tracking) {
-              const tracker = new window.tracking.ObjectTracker('eye');
-              tracker.setInitialScale(4);
-              tracker.setStepSize(2);
-              tracker.setEdgesDensity(0.1);
-
-              tracker.on('track', function(event) {
-                if (event.data.length === 0) {
-                  // No eyes detected
-                  lastEyeRect = null;
-                  if (trackingOverlay) trackingOverlay.style.display = 'none';
-                  if (autoCaptureTimeout) {
-                    clearTimeout(autoCaptureTimeout);
-                    autoCaptureTimeout = null;
-                    if (autoCaptureToast) autoCaptureToast.style.display = 'none';
-                  }
-                } else {
-                  // Eye(s) detected
-                  const rect = event.data[0]; // Take the first detected eye
-                  lastEyeRect = rect;
-                  
-                  // Calculate scale factors since video element size might differ from video stream size
-                  const rectDisplay = video.getBoundingClientRect();
-                  const scaleX = rectDisplay.width / video.videoWidth;
-                  const scaleY = rectDisplay.height / video.videoHeight;
-
-                  if (trackingOverlay) {
-                    trackingOverlay.style.display = 'block';
-                    trackingOverlay.style.left = (rect.x * scaleX) + 'px';
-                    trackingOverlay.style.top = (rect.y * scaleY) + 'px';
-                    trackingOverlay.style.width = (rect.width * scaleX) + 'px';
-                    trackingOverlay.style.height = (rect.height * scaleY) + 'px';
-                    trackingOverlay.style.borderColor = '#10b981';
-                  }
-
-                  // Instantly capture the picture
-                  captureImage(lastEyeRect);
-                }
-              });
-
-              eyeTrackerTask = window.tracking.track('#camera-video', tracker);
-            }
-          };
+          // No tracking setup, directly allow manual capture
         } catch (err) {
           alert('Could not access camera: ' + err.message);
         }
@@ -991,7 +957,7 @@ export function renderScreeningWizard(container, onCompleteScreening, onOpenRepo
           <div style="display:flex; justify-content:space-between; align-items:flex-start; flex-wrap:wrap; gap:1rem;">
             <div>
               <div class="safety-pill" style="background:rgba(20,184,166,0.25); color:#2dd4bf; border-color:rgba(20,184,166,0.4); margin-bottom:0.5rem;">
-                AI SCREENING RESULT COMPLETED
+                LEVEL OF DIAGNOSIS ACCORDING TO THE HEATMAP OF THE EYE CAPTURED
               </div>
               <h1 style="font-size:1.75rem; color:white; margin-bottom:0.25rem;">
                 ${drMeta.title}
