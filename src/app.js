@@ -20,6 +20,7 @@ import { renderLoginView } from './components/LoginView.js';
 class RetinaXAIApp {
   constructor() {
     this.currentView = 'login';
+    this.isAuthenticated = false;
     this.init();
   }
 
@@ -44,9 +45,12 @@ class RetinaXAIApp {
     const navRoot = document.getElementById('navbar-root');
 
     if (this.currentView === 'login') {
-      if (bannerRoot) bannerRoot.innerHTML = '';
-      if (navRoot) navRoot.innerHTML = '';
+      if (bannerRoot) bannerRoot.style.display = 'none';
+      if (navRoot) navRoot.style.display = 'none';
       return;
+    } else {
+      if (bannerRoot) bannerRoot.style.display = 'block';
+      if (navRoot) navRoot.style.display = 'block';
     }
 
     if (bannerRoot) renderSafetyBanner(bannerRoot);
@@ -76,7 +80,8 @@ class RetinaXAIApp {
         renderLoginView(
           targetContainer,
           () => {
-            this.showToast('Login successful!');
+            this.isAuthenticated = true;
+            this.showToast('Authentication Successful');
             this.navigateTo('dashboard');
           }
         );

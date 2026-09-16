@@ -323,7 +323,9 @@ export function renderDoctorReviewView(container, onOpenReport) {
         };
 
         StorageService.updateDoctorReview(c.id, updatedReview);
-        alert(`Clinical review for Case ${c.id} successfully recorded and synced!`);
+        if (window.retinaXAI) {
+          window.retinaXAI.showToast(`Clinical review for Case ${c.id} successfully recorded and synced!`);
+        }
         updateView();
       });
     }

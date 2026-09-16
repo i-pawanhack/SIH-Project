@@ -1205,7 +1205,9 @@ export function renderScreeningWizard(container, onCompleteScreening, onOpenRepo
     });
 
     target.querySelector('#step6-send-doctor-btn').addEventListener('click', () => {
-      alert(`Case ${screeningRecord.id} successfully queued for Tele-Ophthalmology review!`);
+      if (window.retinaXAI) {
+        window.retinaXAI.showToast(`Case ${screeningRecord.id} successfully queued for Tele-Ophthalmology review!`);
+      }
       onCompleteScreening(screeningRecord);
     });
   }

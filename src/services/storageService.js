@@ -91,7 +91,20 @@ export class StorageService {
       this.addToSyncQueue(screeningCase.id);
     }
 
-    localStorage.setItem(STORAGE_KEY, JSON.stringify(list));
+    try {
+      localStorage.setItem(STORAGE_KEY, JSON.stringify(list));
+    } catch (e) {
+      console.warn("Storage quota exceeded! Evicting oldest records to free up space...");
+      // Evict oldest 10 records and try again
+      if (list.length > 10) {
+        list.splice(list.length - 10, 10);
+        try {
+          localStorage.setItem(STORAGE_KEY, JSON.stringify(list));
+        } catch (err) {
+          console.error("Still failed to save after eviction.", err);
+        }
+      }
+    }
     return screeningCase;
   }
 
@@ -170,7 +183,11 @@ export class StorageService {
     const queue = this.getSyncQueue();
     if (!queue.includes(caseId)) {
       queue.push(caseId);
-      localStorage.setItem(SYNC_QUEUE_KEY, JSON.stringify(queue));
+      try {
+        localStorage.setItem(SYNC_QUEUE_KEY, JSON.stringify(queue));
+      } catch(e) {
+        console.warn("Storage quota exceeded in sync queue");
+      }
     }
   }
 
