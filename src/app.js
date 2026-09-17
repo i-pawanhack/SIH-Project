@@ -3,6 +3,7 @@
  * Central orchestrator connecting all views, state services, and event pipelines.
  */
 
+import { i18n } from './services/i18n.js';
 import { StorageService } from './services/storageService.js';
 import { renderSafetyBanner } from './components/SafetyBanner.js';
 import { renderNavbar } from './components/Navbar.js';
@@ -37,6 +38,13 @@ class RetinaXAIApp {
     // Setup Window Resize / Lucide Hook
     window.addEventListener('DOMContentLoaded', () => {
       if (window.lucide) window.lucide.createIcons();
+    });
+
+    // Listen for language changes to re-render header and views if needed
+    window.addEventListener('languageChanged', () => {
+      this.renderHeader();
+      // If we are on login, we don't re-render login to preserve inputs, translateDOM handles it.
+      // Other views could be handled similarly or re-rendered. For now, translateDOM in i18n handles most static text.
     });
   }
 

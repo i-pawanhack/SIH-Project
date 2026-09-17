@@ -12,15 +12,15 @@ export function renderScreeningHistoryView(container, onOpenReport) {
   container.innerHTML = `
     <div style="display:flex; justify-content:space-between; align-items:flex-start; margin-bottom:1.5rem; flex-wrap:wrap; gap:1rem;">
       <div>
-        <h1 style="font-size:1.75rem; color:var(--slate-900);">Patient Screening History & Audit Trail</h1>
-        <p style="color:var(--slate-600); font-size:0.875rem; margin-top:0.25rem;">
-          Centralized database of all retinal screenings conducted across rural health centres and mobile outreach units.
+        <h1 style="font-size:1.75rem; color:var(--slate-900);" data-i18n="hist.title">${window.t('hist.title')}</h1>
+        <p style="color:var(--slate-600); font-size:0.875rem; margin-top:0.25rem;" data-i18n="hist.desc">
+          ${window.t('hist.desc')}
         </p>
       </div>
 
       <div style="display:flex; gap:0.5rem;">
         <span class="badge" style="background:#e0f2fe; color:#0369a1; padding:0.4rem 0.8rem; font-size:0.8125rem;">
-          Total Indexed Cases: ${screenings.length}
+          <span data-i18n="hist.totalCases">${window.t('hist.totalCases')}</span> ${screenings.length}
         </span>
       </div>
     </div>
@@ -31,14 +31,14 @@ export function renderScreeningHistoryView(container, onOpenReport) {
         
         <!-- Search -->
         <div style="position:relative;">
-          <input type="text" id="hist-search-input" class="form-input" placeholder="Search by Patient ID, Name..." style="padding-left:2.2rem; width:100%; font-size:0.8125rem;">
+          <input type="text" id="hist-search-input" class="form-input" placeholder="${window.t('hist.searchPlaceholder')}" style="padding-left:2.2rem; width:100%; font-size:0.8125rem;">
           <i data-lucide="search" style="position:absolute; left:0.75rem; top:0.7rem; width:14px;height:14px; color:var(--slate-400);"></i>
         </div>
 
         <!-- DR Grade Filter -->
         <div>
           <select id="hist-filter-grade" class="form-select" style="width:100%; font-size:0.8125rem;">
-            <option value="ALL">All DR Severity Grades</option>
+            <option value="ALL">${window.t('hist.allGrades')}</option>
             <option value="0">Level 0 — No DR</option>
             <option value="1">Level 1 — Mild NPDR</option>
             <option value="2">Level 2 — Moderate NPDR</option>
@@ -51,7 +51,7 @@ export function renderScreeningHistoryView(container, onOpenReport) {
         <!-- Referral Filter -->
         <div>
           <select id="hist-filter-referral" class="form-select" style="width:100%; font-size:0.8125rem;">
-            <option value="ALL">All Referral Statuses</option>
+            <option value="ALL">${window.t('hist.allReferral')}</option>
             <option value="REFERABLE">Referable Cases (Level 2+)</option>
             <option value="NON_REFERABLE">Non-Referable</option>
           </select>
@@ -60,7 +60,7 @@ export function renderScreeningHistoryView(container, onOpenReport) {
         <!-- Doctor Review Filter -->
         <div>
           <select id="hist-filter-review" class="form-select" style="width:100%; font-size:0.8125rem;">
-            <option value="ALL">All Doctor Review Statuses</option>
+            <option value="ALL">${window.t('hist.allReview')}</option>
             <option value="REVIEWED">Doctor Confirmed</option>
             <option value="PENDING">Pending Tele-Review</option>
           </select>
@@ -75,15 +75,15 @@ export function renderScreeningHistoryView(container, onOpenReport) {
         <table class="data-table" id="history-table">
           <thead>
             <tr>
-              <th>Patient ID & Name</th>
-              <th>Screening Date</th>
-              <th>Centre</th>
-              <th>Quality</th>
-              <th>AI Predicted DR</th>
-              <th>Referable</th>
-              <th>Confidence</th>
-              <th>Doctor Decision</th>
-              <th>Actions</th>
+              <th data-i18n="hist.thPatient">${window.t('hist.thPatient')}</th>
+              <th data-i18n="hist.thDate">${window.t('hist.thDate')}</th>
+              <th data-i18n="hist.thCentre">${window.t('hist.thCentre')}</th>
+              <th data-i18n="hist.thQuality">${window.t('hist.thQuality')}</th>
+              <th data-i18n="hist.thAi">${window.t('hist.thAi')}</th>
+              <th data-i18n="hist.thReferable">${window.t('hist.thReferable')}</th>
+              <th data-i18n="hist.thConfidence">${window.t('hist.thConfidence')}</th>
+              <th data-i18n="hist.thDecision">${window.t('hist.thDecision')}</th>
+              <th data-i18n="hist.thActions">${window.t('hist.thActions')}</th>
             </tr>
           </thead>
           <tbody id="hist-table-body">
@@ -143,7 +143,7 @@ export function renderScreeningHistoryView(container, onOpenReport) {
         <tr>
           <td colspan="9" style="text-align:center; padding:3rem; color:var(--slate-400);">
             <i data-lucide="inbox" style="width:36px;height:36px; margin:0 auto 0.5rem; display:block; opacity:0.4;"></i>
-            No screening history found matching selected filter criteria.
+            <span data-i18n="hist.noResults">${window.t('hist.noResults')}</span>
           </td>
         </tr>
       `;
@@ -176,8 +176,8 @@ export function renderScreeningHistoryView(container, onOpenReport) {
           </td>
           <td>
             ${isUngradable 
-              ? `<span style="font-size:0.8125rem; font-weight:700; color:#ef4444;">No AI Prediction</span>` 
-              : `<span class="badge ${drMeta.badgeClass}">${drMeta.shortName}</span>`
+              ? `<span style="font-size:0.8125rem; font-weight:700; color:#ef4444;" data-i18n="hist.noAi">${window.t('hist.noAi')}</span>` 
+              : `<span class="badge ${drMeta.badgeClass}">${window.t(`dr.${c.stage}.shortName`) || drMeta.shortName}</span>`
             }
           </td>
           <td>
@@ -197,7 +197,7 @@ export function renderScreeningHistoryView(container, onOpenReport) {
           <td>
             <button class="btn btn-secondary btn-sm open-report-btn" data-id="${c.id}">
               <i data-lucide="file-text" style="width:14px;height:14px;"></i>
-              Report
+              <span data-i18n="report.title">Report</span>
             </button>
           </td>
         </tr>

@@ -8,10 +8,11 @@ export function renderSafetyBanner(container) {
       <div class="safety-banner-content">
         <span style="display:flex; align-items:center; gap: 0.35rem;">
           <i data-lucide="shield-alert" style="width:14px;height:14px;"></i>
-          <strong>AI DECISION SUPPORT SYSTEM</strong>
+          <strong data-i18n="safety.badge">${window.t('safety.badge')}</strong>
         </span>
         <span>
-          <strong>Clinical Disclaimer:</strong> RetinaXAI is an AI-assisted screening prototype designed for decision-support in rural India. It is not a substitute for professional medical diagnosis. Final clinical assessment and referral decisions must be made by a qualified ophthalmologist.
+          <strong data-i18n="safety.disclaimer">${window.t('safety.disclaimer')}</strong>
+          <span data-i18n="safety.text">${window.t('safety.text')}</span>
         </span>
       </div>
     </div>

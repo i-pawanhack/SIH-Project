@@ -20,7 +20,7 @@ export function renderNavbar(container, currentView, onNavigate, onDemoToggle) {
           </div>
           <div class="brand-info">
             <div class="brand-title">
-              RetinaXAI
+              ${window.t('app.title')}
             </div>
             <div class="brand-tagline">Explainable AI for Diabetic Retinopathy Screening</div>
           </div>
@@ -31,39 +31,39 @@ export function renderNavbar(container, currentView, onNavigate, onDemoToggle) {
           <li>
             <a class="nav-item ${currentView === 'dashboard' ? 'active' : ''}" data-view="dashboard">
               <i data-lucide="layout-dashboard" style="width:16px;height:16px;"></i>
-              Dashboard
+              <span data-i18n="nav.dashboard">${window.t('nav.dashboard')}</span>
             </a>
           </li>
           <li>
             <a class="nav-item ${currentView === 'new-screening' ? 'active' : ''}" data-view="new-screening">
               <i data-lucide="plus-circle" style="width:16px;height:16px;"></i>
-              New Screening
+              <span data-i18n="nav.newScreening">${window.t('nav.newScreening')}</span>
             </a>
           </li>
           <li>
             <a class="nav-item ${currentView === 'screening-history' ? 'active' : ''}" data-view="screening-history">
               <i data-lucide="history" style="width:16px;height:16px;"></i>
-              History
+              <span data-i18n="nav.history">${window.t('nav.history')}</span>
               <span class="nav-badge-counter">${stats.total}</span>
             </a>
           </li>
           <li>
             <a class="nav-item ${currentView === 'doctor-review' ? 'active' : ''}" data-view="doctor-review">
               <i data-lucide="stethoscope" style="width:16px;height:16px;"></i>
-              Doctor Review
+              <span data-i18n="nav.doctorReview">${window.t('nav.doctorReview')}</span>
               ${stats.pendingDoctor > 0 ? `<span class="nav-badge-counter" style="background:#f59e0b;">${stats.pendingDoctor}</span>` : ''}
             </a>
           </li>
           <li>
             <a class="nav-item ${currentView === 'analytics' ? 'active' : ''}" data-view="analytics">
               <i data-lucide="bar-chart-3" style="width:16px;height:16px;"></i>
-              Analytics
+              <span data-i18n="nav.analytics">${window.t('nav.analytics')}</span>
             </a>
           </li>
           <li>
             <a class="nav-item ${currentView === 'rural-mode' ? 'active' : ''}" data-view="rural-mode">
               <i data-lucide="radio" style="width:16px;height:16px;"></i>
-              Rural Mode
+              <span data-i18n="nav.ruralMode">${window.t('nav.ruralMode')}</span>
             </a>
           </li>
         </ul>
@@ -84,7 +84,7 @@ export function renderNavbar(container, currentView, onNavigate, onDemoToggle) {
           <!-- New Screening CTA Button -->
           <button class="btn-new-screening-cta" id="nav-new-screening-cta">
             <i data-lucide="scan" style="width:16px;height:16px;"></i>
-            <span>Screen Patient</span>
+            <span data-i18n="nav.newScreening">${window.t('nav.newScreening')}</span>
           </button>
         </div>
       </div>

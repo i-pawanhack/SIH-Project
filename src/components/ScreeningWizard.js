@@ -39,37 +39,37 @@ export function renderScreeningWizard(container, onCompleteScreening, onOpenRepo
       <div class="wizard-stepper">
         <div class="wizard-step ${currentStep === 1 ? 'active' : (currentStep > 1 ? 'completed' : '')}">
           <div class="wizard-step-number">1</div>
-          <span>Patient Intake</span>
+          <span data-i18n="wiz.step1">${window.t('wiz.step1')}</span>
         </div>
         <div class="wizard-connector"></div>
 
         <div class="wizard-step ${currentStep === 2 ? 'active' : (currentStep > 2 ? 'completed' : '')}">
           <div class="wizard-step-number">2</div>
-          <span>Fundus Capture</span>
+          <span data-i18n="wiz.step2">${window.t('wiz.step2')}</span>
         </div>
         <div class="wizard-connector"></div>
 
         <div class="wizard-step ${currentStep === 3 ? 'active' : (currentStep > 3 ? 'completed' : '')}">
           <div class="wizard-step-number">3</div>
-          <span>Quality Check</span>
+          <span data-i18n="wiz.step3">${window.t('wiz.step3')}</span>
         </div>
         <div class="wizard-connector"></div>
 
         <div class="wizard-step ${currentStep === 4 ? 'active' : (currentStep > 4 ? 'completed' : '')}">
           <div class="wizard-step-number">4</div>
-          <span>Enhancement</span>
+          <span data-i18n="wiz.step4">${window.t('wiz.step4')}</span>
         </div>
         <div class="wizard-connector"></div>
 
         <div class="wizard-step ${currentStep === 5 ? 'active' : (currentStep > 5 ? 'completed' : '')}">
           <div class="wizard-step-number">5</div>
-          <span>AI Analysis</span>
+          <span data-i18n="wiz.step5">${window.t('wiz.step5')}</span>
         </div>
         <div class="wizard-connector"></div>
 
         <div class="wizard-step ${currentStep === 6 ? 'active' : ''}">
           <div class="wizard-step-number">6</div>
-          <span>Explainable Results</span>
+          <span data-i18n="wiz.step6">${window.t('wiz.step6')}</span>
         </div>
       </div>
 
@@ -96,45 +96,45 @@ export function renderScreeningWizard(container, onCompleteScreening, onOpenRepo
           <div>
             <h2 class="card-title">
               <i data-lucide="user-plus" style="width:22px;height:22px; color:var(--primary-600);"></i>
-              Step 1: Patient Demographic & Clinical Intake
+              <span data-i18n="wiz.s1.title">${window.t('wiz.s1.title')}</span>
             </h2>
-            <p style="font-size:0.8125rem; color:var(--slate-500); margin-top:0.25rem;">
-              Enter patient details or select a pre-configured clinical case preset for demonstration.
+            <p style="font-size:0.8125rem; color:var(--slate-500); margin-top:0.25rem;" data-i18n="wiz.s1.desc">
+              ${window.t('wiz.s1.desc')}
             </p>
           </div>
 
           <!-- Quick Preset Demo Buttons -->
           <div style="display:flex; align-items:center; gap:0.4rem; flex-wrap:wrap;">
-            <span style="font-size:0.75rem; font-weight:700; color:var(--slate-500);">PRESETS:</span>
+            <span style="font-size:0.75rem; font-weight:700; color:var(--slate-500);" data-i18n="wiz.s1.presets">${window.t('wiz.s1.presets')}</span>
             <button class="btn btn-secondary btn-sm preset-btn" data-stage="0" data-ungradable="false">Level 0</button>
             <button class="btn btn-secondary btn-sm preset-btn" data-stage="1" data-ungradable="false">Level 1</button>
-            <button class="btn btn-secondary btn-sm preset-btn" data-stage="2" data-ungradable="false" style="border-color:var(--primary-500); background:var(--primary-50); color:var(--primary-800); font-weight:700;">Level 2 (Referable)</button>
+            <button class="btn btn-secondary btn-sm preset-btn" data-stage="2" data-ungradable="false" style="border-color:var(--primary-500); background:var(--primary-50); color:var(--primary-800); font-weight:700;">Level 2</button>
             <button class="btn btn-secondary btn-sm preset-btn" data-stage="3" data-ungradable="false">Level 3</button>
-            <button class="btn btn-secondary btn-sm preset-btn" data-stage="4" data-ungradable="false">Level 4 (PDR)</button>
+            <button class="btn btn-secondary btn-sm preset-btn" data-stage="4" data-ungradable="false">Level 4</button>
             <button class="btn btn-secondary btn-sm preset-btn" data-stage="2" data-ungradable="true" style="color:#b91c1c;">Ungradable</button>
           </div>
         </div>
 
         <form id="patient-form" class="form-grid" style="margin-bottom:1.75rem;">
           <div class="form-group">
-            <label class="form-label">Patient ID</label>
+            <label class="form-label" data-i18n="wiz.s1.pid">${window.t('wiz.s1.pid')}</label>
             <input type="text" id="p-id" class="form-input" value="${patientData.id}" required>
           </div>
 
           <div class="form-group">
-            <label class="form-label">Full Patient Name</label>
+            <label class="form-label" data-i18n="wiz.s1.pname">${window.t('wiz.s1.pname')}</label>
             <input type="text" id="p-name" class="form-input" value="${patientData.name}" required>
           </div>
 
           <div class="form-group">
-            <label class="form-label">Age (Years)</label>
+            <label class="form-label" data-i18n="wiz.s1.page">${window.t('wiz.s1.page')}</label>
             <input type="number" id="p-age" class="form-input" value="${patientData.age}" min="1" max="120" required>
           </div>
 
           <div class="form-group">
-            <label class="form-label">Biological Gender</label>
+            <label class="form-label" data-i18n="wiz.s1.pgender">${window.t('wiz.s1.pgender')}</label>
             <select id="p-gender" class="form-select">
-              <option value="" disabled ${!patientData.gender ? 'selected' : ''}>Select Gender</option>
+              <option value="" disabled ${!patientData.gender ? 'selected' : ''}>${window.t('wiz.s1.selectGender')}</option>
               <option value="Female" ${patientData.gender === 'Female' ? 'selected' : ''}>Female</option>
               <option value="Male" ${patientData.gender === 'Male' ? 'selected' : ''}>Male</option>
               <option value="Other" ${patientData.gender === 'Other' ? 'selected' : ''}>Other</option>
@@ -142,9 +142,9 @@ export function renderScreeningWizard(container, onCompleteScreening, onOpenRepo
           </div>
 
           <div class="form-group">
-            <label class="form-label">Known Diabetes Duration</label>
+            <label class="form-label" data-i18n="wiz.s1.pduration">${window.t('wiz.s1.pduration')}</label>
             <select id="p-duration" class="form-select">
-              <option value="" disabled ${!patientData.diabetesDuration ? 'selected' : ''}>Select Duration</option>
+              <option value="" disabled ${!patientData.diabetesDuration ? 'selected' : ''}>${window.t('wiz.s1.selectDuration')}</option>
               <option value="Newly Diagnosed (< 1 yr)" ${patientData.diabetesDuration === 'Newly Diagnosed (< 1 yr)' ? 'selected' : ''}>Newly Diagnosed (< 1 yr)</option>
               <option value="1 - 5 Years" ${patientData.diabetesDuration === '1 - 5 Years' ? 'selected' : ''}>1 - 5 Years</option>
               <option value="6 - 10 Years" ${patientData.diabetesDuration === '6 - 10 Years' ? 'selected' : ''}>6 - 10 Years</option>
@@ -154,9 +154,9 @@ export function renderScreeningWizard(container, onCompleteScreening, onOpenRepo
           </div>
 
           <div class="form-group">
-            <label class="form-label">Diabetes Clinical Status</label>
+            <label class="form-label" data-i18n="wiz.s1.pstatus">${window.t('wiz.s1.pstatus')}</label>
             <select id="p-status" class="form-select">
-              <option value="" disabled ${!patientData.diabetesStatus ? 'selected' : ''}>Select Status</option>
+              <option value="" disabled ${!patientData.diabetesStatus ? 'selected' : ''}>${window.t('wiz.s1.selectStatus')}</option>
               <option value="Type 2 Diabetes" ${patientData.diabetesStatus === 'Type 2 Diabetes' ? 'selected' : ''}>Type 2 Diabetes</option>
               <option value="Type 1 Diabetes" ${patientData.diabetesStatus === 'Type 1 Diabetes' ? 'selected' : ''}>Type 1 Diabetes</option>
               <option value="Gestational Diabetes" ${patientData.diabetesStatus === 'Gestational Diabetes' ? 'selected' : ''}>Gestational Diabetes</option>
@@ -165,9 +165,9 @@ export function renderScreeningWizard(container, onCompleteScreening, onOpenRepo
           </div>
 
           <div class="form-group" style="grid-column:1 / -1;">
-            <label class="form-label">Rural Screening Centre</label>
+            <label class="form-label" data-i18n="wiz.s1.pcentre">${window.t('wiz.s1.pcentre')}</label>
             <select id="p-centre" class="form-select">
-              <option value="" disabled ${!patientData.centre ? 'selected' : ''}>Select Centre</option>
+              <option value="" disabled ${!patientData.centre ? 'selected' : ''}>${window.t('wiz.s1.selectCentre')}</option>
               ${SCREENING_CENTRES.map(c => `<option value="${c}" ${patientData.centre === c ? 'selected' : ''}>${c}</option>`).join('')}
             </select>
           </div>
@@ -175,7 +175,7 @@ export function renderScreeningWizard(container, onCompleteScreening, onOpenRepo
 
         <div style="display:flex; justify-content:flex-end; gap:0.75rem; border-top:1px solid var(--border-card); padding-top:1.25rem;">
           <button type="button" class="btn btn-primary btn-lg" id="step1-next-btn">
-            Proceed to Retinal Image Capture
+            <span data-i18n="wiz.s1.proceed">${window.t('wiz.s1.proceed')}</span>
             <i data-lucide="arrow-right" style="width:18px;height:18px;"></i>
           </button>
         </div>
@@ -232,14 +232,14 @@ export function renderScreeningWizard(container, onCompleteScreening, onOpenRepo
           <div>
             <h2 class="card-title">
               <i data-lucide="camera" style="width:22px;height:22px; color:var(--primary-600);"></i>
-              Step 2: Retinal Fundus Image Acquisition
+              <span data-i18n="wiz.s2.title">${window.t('wiz.s2.title')}</span>
             </h2>
-            <p style="font-size:0.8125rem; color:var(--slate-500); margin-top:0.25rem;">
-              Capture image using connected portable fundus camera or upload standard macular-centered fundus photograph (.JPG, .JPEG, .PNG, .TIF, .TIFF).
+            <p style="font-size:0.8125rem; color:var(--slate-500); margin-top:0.25rem;" data-i18n="wiz.s2.desc">
+              ${window.t('wiz.s2.desc')}
             </p>
           </div>
           <span class="badge" style="background:#e0f2fe; color:#0369a1;">
-            Patient: ${patientData.name} (${patientData.id})
+            <span data-i18n="wiz.s2.patient">${window.t('wiz.s2.patient')}</span> ${patientData.name} (${patientData.id})
           </span>
         </div>
 
@@ -251,18 +251,18 @@ export function renderScreeningWizard(container, onCompleteScreening, onOpenRepo
                 <i data-lucide="upload-cloud" style="width:32px;height:32px;"></i>
               </div>
               <div>
-                <div style="font-weight:700; color:var(--slate-900); font-size:1rem; margin-bottom:0.25rem;">
-                  Drag & Drop Retinal Image Here
+                <div style="font-weight:700; color:var(--slate-900); font-size:1rem; margin-bottom:0.25rem;" data-i18n="wiz.s2.drag">
+                  ${window.t('wiz.s2.drag')}
                 </div>
-                <div style="font-size:0.8125rem; color:var(--slate-500);">
-                  Supports standard 45° macular and optic disc fields
+                <div style="font-size:0.8125rem; color:var(--slate-500);" data-i18n="wiz.s2.supports">
+                  ${window.t('wiz.s2.supports')}
                 </div>
               </div>
 
               <input type="file" id="fundus-file-input" accept="image/jpeg,image/png,image/jpg,image/tiff,image/tif" style="display:none;">
               <button type="button" class="btn btn-secondary btn-sm" id="browse-files-btn">
                 <i data-lucide="folder-open" style="width:14px;height:14px;"></i>
-                Browse Local Files
+                <span data-i18n="wiz.s2.browse">${window.t('wiz.s2.browse')}</span>
               </button>
             </div>
 
@@ -270,11 +270,11 @@ export function renderScreeningWizard(container, onCompleteScreening, onOpenRepo
             <div style="margin-top:1rem; display:flex; gap:0.5rem;">
               <button class="btn btn-secondary" id="camera-capture-btn" style="flex:1;">
                 <i data-lucide="camera" style="width:16px;height:16px;"></i>
-                Connect USB Fundus Camera
+                <span data-i18n="wiz.s2.connect">${window.t('wiz.s2.connect')}</span>
               </button>
               <button class="btn btn-secondary" id="regen-preset-btn" title="Reload Stage Preset">
                 <i data-lucide="refresh-cw" style="width:16px;height:16px;"></i>
-                Preset
+                <span data-i18n="wiz.s2.preset">${window.t('wiz.s2.preset')}</span>
               </button>
             </div>
           </div>
@@ -293,12 +293,12 @@ export function renderScreeningWizard(container, onCompleteScreening, onOpenRepo
               ${isUngradableCase ? `
                 <div style="position:absolute; top:10px; left:10px; background:rgba(239,68,68,0.9); color:white; font-size:0.75rem; font-weight:700; padding:0.25rem 0.6rem; border-radius:var(--radius-full);">
                   <i data-lucide="alert-triangle" style="width:12px;height:12px; display:inline-block; vertical-align:middle;"></i>
-                  Simulated Blurry / Artifact Image
+                  <span data-i18n="wiz.s2.simBlurry">${window.t('wiz.s2.simBlurry')}</span>
                 </div>
               ` : ''}
             </div>
-            <div style="color:var(--slate-300); font-size:0.75rem; margin-top:0.75rem; text-align:center;">
-              Fundus Photograph Preview (512x512 RGB Standardized)
+            <div style="color:var(--slate-300); font-size:0.75rem; margin-top:0.75rem; text-align:center;" data-i18n="wiz.s2.preview">
+              ${window.t('wiz.s2.preview')}
             </div>
           </div>
         </div>
@@ -306,11 +306,11 @@ export function renderScreeningWizard(container, onCompleteScreening, onOpenRepo
         <div style="display:flex; justify-content:space-between; align-items:center; border-top:1px solid var(--border-card); padding-top:1.25rem;">
           <button class="btn btn-secondary" id="step2-prev-btn">
             <i data-lucide="arrow-left" style="width:16px;height:16px;"></i>
-            Back
+            <span data-i18n="wiz.s2.back">${window.t('wiz.s2.back')}</span>
           </button>
           <button class="btn btn-primary btn-lg" id="step2-start-screening-btn">
             <i data-lucide="play-circle" style="width:20px;height:20px;"></i>
-            START SCREENING PIPELINE
+            <span data-i18n="wiz.s2.start">${window.t('wiz.s2.start')}</span>
           </button>
         </div>
       </div>
@@ -430,7 +430,7 @@ export function renderScreeningWizard(container, onCompleteScreening, onOpenRepo
       
       previewImg.src = rawImageDataUrl;
       previewImg.style.display = 'block';
-      cameraBtn.innerHTML = '<i data-lucide="camera" style="width:16px;height:16px;"></i> Connect USB Fundus Camera';
+      cameraBtn.innerHTML = `<i data-lucide="camera" style="width:16px;height:16px;"></i> ${window.t('wiz.s2.connect')}`;
 
       if (cropRect && autoCaptureToast) {
         autoCaptureToast.innerHTML = '<i data-lucide="check-circle" style="width:16px;height:16px; display:inline-block; vertical-align:middle; margin-right:4px;"></i> Eye Captured!';
@@ -468,7 +468,7 @@ export function renderScreeningWizard(container, onCompleteScreening, onOpenRepo
           video.srcObject = videoStream;
           previewImg.style.display = 'none';
           video.style.display = 'block';
-          cameraBtn.innerHTML = '<i data-lucide="camera" style="width:16px;height:16px;"></i> Capture Photo (Manual)';
+          cameraBtn.innerHTML = `<i data-lucide="camera" style="width:16px;height:16px;"></i> \${window.t('wiz.s2.capture')}`;
           if (window.lucide) window.lucide.createIcons();
 
           // No tracking setup, directly allow manual capture
@@ -485,7 +485,7 @@ export function renderScreeningWizard(container, onCompleteScreening, onOpenRepo
       stopCamera();
       video.style.display = 'none';
       previewImg.style.display = 'block';
-      cameraBtn.innerHTML = '<i data-lucide="camera" style="width:16px;height:16px;"></i> Connect USB Fundus Camera';
+      cameraBtn.innerHTML = `<i data-lucide="camera" style="width:16px;height:16px;"></i> \${window.t('wiz.s2.connect')}`;
       if (window.lucide) window.lucide.createIcons();
       
       rawImageDataUrl = ImageProcessor.generateFundusImage(selectedStage, isUngradableCase);
@@ -521,14 +521,14 @@ export function renderScreeningWizard(container, onCompleteScreening, onOpenRepo
           <div>
             <h2 class="card-title">
               <i data-lucide="shield-check" style="width:22px;height:22px; color:var(--primary-600);"></i>
-              Step 3: Retinal Image Quality Assessment
+              <span data-i18n="wiz.s3.title">${window.t('wiz.s3.title')}</span>
             </h2>
-            <p style="font-size:0.8125rem; color:var(--slate-500); margin-top:0.25rem;">
-              Evaluating optical focus, illumination uniformity, field of view coverage, and obscuring artifacts.
+            <p style="font-size:0.8125rem; color:var(--slate-500); margin-top:0.25rem;" data-i18n="wiz.s3.desc">
+              ${window.t('wiz.s3.desc')}
             </p>
           </div>
           <span class="badge ${isUngradable ? 'badge-quality-ungradable' : 'badge-quality-acceptable'}" style="font-size:0.875rem; padding:0.4rem 0.8rem;">
-            IMAGE QUALITY: ${qualityResult.overall}
+            <span data-i18n="wiz.s3.iq">${window.t('wiz.s3.iq')}</span> ${qualityResult.overall}
           </span>
         </div>
 
@@ -539,19 +539,19 @@ export function renderScreeningWizard(container, onCompleteScreening, onOpenRepo
               <img src="${rawImageDataUrl}" alt="Fundus Quality Scan" style="width:100%; height:100%; object-fit:contain;">
             </div>
             <div style="color:var(--slate-400); font-size:0.75rem; margin-top:0.5rem;">
-              Quality Score: <strong>${qualityResult.overallScore} / 100</strong>
+              <span data-i18n="wiz.s3.score">${window.t('wiz.s3.score')}</span> <strong>${qualityResult.overallScore} / 100</strong>
             </div>
           </div>
 
           <!-- Right: Multi-Factor Quality Indicators -->
           <div>
-            <h4 style="font-size:0.9375rem; color:var(--slate-800); margin-bottom:0.75rem;">Quality Indicators:</h4>
+            <h4 style="font-size:0.9375rem; color:var(--slate-800); margin-bottom:0.75rem;" data-i18n="wiz.s3.indicators">${window.t('wiz.s3.indicators')}</h4>
 
             <div style="display:flex; flex-direction:column; gap:0.75rem;">
               <!-- Focus -->
               <div style="display:flex; justify-content:space-between; align-items:center; padding:0.6rem 0.85rem; background:var(--slate-50); border-radius:var(--radius-md); border:1px solid var(--border-subtle);">
                 <div>
-                  <div style="font-weight:700; font-size:0.8125rem; color:var(--slate-800);">Optical Focus / Sharpness</div>
+                  <div style="font-weight:700; font-size:0.8125rem; color:var(--slate-800);" data-i18n="wiz.s3.focus">${window.t('wiz.s3.focus')}</div>
                   <div style="font-size:0.75rem; color:var(--slate-500);">${qualityResult.focus.label}</div>
                 </div>
                 <span class="badge ${qualityResult.focus.status === 'Good' ? 'badge-quality-acceptable' : 'badge-quality-ungradable'}">
@@ -562,7 +562,7 @@ export function renderScreeningWizard(container, onCompleteScreening, onOpenRepo
               <!-- Illumination -->
               <div style="display:flex; justify-content:space-between; align-items:center; padding:0.6rem 0.85rem; background:var(--slate-50); border-radius:var(--radius-md); border:1px solid var(--border-subtle);">
                 <div>
-                  <div style="font-weight:700; font-size:0.8125rem; color:var(--slate-800);">Illumination & Dynamic Range</div>
+                  <div style="font-weight:700; font-size:0.8125rem; color:var(--slate-800);" data-i18n="wiz.s3.illumination">${window.t('wiz.s3.illumination')}</div>
                   <div style="font-size:0.75rem; color:var(--slate-500);">${qualityResult.illumination.label}</div>
                 </div>
                 <span class="badge ${qualityResult.illumination.status === 'Good' ? 'badge-quality-acceptable' : 'badge-quality-ungradable'}">
@@ -573,7 +573,7 @@ export function renderScreeningWizard(container, onCompleteScreening, onOpenRepo
               <!-- Field of View -->
               <div style="display:flex; justify-content:space-between; align-items:center; padding:0.6rem 0.85rem; background:var(--slate-50); border-radius:var(--radius-md); border:1px solid var(--border-subtle);">
                 <div>
-                  <div style="font-weight:700; font-size:0.8125rem; color:var(--slate-800);">Field of View (FOV) Coverage</div>
+                  <div style="font-weight:700; font-size:0.8125rem; color:var(--slate-800);" data-i18n="wiz.s3.fov">${window.t('wiz.s3.fov')}</div>
                   <div style="font-size:0.75rem; color:var(--slate-500);">${qualityResult.fieldOfView.label}</div>
                 </div>
                 <span class="badge badge-quality-acceptable">
@@ -584,7 +584,7 @@ export function renderScreeningWizard(container, onCompleteScreening, onOpenRepo
               <!-- Retinal Visibility -->
               <div style="display:flex; justify-content:space-between; align-items:center; padding:0.6rem 0.85rem; background:var(--slate-50); border-radius:var(--radius-md); border:1px solid var(--border-subtle);">
                 <div>
-                  <div style="font-weight:700; font-size:0.8125rem; color:var(--slate-800);">Retinal Landmark Visibility</div>
+                  <div style="font-weight:700; font-size:0.8125rem; color:var(--slate-800);" data-i18n="wiz.s3.visibility">${window.t('wiz.s3.visibility')}</div>
                   <div style="font-size:0.75rem; color:var(--slate-500);">${qualityResult.retinalVisibility.label}</div>
                 </div>
                 <span class="badge ${qualityResult.retinalVisibility.status === 'Good' ? 'badge-quality-acceptable' : 'badge-quality-ungradable'}">
@@ -595,7 +595,7 @@ export function renderScreeningWizard(container, onCompleteScreening, onOpenRepo
               <!-- Artifacts -->
               <div style="display:flex; justify-content:space-between; align-items:center; padding:0.6rem 0.85rem; background:var(--slate-50); border-radius:var(--radius-md); border:1px solid var(--border-subtle);">
                 <div>
-                  <div style="font-weight:700; font-size:0.8125rem; color:var(--slate-800);">Artifacts / Reflections</div>
+                  <div style="font-weight:700; font-size:0.8125rem; color:var(--slate-800);" data-i18n="wiz.s3.artifacts">${window.t('wiz.s3.artifacts')}</div>
                   <div style="font-size:0.75rem; color:var(--slate-500);">${qualityResult.artifacts.label}</div>
                 </div>
                 <span class="badge ${qualityResult.artifacts.status === 'Good' ? 'badge-quality-acceptable' : 'badge-quality-ungradable'}">
@@ -612,16 +612,16 @@ export function renderScreeningWizard(container, onCompleteScreening, onOpenRepo
             <div style="display:flex; gap:0.75rem; align-items:flex-start;">
               <i data-lucide="alert-octagon" style="width:24px;height:24px; color:#b91c1c; flex-shrink:0; margin-top:2px;"></i>
               <div>
-                <h4 style="color:#991b1b; font-size:1rem; margin-bottom:0.25rem;">IMAGE QUALITY: UNGRADABLE</h4>
-                <p style="color:#7f1d1d; font-size:0.8125rem; margin-bottom:0.5rem;">
-                  The AI screening system cannot generate a diabetic retinopathy prediction on this image because retinal microvasculature is obscured.
+                <h4 style="color:#991b1b; font-size:1rem; margin-bottom:0.25rem;" data-i18n="wiz.s3.ungradableTitle">${window.t('wiz.s3.ungradableTitle')}</h4>
+                <p style="color:#7f1d1d; font-size:0.8125rem; margin-bottom:0.5rem;" data-i18n="wiz.s3.ungradableDesc">
+                  ${window.t('wiz.s3.ungradableDesc')}
                 </p>
-                <div style="font-size:0.8125rem; font-weight:700; color:#991b1b;">Problems Detected:</div>
+                <div style="font-size:0.8125rem; font-weight:700; color:#991b1b;" data-i18n="wiz.s3.problems">${window.t('wiz.s3.problems')}</div>
                 <ul style="margin-left:1.25rem; color:#7f1d1d; font-size:0.8125rem; margin-top:0.25rem;">
                   ${qualityResult.problems.map(p => `<li>${p}</li>`).join('')}
                 </ul>
                 <div style="margin-top:0.75rem; font-size:0.8125rem; color:#991b1b;">
-                  <strong>Recommendation:</strong> ${qualityResult.recommendation}
+                  <strong data-i18n="wiz.s3.rec">${window.t('wiz.s3.rec')}</strong> ${qualityResult.recommendation}
                 </div>
               </div>
             </div>
@@ -630,7 +630,7 @@ export function renderScreeningWizard(container, onCompleteScreening, onOpenRepo
           <div style="background:#f0fdf4; border:1px solid #bbf7d0; border-radius:var(--radius-lg); padding:1rem; margin-bottom:1.5rem; display:flex; gap:0.75rem; align-items:center;">
             <i data-lucide="check-circle" style="width:20px;height:20px; color:#15803d;"></i>
             <span style="color:#166534; font-size:0.875rem;">
-              <strong>Quality Check Passed:</strong> Retinal vessels, optic disc margins, and macular lutea are adequately resolved for diagnostic AI feature extraction.
+              <strong data-i18n="wiz.s3.passedTitle">${window.t('wiz.s3.passedTitle')}</strong> <span data-i18n="wiz.s3.passedDesc">${window.t('wiz.s3.passedDesc')}</span>
             </span>
           </div>
         `}
@@ -638,17 +638,17 @@ export function renderScreeningWizard(container, onCompleteScreening, onOpenRepo
         <div style="display:flex; justify-content:space-between; align-items:center; border-top:1px solid var(--border-card); padding-top:1.25rem;">
           <button class="btn btn-secondary" id="step3-prev-btn">
             <i data-lucide="arrow-left" style="width:16px;height:16px;"></i>
-            Recapture Image
+            <span data-i18n="wiz.s3.recapture">${window.t('wiz.s3.recapture')}</span>
           </button>
 
           ${isUngradable ? `
             <button class="btn btn-danger" id="step3-save-ungradable-btn">
               <i data-lucide="save" style="width:16px;height:16px;"></i>
-              Log Ungradable Case & Request Recapture
+              <span data-i18n="wiz.s3.logUngradable">${window.t('wiz.s3.logUngradable')}</span>
             </button>
           ` : `
             <button class="btn btn-primary btn-lg" id="step3-next-btn">
-              Proceed to Image Enhancement
+              <span data-i18n="wiz.s3.proceed">${window.t('wiz.s3.proceed')}</span>
               <i data-lucide="arrow-right" style="width:18px;height:18px;"></i>
             </button>
           `}
@@ -699,91 +699,96 @@ export function renderScreeningWizard(container, onCompleteScreening, onOpenRepo
         <div class="card-header">
           <div>
             <h2 class="card-title">
-              <i data-lucide="sparkles" style="width:22px;height:22px; color:var(--primary-600);"></i>
-              Step 4: Retinal Image Preprocessing & Enhancement
+              <i data-lucide="wand-2" style="width:22px;height:22px; color:var(--primary-600);"></i>
+              <span data-i18n="wiz.s4.title">${window.t('wiz.s4.title')}</span>
             </h2>
-            <p style="font-size:0.8125rem; color:var(--slate-500); margin-top:0.25rem;">
-              Applying Contrast-Limited Adaptive Histogram Equalization (CLAHE) and green-channel illumination normalization.
+            <p style="font-size:0.8125rem; color:var(--slate-500); margin-top:0.25rem;" data-i18n="wiz.s4.desc">
+              ${window.t('wiz.s4.desc')}
             </p>
           </div>
-
-          <div style="display:flex; gap:0.4rem;">
-            <button class="btn btn-secondary btn-sm enhance-toggle-btn" data-view="original">Original</button>
-            <button class="btn btn-primary btn-sm enhance-toggle-btn" data-view="enhanced">Enhanced (CLAHE)</button>
-            <button class="btn btn-secondary btn-sm enhance-toggle-btn" data-view="comparison">Side-by-Side</button>
+          <div style="display:flex; gap:0.5rem; background:var(--slate-100); padding:0.35rem; border-radius:var(--radius-lg);">
+            <button class="btn btn-primary btn-sm enhance-toggle-btn" data-view="enhanced"><span data-i18n="wiz.s4.enh">${window.t('wiz.s4.enh')}</span></button>
+            <button class="btn btn-secondary btn-sm enhance-toggle-btn" data-view="original"><span data-i18n="wiz.s4.orig">${window.t('wiz.s4.orig')}</span></button>
+            <button class="btn btn-secondary btn-sm enhance-toggle-btn" data-view="split"><span data-i18n="wiz.s4.side">${window.t('wiz.s4.side')}</span></button>
           </div>
         </div>
 
         <!-- Visual Display Area -->
-        <div id="enhance-visual-container" style="background:#020617; border-radius:var(--radius-xl); padding:1.5rem; margin-bottom:1.5rem; display:flex; justify-content:center; align-items:center; min-height:340px;">
+        <div id="enhance-visual-container" style="background:#020617; border-radius:var(--radius-xl); padding:1.5rem; margin-bottom:1.5rem; display:flex; justify-content:center; align-items:center; min-height:340px; position:relative; overflow:hidden;">
           <!-- Injected dynamically -->
         </div>
 
-        <!-- Processing Status Badges -->
-        <div style="background:var(--slate-50); border:1px solid var(--border-card); border-radius:var(--radius-lg); padding:1rem; margin-bottom:1.5rem;">
-          <div style="font-size:0.8125rem; font-weight:700; color:var(--slate-700); margin-bottom:0.5rem;">
-            Preprocessing Pipeline Execution:
-          </div>
-          <div style="display:flex; flex-wrap:wrap; gap:0.75rem;">
-            <span class="badge badge-quality-acceptable"><i data-lucide="check" style="width:12px;height:12px;"></i> Blur Assessment (Passed)</span>
-            <span class="badge badge-quality-acceptable"><i data-lucide="check" style="width:12px;height:12px;"></i> Illumination Correction</span>
-            <span class="badge badge-quality-acceptable"><i data-lucide="check" style="width:12px;height:12px;"></i> Green-Channel Contrast Boost</span>
-            <span class="badge badge-quality-acceptable"><i data-lucide="check" style="width:12px;height:12px;"></i> CLAHE Equalization</span>
-            <span class="badge badge-quality-acceptable"><i data-lucide="check" style="width:12px;height:12px;"></i> Noise Filtering</span>
-          </div>
-          <div style="font-size:0.75rem; color:var(--slate-500); margin-top:0.6rem; font-style:italic;">
-            Prototype enhancement representation: Enhances microvascular contrast for downstream feature attribution.
+        <!-- Process Details -->
+        <div style="display:flex; flex-direction:column; gap:1rem;">
+          <div class="card" style="flex:1;">
+            <h4 style="font-size:0.9375rem; color:var(--slate-800); margin-bottom:1rem;" data-i18n="wiz.s4.pipeline">${window.t('wiz.s4.pipeline')}</h4>
+            
+            <div style="display:flex; flex-direction:column; gap:0.75rem; font-size:0.8125rem;">
+              <div style="display:flex; align-items:center; gap:0.75rem;">
+                <i data-lucide="check-circle-2" style="width:18px;height:18px; color:#10b981;"></i>
+                <span style="color:var(--slate-700);" data-i18n="wiz.s4.blur">${window.t('wiz.s4.blur')}</span>
+              </div>
+              <div style="display:flex; align-items:center; gap:0.75rem;">
+                <i data-lucide="check-circle-2" style="width:18px;height:18px; color:#10b981;"></i>
+                <span style="color:var(--slate-700);" data-i18n="wiz.s4.illum">${window.t('wiz.s4.illum')}</span>
+              </div>
+              <div style="display:flex; align-items:center; gap:0.75rem;">
+                <i data-lucide="check-circle-2" style="width:18px;height:18px; color:#10b981;"></i>
+                <span style="color:var(--slate-700);" data-i18n="wiz.s4.green">${window.t('wiz.s4.green')}</span>
+              </div>
+              <div style="display:flex; align-items:center; gap:0.75rem;">
+                <i data-lucide="check-circle-2" style="width:18px;height:18px; color:#10b981;"></i>
+                <span style="color:var(--slate-700);" data-i18n="wiz.s4.clahe">${window.t('wiz.s4.clahe')}</span>
+              </div>
+              <div style="display:flex; align-items:center; gap:0.75rem;">
+                <i data-lucide="check-circle-2" style="width:18px;height:18px; color:#10b981;"></i>
+                <span style="color:var(--slate-700);" data-i18n="wiz.s4.noise">${window.t('wiz.s4.noise')}</span>
+              </div>
+            </div>
+
+            <div style="margin-top:1.5rem; padding-top:1rem; border-top:1px solid var(--border-subtle); font-size:0.75rem; color:var(--slate-500); line-height:1.5;" data-i18n="wiz.s4.proto">
+              ${window.t('wiz.s4.proto')}
+            </div>
           </div>
         </div>
 
-        <div style="display:flex; justify-content:space-between; align-items:center; border-top:1px solid var(--border-card); padding-top:1.25rem;">
+        <div style="display:flex; justify-content:space-between; align-items:center; border-top:1px solid var(--border-card); padding-top:1.25rem; margin-top:1.5rem;">
           <button class="btn btn-secondary" id="step4-prev-btn">
             <i data-lucide="arrow-left" style="width:16px;height:16px;"></i>
-            Back
+            <span data-i18n="wiz.s4.back">${window.t('wiz.s4.back')}</span>
           </button>
           <button class="btn btn-primary btn-lg" id="step4-next-btn">
             <i data-lucide="cpu" style="width:18px;height:18px;"></i>
-            Run AI Retinal Analysis
+            <span data-i18n="wiz.s4.runAI">${window.t('wiz.s4.runAI')}</span>
           </button>
         </div>
       </div>
     `;
 
-    const visualContainer = target.querySelector('#enhance-visual-container');
+    const viewerContainer = target.querySelector('#enhance-visual-container');
+    let currentView = 'enhanced'; // 'enhanced', 'original', 'split'
 
     function updateEnhanceDisplay() {
-      if (activeEnhanceView === 'original') {
-        visualContainer.innerHTML = `
-          <div style="text-align:center;">
-            <div style="width:300px; height:300px; border-radius:var(--radius-lg); overflow:hidden; margin:0 auto 0.5rem;">
-              <img src="${rawImageDataUrl}" style="width:100%; height:100%; object-fit:contain;">
-            </div>
-            <div style="color:var(--slate-400); font-size:0.75rem;">Original Raw Fundus Capture</div>
-          </div>
+      if (currentView === 'original') {
+        viewerContainer.innerHTML = `
+          <img src="${rawImageDataUrl}" style="width:100%; height:100%; object-fit:contain; border-radius:var(--radius-lg);">
+          <div style="position:absolute; bottom:10px; left:10px; background:rgba(0,0,0,0.6); color:white; font-size:0.75rem; padding:0.25rem 0.6rem; border-radius:var(--radius-full);" data-i18n="wiz.s4.origLabel">${window.t('wiz.s4.origLabel')}</div>
         `;
-      } else if (activeEnhanceView === 'enhanced') {
-        visualContainer.innerHTML = `
-          <div style="text-align:center;">
-            <div style="width:300px; height:300px; border-radius:var(--radius-lg); overflow:hidden; margin:0 auto 0.5rem; border:2px solid var(--primary-500);">
-              <img src="${enhancedImageDataUrl}" style="width:100%; height:100%; object-fit:contain;">
-            </div>
-            <div style="color:var(--primary-300); font-size:0.75rem; font-weight:700;">CLAHE Enhanced Image (Enhanced Capillaries & Exudates)</div>
-          </div>
+      } else if (currentView === 'enhanced') {
+        viewerContainer.innerHTML = `
+          <img src="${enhancedImageDataUrl}" style="width:100%; height:100%; object-fit:contain; border-radius:var(--radius-lg);">
+          <div style="position:absolute; bottom:10px; left:10px; background:rgba(14,165,233,0.9); color:white; font-size:0.75rem; font-weight:700; padding:0.25rem 0.6rem; border-radius:var(--radius-full);" data-i18n="wiz.s4.enhLabel">${window.t('wiz.s4.enhLabel')}</div>
         `;
-      } else {
-        visualContainer.innerHTML = `
-          <div style="display:flex; gap:1.5rem; justify-content:center; flex-wrap:wrap;">
-            <div style="text-align:center;">
-              <div style="width:240px; height:240px; border-radius:var(--radius-lg); overflow:hidden; margin-bottom:0.5rem;">
-                <img src="${rawImageDataUrl}" style="width:100%; height:100%; object-fit:contain;">
-              </div>
-              <div style="color:var(--slate-400); font-size:0.75rem;">Original Image</div>
+      } else if (currentView === 'split') {
+        viewerContainer.innerHTML = `
+          <div style="display:flex; width:100%; height:100%; gap:2px; background:var(--slate-800);">
+            <div style="flex:1; position:relative; overflow:hidden;">
+              <img src="${rawImageDataUrl}" style="width:200%; height:100%; object-fit:contain; object-position:left center; border-radius:var(--radius-lg) 0 0 var(--radius-lg);">
+              <div style="position:absolute; bottom:10px; left:10px; background:rgba(0,0,0,0.6); color:white; font-size:0.7rem; padding:0.2rem 0.5rem; border-radius:var(--radius-full);" data-i18n="wiz.s4.origImg">${window.t('wiz.s4.origImg')}</div>
             </div>
-            <div style="text-align:center;">
-              <div style="width:240px; height:240px; border-radius:var(--radius-lg); overflow:hidden; margin-bottom:0.5rem; border:2px solid var(--primary-500);">
-                <img src="${enhancedImageDataUrl}" style="width:100%; height:100%; object-fit:contain;">
-              </div>
-              <div style="color:var(--primary-300); font-size:0.75rem; font-weight:700;">CLAHE Enhanced</div>
+            <div style="flex:1; position:relative; overflow:hidden;">
+              <img src="${enhancedImageDataUrl}" style="width:200%; height:100%; object-fit:contain; object-position:right center; border-radius:0 var(--radius-lg) var(--radius-lg) 0; transform:translateX(-50%);">
+              <div style="position:absolute; bottom:10px; right:10px; background:rgba(14,165,233,0.9); color:white; font-size:0.7rem; font-weight:700; padding:0.2rem 0.5rem; border-radius:var(--radius-full);" data-i18n="wiz.s4.claheEnh">${window.t('wiz.s4.claheEnh')}</div>
             </div>
           </div>
         `;
@@ -822,38 +827,38 @@ export function renderScreeningWizard(container, onCompleteScreening, onOpenRepo
           <i data-lucide="cpu" style="width:32px;height:32px;" class="animate-spin"></i>
         </div>
 
-        <h2 style="font-size:1.5rem; color:var(--slate-900); margin-bottom:0.5rem;">
-          Executing AI Retinal Diagnostic Pipeline
+        <h2 style="font-size:1.5rem; color:var(--slate-900); margin-bottom:0.5rem;" data-i18n="wiz.s5.title">
+          ${window.t('wiz.s5.title')}
         </h2>
-        <p style="font-size:0.875rem; color:var(--slate-600); max-width:500px; margin:0 auto 2rem;">
-          Extracting spatial convolutional feature maps, segmenting vascular arcades, detecting lesion candidates, and generating Grad-CAM heatmaps.
+        <p style="font-size:0.875rem; color:var(--slate-600); max-width:500px; margin:0 auto 2rem;" data-i18n="wiz.s5.desc">
+          ${window.t('wiz.s5.desc')}
         </p>
 
         <!-- Pipeline Stage Indicators -->
         <div style="max-width:520px; margin:0 auto; display:flex; flex-direction:column; gap:0.75rem; text-align:left;">
           <div class="pipe-item" id="p-step-1" style="display:flex; align-items:center; gap:0.75rem; padding:0.6rem 0.85rem; border-radius:var(--radius-md); background:var(--slate-50);">
             <i data-lucide="loader-2" class="animate-spin" style="width:16px;height:16px; color:var(--primary-600);"></i>
-            <span style="font-size:0.8125rem; font-weight:600;">1. Standardizing Image Quality & Alignment</span>
+            <span style="font-size:0.8125rem; font-weight:600;" data-i18n="wiz.s5.st1">${window.t('wiz.s5.st1')}</span>
           </div>
 
           <div class="pipe-item" id="p-step-2" style="display:flex; align-items:center; gap:0.75rem; padding:0.6rem 0.85rem; border-radius:var(--radius-md); background:var(--slate-50); opacity:0.5;">
             <i data-lucide="circle" style="width:16px;height:16px; color:var(--slate-400);"></i>
-            <span style="font-size:0.8125rem; font-weight:600;">2. Localizing Optic Disc & Foveal Avascular Zone</span>
+            <span style="font-size:0.8125rem; font-weight:600;" data-i18n="wiz.s5.st2">${window.t('wiz.s5.st2')}</span>
           </div>
 
           <div class="pipe-item" id="p-step-3" style="display:flex; align-items:center; gap:0.75rem; padding:0.6rem 0.85rem; border-radius:var(--radius-md); background:var(--slate-50); opacity:0.5;">
             <i data-lucide="circle" style="width:16px;height:16px; color:var(--slate-400);"></i>
-            <span style="font-size:0.8125rem; font-weight:600;">3. Retinal Lesion Detection (Microaneurysms & Exudates)</span>
+            <span style="font-size:0.8125rem; font-weight:600;" data-i18n="wiz.s5.st3">${window.t('wiz.s5.st3')}</span>
           </div>
 
           <div class="pipe-item" id="p-step-4" style="display:flex; align-items:center; gap:0.75rem; padding:0.6rem 0.85rem; border-radius:var(--radius-md); background:var(--slate-50); opacity:0.5;">
             <i data-lucide="circle" style="width:16px;height:16px; color:var(--slate-400);"></i>
-            <span style="font-size:0.8125rem; font-weight:600;">4. ICDR Severity Classification & Referable Scoring</span>
+            <span style="font-size:0.8125rem; font-weight:600;" data-i18n="wiz.s5.st4">${window.t('wiz.s5.st4')}</span>
           </div>
 
           <div class="pipe-item" id="p-step-5" style="display:flex; align-items:center; gap:0.75rem; padding:0.6rem 0.85rem; border-radius:var(--radius-md); background:var(--slate-50); opacity:0.5;">
             <i data-lucide="circle" style="width:16px;height:16px; color:var(--slate-400);"></i>
-            <span style="font-size:0.8125rem; font-weight:600;">5. Synthesizing Grad-CAM Spatial Explainability Heatmap</span>
+            <span style="font-size:0.8125rem; font-weight:600;" data-i18n="wiz.s5.st5">${window.t('wiz.s5.st5')}</span>
           </div>
         </div>
       </div>
@@ -867,30 +872,30 @@ export function renderScreeningWizard(container, onCompleteScreening, onOpenRepo
     const s5 = target.querySelector('#p-step-5');
 
     setTimeout(() => {
-      s1.innerHTML = `<i data-lucide="check-circle-2" style="width:16px;height:16px; color:#10b981;"></i> <span style="font-size:0.8125rem; font-weight:700; color:#15803d;">1. Standardizing Image Quality (Completed)</span>`;
+      s1.innerHTML = `<i data-lucide="check-circle-2" style="width:16px;height:16px; color:#10b981;"></i> <span style="font-size:0.8125rem; font-weight:700; color:#15803d;" data-i18n="wiz.s5.st1done">${window.t('wiz.s5.st1done')}</span>`;
       s2.style.opacity = '1';
-      s2.innerHTML = `<i data-lucide="loader-2" class="animate-spin" style="width:16px;height:16px; color:var(--primary-600);"></i> <span style="font-size:0.8125rem; font-weight:600;">2. Localizing Optic Disc & Fovea...</span>`;
+      s2.innerHTML = `<i data-lucide="loader-2" class="animate-spin" style="width:16px;height:16px; color:var(--primary-600);"></i> <span style="font-size:0.8125rem; font-weight:600;" data-i18n="wiz.s5.st2prog">${window.t('wiz.s5.st2prog')}</span>`;
       if (window.lucide) window.lucide.createIcons();
     }, 450);
 
     setTimeout(() => {
-      s2.innerHTML = `<i data-lucide="check-circle-2" style="width:16px;height:16px; color:#10b981;"></i> <span style="font-size:0.8125rem; font-weight:700; color:#15803d;">2. Retinal Landmarks Segmented</span>`;
+      s2.innerHTML = `<i data-lucide="check-circle-2" style="width:16px;height:16px; color:#10b981;"></i> <span style="font-size:0.8125rem; font-weight:700; color:#15803d;" data-i18n="wiz.s5.st2done">${window.t('wiz.s5.st2done')}</span>`;
       s3.style.opacity = '1';
-      s3.innerHTML = `<i data-lucide="loader-2" class="animate-spin" style="width:16px;height:16px; color:var(--primary-600);"></i> <span style="font-size:0.8125rem; font-weight:600;">3. Detecting Lesions & Hemorrhages...</span>`;
+      s3.innerHTML = `<i data-lucide="loader-2" class="animate-spin" style="width:16px;height:16px; color:var(--primary-600);"></i> <span style="font-size:0.8125rem; font-weight:600;" data-i18n="wiz.s5.st3prog">${window.t('wiz.s5.st3prog')}</span>`;
       if (window.lucide) window.lucide.createIcons();
     }, 900);
 
     setTimeout(() => {
-      s3.innerHTML = `<i data-lucide="check-circle-2" style="width:16px;height:16px; color:#10b981;"></i> <span style="font-size:0.8125rem; font-weight:700; color:#15803d;">3. Lesions Candidate Regions Extracted</span>`;
+      s3.innerHTML = `<i data-lucide="check-circle-2" style="width:16px;height:16px; color:#10b981;"></i> <span style="font-size:0.8125rem; font-weight:700; color:#15803d;" data-i18n="wiz.s5.st3done">${window.t('wiz.s5.st3done')}</span>`;
       s4.style.opacity = '1';
-      s4.innerHTML = `<i data-lucide="loader-2" class="animate-spin" style="width:16px;height:16px; color:var(--primary-600);"></i> <span style="font-size:0.8125rem; font-weight:600;">4. Computing ICDR Severity Scale...</span>`;
+      s4.innerHTML = `<i data-lucide="loader-2" class="animate-spin" style="width:16px;height:16px; color:var(--primary-600);"></i> <span style="font-size:0.8125rem; font-weight:600;" data-i18n="wiz.s5.st4prog">${window.t('wiz.s5.st4prog')}</span>`;
       if (window.lucide) window.lucide.createIcons();
     }, 1350);
 
     setTimeout(() => {
-      s4.innerHTML = `<i data-lucide="check-circle-2" style="width:16px;height:16px; color:#10b981;"></i> <span style="font-size:0.8125rem; font-weight:700; color:#15803d;">4. DR Severity Classified</span>`;
+      s4.innerHTML = `<i data-lucide="check-circle-2" style="width:16px;height:16px; color:#10b981;"></i> <span style="font-size:0.8125rem; font-weight:700; color:#15803d;" data-i18n="wiz.s5.st4done">${window.t('wiz.s5.st4done')}</span>`;
       s5.style.opacity = '1';
-      s5.innerHTML = `<i data-lucide="loader-2" class="animate-spin" style="width:16px;height:16px; color:var(--primary-600);"></i> <span style="font-size:0.8125rem; font-weight:600;">5. Synthesizing Grad-CAM Heatmap...</span>`;
+      s5.innerHTML = `<i data-lucide="loader-2" class="animate-spin" style="width:16px;height:16px; color:var(--primary-600);"></i> <span style="font-size:0.8125rem; font-weight:600;" data-i18n="wiz.s5.st5prog">${window.t('wiz.s5.st5prog')}</span>`;
       if (window.lucide) window.lucide.createIcons();
     }, 1750);
 
@@ -956,24 +961,24 @@ export function renderScreeningWizard(container, onCompleteScreening, onOpenRepo
         <div class="card" style="background:linear-gradient(135deg, #0f172a 0%, #1e293b 100%); color:white; border:none;">
           <div style="display:flex; justify-content:space-between; align-items:flex-start; flex-wrap:wrap; gap:1rem;">
             <div>
-              <div class="safety-pill" style="background:rgba(20,184,166,0.25); color:#2dd4bf; border-color:rgba(20,184,166,0.4); margin-bottom:0.5rem;">
-                LEVEL OF DIAGNOSIS ACCORDING TO THE HEATMAP OF THE EYE CAPTURED
+              <div class="safety-pill" style="background:rgba(20,184,166,0.25); color:#2dd4bf; border-color:rgba(20,184,166,0.4); margin-bottom:0.5rem;" data-i18n="wiz.s6.levelSubtitle">
+                ${window.t('wiz.s6.levelSubtitle')}
               </div>
-              <h1 style="font-size:1.75rem; color:white; margin-bottom:0.25rem;">
-                ${drMeta.title}
+              <h1 style="font-size:1.75rem; color:white; margin-bottom:0.25rem;" data-i18n="dr.${aiDiagnosticResult.level}.title">
+                ${window.t(`dr.${aiDiagnosticResult.level}.title`) || drMeta.title}
               </h1>
               <div style="color:#94a3b8; font-size:0.875rem;">
-                Patient: <strong>${patientData.name}</strong> • ${patientData.id} • ${patientData.age}y (${patientData.gender}) • Centre: ${patientData.centre.split('—')[0]}
+                <span data-i18n="wiz.s6.patient">${window.t('wiz.s6.patient')}</span> <strong>${patientData.name}</strong> • ${patientData.id} • ${patientData.age}y (${patientData.gender}) • <span data-i18n="wiz.s6.centre">${window.t('wiz.s6.centre')}</span> ${patientData.centre.split('—')[0]}
               </div>
             </div>
 
             <!-- Referral Status Banner -->
             <div style="text-align:right;">
-              <div style="font-size:0.75rem; color:#94a3b8; text-transform:uppercase; letter-spacing:0.05em; margin-bottom:0.25rem;">
-                Referral Status
+              <div style="font-size:0.75rem; color:#94a3b8; text-transform:uppercase; letter-spacing:0.05em; margin-bottom:0.25rem;" data-i18n="wiz.s6.refStatus">
+                ${window.t('wiz.s6.refStatus')}
               </div>
               <span class="badge ${isReferable ? 'badge-referable-yes' : 'badge-referable-no'}" style="font-size:1.1rem; padding:0.4rem 1rem;">
-                ${isReferable ? 'REFERABLE TO SPECIALIST' : 'NON-REFERABLE'}
+                ${isReferable ? `<span data-i18n="wiz.s6.refYes">${window.t('wiz.s6.refYes')}</span>` : `<span data-i18n="wiz.s6.refNo">${window.t('wiz.s6.refNo')}</span>`}
               </span>
             </div>
           </div>
@@ -988,19 +993,19 @@ export function renderScreeningWizard(container, onCompleteScreening, onOpenRepo
               <div>
                 <h3 class="card-title">
                   <i data-lucide="layers" style="width:20px;height:20px; color:var(--primary-600);"></i>
-                  Explainable AI (Grad-CAM Attention)
+                  <span data-i18n="wiz.s6.xaiTitle">${window.t('wiz.s6.xaiTitle')}</span>
                 </h3>
-                <p style="font-size:0.75rem; color:var(--slate-500);">
-                  Spatial gradient-weighted class activation mapping identifying decision evidence.
+                <p style="font-size:0.75rem; color:var(--slate-500);" data-i18n="wiz.s6.xaiDesc">
+                  ${window.t('wiz.s6.xaiDesc')}
                 </p>
               </div>
 
               <!-- Layer View Modes -->
               <div style="display:flex; gap:0.3rem;">
-                <button class="btn btn-secondary btn-sm overlay-mode-btn" data-layer="original">Original</button>
-                <button class="btn btn-secondary btn-sm overlay-mode-btn" data-layer="heatmap">Heatmap</button>
-                <button class="btn btn-primary btn-sm overlay-mode-btn" data-layer="overlay">Overlay</button>
-                <button class="btn btn-secondary btn-sm overlay-mode-btn" data-layer="structures">Structures</button>
+                <button class="btn btn-secondary btn-sm overlay-mode-btn" data-layer="original"><span data-i18n="wiz.s6.layerOrig">${window.t('wiz.s6.layerOrig')}</span></button>
+                <button class="btn btn-secondary btn-sm overlay-mode-btn" data-layer="heatmap"><span data-i18n="wiz.s6.layerHeat">${window.t('wiz.s6.layerHeat')}</span></button>
+                <button class="btn btn-primary btn-sm overlay-mode-btn" data-layer="overlay"><span data-i18n="wiz.s6.layerOver">${window.t('wiz.s6.layerOver')}</span></button>
+                <button class="btn btn-secondary btn-sm overlay-mode-btn" data-layer="structures"><span data-i18n="wiz.s6.layerStruc">${window.t('wiz.s6.layerStruc')}</span></button>
               </div>
             </div>
 
@@ -1013,11 +1018,11 @@ export function renderScreeningWizard(container, onCompleteScreening, onOpenRepo
               <svg id="layer-svg-structures" class="fundus-overlay-svg" viewBox="0 0 600 600" style="display:none;">
                 <!-- Optic Disc Landmark -->
                 <circle cx="${aiDiagnosticResult.landmarks.opticDisc.x}" cy="${aiDiagnosticResult.landmarks.opticDisc.y}" r="${aiDiagnosticResult.landmarks.opticDisc.radius}" stroke="#38bdf8" stroke-width="2.5" stroke-dasharray="4,4" fill="rgba(56, 189, 248, 0.15)" />
-                <text x="${aiDiagnosticResult.landmarks.opticDisc.x - 35}" y="${aiDiagnosticResult.landmarks.opticDisc.y - 50}" fill="#38bdf8" font-size="12" font-weight="bold">Optic Disc</text>
+                <text x="${aiDiagnosticResult.landmarks.opticDisc.x - 35}" y="${aiDiagnosticResult.landmarks.opticDisc.y - 50}" fill="#38bdf8" font-size="12" font-weight="bold" data-i18n="wiz.s6.opticDisc">${window.t('wiz.s6.opticDisc')}</text>
 
                 <!-- Fovea Landmark -->
                 <circle cx="${aiDiagnosticResult.landmarks.fovea.x}" cy="${aiDiagnosticResult.landmarks.fovea.y}" r="${aiDiagnosticResult.landmarks.fovea.radius}" stroke="#facc15" stroke-width="2" stroke-dasharray="3,3" fill="rgba(250, 204, 21, 0.15)" />
-                <text x="${aiDiagnosticResult.landmarks.fovea.x - 20}" y="${aiDiagnosticResult.landmarks.fovea.y - 35}" fill="#facc15" font-size="12" font-weight="bold">Fovea</text>
+                <text x="${aiDiagnosticResult.landmarks.fovea.x - 20}" y="${aiDiagnosticResult.landmarks.fovea.y - 35}" fill="#facc15" font-size="12" font-weight="bold" data-i18n="wiz.s6.fovea">${window.t('wiz.s6.fovea')}</text>
               </svg>
             </div>
 
@@ -1025,14 +1030,14 @@ export function renderScreeningWizard(container, onCompleteScreening, onOpenRepo
             <div class="gradcam-controls-bar">
               <div class="slider-container">
                 <i data-lucide="sliders" style="width:16px;height:16px; color:var(--primary-400);"></i>
-                <span style="font-size:0.8125rem; font-weight:600;">Heatmap Opacity:</span>
+                <span style="font-size:0.8125rem; font-weight:600;" data-i18n="wiz.s6.opacity">${window.t('wiz.s6.opacity')}</span>
                 <input type="range" id="heatmap-opacity-slider" class="slider-input" min="0" max="1" step="0.05" value="${heatmapOpacity}">
                 <span id="opacity-val-label" style="font-size:0.8125rem; font-family:var(--font-mono); width:36px;">${Math.round(heatmapOpacity * 100)}%</span>
               </div>
             </div>
 
             <div style="margin-top:0.75rem; font-size:0.75rem; color:var(--slate-500); line-height:1.4;">
-              <strong>Explainability Note:</strong> Grad-CAM highlights retinal regions that contributed most strongly to the model's severity classification. It is decision-support visualization and does not by itself confirm isolated micro-lesions.
+              <strong data-i18n="wiz.s6.xaiNote">${window.t('wiz.s6.xaiNote')}</strong> <span data-i18n="wiz.s6.xaiNoteDesc">${window.t('wiz.s6.xaiNoteDesc')}</span>
             </div>
           </div>
 
@@ -1044,25 +1049,25 @@ export function renderScreeningWizard(container, onCompleteScreening, onOpenRepo
               <div class="card-header" style="margin-bottom:0.75rem;">
                 <h3 class="card-title">
                   <i data-lucide="activity" style="width:20px;height:20px; color:var(--primary-600);"></i>
-                  Diagnostic Classification
+                  <span data-i18n="wiz.s6.diagClass">${window.t('wiz.s6.diagClass')}</span>
                 </h3>
-                <span class="badge ${drMeta.badgeClass}" style="font-size:0.8125rem;">
-                  ${drMeta.shortName}
+                <span class="badge ${drMeta.badgeClass}" style="font-size:0.8125rem;" data-i18n="dr.${aiDiagnosticResult.level}.shortName">
+                  ${window.t(`dr.${aiDiagnosticResult.level}.shortName`) || drMeta.shortName}
                 </span>
               </div>
 
               <div style="display:flex; align-items:center; justify-content:space-between; background:var(--slate-50); padding:1rem; border-radius:var(--radius-md); border:1px solid var(--border-card); margin-bottom:1rem;">
                 <div>
-                  <div style="font-size:0.75rem; font-weight:700; color:var(--slate-500); text-transform:uppercase;">AI Model Confidence</div>
+                  <div style="font-size:0.75rem; font-weight:700; color:var(--slate-500); text-transform:uppercase;" data-i18n="wiz.s6.aiConf">${window.t('wiz.s6.aiConf')}</div>
                   <div style="font-size:2.2rem; font-weight:800; font-family:var(--font-heading); color:var(--slate-900);">
                     ${aiDiagnosticResult.confidence}%
                   </div>
-                  <div style="font-size:0.7rem; color:var(--slate-500);">Prototype Softmax Calibration</div>
+                  <div style="font-size:0.7rem; color:var(--slate-500);" data-i18n="wiz.s6.protoSoft">${window.t('wiz.s6.protoSoft')}</div>
                 </div>
                 <div style="text-align:right; max-width:220px;">
-                  <div style="font-size:0.75rem; font-weight:700; color:var(--slate-500); text-transform:uppercase;">Clinical Scale</div>
-                  <div style="font-size:0.875rem; font-weight:700; color:var(--slate-800);">${drMeta.title}</div>
-                  <div style="font-size:0.75rem; color:var(--slate-500);">${drMeta.description}</div>
+                  <div style="font-size:0.75rem; font-weight:700; color:var(--slate-500); text-transform:uppercase;" data-i18n="wiz.s6.clinScale">${window.t('wiz.s6.clinScale')}</div>
+                  <div style="font-size:0.875rem; font-weight:700; color:var(--slate-800);" data-i18n="dr.${aiDiagnosticResult.level}.title">${window.t(`dr.${aiDiagnosticResult.level}.title`) || drMeta.title}</div>
+                  <div style="font-size:0.75rem; color:var(--slate-500);" data-i18n="dr.${aiDiagnosticResult.level}.description">${window.t(`dr.${aiDiagnosticResult.level}.description`) || drMeta.description}</div>
                 </div>
               </div>
 
@@ -1071,9 +1076,9 @@ export function renderScreeningWizard(container, onCompleteScreening, onOpenRepo
                 <div style="display:flex; gap:0.5rem; align-items:flex-start;">
                   <i data-lucide="info" style="width:18px;height:18px; color:#1d4ed8; flex-shrink:0; margin-top:1px;"></i>
                   <div>
-                    <div style="font-size:0.8125rem; font-weight:700; color:#1e40af;">Clinical Recommendation:</div>
-                    <div style="font-size:0.8125rem; color:#1e3a8a; margin-top:0.15rem;">
-                      ${drMeta.clinicalRecommendation}
+                    <div style="font-size:0.8125rem; font-weight:700; color:#1e40af;" data-i18n="wiz.s6.clinRec">${window.t('wiz.s6.clinRec')}</div>
+                    <div style="font-size:0.8125rem; color:#1e3a8a; margin-top:0.15rem;" data-i18n="dr.${aiDiagnosticResult.level}.clinicalRecommendation">
+                      ${window.t(`dr.${aiDiagnosticResult.level}.clinicalRecommendation`) || drMeta.clinicalRecommendation}
                     </div>
                   </div>
                 </div>
@@ -1085,23 +1090,23 @@ export function renderScreeningWizard(container, onCompleteScreening, onOpenRepo
               <div class="card-header" style="margin-bottom:0.75rem;">
                 <h3 class="card-title">
                   <i data-lucide="microscope" style="width:20px;height:20px; color:var(--primary-600);"></i>
-                  Localized Retinal Evidence
+                  <span data-i18n="wiz.s6.localEv">${window.t('wiz.s6.localEv')}</span>
                 </h3>
-                <span class="badge" style="background:#f1f5f9; color:#475569; font-size:0.7rem;">Demo Evidence</span>
+                <span class="badge" style="background:#f1f5f9; color:#475569; font-size:0.7rem;" data-i18n="wiz.s6.demoEv">${window.t('wiz.s6.demoEv')}</span>
               </div>
 
               <div style="display:flex; flex-direction:column; gap:0.6rem;">
                 ${aiDiagnosticResult.evidence.map(ev => `
                   <div style="padding:0.75rem; background:var(--slate-50); border:1px solid var(--border-subtle); border-radius:var(--radius-md);">
                     <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:0.25rem;">
-                      <span style="font-weight:700; font-size:0.8125rem; color:var(--slate-900);">${ev.type}</span>
-                      <span class="badge" style="background:#e0f2fe; color:#0369a1; font-size:0.6875rem;">Attribution: ${ev.relevance}%</span>
+                      <span style="font-weight:700; font-size:0.8125rem; color:var(--slate-900);">${window.t(`ev.type.${ev.type}`) || ev.type}</span>
+                      <span class="badge" style="background:#e0f2fe; color:#0369a1; font-size:0.6875rem;"><span data-i18n="wiz.s6.attribution">${window.t('wiz.s6.attribution')}</span> ${ev.relevance}%</span>
                     </div>
                     <div style="font-size:0.75rem; color:var(--slate-600);">
-                      <strong>Region:</strong> ${ev.region}
+                      <strong data-i18n="wiz.s6.region">${window.t('wiz.s6.region')}</strong> ${window.t(`ev.region.${ev.region}`) || ev.region}
                     </div>
                     <div style="font-size:0.75rem; color:var(--slate-500); margin-top:0.15rem;">
-                      ${ev.description}
+                      ${window.t(`ev.desc.${ev.description}`) || ev.description}
                     </div>
                   </div>
                 `).join('')}
@@ -1115,17 +1120,17 @@ export function renderScreeningWizard(container, onCompleteScreening, onOpenRepo
         <div class="card" style="display:flex; justify-content:space-between; align-items:center; flex-wrap:wrap; gap:1rem;">
           <button class="btn btn-secondary" id="step6-restart-btn">
             <i data-lucide="rotate-ccw" style="width:16px;height:16px;"></i>
-            New Screening
+            <span data-i18n="wiz.s6.newScreening">${window.t('wiz.s6.newScreening')}</span>
           </button>
 
           <div style="display:flex; gap:0.75rem; flex-wrap:wrap;">
             <button class="btn btn-secondary" id="step6-view-report-btn">
               <i data-lucide="printer" style="width:16px;height:16px;"></i>
-              View & Print Full Report
+              <span data-i18n="wiz.s6.printReport">${window.t('wiz.s6.printReport')}</span>
             </button>
             <button class="btn btn-primary btn-lg" id="step6-send-doctor-btn">
               <i data-lucide="send" style="width:18px;height:18px;"></i>
-              Send to Ophthalmologist Tele-Review
+              <span data-i18n="wiz.s6.sendDoc">${window.t('wiz.s6.sendDoc')}</span>
             </button>
           </div>
         </div>
@@ -1206,7 +1211,7 @@ export function renderScreeningWizard(container, onCompleteScreening, onOpenRepo
 
     target.querySelector('#step6-send-doctor-btn').addEventListener('click', () => {
       if (window.retinaXAI) {
-        window.retinaXAI.showToast(`Case ${screeningRecord.id} successfully queued for Tele-Ophthalmology review!`);
+        window.retinaXAI.showToast(`${window.t('wiz.s6.toastQueued')}`);
       }
       onCompleteScreening(screeningRecord);
     });

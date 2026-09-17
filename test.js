@@ -1,4 +1,4 @@
-export function renderLoginView(container, onLoginSuccess) {
+function renderLoginView(container, onLoginSuccess) {
   container.innerHTML = `
     <style>
       /* Premium Healthcare Color Palette */
@@ -714,3 +714,13 @@ export function renderLoginView(container, onLoginSuccess) {
     });
   });
 }
+
+
+// Mocks
+global.window = { getLanguage: () => 'en', t: k => k, lucide: { createIcons: () => {} }, setLanguage: () => {} };
+global.document = { getElementById: () => ({ addEventListener: () => {} }) };
+
+const container = {};
+renderLoginView(container, () => {});
+console.log(container.innerHTML.substring(0, 100));
+console.log('SUCCESS');

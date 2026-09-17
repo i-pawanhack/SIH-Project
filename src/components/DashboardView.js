@@ -14,16 +14,16 @@ export function renderDashboardView(container, onNavigate, onOpenReport) {
     <!-- Top Welcome Banner -->
     <div style="display:flex; justify-content:space-between; align-items:flex-start; margin-bottom:1.5rem; flex-wrap:wrap; gap:1rem;">
       <div>
-        <h1 style="font-size:1.75rem; color:var(--slate-900);">Clinical Retinal Screening Dashboard</h1>
+        <h1 style="font-size:1.75rem; color:var(--slate-900);" data-i18n="dash.title">${window.t('dash.title')}</h1>
         <p style="color:var(--slate-600); font-size:0.875rem; margin-top:0.25rem;">
-          Active Facility: <strong>${settings.activeCentre || 'PHC Rampur — Primary Health Centre (District Ballia)'}</strong>
+          <span data-i18n="dash.activeFacility">${window.t('dash.activeFacility')}</span>: <strong>${settings.activeCentre || 'PHC Rampur — Primary Health Centre (District Ballia)'}</strong>
         </p>
       </div>
       
       <div style="display:flex; gap:0.75rem; align-items:center;">
         <button class="btn btn-primary btn-sm" id="dash-start-btn">
           <i data-lucide="plus-circle" style="width:16px;height:16px;"></i>
-          New Screening
+          <span data-i18n="dash.newScreening">${window.t('dash.newScreening')}</span>
         </button>
       </div>
     </div>
@@ -33,7 +33,7 @@ export function renderDashboardView(container, onNavigate, onOpenReport) {
       <!-- Total Screenings -->
       <div class="kpi-card" style="--kpi-accent: var(--primary-600); --kpi-bg: var(--primary-50);">
         <div>
-          <div class="kpi-label">Total Screenings</div>
+          <div class="kpi-label" data-i18n="dash.totalScreenings">${window.t('dash.totalScreenings')}</div>
           <div class="kpi-value">${stats.total}</div>
           <div class="kpi-sub">
             <span style="color:#10b981; font-weight:700;">+12.5%</span> from last week
@@ -47,7 +47,7 @@ export function renderDashboardView(container, onNavigate, onOpenReport) {
       <!-- Referable Cases -->
       <div class="kpi-card" style="--kpi-accent: #ef4444; --kpi-bg: #fee2e2;">
         <div>
-          <div class="kpi-label">Referable DR Cases</div>
+          <div class="kpi-label" data-i18n="dash.referableCases">${window.t('dash.referableCases')}</div>
           <div class="kpi-value" style="color:#b91c1c;">${stats.referable}</div>
           <div class="kpi-sub">
             <span class="badge badge-referable-yes" style="font-size:0.7rem;">Level 2+ Target</span>
@@ -61,7 +61,7 @@ export function renderDashboardView(container, onNavigate, onOpenReport) {
       <!-- Non-Referable Cases -->
       <div class="kpi-card" style="--kpi-accent: #10b981; --kpi-bg: #dcfce7;">
         <div>
-          <div class="kpi-label">Non-Referable / Normal</div>
+          <div class="kpi-label" data-i18n="dash.nonReferableCases">${window.t('dash.nonReferableCases')}</div>
           <div class="kpi-value" style="color:#15803d;">${stats.nonReferable}</div>
           <div class="kpi-sub">
             <span>Level 0 & 1 Monitoring</span>
@@ -75,7 +75,7 @@ export function renderDashboardView(container, onNavigate, onOpenReport) {
       <!-- Ungradable Images -->
       <div class="kpi-card" style="--kpi-accent: #f59e0b; --kpi-bg: #fef3c7;">
         <div>
-          <div class="kpi-label">Ungradable Images</div>
+          <div class="kpi-label" data-i18n="dash.ungradableImages">${window.t('dash.ungradableImages')}</div>
           <div class="kpi-value" style="color:#b45309;">${stats.ungradable}</div>
           <div class="kpi-sub">
             <span>Recapture Required</span>
@@ -89,7 +89,7 @@ export function renderDashboardView(container, onNavigate, onOpenReport) {
       <!-- Pending Doctor Review -->
       <div class="kpi-card" style="--kpi-accent: #0284c7; --kpi-bg: #e0f2fe;">
         <div>
-          <div class="kpi-label">Pending Doctor Review</div>
+          <div class="kpi-label" data-i18n="dash.pendingDoctor">${window.t('dash.pendingDoctor')}</div>
           <div class="kpi-value" style="color:#0369a1;">${stats.pendingDoctor}</div>
           <div class="kpi-sub">
             <span>Tele-Ophthalmology Queue</span>
@@ -107,10 +107,10 @@ export function renderDashboardView(container, onNavigate, onOpenReport) {
         <div>
           <h3 class="card-title">
             <i data-lucide="file-spreadsheet" style="width:20px;height:20px; color:var(--primary-600);"></i>
-            Recent Patient Screenings
+            <span data-i18n="dash.recentScreenings">${window.t('dash.recentScreenings')}</span>
           </h3>
-          <p style="font-size:0.8125rem; color:var(--slate-500); margin-top:0.25rem;">
-            Click on any patient record to inspect the complete diagnostic report, Grad-CAM heatmap, or doctor review.
+          <p style="font-size:0.8125rem; color:var(--slate-500); margin-top:0.25rem;" data-i18n="dash.recentDesc">
+            ${window.t('dash.recentDesc')}
           </p>
         </div>
 
@@ -224,8 +224,8 @@ export function renderDashboardView(container, onNavigate, onOpenReport) {
           </td>
           <td>
             ${isUngradable 
-              ? `<span style="color:#ef4444; font-size:0.8125rem; font-weight:700;">No AI Prediction</span>`
-              : `<span class="badge ${drMeta.badgeClass}">${drMeta.shortName}</span>`
+              ? `<span style="color:#ef4444; font-size:0.8125rem; font-weight:700;" data-i18n="hist.noAi">${window.t('hist.noAi')}</span>`
+              : `<span class="badge ${drMeta.badgeClass}">${window.t(`dr.${c.stage}.shortName`) || drMeta.shortName}</span>`
             }
           </td>
           <td>

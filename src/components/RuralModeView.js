@@ -17,31 +17,31 @@ export function renderRuralModeView(container) {
     container.innerHTML = `
       <div style="display:flex; justify-content:space-between; align-items:flex-start; margin-bottom:1.5rem; flex-wrap:wrap; gap:1rem;">
         <div>
-          <h1 style="font-size:1.75rem; color:var(--slate-900);">Rural Screening & Offline Operations Mode</h1>
-          <p style="color:var(--slate-600); font-size:0.875rem; margin-top:0.25rem;">
-            Engineered for remote Primary Health Centres (PHCs) and mobile vans with intermittent or low-bandwidth 2G/3G connectivity.
+          <h1 style="font-size:1.75rem; color:var(--slate-900);" data-i18n="rural.title">${window.t('rural.title')}</h1>
+          <p style="color:var(--slate-600); font-size:0.875rem; margin-top:0.25rem;" data-i18n="rural.desc">
+            ${window.t('rural.desc')}
           </p>
         </div>
 
         <div style="display:flex; gap:0.75rem; align-items:center;">
           <button class="btn btn-secondary btn-sm" id="rural-toggle-bandwidth-btn" style="${settings.lowBandwidthMode ? 'background:#dbeafe; color:#1e40af; border-color:#93c5fd; font-weight:700;' : ''}">
             <i data-lucide="${settings.lowBandwidthMode ? 'check-square' : 'square'}" style="width:14px;height:14px;"></i>
-            Low Bandwidth Mode: ${settings.lowBandwidthMode ? 'ENABLED' : 'DISABLED'}
+            ${settings.lowBandwidthMode ? '<span data-i18n="rural.lowBandwidthOn">' + window.t('rural.lowBandwidthOn') + '</span>' : '<span data-i18n="rural.lowBandwidthOff">' + window.t('rural.lowBandwidthOff') + '</span>'}
           </button>
           <button class="btn btn-primary btn-sm" id="rural-trigger-sync-btn">
             <i data-lucide="refresh-cw" style="width:14px;height:14px;"></i>
-            Sync Cloud Queue (${syncQueue.length})
+            <span data-i18n="rural.syncQueue">${window.t('rural.syncQueue')}</span> (${syncQueue.length})
           </button>
         </div>
       </div>
 
       <!-- Rural Edge Architecture Workflow Pipeline -->
       <div class="card" style="background:linear-gradient(135deg, #0f172a 0%, #1e293b 100%); color:white; margin-bottom:1.5rem; border:none;">
-        <div style="font-size:0.75rem; font-weight:700; color:#2dd4bf; text-transform:uppercase; letter-spacing:0.05em; margin-bottom:0.5rem;">
-          End-to-End Rural Clinical Architecture
+        <div style="font-size:0.75rem; font-weight:700; color:#2dd4bf; text-transform:uppercase; letter-spacing:0.05em; margin-bottom:0.5rem;" data-i18n="rural.architecture">
+          ${window.t('rural.architecture')}
         </div>
-        <h3 style="font-size:1.2rem; color:white; margin-bottom:1.25rem;">
-          Offline-First Edge AI Processing & Tele-Ophthalmology Synchronization
+        <h3 style="font-size:1.2rem; color:white; margin-bottom:1.25rem;" data-i18n="rural.archSubtitle">
+          ${window.t('rural.archSubtitle')}
         </h3>
 
         <div class="pipeline-flow-diagram" style="margin:0; background:rgba(0,0,0,0.3);">
@@ -49,8 +49,8 @@ export function renderRuralModeView(container) {
             <div class="pipeline-node-icon" style="color:#38bdf8;">
               <i data-lucide="camera" style="width:24px;height:24px;"></i>
             </div>
-            <div style="font-size:0.75rem; font-weight:700;">1. Fundus Camera</div>
-            <div style="font-size:0.65rem; color:#94a3b8;">Portable Non-Mydriatic</div>
+            <div style="font-size:0.75rem; font-weight:700;" data-i18n="rural.n1.title">${window.t('rural.n1.title')}</div>
+            <div style="font-size:0.65rem; color:#94a3b8;" data-i18n="rural.n1.desc">${window.t('rural.n1.desc')}</div>
           </div>
 
           <div class="pipeline-connector-line"></div>
@@ -59,8 +59,8 @@ export function renderRuralModeView(container) {
             <div class="pipeline-node-icon" style="color:#f59e0b;">
               <i data-lucide="shield-check" style="width:24px;height:24px;"></i>
             </div>
-            <div style="font-size:0.75rem; font-weight:700;">2. Quality Filter</div>
-            <div style="font-size:0.65rem; color:#94a3b8;">Automated Blur Reject</div>
+            <div style="font-size:0.75rem; font-weight:700;" data-i18n="rural.n2.title">${window.t('rural.n2.title')}</div>
+            <div style="font-size:0.65rem; color:#94a3b8;" data-i18n="rural.n2.desc">${window.t('rural.n2.desc')}</div>
           </div>
 
           <div class="pipeline-connector-line"></div>
@@ -69,8 +69,8 @@ export function renderRuralModeView(container) {
             <div class="pipeline-node-icon" style="color:#2dd4bf;">
               <i data-lucide="sparkles" style="width:24px;height:24px;"></i>
             </div>
-            <div style="font-size:0.75rem; font-weight:700;">3. CLAHE Normalizer</div>
-            <div style="font-size:0.65rem; color:#94a3b8;">Contrast Enhancement</div>
+            <div style="font-size:0.75rem; font-weight:700;" data-i18n="rural.n3.title">${window.t('rural.n3.title')}</div>
+            <div style="font-size:0.65rem; color:#94a3b8;" data-i18n="rural.n3.desc">${window.t('rural.n3.desc')}</div>
           </div>
 
           <div class="pipeline-connector-line"></div>
@@ -79,8 +79,8 @@ export function renderRuralModeView(container) {
             <div class="pipeline-node-icon" style="color:#10b981;">
               <i data-lucide="cpu" style="width:24px;height:24px;"></i>
             </div>
-            <div style="font-size:0.75rem; font-weight:700;">4. Local Edge AI</div>
-            <div style="font-size:0.65rem; color:#94a3b8;">Instant Offline Grad-CAM</div>
+            <div style="font-size:0.75rem; font-weight:700;" data-i18n="rural.n4.title">${window.t('rural.n4.title')}</div>
+            <div style="font-size:0.65rem; color:#94a3b8;" data-i18n="rural.n4.desc">${window.t('rural.n4.desc')}</div>
           </div>
 
           <div class="pipeline-connector-line"></div>
@@ -89,8 +89,8 @@ export function renderRuralModeView(container) {
             <div class="pipeline-node-icon" style="color:#a855f7;">
               <i data-lucide="hard-drive" style="width:24px;height:24px;"></i>
             </div>
-            <div style="font-size:0.75rem; font-weight:700;">5. Local Store</div>
-            <div style="font-size:0.65rem; color:#94a3b8;">Encrypted Storage</div>
+            <div style="font-size:0.75rem; font-weight:700;" data-i18n="rural.n5.title">${window.t('rural.n5.title')}</div>
+            <div style="font-size:0.65rem; color:#94a3b8;" data-i18n="rural.n5.desc">${window.t('rural.n5.desc')}</div>
           </div>
 
           <div class="pipeline-connector-line"></div>
@@ -99,8 +99,8 @@ export function renderRuralModeView(container) {
             <div class="pipeline-node-icon" style="color:#ec4899;">
               <i data-lucide="stethoscope" style="width:24px;height:24px;"></i>
             </div>
-            <div style="font-size:0.75rem; font-weight:700;">6. Tele-Specialist</div>
-            <div style="font-size:0.65rem; color:#94a3b8;">Remote Doctor Sign-Off</div>
+            <div style="font-size:0.75rem; font-weight:700;" data-i18n="rural.n6.title">${window.t('rural.n6.title')}</div>
+            <div style="font-size:0.65rem; color:#94a3b8;" data-i18n="rural.n6.desc">${window.t('rural.n6.desc')}</div>
           </div>
         </div>
       </div>
@@ -111,8 +111,8 @@ export function renderRuralModeView(container) {
         <!-- Camera Hardware Card -->
         <div class="card">
           <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:0.75rem;">
-            <div style="font-weight:700; font-size:0.875rem; color:var(--slate-900);">Portable Camera Unit</div>
-            <span class="badge badge-quality-acceptable">CONNECTED</span>
+            <div style="font-weight:700; font-size:0.875rem; color:var(--slate-900);" data-i18n="rural.card1.title">${window.t('rural.card1.title')}</div>
+            <span class="badge badge-quality-acceptable" data-i18n="rural.card1.status">${window.t('rural.card1.status')}</span>
           </div>
           <div style="font-size:0.8125rem; color:var(--slate-600); display:flex; flex-direction:column; gap:0.35rem;">
             <div>Device: <strong>RetinaCam 45D Pro (USB 3.0)</strong></div>
@@ -125,8 +125,8 @@ export function renderRuralModeView(container) {
         <!-- Edge Computing Hardware Card -->
         <div class="card">
           <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:0.75rem;">
-            <div style="font-weight:700; font-size:0.875rem; color:var(--slate-900);">Local Edge AI Engine</div>
-            <span class="badge badge-quality-acceptable">ACTIVE</span>
+            <div style="font-weight:700; font-size:0.875rem; color:var(--slate-900);" data-i18n="rural.card2.title">${window.t('rural.card2.title')}</div>
+            <span class="badge badge-quality-acceptable" data-i18n="rural.card2.status">${window.t('rural.card2.status')}</span>
           </div>
           <div style="font-size:0.8125rem; color:var(--slate-600); display:flex; flex-direction:column; gap:0.35rem;">
             <div>Inference Runtime: <strong>TensorFlow Lite / ONNX Edge</strong></div>
@@ -139,7 +139,7 @@ export function renderRuralModeView(container) {
         <!-- Network Uplink & Sync Status Card -->
         <div class="card">
           <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:0.75rem;">
-            <div style="font-weight:700; font-size:0.875rem; color:var(--slate-900);">Rural Tele-Sync Uplink</div>
+            <div style="font-weight:700; font-size:0.875rem; color:var(--slate-900);" data-i18n="rural.card3.title">${window.t('rural.card3.title')}</div>
             <span class="badge" style="background:#dbeafe; color:#1e40af;">
               ${settings.lowBandwidthMode ? '2G COMPRESSED' : '4G LTE READY'}
             </span>
@@ -160,16 +160,16 @@ export function renderRuralModeView(container) {
           <div>
             <h3 class="card-title">
               <i data-lucide="cloud-upload" style="width:20px;height:20px; color:var(--primary-600);"></i>
-              Offline Sync & Triage Queue
+              <span data-i18n="rural.queueTitle">${window.t('rural.queueTitle')}</span>
             </h3>
-            <p style="font-size:0.8125rem; color:var(--slate-500); margin-top:0.25rem;">
-              Cases queued in local storage awaiting cloud dispatch to tele-ophthalmologists.
+            <p style="font-size:0.8125rem; color:var(--slate-500); margin-top:0.25rem;" data-i18n="rural.queueDesc">
+              ${window.t('rural.queueDesc')}
             </p>
           </div>
 
           <button class="btn btn-primary btn-sm" id="queue-sync-btn">
             <i data-lucide="arrow-up-circle" style="width:14px;height:14px;"></i>
-            Force Sync All
+            <span data-i18n="rural.forceSync">${window.t('rural.forceSync')}</span>
           </button>
         </div>
 
@@ -177,12 +177,12 @@ export function renderRuralModeView(container) {
           <table class="data-table">
             <thead>
               <tr>
-                <th>Case ID</th>
-                <th>Patient</th>
-                <th>Screening Centre</th>
-                <th>AI DR Finding</th>
-                <th>Queue Status</th>
-                <th>Payload Size</th>
+                <th data-i18n="rural.thCaseId">${window.t('rural.thCaseId')}</th>
+                <th data-i18n="rural.thPatient">${window.t('rural.thPatient')}</th>
+                <th data-i18n="rural.thCentre">${window.t('rural.thCentre')}</th>
+                <th data-i18n="rural.thAiFinding">${window.t('rural.thAiFinding')}</th>
+                <th data-i18n="rural.thQueueStatus">${window.t('rural.thQueueStatus')}</th>
+                <th data-i18n="rural.thPayloadSize">${window.t('rural.thPayloadSize')}</th>
               </tr>
             </thead>
             <tbody>
@@ -197,7 +197,7 @@ export function renderRuralModeView(container) {
                   <td>
                     <span class="badge" style="background:#dcfce7; color:#15803d;">
                       <i data-lucide="check" style="width:12px;height:12px;"></i>
-                      Synced to Cloud Hub
+                      <span data-i18n="rural.synced">${window.t('rural.synced')}</span>
                     </span>
                   </td>
                   <td style="font-family:var(--font-mono); font-size:0.8125rem;">
@@ -219,7 +219,7 @@ export function renderRuralModeView(container) {
 
     const triggerSync = () => {
       StorageService.clearSyncQueue();
-      alert('Cloud Telemetry Sync Completed! All rural screenings are updated in the tele-ophthalmology hub.');
+      alert(window.t('rural.alert'));
       updateView();
     };
 
