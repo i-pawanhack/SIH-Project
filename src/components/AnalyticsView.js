@@ -1,5 +1,5 @@
 /**
- * RetinaXAI — Clinical Analytics & Rural Epidemiology Dashboard
+ * Drish Kalyan — Clinical Analytics & Rural Epidemiology Dashboard
  * Visualizes DR stage distributions, referral ratios, image quality, and doctor concordance.
  */
 

@@ -1,5 +1,5 @@
 /**
- * RetinaXAI — Datasets & Real AI Model Integration Architecture Component
+ * Drish Kalyan — Datasets & Real AI Model Integration Architecture Component
  * Documents supported benchmark datasets and modular Python/MATLAB/PyTorch API endpoints.
  */
 
@@ -97,7 +97,7 @@ export function renderDatasetsView(container) {
 
       <pre style="background:var(--slate-900); color:#38bdf8; padding:1.25rem; border-radius:var(--radius-md); font-family:var(--font-mono); font-size:0.8125rem; overflow-x:auto; line-height:1.6;">
 // Modular Python/PyTorch API Service Endpoint Example
-POST /api/v1/retinaxai/analyze
+POST /api/v1/drishkalyan/analyze
 Content-Type: multipart/form-data
 
 Payload:

@@ -91,11 +91,12 @@ export function renderLoginView(container, onLoginSuccess) {
         flex-direction: column;
       }
       .header-title-main {
-        font-family: 'Outfit', sans-serif;
-        font-size: 24px;
+        font-family: 'Inter', 'Noto Sans Devanagari', sans-serif;
+        font-size: 42px;
         font-weight: 800;
         color: var(--deep-navy);
         line-height: 1.1;
+        text-align: center;
       }
       .header-title-main span:last-child {
         color: var(--med-teal);
@@ -182,18 +183,20 @@ export function renderLoginView(container, onLoginSuccess) {
         object-fit: cover;
         opacity: 0.9;
         transform: scale(1.35);
+        filter: hue-rotate(-160deg) saturate(2) brightness(0.9) contrast(1.2);
       }
       .hero-text {
         flex: 1;
         color: white;
       }
       .hero-text h1 {
-        font-family: 'Outfit', sans-serif;
-        font-size: 46px;
+        font-family: 'Inter', 'Noto Sans Devanagari', sans-serif;
+        font-size: 80px;
         font-weight: 700;
-        line-height: 1.2;
+        line-height: 1.1;
         margin: 0 0 16px 0;
         color: var(--soft-mint);
+        text-align: center;
       }
       .hero-text p {
         font-size: 18px;
@@ -491,11 +494,10 @@ export function renderLoginView(container, onLoginSuccess) {
       <!-- HEADER -->
       <header class="top-header">
         <div class="header-brand">
-          <div class="logo-icon"><i data-lucide="eye" style="width:22px;height:22px"></i></div>
+          <img src="src/logo.jpeg" alt="Drish Kalyan Logo" style="width: 48px; height: 48px; object-fit: cover; border-radius: 10px; box-shadow: 0 4px 12px rgba(0, 169, 157, 0.2);">
           <div class="header-titles">
-            <div class="header-title-main">
-              <span data-i18n="login.title1">${window.t('login.title1')}</span> 
-              <span data-i18n="login.title2">${window.t('login.title2')}</span>
+            <div class="header-title-main" style="text-align: center;">
+              <span data-i18n="app.title">${window.t('app.title')}</span> 
             </div>
             <div class="header-subtitle" data-i18n="login.subtitle">${window.t('login.subtitle')}</div>
           </div>
@@ -593,7 +595,7 @@ export function renderLoginView(container, onLoginSuccess) {
               
               <div class="card-links">
                 <a href="#" class="forgot-link" data-i18n="login.forgotPassword">${window.t('login.forgotPassword')}</a>
-                <span class="register-text">New User? <a href="#">Register</a></span>
+                <span class="register-text"><span data-i18n="login.newUser">${window.t('login.newUser')}</span> <a href="#" data-i18n="login.registerText">${window.t('login.registerText')}</a></span>
               </div>
             </form>
 
@@ -616,10 +618,10 @@ export function renderLoginView(container, onLoginSuccess) {
       <footer class="bottom-footer">
         <div data-i18n="login.footer.left">${window.t('login.footer.left')}</div>
         <div class="footer-right">
-          <span>Terms &amp; Conditions</span>
-          <span>Privacy Policy</span>
-          <span>Accessibility</span>
-          <span>Contact Us</span>
+          <a href="terms.html" target="_blank" data-i18n="login.terms" style="color: inherit; text-decoration: none; cursor: pointer;">${window.t('login.terms')}</a>
+          <a href="privacy.html" target="_blank" data-i18n="login.privacy" style="color: inherit; text-decoration: none; cursor: pointer;">${window.t('login.privacy')}</a>
+          <span data-i18n="login.accessibility">${window.t('login.accessibility')}</span>
+          <span data-i18n="login.contact">${window.t('login.contact')}</span>
         </div>
       </footer>
       

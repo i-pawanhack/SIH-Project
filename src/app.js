@@ -1,5 +1,5 @@
 /**
- * RetinaXAI — Root Application Controller & Router
+ * Drish Kalyan — Root Application Controller & Router
  * Central orchestrator connecting all views, state services, and event pipelines.
  */
 
@@ -18,7 +18,7 @@ import { renderDatasetsView } from './components/DatasetsView.js';
 import { openReportModal } from './components/ReportModal.js';
 import { renderLoginView } from './components/LoginView.js';
 
-class RetinaXAIApp {
+class DrishKalyanApp {
   constructor() {
     this.currentView = 'login';
     this.isAuthenticated = false;
@@ -168,4 +168,4 @@ class RetinaXAIApp {
 }
 
 // Instantiate App
-window.retinaXAI = new RetinaXAIApp();
+window.drishKalyan = new DrishKalyanApp();

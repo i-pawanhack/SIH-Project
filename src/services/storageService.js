@@ -1,14 +1,14 @@
 /**
- * RetinaXAI — Local Database, Telemetry Sync & Storage Service
+ * Drish Kalyan — Local Database, Telemetry Sync & Storage Service
  * Handles offline persistence, case indexing, and rural tele-sync queues.
  */
 
 import { SAMPLE_CASES } from '../data/sampleCases.js';
 import { ImageProcessor } from './imageProcessor.js';
 
-const STORAGE_KEY = 'retinaxai_screenings_v1';
-const SYNC_QUEUE_KEY = 'retinaxai_sync_queue_v1';
-const SETTINGS_KEY = 'retinaxai_settings_v1';
+const STORAGE_KEY = 'drishkalyan_screenings_v1';
+const SYNC_QUEUE_KEY = 'drishkalyan_sync_queue_v1';
+const SETTINGS_KEY = 'drishkalyan_settings_v1';
 
 export class StorageService {
   /**
@@ -39,18 +39,18 @@ export class StorageService {
     }
 
     // Ensure default account PHC-001 exists with the correct password
-    if (!localStorage.getItem('retinaxai_accounts_v1')) {
+    if (!localStorage.getItem('drishkalyan_accounts_v1')) {
       const initialAccounts = [{ phcId: 'PHC-001', password: '12345678', createdAt: new Date().toISOString() }];
-      localStorage.setItem('retinaxai_accounts_v1', JSON.stringify(initialAccounts));
+      localStorage.setItem('drishkalyan_accounts_v1', JSON.stringify(initialAccounts));
     } else {
-      const accounts = JSON.parse(localStorage.getItem('retinaxai_accounts_v1'));
+      const accounts = JSON.parse(localStorage.getItem('drishkalyan_accounts_v1'));
       const phc001 = accounts.find(a => a.phcId === 'PHC-001');
       if (phc001) {
         phc001.password = '12345678';
       } else {
         accounts.push({ phcId: 'PHC-001', password: '12345678', createdAt: new Date().toISOString() });
       }
-      localStorage.setItem('retinaxai_accounts_v1', JSON.stringify(accounts));
+      localStorage.setItem('drishkalyan_accounts_v1', JSON.stringify(accounts));
     }
   }
 
@@ -213,7 +213,7 @@ export class StorageService {
 
   static getAccounts() {
     try {
-      const data = localStorage.getItem('retinaxai_accounts_v1');
+      const data = localStorage.getItem('drishkalyan_accounts_v1');
       return data ? JSON.parse(data) : [];
     } catch {
       return [];
@@ -226,7 +226,7 @@ export class StorageService {
       return { success: false, message: 'Account already exists' };
     }
     accounts.push({ phcId, password, createdAt: new Date().toISOString() });
-    localStorage.setItem('retinaxai_accounts_v1', JSON.stringify(accounts));
+    localStorage.setItem('drishkalyan_accounts_v1', JSON.stringify(accounts));
     return { success: true };
   }
 
@@ -237,7 +237,7 @@ export class StorageService {
       // Save timestamp
       const logins = this.getLogins();
       logins.push({ phcId, timestamp: new Date().toISOString() });
-      localStorage.setItem('retinaxai_logins_v1', JSON.stringify(logins));
+      localStorage.setItem('drishkalyan_logins_v1', JSON.stringify(logins));
       
       return { success: true };
     }
@@ -246,7 +246,7 @@ export class StorageService {
 
   static getLogins() {
     try {
-      const data = localStorage.getItem('retinaxai_logins_v1');
+      const data = localStorage.getItem('drishkalyan_logins_v1');
       return data ? JSON.parse(data) : [];
     } catch {
       return [];
@@ -259,5 +259,9 @@ export class StorageService {
       return logins[logins.length - 1].phcId;
     }
     return 'PHC-UNKNOWN';
+  }
+
+  static logout() {
+    localStorage.removeItem('drishkalyan_logins_v1');
   }
 }

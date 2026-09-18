@@ -1,5 +1,5 @@
 /**
- * RetinaXAI — Pre-Loaded Sample Cases
+ * Drish Kalyan — Pre-Loaded Sample Cases
  * High-fidelity presets for quick testing and SIH Judge demonstrations.
  */
 

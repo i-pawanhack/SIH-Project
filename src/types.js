@@ -1,5 +1,5 @@
 /**
- * RetinaXAI — Type Definitions & Constants
+ * Drish Kalyan — Type Definitions & Constants
  * SIH26038: Explainable AI for Diabetic Retinopathy Screening in Rural India
  */
 

@@ -1,5 +1,5 @@
 /**
- * RetinaXAI — Rural Screening Mode & Offline Telemedicine Component
+ * Drish Kalyan — Rural Screening Mode & Offline Telemedicine Component
  * Manages low-bandwidth edge deployment, offline queues, camera connectivity, and cloud tele-sync.
  */
 

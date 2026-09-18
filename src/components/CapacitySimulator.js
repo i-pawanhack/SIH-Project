@@ -1,5 +1,5 @@
 /**
- * RetinaXAI — Digital Twin Rural Screening Capacity Simulator Component
+ * Drish Kalyan — Digital Twin Rural Screening Capacity Simulator Component
  * Emulates the MATLAB / Simulink discrete-event queueing model for rural health scalability.
  */
 

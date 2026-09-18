@@ -1,5 +1,5 @@
 /**
- * RetinaXAI — Safety Banner Component
+ * Drish Kalyan — Safety Banner Component
  */
 
 export function renderSafetyBanner(container) {

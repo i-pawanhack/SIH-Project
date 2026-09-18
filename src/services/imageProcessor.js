@@ -1,5 +1,5 @@
 /**
- * RetinaXAI — Image Processing & Procedural Fundus Generation Service
+ * Drish Kalyan — Image Processing & Procedural Fundus Generation Service
  * Includes CLAHE, contrast normalization, and quality assessment algorithms.
  */
 

@@ -1,5 +1,5 @@
 /* ==========================================================================
-   RetinaXAI — Clinical MedTech Design System & Stylesheet
+   Drish Kalyan — Clinical MedTech Design System & Stylesheet
    ========================================================================== */
 
 :root {
@@ -219,12 +219,15 @@ h1, h2, h3, h4, h5, h6 {
 }
 
 .brand-title {
-  font-size: 1.25rem;
+  font-family: 'Inter', 'Noto Sans Devanagari', sans-serif;
+  font-size: 1.75rem;
   font-weight: 800;
   color: var(--slate-900);
   line-height: 1.2;
   display: flex;
   align-items: center;
+  justify-content: flex-start;
+  text-align: left;
   gap: 0.35rem;
 }
 

@@ -1,16 +1,16 @@
-# RetinaXAI — Explainable AI for Faster and Smarter Diabetic Retinopathy Screening
+# Drish Kalyan — Explainable AI for Faster and Smarter Diabetic Retinopathy Screening
 
 > **Smart India Hackathon (SIH26038)**  
 > *“Explainable AI for Diabetic Retinopathy Screening in Rural India”*  
-> **Core Theme:** *RetinaXAI — Detect. Explain. Validate. Refer. Scale.*
+> **Core Theme:** *Drish Kalyan — Detect. Explain. Validate. Refer. Scale.*
 
 ---
 
 ## 👁️ Overview & Core Purpose
 
-**RetinaXAI** is a clinical-grade, AI-assisted decision-support and retinal screening web application engineered specifically for rural Indian Primary Health Centres (PHCs), Community Health Centres (CHCs), and mobile tele-ophthalmology outreach units.
+**Drish Kalyan** is a clinical-grade, AI-assisted decision-support and retinal screening web application engineered specifically for rural Indian Primary Health Centres (PHCs), Community Health Centres (CHCs), and mobile tele-ophthalmology outreach units.
 
-Rather than positioning AI as a standalone diagnostic tool or replacement for specialists, RetinaXAI creates an **end-to-end connected clinical screening pipeline** that connects rural healthcare workers, automated image quality filters, CLAHE preprocessing, deep learning feature extraction, Grad-CAM explainability, and tele-ophthalmologists.
+Rather than positioning AI as a standalone diagnostic tool or replacement for specialists, Drish Kalyan creates an **end-to-end connected clinical screening pipeline** that connects rural healthcare workers, automated image quality filters, CLAHE preprocessing, deep learning feature extraction, Grad-CAM explainability, and tele-ophthalmologists.
 
 ---
 
@@ -88,7 +88,7 @@ Then open: **`http://localhost:8080`**
 
 ## 🔒 Medical Safety & Regulatory Compliance
 
-> **“RetinaXAI is an AI-assisted screening prototype. It is not a substitute for professional medical diagnosis. Final clinical assessment and referral decisions must be made by a qualified ophthalmologist.”**
+> **“Drish Kalyan is an AI-assisted screening prototype. It is not a substitute for professional medical diagnosis. Final clinical assessment and referral decisions must be made by a qualified ophthalmologist.”**
 
 - No pharmaceutical prescriptions or unsolicited treatments.
 - Transparent demo labels on simulated evidence and prototype confidence metrics.

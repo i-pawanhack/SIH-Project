@@ -1,0 +1,160 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Terms & Conditions - Drish Kalyan</title>
+  <style>
+    body {
+      font-family: 'Inter', sans-serif;
+      line-height: 1.6;
+      color: #334155;
+      margin: 0;
+      padding: 0;
+      background-color: #f8fafc;
+      position: relative;
+    }
+    body::before {
+      content: "";
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100vw;
+      height: 100vh;
+      background-image: url('src/logo.jpeg');
+      background-size: cover;
+      background-position: center;
+      background-repeat: no-repeat;
+      opacity: 0.5;
+      z-index: -1;
+    }
+    h1 { color: #0f766e; }
+    h2 { color: #0f172a; margin-top: 30px; border-bottom: 2px solid #cbd5e1; padding-bottom: 8px;}
+    p { margin-bottom: 16px; }
+    ul { margin-bottom: 16px; }
+    li { margin-bottom: 8px; }
+    .container {
+      background: rgba(255, 255, 255, 0.85);
+      padding: 40px 8%;
+      min-height: 100vh;
+      box-sizing: border-box;
+    }
+    .header {
+      text-align: center;
+      margin-bottom: 40px;
+    }
+    .last-updated {
+      color: #64748b;
+      font-style: italic;
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <div class="header">
+      <h1>TERMS & CONDITIONS</h1>
+    </div>
+    
+    <h2>1. About the Platform</h2>
+    <p>This platform is an AI-assisted Diabetic Retinopathy (DR) screening and triage research prototype developed under SIH26038 – Explainable AI for Diabetic Retinopathy Screening in Rural India.</p>
+    <p>The platform uses retinal image processing, computer vision, machine learning, explainable AI, uncertainty estimation, and automated reporting to assist healthcare screening workflows.</p>
+
+    <h2>2. Intended Purpose</h2>
+    <p>The platform is intended to:</p>
+    <ul>
+      <li>Assess retinal/fundus image quality.</li>
+      <li>Enhance retinal images for computational analysis.</li>
+      <li>Analyse retinal structures.</li>
+      <li>Detect potential retinal lesions.</li>
+      <li>Estimate DR severity from Grade 0 to Grade 4.</li>
+      <li>Provide explainable evidence associated with an AI prediction.</li>
+      <li>Provide confidence and uncertainty information.</li>
+      <li>Generate a structured screening report.</li>
+      <li>Support screening triage and referral workflows.</li>
+    </ul>
+
+    <h2>3. Medical Disclaimer</h2>
+    <p>The platform does not provide a final medical diagnosis.</p>
+    <p>AI-generated results are intended only as decision-support information and must not replace examination, diagnosis, or treatment decisions made by a qualified ophthalmologist or other appropriate healthcare professional.</p>
+
+    <h2>4. Image Quality Assessment</h2>
+    <p>Every submitted image may undergo an image-quality assessment before DR analysis.</p>
+    <p>If an image is considered insufficient or ungradable, the platform may return:</p>
+    <p><strong>RECAPTURE_REQUIRED</strong></p>
+    <p>In such cases, the system should not be interpreted as having diagnosed the patient.</p>
+
+    <h2>5. AI Screening & Triage</h2>
+    <p>The platform may assign a workflow status such as:</p>
+    <ul>
+      <li><strong>AUTO_SCREEN</strong> — suitable for automated screening workflow under the configured system criteria.</li>
+      <li><strong>HUMAN_REVIEW</strong> — requires review by an appropriately qualified healthcare professional.</li>
+      <li><strong>RECAPTURE_REQUIRED</strong> — image quality is insufficient for reliable analysis.</li>
+    </ul>
+    <p>These statuses represent system workflow decisions, not independent medical diagnoses.</p>
+
+    <h2>6. DR Severity</h2>
+    <p>The system is designed to work with five DR severity categories:</p>
+    <ul>
+      <li>Grade 0 — No DR</li>
+      <li>Grade 1 — Mild DR</li>
+      <li>Grade 2 — Moderate DR</li>
+      <li>Grade 3 — Severe DR</li>
+      <li>Grade 4 — Proliferative DR</li>
+    </ul>
+    <p>The predicted grade should always be interpreted together with the system's confidence, uncertainty, image quality, and explainability information.</p>
+
+    <h2>7. Explainability</h2>
+    <p>The platform may provide:</p>
+    <ul>
+      <li>Feature contribution information.</li>
+      <li>Lesion-grounded evidence.</li>
+      <li>Retinal structure information.</li>
+      <li>Optic-disc/fovea annotations.</li>
+      <li>Evidence visualizations.</li>
+    </ul>
+    <p>These visualizations explain aspects of the model's computational reasoning; they do not constitute clinical proof of disease.</p>
+
+    <h2>8. Uncertainty & Human Review</h2>
+    <p>The platform incorporates confidence, prediction margin, novelty/uncertainty indicators, and image-quality information.</p>
+    <p>Cases exceeding configured review criteria may be routed to:</p>
+    <p><strong>HUMAN_REVIEW</strong></p>
+    <p>A human reviewer should make the final clinical assessment.</p>
+
+    <h2>9. User Responsibilities</h2>
+    <p>Users are responsible for:</p>
+    <ul>
+      <li>Providing appropriate retinal images.</li>
+      <li>Using compatible imaging equipment.</li>
+      <li>Ensuring images correspond to the correct screening case.</li>
+      <li>Following image recapture instructions.</li>
+      <li>Protecting patient information.</li>
+      <li>Referring appropriate cases to qualified healthcare professionals.</li>
+    </ul>
+
+    <h2>10. No Guarantee of Clinical Accuracy</h2>
+    <p>System performance can vary depending on:</p>
+    <ul>
+      <li>Image quality.</li>
+      <li>Camera/device characteristics.</li>
+      <li>Patient population.</li>
+      <li>Disease distribution.</li>
+      <li>Imaging conditions.</li>
+      <li>Dataset/domain differences.</li>
+    </ul>
+    <p>The current prototype has not undergone external clinical validation and should not be treated as clinically validated software.</p>
+
+    <h2>11. Research Prototype</h2>
+    <p>This software has been developed for research, demonstration, and SIH purposes.</p>
+    <p>It has not been approved or cleared by clinical regulatory authorities such as CDSCO, US FDA, or CE-Mark.</p>
+
+    <h2>12. Emergency Situations</h2>
+    <p>This platform is not intended for emergency medical decision-making.</p>
+    <p>For urgent vision-related symptoms or medical emergencies, users should seek appropriate professional medical care.</p>
+
+    <h2>13. Changes to the Platform</h2>
+    <p>Features, algorithms, datasets, thresholds, interfaces, and workflows may be modified as part of future research and development.</p>
+
+    <h2>14. Acceptance</h2>
+    <p>By using this platform, users acknowledge that they understand its research and decision-support purpose and agree to use its outputs responsibly.</p>
+  </div>
+</body>
+</html>

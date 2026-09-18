@@ -1,5 +1,5 @@
 /**
- * RetinaXAI — AI Diagnostic & Explainable AI (XAI) Service
+ * Drish Kalyan — AI Diagnostic & Explainable AI (XAI) Service
  * Implements Grad-CAM synthesizer, anatomical structure segmentation,
  * lesion evidence extraction, and severity classification pipeline.
  */

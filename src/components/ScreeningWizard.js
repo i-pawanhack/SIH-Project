@@ -1,5 +1,5 @@
 /**
- * RetinaXAI — End-to-End Clinical Screening Wizard Component
+ * Drish Kalyan — End-to-End Clinical Screening Wizard Component
  * Implements the full connected workflow:
  * Intake -> Upload -> Quality Check -> Enhancement -> AI Pipeline -> DR Result -> Grad-CAM -> Evidence -> Report/Tele-Review
  */
@@ -1210,8 +1210,8 @@ export function renderScreeningWizard(container, onCompleteScreening, onOpenRepo
     });
 
     target.querySelector('#step6-send-doctor-btn').addEventListener('click', () => {
-      if (window.retinaXAI) {
-        window.retinaXAI.showToast(`${window.t('wiz.s6.toastQueued')}`);
+      if (window.drishKalyan) {
+        window.drishKalyan.showToast(`${window.t('wiz.s6.toastQueued')}`);
       }
       onCompleteScreening(screeningRecord);
     });

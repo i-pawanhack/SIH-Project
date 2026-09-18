@@ -1,5 +1,5 @@
 /**
- * RetinaXAI — Ophthalmologist Tele-Review Portal Component
+ * Drish Kalyan — Ophthalmologist Tele-Review Portal Component
  * Allows certified eye specialists to review AI predictions, inspect Grad-CAM heatmaps,
  * modify DR severity grades, record clinical notes, and sign off on referrals.
  */
@@ -323,8 +323,8 @@ export function renderDoctorReviewView(container, onOpenReport) {
         };
 
         StorageService.updateDoctorReview(c.id, updatedReview);
-        if (window.retinaXAI) {
-          window.retinaXAI.showToast(window.t('doc.toastSuccess'));
+        if (window.drishKalyan) {
+          window.drishKalyan.showToast(window.t('doc.toastSuccess'));
         }
         updateView();
       });

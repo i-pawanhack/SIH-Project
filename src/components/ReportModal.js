@@ -1,5 +1,5 @@
 /**
- * RetinaXAI — Clinical Screening Report Modal Component
+ * Drish Kalyan — Clinical Screening Report Modal Component
  * Generates an official, print-ready clinical screening report.
  */
 
@@ -41,9 +41,9 @@ export function openReportModal(screeningCase, onClose) {
         <!-- Official Hospital / Tele-Health Header -->
         <div style="display:flex; justify-content:space-between; align-items:center; border-bottom:2px solid var(--slate-900); padding-bottom:1rem; margin-bottom:1.5rem;">
           <div>
-            <img src="src/logo.jpeg" alt="RetinaXAI Logo" style="height: 48px; border-radius: 8px; margin-bottom: 8px; display: block;">
+            <img src="src/logo.jpeg" alt="Drish Kalyan Logo" style="height: 48px; border-radius: 8px; margin-bottom: 8px; display: block;">
             <div style="font-size:1.4rem; font-weight:800; color:var(--slate-900); font-family:var(--font-heading); display:flex; align-items:center; gap:0.5rem;">
-              RetinaXAI
+              Drish Kalyan
             </div>
             <div style="font-size:0.8125rem; color:var(--slate-600);">
               AI-Assisted Diabetic Retinopathy Screening & Decision Support System

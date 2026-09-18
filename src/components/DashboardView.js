@@ -1,5 +1,5 @@
 /**
- * RetinaXAI — Dashboard View Component
+ * Drish Kalyan — Dashboard View Component
  */
 
 import { StorageService } from '../services/storageService.js';
@@ -21,10 +21,6 @@ export function renderDashboardView(container, onNavigate, onOpenReport) {
       </div>
       
       <div style="display:flex; gap:0.75rem; align-items:center;">
-        <button class="btn btn-primary btn-sm" id="dash-start-btn">
-          <i data-lucide="plus-circle" style="width:16px;height:16px;"></i>
-          <span data-i18n="dash.newScreening">${window.t('dash.newScreening')}</span>
-        </button>
       </div>
     </div>
 
@@ -275,8 +271,7 @@ export function renderDashboardView(container, onNavigate, onOpenReport) {
   searchInput.addEventListener('input', renderRows);
   filterDr.addEventListener('change', renderRows);
 
-  // Navigation Button Handlers
-  container.querySelector('#dash-start-btn').addEventListener('click', () => onNavigate('new-screening'));
+  // Navigation Button Handlers (Removed New Screening button)
 
   if (window.lucide) window.lucide.createIcons();
 }

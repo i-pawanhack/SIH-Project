@@ -1,7 +1,7 @@
 const translations = {
   en: {
     // General
-    "app.title": "RetinaXAI",
+    "app.title": "Drish Kalyan",
     
     // Login Page - Left Section
     "login.badge": "AI-POWERED RETINAL SCREENING",
@@ -9,8 +9,8 @@ const translations = {
     "login.title2": "SCREENING",
     "login.subtitle": "Earlier Insights • Healthier Visions",
     
-    "login.info1.title": "NETRA KALYAN",
-    "login.info1.desc": "Retinal image processing",
+    "login.info1.title": "DRISH KALYAN",
+    "login.info1.desc": "Har Nazar, Hamari Zimmedari",
     "login.info2.title": "EARLY DETECTION",
     "login.info2.desc": "Identify diabetic changes",
     "login.info3.title": "RISK ASSESSMENT",
@@ -20,6 +20,12 @@ const translations = {
     
     "login.footer.left": "PREVENT • DETECT • EXPLAIN • EMPOWER",
     "login.footer.right": "Better Eye Care for a Brighter Tomorrow",
+    "login.newUser": "New User?",
+    "login.registerText": "Register",
+    "login.terms": "Terms & Conditions",
+    "login.privacy": "Privacy Policy",
+    "login.accessibility": "Accessibility",
+    "login.contact": "Contact Us",
 
     // Login Page - Form
     "login.welcome": "Welcome Back",
@@ -51,6 +57,9 @@ const translations = {
     "nav.demoMode": "Demo Mode",
     "nav.user": "Dr. Sharma",
     "nav.logout": "Logout",
+    "nav.tagline": "Explainable AI for Diabetic Retinopathy Screening",
+    "nav.phcSubtitle": "Primary Health Centre",
+    "nav.profileEdit": "Profile Edit",
     
     // Dashboard
     "dash.title": "Clinical Retinal Screening Dashboard",
@@ -117,14 +126,14 @@ const translations = {
     "report.reviewStatus": "Review Status:",
     "report.specialist": "Reviewing Specialist:",
     "report.clinicalNotes": "Specialist Clinical Notes:",
-    "report.disclaimer": "Medical Notice: RetinaXAI is an AI-assisted screening decision-support tool developed for the Smart India Hackathon (SIH26038). It does not constitute a definitive medical diagnosis or replace a comprehensive dilated eye examination by an ophthalmologist.",
+    "report.disclaimer": "Medical Notice: Drish Kalyan is an AI-assisted screening decision-support tool developed for the Smart India Hackathon (SIH26038). It does not constitute a definitive medical diagnosis or replace a comprehensive dilated eye examination by an ophthalmologist.",
     "report.close": "Close",
     "report.printReport": "Print Clinical Report",
 
     // Safety Banner
     "safety.badge": "AI DECISION SUPPORT SYSTEM",
     "safety.disclaimer": "Clinical Disclaimer:",
-    "safety.text": "RetinaXAI is an AI-assisted screening prototype designed for decision-support in rural India. It is not a substitute for professional medical diagnosis. Final clinical assessment and referral decisions must be made by a qualified ophthalmologist.",
+    "safety.text": "Drish Kalyan is an AI-assisted screening prototype designed for decision-support in rural India. It is not a substitute for professional medical diagnosis. Final clinical assessment and referral decisions must be made by a qualified ophthalmologist.",
 
     // History View
     "hist.title": "Patient Screening History & Audit Trail",
@@ -221,7 +230,7 @@ const translations = {
     "data.aptosTitle": "APTOS 2019 Blindness Detection",
     "data.aptosBadge": "Classification",
     "data.aptosDesc": "3,662 clinical fundus images graded on the 5-point International Clinical Diabetic Retinopathy (ICDR) scale (Levels 0–4).",
-    "data.role": "Role in RetinaXAI:",
+    "data.role": "Role in Drish Kalyan:",
     "data.aptosRole": "Global multi-class severity feature extraction and classification head.",
     "data.idridTitle": "IDRiD (Indian Retinal Dataset)",
     "data.idridBadge": "Lesion Segmentation",
@@ -493,7 +502,7 @@ const translations = {
   },
   hi: {
     // General
-    "app.title": "RetinaXAI",
+    "app.title": "दृश कल्याण",
     
     // Login Page - Left Section
     "login.badge": "एआई-संचालित रेटिना स्क्रीनिंग",
@@ -501,8 +510,8 @@ const translations = {
     "login.title2": "स्क्रीनिंग",
     "login.subtitle": "प्रारंभिक अंतर्दृष्टि • स्वस्थ दृष्टि",
     
-    "login.info1.title": "एआई विश्लेषण",
-    "login.info1.desc": "रेटिना छवि प्रसंस्करण",
+    "login.info1.title": "दृश कल्याण",
+    "login.info1.desc": "Har Nazar, Hamari Zimmedari",
     "login.info2.title": "प्रारंभिक पहचान",
     "login.info2.desc": "मधुमेह परिवर्तनों की पहचान",
     "login.info3.title": "जोखिम मूल्यांकन",
@@ -512,6 +521,12 @@ const translations = {
     
     "login.footer.left": "रोकथाम • पहचान • व्याख्या • सशक्तिकरण",
     "login.footer.right": "उज्ज्वल कल के लिए बेहतर नेत्र देखभाल",
+    "login.newUser": "नया उपयोगकर्ता?",
+    "login.registerText": "पंजीकरण",
+    "login.terms": "नियम और शर्तें",
+    "login.privacy": "गोपनीयता नीति",
+    "login.accessibility": "अभिगम्यता",
+    "login.contact": "संपर्क करें",
 
     // Login Page - Form
     "login.welcome": "वापसी पर स्वागत है",
@@ -543,6 +558,9 @@ const translations = {
     "nav.demoMode": "डेमो मोड",
     "nav.user": "डॉ. शर्मा",
     "nav.logout": "लॉग आउट",
+    "nav.tagline": "डायबिटिक रेटिनोपैथी स्क्रीनिंग के लिए व्याख्यात्मक एआई",
+    "nav.phcSubtitle": "प्राथमिक स्वास्थ्य केंद्र",
+    "nav.profileEdit": "प्रोफ़ाइल संपादित करें",
     
     // Dashboard
     "dash.title": "क्लिनिकल रेटिनल स्क्रीनिंग डैशबोर्ड",
@@ -609,14 +627,14 @@ const translations = {
     "report.reviewStatus": "समीक्षा की स्थिति:",
     "report.specialist": "समीक्षा करने वाले विशेषज्ञ:",
     "report.clinicalNotes": "विशेषज्ञ क्लिनिकल नोट्स:",
-    "report.disclaimer": "चिकित्सा सूचना: RetinaXAI स्मार्ट इंडिया हैकथॉन (SIH26038) के लिए विकसित एक एआई-सहायक स्क्रीनिंग निर्णय-समर्थन उपकरण है। यह एक निश्चित चिकित्सा निदान का गठन नहीं करता है या एक नेत्र रोग विशेषज्ञ द्वारा एक व्यापक आंख की जांच को प्रतिस्थापित नहीं करता है।",
+    "report.disclaimer": "चिकित्सा सूचना: Drish Kalyan स्मार्ट इंडिया हैकथॉन (SIH26038) के लिए विकसित एक एआई-सहायक स्क्रीनिंग निर्णय-समर्थन उपकरण है। यह एक निश्चित चिकित्सा निदान का गठन नहीं करता है या एक नेत्र रोग विशेषज्ञ द्वारा एक व्यापक आंख की जांच को प्रतिस्थापित नहीं करता है।",
     "report.close": "बंद करें",
     "report.printReport": "क्लिनिकल रिपोर्ट प्रिंट करें",
 
     // Safety Banner
     "safety.badge": "एआई निर्णय समर्थन प्रणाली",
     "safety.disclaimer": "नैदानिक अस्वीकरण:",
-    "safety.text": "RetinaXAI ग्रामीण भारत में निर्णय-समर्थन के लिए डिज़ाइन किया गया एक एआई-सहायक स्क्रीनिंग प्रोटोटाइप है। यह पेशेवर चिकित्सा निदान का विकल्प नहीं है। अंतिम नैदानिक मूल्यांकन और रेफरल निर्णय एक योग्य नेत्र रोग विशेषज्ञ द्वारा किए जाने चाहिए।",
+    "safety.text": "Drish Kalyan ग्रामीण भारत में निर्णय-समर्थन के लिए डिज़ाइन किया गया एक एआई-सहायक स्क्रीनिंग प्रोटोटाइप है। यह पेशेवर चिकित्सा निदान का विकल्प नहीं है। अंतिम नैदानिक मूल्यांकन और रेफरल निर्णय एक योग्य नेत्र रोग विशेषज्ञ द्वारा किए जाने चाहिए।",
 
     // History View
     "hist.title": "रोगी स्क्रीनिंग इतिहास और ऑडिट ट्रेल",
@@ -713,7 +731,7 @@ const translations = {
     "data.aptosTitle": "एपीटीओएस 2019 अंधापन का पता लगाना",
     "data.aptosBadge": "वर्गीकरण",
     "data.aptosDesc": "5-पॉइंट इंटरनेशनल क्लिनिकल डायबिटिक रेटिनोपैथी (ICDR) स्केल (स्तर 0–4) पर 3,662 क्लिनिकल फंडस इमेज ग्रेडेड हैं।",
-    "data.role": "RetinaXAI में भूमिका:",
+    "data.role": "Drish Kalyan में भूमिका:",
     "data.aptosRole": "वैश्विक बहु-वर्ग गंभीरता सुविधा निष्कर्षण और वर्गीकरण प्रमुख।",
     "data.idridTitle": "IDRiD (भारतीय रेटिनल डेटासेट)",
     "data.idridBadge": "घाव विभाजन",
@@ -987,7 +1005,7 @@ const translations = {
 
 class I18nService {
   constructor() {
-    this.currentLanguage = localStorage.getItem('retinaxai_lang') || 'en';
+    this.currentLanguage = localStorage.getItem('drishkalyan_lang') || 'en';
   }
 
   getLanguage() {
@@ -997,7 +1015,7 @@ class I18nService {
   setLanguage(lang) {
     if (this.currentLanguage !== lang && translations[lang]) {
       this.currentLanguage = lang;
-      localStorage.setItem('retinaxai_lang', lang);
+      localStorage.setItem('drishkalyan_lang', lang);
       window.dispatchEvent(new CustomEvent('languageChanged', { detail: { language: lang } }));
       this.translateDOM();
     }

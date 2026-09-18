@@ -1,5 +1,5 @@
 """
-RetinaXAI — Local Development Server
+Drish Kalyan — Local Development Server
 Smart India Hackathon (SIH26038)
 """
 
@@ -43,7 +43,7 @@ def start_server():
     with httpd:
         url = f"http://localhost:{selected_port}"
         print(f"================================================================")
-        print(f"  RetinaXAI — Explainable AI Retinal Screening System")
+        print(f"  Drish Kalyan — Explainable AI Retinal Screening System")
         print(f"  Smart India Hackathon (SIH26038)")
         print(f"  Server running at: {url}")
         print(f"================================================================")
@@ -56,7 +56,7 @@ def start_server():
         try:
             httpd.serve_forever()
         except KeyboardInterrupt:
-            print("\nShutting down RetinaXAI server.")
+            print("\nShutting down Drish Kalyan server.")
             sys.exit(0)
 
 def main():

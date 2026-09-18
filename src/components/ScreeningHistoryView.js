@@ -1,5 +1,5 @@
 /**
- * RetinaXAI — Screening History View Component
+ * Drish Kalyan — Screening History View Component
  * Comprehensive filterable database of past retinal screenings with audit trail.
  */
 
