@@ -146,9 +146,9 @@ export function renderScreeningWizard(container, onCompleteScreening, onOpenRepo
             <select id="p-duration" class="form-select">
               <option value="" disabled ${!patientData.diabetesDuration ? 'selected' : ''}>${window.t('wiz.s1.selectDuration')}</option>
               <option value="Newly Diagnosed (< 1 yr)" ${patientData.diabetesDuration === 'Newly Diagnosed (< 1 yr)' ? 'selected' : ''}>Newly Diagnosed (< 1 yr)</option>
-              <option value="1 - 5 Years" ${patientData.diabetesDuration === '1 - 5 Years' ? 'selected' : ''}>1 - 5 Years</option>
-              <option value="6 - 10 Years" ${patientData.diabetesDuration === '6 - 10 Years' ? 'selected' : ''}>6 - 10 Years</option>
-              <option value="11 - 20 Years" ${patientData.diabetesDuration === '11 - 20 Years' ? 'selected' : ''}>11 - 20 Years</option>
+              <option value="1 - 5 Years" ${patientData.diabetesDuration === '1 - 5 Years' ? 'selected' : ''}>${window.t("wiz.s1.oneToFive")}</option>
+              <option value="6 - 10 Years" ${patientData.diabetesDuration === '6 - 10 Years' ? 'selected' : ''}>${window.t("wiz.s1.sixToTen")}</option>
+              <option value="11 - 20 Years" ${patientData.diabetesDuration === '11 - 20 Years' ? 'selected' : ''}>${window.t("wiz.s1.elevenToTwenty")}</option>
               <option value="> 20 Years" ${patientData.diabetesDuration === '> 20 Years' ? 'selected' : ''}>> 20 Years</option>
             </select>
           </div>
@@ -288,7 +288,7 @@ export function renderScreeningWizard(container, onCompleteScreening, onOpenRepo
               <div id="eye-tracking-overlay" style="display:none; position:absolute; border:2px dashed #10b981; border-radius:4px; box-shadow:0 0 15px rgba(16,185,129,0.5); pointer-events:none; z-index:10; box-sizing:border-box;"></div>
               <div id="auto-capture-toast" style="display:none; position:absolute; top:50%; left:50%; transform:translate(-50%, -50%); background:rgba(16,185,129,0.9); color:white; padding:0.5rem 1rem; border-radius:2rem; font-weight:700; font-size:0.875rem; z-index:20; white-space:nowrap;">
                 <i data-lucide="scan-eye" style="width:16px;height:16px; display:inline-block; vertical-align:middle; margin-right:4px;"></i>
-                <span data-i18n="wiz.s2.capturing">${window.t('wiz.s2.capturing') || 'Eye Detected - Capturing...'}</span>
+                <span data-i18n="wiz.s2.capturing">${window.t('wiz.s2.capturing') || window.t("wiz.s2.capturing")}</span>
               </div>
               ${isUngradableCase ? `
                 <div style="position:absolute; top:10px; left:10px; background:rgba(239,68,68,0.9); color:white; font-size:0.75rem; font-weight:700; padding:0.25rem 0.6rem; border-radius:var(--radius-full);">
@@ -968,7 +968,7 @@ export function renderScreeningWizard(container, onCompleteScreening, onOpenRepo
                 ${window.t(`dr.${aiDiagnosticResult.level}.title`) || drMeta.title}
               </h1>
               <div style="color:#94a3b8; font-size:0.875rem;">
-                <span data-i18n="wiz.s6.patient">${window.t('wiz.s6.patient')}</span> <strong>${patientData.name}</strong> • ${patientData.id} • ${patientData.age}y (${patientData.gender}) • <span data-i18n="wiz.s6.centre">${window.t('wiz.s6.centre')}</span> ${patientData.centre.split('—')[0]}
+                <span data-i18n="wiz.s6.patient">${window.t('wiz.s6.patient')}</span> <strong>${patientData.name}</strong> • ${patientData.id} • ${patientData.age}y (${window.tData(patientData.gender)}) • <span data-i18n="wiz.s6.centre">${window.t('wiz.s6.centre')}</span> ${patientData.centre.split('—')[0]}
               </div>
             </div>
 

@@ -115,10 +115,10 @@ export function renderRuralModeView(container) {
             <span class="badge badge-quality-acceptable" data-i18n="rural.card1.status">${window.t('rural.card1.status')}</span>
           </div>
           <div style="font-size:0.8125rem; color:var(--slate-600); display:flex; flex-direction:column; gap:0.35rem;">
-            <div><span data-i18n="rural.lblDevice">${window.t('rural.lblDevice')}</span> <strong>RetinaCam 45D Pro (USB 3.0)</strong></div>
-            <div><span data-i18n="rural.lblResolution">${window.t('rural.lblResolution')}</span> <strong>2048 x 1536 (Sub-sampled 512x)</strong></div>
-            <div><span data-i18n="rural.lblIllum">${window.t('rural.lblIllum')}</span> <strong>Infrared + White LED Flash</strong></div>
-            <div><span data-i18n="rural.lblPupil">${window.t('rural.lblPupil')}</span> <strong>Active Auto-Alignment</strong></div>
+            <div><span data-i18n="rural.lblDevice">${window.t('rural.lblDevice')}</span> <strong>${window.t("rural.specs.camera")}</strong></div>
+            <div><span data-i18n="rural.lblResolution">${window.t('rural.lblResolution')}</span> <strong>${window.t("rural.specs.res")}</strong></div>
+            <div><span data-i18n="rural.lblIllum">${window.t('rural.lblIllum')}</span> <strong>${window.t("rural.specs.illum")}</strong></div>
+            <div><span data-i18n="rural.lblPupil">${window.t('rural.lblPupil')}</span> <strong>${window.t("rural.specs.pupil")}</strong></div>
           </div>
         </div>
 
@@ -129,10 +129,10 @@ export function renderRuralModeView(container) {
             <span class="badge badge-quality-acceptable" data-i18n="rural.card2.status">${window.t('rural.card2.status')}</span>
           </div>
           <div style="font-size:0.8125rem; color:var(--slate-600); display:flex; flex-direction:column; gap:0.35rem;">
-            <div><span data-i18n="rural.lblRuntime">${window.t('rural.lblRuntime')}</span> <strong>TensorFlow Lite / ONNX Edge</strong></div>
-            <div><span data-i18n="rural.lblQuant">${window.t('rural.lblQuant')}</span> <strong>INT8 Optimized</strong></div>
+            <div><span data-i18n="rural.lblRuntime">${window.t('rural.lblRuntime')}</span> <strong>${window.t("rural.specs.model")}</strong></div>
+            <div><span data-i18n="rural.lblQuant">${window.t('rural.lblQuant')}</span> <strong>${window.t("rural.specs.quant")}</strong></div>
             <div><span data-i18n="rural.lblLatency">${window.t('rural.lblLatency')}</span> <strong>142 ms <span data-i18n="rural.noInternet">(${window.t('rural.noInternet')})</span></strong></div>
-            <div><span data-i18n="rural.lblModelSize">${window.t('rural.lblModelSize')}</span> <strong>18.4 MB (EfficientNet Backbone)</strong></div>
+            <div><span data-i18n="rural.lblModelSize">${window.t('rural.lblModelSize')}</span> <strong>${window.t("rural.specs.size")}</strong></div>
           </div>
         </div>
 
@@ -145,10 +145,10 @@ export function renderRuralModeView(container) {
             </span>
           </div>
           <div style="font-size:0.8125rem; color:var(--slate-600); display:flex; flex-direction:column; gap:0.35rem;">
-            <div><span data-i18n="rural.lblNetwork">${window.t('rural.lblNetwork')}</span> <strong>Cellular Telemetry Sync</strong></div>
+            <div><span data-i18n="rural.lblNetwork">${window.t('rural.lblNetwork')}</span> <strong>${window.t("rural.specs.telemetry")}</strong></div>
             <div><span data-i18n="rural.lblPendingQueue">${window.t('rural.lblPendingQueue')}</span> <strong>${syncQueue.length} <span data-i18n="rural.cases">${window.t('rural.cases')}</span></strong></div>
             <div><span data-i18n="rural.lblComp">${window.t('rural.lblComp')}</span> <strong>${settings.lowBandwidthMode ? 'JPEG 85% + GradCAM Vector' : 'Standard Full-Res'}</strong></div>
-            <div><span data-i18n="rural.lblProtocol">${window.t('rural.lblProtocol')}</span> <strong>Store-and-Forward HTTPS</strong></div>
+            <div><span data-i18n="rural.lblProtocol">${window.t('rural.lblProtocol')}</span> <strong>${window.t("rural.specs.https")}</strong></div>
           </div>
         </div>
 
@@ -192,7 +192,7 @@ export function renderRuralModeView(container) {
                   <td><strong>${c.patient?.name || window.t('doc.patient')}</strong> (${c.patient?.id || '--'})</td>
                   <td style="font-size:0.8125rem;">${c.patient?.centre ? c.patient.centre.split('—')[0] : 'PHC Rampur'}</td>
                   <td>
-                    ${c.isUngradable ? `<span class="badge badge-quality-ungradable" data-i18n="hist.ungradable">${window.t('hist.ungradable')}</span>` : `<span class="badge badge-dr-${c.stage}">Level ${c.stage}</span>`}
+                    ${c.isUngradable ? `<span class="badge badge-quality-ungradable" data-i18n="hist.ungradable">${window.t('hist.ungradable')}</span>` : `<span class="badge badge-dr-${c.stage}">${window.t("dash.l" + c.stage + "_short")}</span>`}
                   </td>
                   <td>
                     <span class="badge" style="background:#dcfce7; color:#15803d;">
@@ -201,7 +201,7 @@ export function renderRuralModeView(container) {
                     </span>
                   </td>
                   <td style="font-family:var(--font-mono); font-size:0.8125rem;">
-                    ${settings.lowBandwidthMode ? '34 KB (Vector Heatmap)' : '240 KB (Standard)'}
+                    ${settings.lowBandwidthMode ? '34 KB (Vector Heatmap)' : '${window.tData("240 KB (Standard)")}'}
                   </td>
                 </tr>
               `).join('')}

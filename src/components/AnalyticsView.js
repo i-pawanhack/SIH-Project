@@ -180,36 +180,36 @@ export function renderAnalyticsView(container) {
           </thead>
           <tbody>
             <tr>
-              <td><strong>PHC Rampur</strong></td>
-              <td>Ballia, Uttar Pradesh</td>
-              <td>428 Patients</td>
+              <td><strong>${window.tData("PHC Rampur")}</strong></td>
+              <td>${window.getLanguage() === "hi" ? "बलिया, उत्तर प्रदेश" : "Ballia, Uttar Pradesh"}</td>
+              <td>${window.tData("428 Patients")}</td>
               <td><span class="badge badge-referable-yes">64 (15.0%)</span></td>
               <td>3.2%</td>
-              <td><span class="badge badge-quality-acceptable">4G Stable</span></td>
+              <td><span class="badge badge-quality-acceptable">${window.tData("4G Stable")}</span></td>
             </tr>
             <tr>
-              <td><strong>CHC Kotdwar</strong></td>
-              <td>Pauri Garhwal, Uttarakhand</td>
-              <td>312 Patients</td>
+              <td><strong>${window.tData("CHC Kotdwar")}</strong></td>
+              <td>${window.getLanguage() === "hi" ? "पौड़ी गढ़वाल, उत्तराखंड" : "Pauri Garhwal, Uttarakhand"}</td>
+              <td>${window.tData("312 Patients")}</td>
               <td><span class="badge badge-referable-yes">49 (15.7%)</span></td>
               <td>4.1%</td>
-              <td><span class="badge badge-quality-borderline">2G Low Bandwidth</span></td>
+              <td><span class="badge badge-quality-borderline">${window.tData("2G Low Bandwidth")}</span></td>
             </tr>
             <tr>
-              <td><strong>Mobile Retinal Van #3</strong></td>
-              <td>Kutch, Gujarat</td>
-              <td>540 Patients</td>
+              <td><strong>${window.tData("Mobile Retinal Van #3")}</strong></td>
+              <td>${window.getLanguage() === "hi" ? "कच्छ, गुजरात" : "Kutch, Gujarat"}</td>
+              <td>${window.tData("540 Patients")}</td>
               <td><span class="badge badge-referable-yes">92 (17.0%)</span></td>
               <td>5.8%</td>
-              <td><span class="badge badge-quality-borderline">Offline Store-and-Forward</span></td>
+              <td><span class="badge badge-quality-borderline">${window.tData("Offline Store-and-Forward")}</span></td>
             </tr>
             <tr>
-              <td><strong>Sub-Centre Dharampur</strong></td>
-              <td>Varanasi, Uttar Pradesh</td>
-              <td>195 Patients</td>
+              <td><strong>${window.tData("Sub-Centre Dharampur")}</strong></td>
+              <td>${window.getLanguage() === "hi" ? "वाराणसी, उत्तर प्रदेश" : "Varanasi, Uttar Pradesh"}</td>
+              <td>${window.tData("195 Patients")}</td>
               <td><span class="badge badge-referable-yes">28 (14.4%)</span></td>
               <td>2.9%</td>
-              <td><span class="badge badge-quality-acceptable">Optical Fiber</span></td>
+              <td><span class="badge badge-quality-acceptable">${window.tData("Optical Fiber")}</span></td>
             </tr>
           </tbody>
         </table>

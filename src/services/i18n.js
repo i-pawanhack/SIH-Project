@@ -21,7 +21,7 @@ const translations = {
     "login.privacy": "Privacy Policy",
     "login.accessibility": "Accessibility",
     "login.contact": "Contact Us",
-    "login.welcome": "Welcome Back",
+    "login.welcome": "Welcome Back!",
     "login.prompt": "Sign in to continue to your PHC Screening Portal",
     "login.phcId": "PHC ID",
     "login.phcIdPlaceholder": "Enter your PHC ID",
@@ -513,7 +513,51 @@ const translations = {
     "hist.pending": "Pending",
     "hist.docConfirmed": "Confirmed",
     "hist.docPending": "Pending Review",
-    "dash.ungradable": "Ungradable"
+    "dash.ungradable": "Ungradable",
+
+    "wiz.s1.newlyDiagnosed": "Newly Diagnosed",
+
+    "wiz.s1.newlyDiagnosed1yr": "Newly Diagnosed (< 1 yr)",
+    "centre.phcRampur": "PHC Rampur",
+    "centre.phcRampurFull": "PHC Rampur — Primary Health Centre (District Ballia)",
+    "centre.chcKotdwar": "CHC Kotdwar",
+    "centre.chcKotdwarFull": "CHC Kotdwar — Community Health Centre (Pauri Garhwal)",
+    "centre.mobileVan3": "Mobile Retinal Van #3",
+    "centre.mobileVan3Full": "Mobile Retinal Van #3 — Remote Outreach Vehicle (Kutch)",
+    "centre.subDharampur": "Sub-Centre Dharampur",
+    "centre.subDharampurFull": "Sub-Centre Dharampur — Rural Outreach Post (Varanasi)",
+    "centre.phcSunderbans": "PHC Sunderbans",
+    "centre.phcSunderbansFull": "PHC Sunderbans — Delta Outpost Clinic (South 24 Parganas)",
+    "rural.net.4g": "4G Stable",
+    "rural.net.2g": "2G Low Bandwidth",
+    "rural.net.offline": "Offline Store-and-Forward",
+    "rural.net.fiber": "Optical Fiber",
+
+    "wiz.s1.oneToFive": "1 - 5 Years",
+    "wiz.s1.sixToTen": "6 - 10 Years",
+    "wiz.s1.elevenToTwenty": "11 - 20 Years",
+    "wiz.s1.moreThanTwenty": "> 20 Years",
+    "wiz.s2.uploadBreadcrumb": "Upload -> Quality Check -> Enhancement -> AI Pipeline",
+    "dash.l0_short": "Level 0",
+    "dash.l1_short": "Level 1",
+    "dash.l2_short": "Level 2",
+    "dash.l3_short": "Level 3",
+    "dash.l4_short": "Level 4",
+    "report.aiimsHub": "AIIMS Tele-Retina Hub",
+    "rural.specs.camera": "RetinaCam 45D Pro (USB 3.0)",
+    "rural.specs.res": "2048 x 1536 (Sub-sampled 512x)",
+    "rural.specs.illum": "Infrared + White LED Flash",
+    "rural.specs.pupil": "Active Auto-Alignment",
+    "rural.specs.model": "TensorFlow Lite / ONNX Edge",
+    "rural.specs.quant": "INT8 Optimized",
+    "rural.specs.runtime": "142 ms",
+    "rural.specs.size": "18.4 MB (EfficientNet Backbone)",
+    "rural.specs.telemetry": "Cellular Telemetry Sync",
+    "rural.specs.https": "Store-and-Forward HTTPS",
+    "wiz.s1.genderSelect": "Select Gender...",
+    "wiz.s1.durationSelect": "Select Duration...",
+    "wiz.s1.statusSelect": "Select Status..."
+
   },
   "hi": {
     "app.title": "दृश कल्याण",
@@ -537,7 +581,7 @@ const translations = {
     "login.privacy": "गोपनीयता नीति",
     "login.accessibility": "अभिगम्यता",
     "login.contact": "संपर्क करें",
-    "login.welcome": "वापसी पर स्वागत है",
+    "login.welcome": "वापसी पर स्वागत है!",
     "login.prompt": "अपने पीएचसी स्क्रीनिंग पोर्टल पर जारी रखने के लिए साइन इन करें",
     "login.phcId": "पीएचसी आईडी",
     "login.phcIdPlaceholder": "अपना पीएचसी आईडी दर्ज करें",
@@ -1029,7 +1073,51 @@ const translations = {
     "hist.pending": "लंबित",
     "hist.docConfirmed": "पुष्टि की गई",
     "hist.docPending": "समीक्षा लंबित",
-    "dash.ungradable": "अग्रेड योग्य"
+    "dash.ungradable": "अग्रेड योग्य",
+
+    "wiz.s1.newlyDiagnosed": "नया निदान",
+
+    "wiz.s1.newlyDiagnosed1yr": "नया निदान (< 1 वर्ष)",
+    "centre.phcRampur": "पीएचसी रामपुर",
+    "centre.phcRampurFull": "पीएचसी रामपुर — प्राथमिक स्वास्थ्य केंद्र (जिला बलिया)",
+    "centre.chcKotdwar": "सीएचसी कोटद्वार",
+    "centre.chcKotdwarFull": "सीएचसी कोटद्वार — सामुदायिक स्वास्थ्य केंद्र (पौड़ी गढ़वाल)",
+    "centre.mobileVan3": "मोबाइल रेटिनल वैन #3",
+    "centre.mobileVan3Full": "मोबाइल रेटिनल वैन #3 — दूरस्थ आउटरीच वाहन (कच्छ)",
+    "centre.subDharampur": "उप-केंद्र धरमपुर",
+    "centre.subDharampurFull": "उप-केंद्र धरमपुर — ग्रामीण आउटरीच पोस्ट (वाराणसी)",
+    "centre.phcSunderbans": "पीएचसी सुंदरवन",
+    "centre.phcSunderbansFull": "पीएचसी सुंदरवन — डेल्टा आउटपोस्ट क्लिनिक (दक्षिण 24 परगना)",
+    "rural.net.4g": "4G स्थिर",
+    "rural.net.2g": "2G कम बैंडविड्थ",
+    "rural.net.offline": "ऑफ़लाइन स्टोर-एंड-फॉरवर्ड",
+    "rural.net.fiber": "ऑप्टिकल फाइबर",
+
+    "wiz.s1.oneToFive": "1 - 5 वर्ष",
+    "wiz.s1.sixToTen": "6 - 10 वर्ष",
+    "wiz.s1.elevenToTwenty": "11 - 20 वर्ष",
+    "wiz.s1.moreThanTwenty": "> 20 वर्ष",
+    "wiz.s2.uploadBreadcrumb": "अपलोड -> गुणवत्ता जांच -> संवर्द्धन -> एआई पाइपलाइन",
+    "dash.l0_short": "स्तर 0",
+    "dash.l1_short": "स्तर 1",
+    "dash.l2_short": "स्तर 2",
+    "dash.l3_short": "स्तर 3",
+    "dash.l4_short": "स्तर 4",
+    "report.aiimsHub": "एम्स टेली-रेटिना हब",
+    "rural.specs.camera": "रेटिनाकैम 45D प्रो (USB 3.0)",
+    "rural.specs.res": "2048 x 1536 (सब-सैंपल 512x)",
+    "rural.specs.illum": "इन्फ्रारेड + व्हाइट एलईडी फ्लैश",
+    "rural.specs.pupil": "सक्रिय ऑटो-अलाइनमेंट",
+    "rural.specs.model": "TensorFlow Lite / ONNX Edge",
+    "rural.specs.quant": "INT8 अनुकूलित",
+    "rural.specs.runtime": "142 ms",
+    "rural.specs.size": "18.4 MB (EfficientNet बैकबोन)",
+    "rural.specs.telemetry": "सेल्युलर टेलीमेट्री सिंक",
+    "rural.specs.https": "स्टोर-एंड-फॉरवर्ड HTTPS",
+    "wiz.s1.genderSelect": "लिंग चुनें...",
+    "wiz.s1.durationSelect": "अवधि चुनें...",
+    "wiz.s1.statusSelect": "स्थिति चुनें..."
+
   }
 };
 
@@ -1095,3 +1183,57 @@ export const i18n = new I18nService();
 window.t = (key) => i18n.t(key);
 window.setLanguage = (lang) => i18n.setLanguage(lang);
 window.getLanguage = () => i18n.getLanguage();
+
+
+window.tData = function(value) {
+    if(!value) return '--';
+    let valStr = String(value);
+    
+    // Direct matches
+    const map = {
+        'Type 2 Diabetes': 'wiz.s1.type2',
+        'Type 1 Diabetes': 'wiz.s1.type1',
+        'Gestational Diabetes': 'wiz.s1.gestational',
+        'Pre-diabetic': 'wiz.s1.prediabetic',
+        'Newly Diagnosed': 'wiz.s1.newlyDiagnosed',
+        'Newly Diagnosed (< 1 yr)': 'wiz.s1.newlyDiagnosed1yr',
+        '1 - 5 Years': 'wiz.s1.oneToFive',
+        '6 - 10 Years': 'wiz.s1.sixToTen',
+        '11 - 20 Years': 'wiz.s1.elevenToTwenty',
+        '> 20 Years': 'wiz.s1.moreThanTwenty',
+        'Male': 'wiz.s1.male',
+        'Female': 'wiz.s1.female',
+        'Other': 'wiz.s1.other',
+        'PHC Rampur': 'centre.phcRampur',
+        'PHC Rampur — Primary Health Centre (District Ballia)': 'centre.phcRampurFull',
+        'CHC Kotdwar': 'centre.chcKotdwar',
+        'CHC Kotdwar — Community Health Centre (Pauri Garhwal)': 'centre.chcKotdwarFull',
+        'Mobile Retinal Van #3': 'centre.mobileVan3',
+        'Mobile Retinal Van #3 — Remote Outreach Vehicle (Kutch)': 'centre.mobileVan3Full',
+        'Sub-Centre Dharampur': 'centre.subDharampur',
+        'Sub-Centre Dharampur — Rural Outreach Post (Varanasi)': 'centre.subDharampurFull',
+        'PHC Sunderbans': 'centre.phcSunderbans',
+        'PHC Sunderbans — Delta Outpost Clinic (South 24 Parganas)': 'centre.phcSunderbansFull',
+        '4G Stable': 'rural.net.4g',
+        '2G Low Bandwidth': 'rural.net.2g',
+        'Offline Store-and-Forward': 'rural.net.offline',
+        'Optical Fiber': 'rural.net.fiber'
+    };
+    
+    if (map[valStr]) return window.t(map[valStr]);
+
+    // If it is Hindi mode, translate "Years", "y", "Patients", "KB (Standard)"
+    if (window.getLanguage() === 'hi') {
+        valStr = valStr.replace(/Years/g, 'वर्ष');
+        valStr = valStr.replace(/yr/g, 'वर्ष');
+        valStr = valStr.replace(/y/g, 'व'); // e.g. 18y -> 18व
+        valStr = valStr.replace(/Patients/g, 'मरीज़');
+        valStr = valStr.replace(/KB \(Standard\)/g, 'केबी (मानक)');
+        
+        // Also handle "Male" and "Female" if they are inside strings like "(Male)"
+        valStr = valStr.replace(/Male/g, window.t('wiz.s1.male') || 'पुरुष');
+        valStr = valStr.replace(/Female/g, window.t('wiz.s1.female') || 'महिला');
+    }
+    
+    return valStr;
+};

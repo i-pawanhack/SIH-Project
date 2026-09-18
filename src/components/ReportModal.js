@@ -74,9 +74,9 @@ export function openReportModal(screeningCase, onClose) {
           <div style="display:grid; grid-template-columns:repeat(auto-fit, minmax(160px, 1fr)); gap:0.75rem; font-size:0.8125rem;">
             <div><span style="color:var(--slate-500);" data-i18n="report.patientId">${window.t('report.patientId')}</span> <strong>${patient.id || '--'}</strong></div>
             <div><span style="color:var(--slate-500);" data-i18n="report.name">${window.t('report.name')}</span> <strong>${patient.name || '--'}</strong></div>
-            <div><span style="color:var(--slate-500);" data-i18n="report.ageSex">${window.t('report.ageSex')}</span> <strong>${patient.age || '--'} Yrs / ${patient.gender || '--'}</strong></div>
-            <div><span style="color:var(--slate-500);" data-i18n="report.diabetesStatus">${window.t('report.diabetesStatus')}</span> <strong>${patient.diabetesStatus || '--'}</strong></div>
-            <div><span style="color:var(--slate-500);" data-i18n="report.duration">${window.t('report.duration')}</span> <strong>${patient.diabetesDuration || '--'}</strong></div>
+            <div><span style="color:var(--slate-500);" data-i18n="report.ageSex">${window.t('report.ageSex')}</span> <strong>${patient.age || '--'} Yrs / ${window.tData(patient.gender)}</strong></div>
+            <div><span style="color:var(--slate-500);" data-i18n="report.diabetesStatus">${window.t('report.diabetesStatus')}</span> <strong>${window.tData(patient.diabetesStatus)}</strong></div>
+            <div><span style="color:var(--slate-500);" data-i18n="report.duration">${window.t('report.duration')}</span> <strong>${window.tData(patient.diabetesDuration)}</strong></div>
             <div><span style="color:var(--slate-500);" data-i18n="report.imageQuality">${window.t('report.imageQuality')}</span> <strong>${screeningCase.imageQuality?.overall || 'ACCEPTABLE'}</strong></div>
           </div>
         </div>
@@ -174,7 +174,7 @@ export function openReportModal(screeningCase, onClose) {
             </div>
             <div>
               <span style="color:var(--slate-500);" data-i18n="report.specialist">${window.t('report.specialist')}</span> 
-              <strong>${docReview.reviewedBy || 'AIIMS Tele-Retina Hub'}</strong>
+              <strong>${docReview.reviewedBy || window.t("report.aiimsHub")}</strong>
             </div>
             <div style="grid-column:1 / -1;">
               <span style="color:var(--slate-500);" data-i18n="report.clinicalNotes">${window.t('report.clinicalNotes')}</span>

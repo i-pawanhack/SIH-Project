@@ -203,7 +203,7 @@ export function renderDashboardView(container, onNavigate, onOpenReport) {
         <tr style="cursor:pointer;" data-case-id="${c.id}">
           <td>
             <div style="font-weight:700; color:var(--slate-900);">${c.patient?.name || 'Unknown Patient'}</div>
-            <div style="font-size:0.75rem; color:var(--slate-500); font-family:var(--font-mono);">${c.patient?.id || c.id} • ${c.patient?.age || '--'}y (${c.patient?.gender || '--'})</div>
+            <div style="font-size:0.75rem; color:var(--slate-500); font-family:var(--font-mono);">${c.patient?.id || c.id} • ${window.tData(c.patient?.age + "y")} (${window.tData(c.patient?.gender)})</div>
           </td>
           <td>
             <div style="font-size:0.8125rem; font-weight:600; color:var(--slate-700);">
