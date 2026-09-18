@@ -93,6 +93,14 @@ export function renderNavbar(container, currentView, onNavigate, onDemoToggle) {
               </div>
             </div>
           </div>
+          
+          <!-- Language Toggle -->
+          <div class="lang-wrapper" style="margin-left: 16px; border-left: 1px solid #e2e8f0; padding-left: 16px; display: flex; align-items: center; gap: 6px;">
+            <i data-lucide="globe" style="width:16px;height:16px;color:#64748b;"></i>
+            <button id="nav-lang-btn" style="background:none; border:none; color:#64748b; font-size:14px; font-weight:500; cursor:pointer; font-family:inherit; padding:0;">
+              ${window.getLanguage() === 'en' ? 'हिन्दी' : 'English'}
+            </button>
+          </div>
         </div>
       </div>
     </nav>
@@ -140,6 +148,15 @@ export function renderNavbar(container, currentView, onNavigate, onDemoToggle) {
       profileDropdown.style.display = 'none';
       StorageService.logout();
       window.location.reload();
+    });
+  }
+
+  const navLangBtn = container.querySelector('#nav-lang-btn');
+  if (navLangBtn) {
+    navLangBtn.addEventListener('click', () => {
+      const newLang = window.getLanguage() === 'en' ? 'hi' : 'en';
+      window.setLanguage(newLang);
+      navLangBtn.textContent = newLang === 'en' ? 'हिन्दी' : 'English';
     });
   }
 }

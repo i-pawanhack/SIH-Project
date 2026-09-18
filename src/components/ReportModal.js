@@ -45,8 +45,8 @@ export function openReportModal(screeningCase, onClose) {
             <div style="font-size:1.4rem; font-weight:800; color:var(--slate-900); font-family:var(--font-heading); display:flex; align-items:center; gap:0.5rem;">
               Drish Kalyan
             </div>
-            <div style="font-size:0.8125rem; color:var(--slate-600);">
-              AI-Assisted Diabetic Retinopathy Screening & Decision Support System
+            <div style="font-size:0.8125rem; color:var(--slate-600);" data-i18n="report.subtitle">
+              ${window.t('report.subtitle') || 'AI-Assisted Diabetic Retinopathy Screening & Decision Support System'}
             </div>
             <div style="font-size:0.75rem; color:var(--slate-500); margin-top:0.2rem;">
               <span data-i18n="report.facility">${window.t('report.facility')}</span> <strong>${patient.centre || 'Primary Health Centre (Rural Outreach)'}</strong>
@@ -60,8 +60,8 @@ export function openReportModal(screeningCase, onClose) {
             <div style="font-size:0.75rem; color:var(--slate-500);">
               Date: ${new Date(screeningCase.createdAt || Date.now()).toLocaleDateString('en-IN', { day:'2-digit', month:'short', year:'numeric', hour:'2-digit', minute:'2-digit' })}
             </div>
-            <div style="font-size:0.75rem; color:#10b981; font-weight:700;">
-              Status: Verified Tele-Screening
+            <div style="font-size:0.75rem; color:#10b981; font-weight:700;" data-i18n="report.statusVerified">
+              ${window.t('report.statusVerified') || 'Status: Verified Tele-Screening'}
             </div>
           </div>
         </div>
@@ -170,7 +170,7 @@ export function openReportModal(screeningCase, onClose) {
           <div style="background:var(--slate-50); border:1px solid var(--border-card); border-radius:var(--radius-md); padding:1rem; display:grid; grid-template-columns:repeat(auto-fit, minmax(220px, 1fr)); gap:1rem; font-size:0.8125rem;">
             <div>
               <span style="color:var(--slate-500);" data-i18n="report.reviewStatus">${window.t('report.reviewStatus')}</span> 
-              <strong>${docReview.status === 'Reviewed' ? 'Ophthalmologist Verified' : 'Pending Tele-Review'}</strong>
+              <strong data-i18n="${docReview.status === 'Reviewed' ? 'report.revStatusVerified' : 'report.revStatusPending'}">${docReview.status === 'Reviewed' ? (window.t('report.revStatusVerified') || 'Ophthalmologist Verified') : (window.t('report.revStatusPending') || 'Pending Tele-Review')}</strong>
             </div>
             <div>
               <span style="color:var(--slate-500);" data-i18n="report.specialist">${window.t('report.specialist')}</span> 
@@ -179,7 +179,7 @@ export function openReportModal(screeningCase, onClose) {
             <div style="grid-column:1 / -1;">
               <span style="color:var(--slate-500);" data-i18n="report.clinicalNotes">${window.t('report.clinicalNotes')}</span>
               <p style="margin-top:0.25rem; font-style:italic; color:var(--slate-800);">
-                ${docReview.notes || (isReferable ? 'Confirmed referable moderate/severe DR. Patient advised dilated slit-lamp exam and OCT at District Eye Hospital.' : 'Confirmed non-referable. Advised regular glucose control and annual follow-up.')}
+                ${docReview.notes || (isReferable ? (window.t('report.defNotesRef') || 'Confirmed referable moderate/severe DR. Patient advised dilated slit-lamp exam and OCT at District Eye Hospital.') : (window.t('report.defNotesNon') || 'Confirmed non-referable. Advised regular glucose control and annual follow-up.'))}
               </p>
             </div>
           </div>

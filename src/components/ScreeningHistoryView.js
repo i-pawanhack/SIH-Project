@@ -38,31 +38,31 @@ export function renderScreeningHistoryView(container, onOpenReport) {
         <!-- DR Grade Filter -->
         <div>
           <select id="hist-filter-grade" class="form-select" style="width:100%; font-size:0.8125rem;">
-            <option value="ALL">${window.t('hist.allGrades')}</option>
-            <option value="0">Level 0 — No DR</option>
-            <option value="1">Level 1 — Mild NPDR</option>
-            <option value="2">Level 2 — Moderate NPDR</option>
-            <option value="3">Level 3 — Severe NPDR</option>
-            <option value="4">Level 4 — Proliferative DR</option>
-            <option value="UNGRADABLE">Ungradable Images</option>
+            <option value="ALL" data-i18n="hist.allGrades">${window.t('hist.allGrades')}</option>
+            <option value="0" data-i18n="hist.l0">${window.t('hist.l0')}</option>
+            <option value="1" data-i18n="hist.l1">${window.t('hist.l1')}</option>
+            <option value="2" data-i18n="hist.l2">${window.t('hist.l2')}</option>
+            <option value="3" data-i18n="hist.l3">${window.t('hist.l3')}</option>
+            <option value="4" data-i18n="hist.l4">${window.t('hist.l4')}</option>
+            <option value="UNGRADABLE" data-i18n="hist.ungradable">${window.t('hist.ungradable')}</option>
           </select>
         </div>
 
         <!-- Referral Filter -->
         <div>
           <select id="hist-filter-referral" class="form-select" style="width:100%; font-size:0.8125rem;">
-            <option value="ALL">${window.t('hist.allReferral')}</option>
-            <option value="REFERABLE">Referable Cases (Level 2+)</option>
-            <option value="NON_REFERABLE">Non-Referable</option>
+            <option value="ALL" data-i18n="hist.allReferral">${window.t('hist.allReferral')}</option>
+            <option value="REFERABLE" data-i18n="hist.referable">${window.t('hist.referable')}</option>
+            <option value="NON_REFERABLE" data-i18n="hist.nonReferable">${window.t('hist.nonReferable')}</option>
           </select>
         </div>
 
         <!-- Doctor Review Filter -->
         <div>
           <select id="hist-filter-review" class="form-select" style="width:100%; font-size:0.8125rem;">
-            <option value="ALL">${window.t('hist.allReview')}</option>
-            <option value="REVIEWED">Doctor Confirmed</option>
-            <option value="PENDING">Pending Tele-Review</option>
+            <option value="ALL" data-i18n="hist.allReview">${window.t('hist.allReview')}</option>
+            <option value="REVIEWED" data-i18n="hist.reviewed">${window.t('hist.reviewed')}</option>
+            <option value="PENDING" data-i18n="hist.pending">${window.t('hist.pending')}</option>
           </select>
         </div>
 
@@ -160,7 +160,7 @@ export function renderScreeningHistoryView(container, onOpenReport) {
       return `
         <tr style="cursor:pointer;" data-id="${c.id}">
           <td>
-            <div style="font-weight:700; color:var(--slate-900);">${c.patient?.name || 'Patient'}</div>
+            <div style="font-weight:700; color:var(--slate-900);">${c.patient?.name || window.t('dash.th.patient')}</div>
             <div style="font-size:0.75rem; color:var(--slate-500); font-family:var(--font-mono);">${c.patient?.id || c.id} • ${c.patient?.age || '--'}y</div>
           </td>
           <td style="font-size:0.8125rem;">
@@ -170,34 +170,34 @@ export function renderScreeningHistoryView(container, onOpenReport) {
             ${c.patient?.centre ? c.patient.centre.split('—')[0] : 'PHC'}
           </td>
           <td>
-            <span class="badge ${isUngradable ? 'badge-quality-ungradable' : 'badge-quality-acceptable'}">
-              ${isUngradable ? 'Ungradable' : 'Acceptable'}
+            <span class="badge ${isUngradable ? 'badge-quality-ungradable' : 'badge-quality-acceptable'}" data-i18n="${isUngradable ? 'dash.quality.ungradable' : 'dash.quality.acceptable'}">
+              ${isUngradable ? window.t('dash.quality.ungradable') : window.t('dash.quality.acceptable')}
             </span>
           </td>
           <td>
             ${isUngradable 
               ? `<span style="font-size:0.8125rem; font-weight:700; color:#ef4444;" data-i18n="hist.noAi">${window.t('hist.noAi')}</span>` 
-              : `<span class="badge ${drMeta.badgeClass}">${window.t(`dr.${c.stage}.shortName`) || drMeta.shortName}</span>`
+              : `<span class="badge ${drMeta.badgeClass}" data-i18n="dr.${c.stage}.shortName">${window.t(`dr.${c.stage}.shortName`) || drMeta.shortName}</span>`
             }
           </td>
           <td>
             ${isUngradable
               ? `<span style="font-size:0.75rem; color:var(--slate-400);">--</span>`
-              : `<span class="badge ${isReferable ? 'badge-referable-yes' : 'badge-referable-no'}">${isReferable ? 'REFERABLE' : 'NON-REFERABLE'}</span>`
+              : `<span class="badge ${isReferable ? 'badge-referable-yes' : 'badge-referable-no'}" data-i18n="${isReferable ? 'dash.ref.yes' : 'dash.ref.no'}">${isReferable ? window.t('dash.ref.yes') : window.t('dash.ref.no')}</span>`
             }
           </td>
           <td style="font-family:var(--font-mono); font-size:0.8125rem; font-weight:700;">
             ${!isUngradable ? `${c.aiResult?.confidence || '91.8'}%` : '--'}
           </td>
           <td>
-            <span class="badge" style="background:${isDocReviewed ? '#dcfce7' : '#fef3c7'}; color:${isDocReviewed ? '#15803d' : '#b45309'};">
-              ${isDocReviewed ? 'Confirmed' : 'Pending'}
+            <span class="badge" style="background:${isDocReviewed ? '#dcfce7' : '#fef3c7'}; color:${isDocReviewed ? '#15803d' : '#b45309'};" data-i18n="${isDocReviewed ? 'hist.docConfirmed' : 'hist.docPending'}">
+              ${isDocReviewed ? window.t('hist.docConfirmed') : window.t('hist.docPending')}
             </span>
           </td>
           <td>
             <button class="btn btn-secondary btn-sm open-report-btn" data-id="${c.id}">
               <i data-lucide="file-text" style="width:14px;height:14px;"></i>
-              <span data-i18n="report.title">Report</span>
+              <span data-i18n="dash.viewReport">${window.t('dash.viewReport')}</span>
             </button>
           </td>
         </tr>

@@ -32,7 +32,7 @@ export function renderDashboardView(container, onNavigate, onOpenReport) {
           <div class="kpi-label" data-i18n="dash.totalScreenings">${window.t('dash.totalScreenings')}</div>
           <div class="kpi-value">${stats.total}</div>
           <div class="kpi-sub">
-            <span style="color:#10b981; font-weight:700;">+12.5%</span> from last week
+            <span style="color:#10b981; font-weight:700;">+12.5%</span> <span data-i18n="dash.fromLastWeek">${window.t('dash.fromLastWeek')}</span>
           </div>
         </div>
         <div class="kpi-icon-box">
@@ -46,7 +46,7 @@ export function renderDashboardView(container, onNavigate, onOpenReport) {
           <div class="kpi-label" data-i18n="dash.referableCases">${window.t('dash.referableCases')}</div>
           <div class="kpi-value" style="color:#b91c1c;">${stats.referable}</div>
           <div class="kpi-sub">
-            <span class="badge badge-referable-yes" style="font-size:0.7rem;">Level 2+ Target</span>
+            <span class="badge badge-referable-yes" style="font-size:0.7rem;" data-i18n="dash.targetL2">${window.t('dash.targetL2')}</span>
           </div>
         </div>
         <div class="kpi-icon-box">
@@ -60,7 +60,7 @@ export function renderDashboardView(container, onNavigate, onOpenReport) {
           <div class="kpi-label" data-i18n="dash.nonReferableCases">${window.t('dash.nonReferableCases')}</div>
           <div class="kpi-value" style="color:#15803d;">${stats.nonReferable}</div>
           <div class="kpi-sub">
-            <span>Level 0 & 1 Monitoring</span>
+            <span data-i18n="dash.monitoring">${window.t('dash.monitoring')}</span>
           </div>
         </div>
         <div class="kpi-icon-box">
@@ -74,7 +74,7 @@ export function renderDashboardView(container, onNavigate, onOpenReport) {
           <div class="kpi-label" data-i18n="dash.ungradableImages">${window.t('dash.ungradableImages')}</div>
           <div class="kpi-value" style="color:#b45309;">${stats.ungradable}</div>
           <div class="kpi-sub">
-            <span>Recapture Required</span>
+            <span data-i18n="dash.recapture">${window.t('dash.recapture')}</span>
           </div>
         </div>
         <div class="kpi-icon-box">
@@ -88,7 +88,7 @@ export function renderDashboardView(container, onNavigate, onOpenReport) {
           <div class="kpi-label" data-i18n="dash.pendingDoctor">${window.t('dash.pendingDoctor')}</div>
           <div class="kpi-value" style="color:#0369a1;">${stats.pendingDoctor}</div>
           <div class="kpi-sub">
-            <span>Tele-Ophthalmology Queue</span>
+            <span data-i18n="dash.teleQueue">${window.t('dash.teleQueue')}</span>
           </div>
         </div>
         <div class="kpi-icon-box">
@@ -113,19 +113,19 @@ export function renderDashboardView(container, onNavigate, onOpenReport) {
         <div style="display:flex; gap:0.75rem; align-items:center; flex-wrap:wrap;">
           <!-- Search Input -->
           <div style="position:relative;">
-            <input type="text" id="dash-search-input" class="form-input" placeholder="Search Patient ID / Name..." style="padding-left:2.2rem; min-width:240px; font-size:0.8125rem;">
+            <input type="text" id="dash-search-input" class="form-input" data-i18n="dash.searchPlaceholder" placeholder="${window.t('dash.searchPlaceholder')}" style="padding-left:2.2rem; min-width:240px; font-size:0.8125rem;">
             <i data-lucide="search" style="position:absolute; left:0.75rem; top:0.7rem; width:14px;height:14px; color:var(--slate-400);"></i>
           </div>
 
           <!-- DR Severity Filter -->
           <select id="dash-filter-dr" class="form-select" style="font-size:0.8125rem; min-width:140px;">
-            <option value="ALL">All DR Stages</option>
-            <option value="0">Level 0 — No DR</option>
-            <option value="1">Level 1 — Mild NPDR</option>
-            <option value="2">Level 2 — Moderate NPDR</option>
-            <option value="3">Level 3 — Severe NPDR</option>
-            <option value="4">Level 4 — Proliferative DR</option>
-            <option value="UNGRADABLE">Ungradable</option>
+            <option value="ALL" data-i18n="dash.allStages">${window.t('dash.allStages')}</option>
+            <option value="0" data-i18n="dash.l0">${window.t('dash.l0')}</option>
+            <option value="1" data-i18n="dash.l1">${window.t('dash.l1')}</option>
+            <option value="2" data-i18n="dash.l2">${window.t('dash.l2')}</option>
+            <option value="3" data-i18n="dash.l3">${window.t('dash.l3')}</option>
+            <option value="4" data-i18n="dash.l4">${window.t('dash.l4')}</option>
+            <option value="UNGRADABLE" data-i18n="dash.ungradable">${window.t('dash.ungradable')}</option>
           </select>
         </div>
       </div>
@@ -135,14 +135,14 @@ export function renderDashboardView(container, onNavigate, onOpenReport) {
         <table class="data-table" id="dash-screenings-table">
           <thead>
             <tr>
-              <th>Patient</th>
-              <th>Date & Centre</th>
-              <th>Image Quality</th>
-              <th>AI DR Grade</th>
-              <th>Referable</th>
-              <th>Confidence</th>
-              <th>Doctor Review</th>
-              <th>Action</th>
+              <th data-i18n="dash.th.patient">${window.t('dash.th.patient')}</th>
+              <th data-i18n="dash.th.dateCentre">${window.t('dash.th.dateCentre')}</th>
+              <th data-i18n="dash.th.quality">${window.t('dash.th.quality')}</th>
+              <th data-i18n="dash.th.aiGrade">${window.t('dash.th.aiGrade')}</th>
+              <th data-i18n="dash.th.referable">${window.t('dash.th.referable')}</th>
+              <th data-i18n="dash.th.confidence">${window.t('dash.th.confidence')}</th>
+              <th data-i18n="dash.th.docReview">${window.t('dash.th.docReview')}</th>
+              <th data-i18n="dash.th.action">${window.t('dash.th.action')}</th>
             </tr>
           </thead>
           <tbody id="dash-table-body">
@@ -185,7 +185,7 @@ export function renderDashboardView(container, onNavigate, onOpenReport) {
         <tr>
           <td colspan="8" style="text-align:center; padding:2.5rem; color:var(--slate-500);">
             <i data-lucide="inbox" style="width:36px;height:36px; margin:0 auto 0.5rem; display:block; opacity:0.4;"></i>
-            No screening records found matching your filters.
+            <span data-i18n="dash.noRecords">${window.t('dash.noRecords')}</span>
           </td>
         </tr>
       `;
@@ -214,20 +214,20 @@ export function renderDashboardView(container, onNavigate, onOpenReport) {
             </div>
           </td>
           <td>
-            <span class="badge ${isUngradable ? 'badge-quality-ungradable' : 'badge-quality-acceptable'}">
-              ${isUngradable ? 'Ungradable' : 'Acceptable'}
+            <span class="badge ${isUngradable ? 'badge-quality-ungradable' : 'badge-quality-acceptable'}" data-i18n="${isUngradable ? 'dash.quality.ungradable' : 'dash.quality.acceptable'}">
+              ${isUngradable ? window.t('dash.quality.ungradable') : window.t('dash.quality.acceptable')}
             </span>
           </td>
           <td>
             ${isUngradable 
               ? `<span style="color:#ef4444; font-size:0.8125rem; font-weight:700;" data-i18n="hist.noAi">${window.t('hist.noAi')}</span>`
-              : `<span class="badge ${drMeta.badgeClass}">${window.t(`dr.${c.stage}.shortName`) || drMeta.shortName}</span>`
+              : `<span class="badge ${drMeta.badgeClass}" data-i18n="dr.${c.stage}.shortName">${window.t(`dr.${c.stage}.shortName`) || drMeta.shortName}</span>`
             }
           </td>
           <td>
             ${isUngradable
               ? `<span style="font-size:0.75rem; color:var(--slate-500);">N/A</span>`
-              : `<span class="badge ${isReferable ? 'badge-referable-yes' : 'badge-referable-no'}">${isReferable ? 'REFERABLE' : 'NON-REFERABLE'}</span>`
+              : `<span class="badge ${isReferable ? 'badge-referable-yes' : 'badge-referable-no'}" data-i18n="${isReferable ? 'dash.ref.yes' : 'dash.ref.no'}">${isReferable ? window.t('dash.ref.yes') : window.t('dash.ref.no')}</span>`
             }
           </td>
           <td>
@@ -239,13 +239,13 @@ export function renderDashboardView(container, onNavigate, onOpenReport) {
           <td>
             <span class="badge" style="background:${docReviewed ? '#dcfce7' : '#fef3c7'}; color:${docReviewed ? '#15803d' : '#b45309'};">
               <i data-lucide="${docReviewed ? 'check-check' : 'clock'}" style="width:12px;height:12px;"></i>
-              ${docReviewed ? 'Doctor Confirmed' : 'Pending Review'}
+              <span data-i18n="${docReviewed ? 'dash.doc.confirmed' : 'dash.doc.pending'}">${docReviewed ? window.t('dash.doc.confirmed') : window.t('dash.doc.pending')}</span>
             </span>
           </td>
           <td>
             <button class="btn btn-secondary btn-sm open-case-report-btn" data-id="${c.id}">
               <i data-lucide="file-text" style="width:14px;height:14px;"></i>
-              View Report
+              <span data-i18n="dash.viewReport">${window.t('dash.viewReport')}</span>
             </button>
           </td>
         </tr>

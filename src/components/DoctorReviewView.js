@@ -111,8 +111,8 @@ export function renderDoctorReviewView(container, onOpenReport) {
       return `
         <div class="inbox-case-item" data-id="${c.id}" style="padding:0.75rem; border-radius:var(--radius-md); border:1px solid ${isSelected ? 'var(--primary-600)' : 'var(--border-card)'}; background:${isSelected ? 'var(--primary-50)' : 'white'}; cursor:pointer; transition:all var(--transition-fast);">
           <div style="display:flex; justify-content:space-between; align-items:flex-start; margin-bottom:0.25rem;">
-            <span style="font-weight:700; font-size:0.875rem; color:var(--slate-900);">${c.patient?.name || window.t('doc.patient')}</span>
-            <span class="badge" style="font-size:0.6875rem; background:${isReviewed ? '#dcfce7' : '#fef3c7'}; color:${isReviewed ? '#15803d' : '#b45309'};">
+            <span style="font-weight:700; font-size:0.875rem; color:var(--slate-900);">${c.patient?.name || `<span data-i18n="doc.patient">${window.t('doc.patient')}</span>`}</span>
+            <span class="badge" style="font-size:0.6875rem; background:${isReviewed ? '#dcfce7' : '#fef3c7'}; color:${isReviewed ? '#15803d' : '#b45309'};" data-i18n="${isReviewed ? 'doc.badgeReviewed' : 'doc.badgePending'}">
               ${isReviewed ? window.t('doc.badgeReviewed') : window.t('doc.badgePending')}
             </span>
           </div>
@@ -121,8 +121,8 @@ export function renderDoctorReviewView(container, onOpenReport) {
           </div>
           <div style="display:flex; justify-content:space-between; align-items:center;">
             ${isUngradable 
-              ? `<span class="badge badge-quality-ungradable" style="font-size:0.7rem;">${window.t('doc.ungradable')}</span>` 
-              : `<span class="badge ${drMeta.badgeClass}" style="font-size:0.7rem;">${drMeta.shortName}</span>`
+              ? `<span class="badge badge-quality-ungradable" style="font-size:0.7rem;" data-i18n="doc.ungradable">${window.t('doc.ungradable')}</span>` 
+              : `<span class="badge ${drMeta.badgeClass}" style="font-size:0.7rem;" data-i18n="dr.${c.stage}.shortName">${window.t(`dr.${c.stage}.shortName`) || drMeta.shortName}</span>`
             }
             <span style="font-size:0.7rem; color:var(--slate-500);">
               ${new Date(c.createdAt || Date.now()).toLocaleDateString(window.appLang === 'hi' ? 'hi-IN' : 'en-IN', { day:'2-digit', month:'short' })}
@@ -146,7 +146,7 @@ export function renderDoctorReviewView(container, onOpenReport) {
         <div class="card" style="display:flex; justify-content:space-between; align-items:center; flex-wrap:wrap; gap:1rem;">
           <div>
             <div style="display:flex; align-items:center; gap:0.5rem;">
-              <h2 style="font-size:1.3rem; color:var(--slate-900);">${c.patient?.name || window.t('doc.patient')}</h2>
+              <h2 style="font-size:1.3rem; color:var(--slate-900);">${c.patient?.name || `<span data-i18n="doc.patient">${window.t('doc.patient')}</span>`}</h2>
               <span class="badge" style="background:var(--slate-100); color:var(--slate-700); font-family:var(--font-mono);">${c.patient?.id || c.id}</span>
             </div>
             <div style="font-size:0.8125rem; color:var(--slate-500); margin-top:0.2rem;">
@@ -192,19 +192,19 @@ export function renderDoctorReviewView(container, onOpenReport) {
               </div>
               <div style="background:var(--slate-50); border:1px solid var(--border-card); border-radius:var(--radius-md); padding:1rem; margin-bottom:1rem;">
                 <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:0.5rem;">
-                  <span style="font-weight:700; color:var(--slate-900); font-size:1.1rem;">
+                  <span style="font-weight:700; color:var(--slate-900); font-size:1.1rem;" data-i18n="${isUngradable ? 'doc.aiUngradableTitle' : `dr.${c.stage}.title`}">
                     ${isUngradable ? window.t('doc.aiUngradableTitle') : (window.t(`dr.${c.stage}.title`) || drMeta.title)}
                   </span>
                   ${!isUngradable ? `
-                    <span class="badge ${drMeta.badgeClass}">${window.t(`dr.${c.stage}.shortName`) || drMeta.shortName}</span>
+                    <span class="badge ${drMeta.badgeClass}" data-i18n="dr.${c.stage}.shortName">${window.t(`dr.${c.stage}.shortName`) || drMeta.shortName}</span>
                   ` : ''}
                 </div>
-                <div style="font-size:0.8125rem; color:var(--slate-600);">
+                <div style="font-size:0.8125rem; color:var(--slate-600);" data-i18n="${isUngradable ? 'doc.aiUngradableDesc' : `dr.${c.stage}.description`}">
                   ${isUngradable ? window.t('doc.aiUngradableDesc') : (window.t(`dr.${c.stage}.description`) || drMeta.description)}
                 </div>
                 ${!isUngradable ? `
                   <div style="margin-top:0.5rem; font-size:0.75rem; color:var(--slate-500);">
-                    <span data-i18n="doc.aiConfTitle">${window.t('doc.aiConfTitle')}</span> <strong>${c.aiResult?.confidence || '91.8'}%</strong> • <span data-i18n="doc.aiRefTitle">${window.t('doc.aiRefTitle')}</span> <strong>${c.aiResult?.referable ? window.t('doc.yes') : window.t('doc.no')}</strong>
+                    <span data-i18n="doc.aiConfTitle">${window.t('doc.aiConfTitle')}</span> <strong>${c.aiResult?.confidence || '91.8'}%</strong> • <span data-i18n="doc.aiRefTitle">${window.t('doc.aiRefTitle')}</span> <strong data-i18n="${c.aiResult?.referable ? 'doc.yes' : 'doc.no'}">${c.aiResult?.referable ? window.t('doc.yes') : window.t('doc.no')}</strong>
                   </div>
                 ` : ''}
               </div>

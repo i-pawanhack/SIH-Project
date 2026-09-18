@@ -188,21 +188,28 @@ export function renderLoginView(container, onLoginSuccess) {
       .hero-text {
         flex: 1;
         color: white;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
       }
       .hero-text h1 {
-        font-family: 'Inter', 'Noto Sans Devanagari', sans-serif;
+        font-family: 'Roboto Slab', 'Noto Sans Devanagari', serif;
         font-size: 80px;
         font-weight: 700;
         line-height: 1.1;
         margin: 0 0 16px 0;
         color: var(--soft-mint);
-        text-align: center;
+        display: inline-block;
       }
       .hero-text p {
-        font-size: 18px;
+        font-size: 20px;
+        font-weight: bold;
+        font-style: italic;
         line-height: 1.5;
         color: rgba(255,255,255,0.85);
         margin: 0;
+        text-align: center;
       }
 
       /* Features & Wave */
@@ -509,10 +516,9 @@ export function renderLoginView(container, onLoginSuccess) {
           </div>
           <div class="lang-wrapper">
             <i data-lucide="globe" style="width:16px;height:16px;color:var(--text-gray);"></i>
-            <select class="lang-selector" id="login-lang-select">
-              <option value="en" ${window.getLanguage() === 'en' ? 'selected' : ''}>English</option>
-              <option value="hi" ${window.getLanguage() === 'hi' ? 'selected' : ''}>हिन्दी</option>
-            </select>
+            <button class="lang-selector" id="login-lang-btn" style="display:flex; align-items:center; gap:4px; cursor:pointer;">
+              ${window.getLanguage() === 'en' ? 'हिन्दी' : 'English'}
+            </button>
           </div>
         </div>
       </header>
@@ -527,8 +533,8 @@ export function renderLoginView(container, onLoginSuccess) {
               <img src="src/teal_glowing_eye.jpg" alt="AI Glowing Eye" onerror="this.src='assets/retinal_hud.jpg'">
             </div>
             <div class="hero-text fade-in-up">
-              <h1 data-i18n="login.info1.title">${window.t('login.info1.title')}</h1>
-              <p data-i18n="login.info1.desc">${window.t('login.info1.desc')}</p>
+              <h1 id="hero-typing-title"></h1>
+              <p id="hero-typing-subtitle"></p>
             </div>
           </div>
 
@@ -595,7 +601,6 @@ export function renderLoginView(container, onLoginSuccess) {
               
               <div class="card-links">
                 <a href="#" class="forgot-link" data-i18n="login.forgotPassword">${window.t('login.forgotPassword')}</a>
-                <span class="register-text"><span data-i18n="login.newUser">${window.t('login.newUser')}</span> <a href="#" data-i18n="login.registerText">${window.t('login.registerText')}</a></span>
               </div>
             </form>
 
@@ -632,10 +637,96 @@ export function renderLoginView(container, onLoginSuccess) {
     window.lucide.createIcons();
   }
 
-  const langSelect = document.getElementById('login-lang-select');
-  if (langSelect) {
-    langSelect.addEventListener('change', (e) => {
-      window.setLanguage(e.target.value);
+  const titleEl = container.querySelector('#hero-typing-title');
+  const subtitleEl = container.querySelector('#hero-typing-subtitle');
+  
+  if (titleEl && subtitleEl) {
+    if (window._typingInterval) clearInterval(window._typingInterval);
+    window._typewriterActive = (window._typewriterActive || 0) + 1;
+    const currentRun = window._typewriterActive;
+    
+    const sequences = [
+      { title: "DRISH KALYAN", subtitle: "Har Nazar, Hamari Zimmedari" },
+      { title: "दृश कल्याण", subtitle: "हर नज़र, हमारी ज़िम्मेदारी" }
+    ];
+    
+    let seqIndex = 0;
+    
+    async function runTypeWriter() {
+      while(window._typewriterActive === currentRun) {
+        const current = sequences[seqIndex];
+        
+        titleEl.textContent = '';
+        subtitleEl.textContent = '';
+        
+        // 1. Type Title
+        titleEl.style.borderRight = '4px solid var(--soft-mint)';
+        titleEl.style.paddingRight = '8px';
+        subtitleEl.style.borderRight = 'none';
+        
+        for (let i = 0; i <= current.title.length; i++) {
+          if (window._typewriterActive !== currentRun) return;
+          titleEl.textContent = current.title.substring(0, i);
+          await new Promise(r => setTimeout(r, 100));
+        }
+        
+        // 2. Type Subtitle
+        titleEl.style.borderRight = 'none';
+        titleEl.style.paddingRight = '0';
+        subtitleEl.style.borderRight = '3px solid rgba(255,255,255,0.85)';
+        subtitleEl.style.paddingRight = '6px';
+        
+        for (let i = 0; i <= current.subtitle.length; i++) {
+          if (window._typewriterActive !== currentRun) return;
+          subtitleEl.textContent = current.subtitle.substring(0, i);
+          await new Promise(r => setTimeout(r, 50));
+        }
+        
+        // 3. Pause
+        subtitleEl.style.borderRight = 'none';
+        subtitleEl.style.paddingRight = '0';
+        await new Promise(r => setTimeout(r, 3000));
+        if (window._typewriterActive !== currentRun) return;
+        
+        // 4. Erase Subtitle
+        subtitleEl.style.borderRight = '3px solid rgba(255,255,255,0.85)';
+        subtitleEl.style.paddingRight = '6px';
+        for (let i = current.subtitle.length; i >= 0; i--) {
+          if (window._typewriterActive !== currentRun) return;
+          subtitleEl.textContent = current.subtitle.substring(0, i);
+          await new Promise(r => setTimeout(r, 30));
+        }
+        
+        // 5. Erase Title
+        subtitleEl.style.borderRight = 'none';
+        subtitleEl.style.paddingRight = '0';
+        titleEl.style.borderRight = '4px solid var(--soft-mint)';
+        titleEl.style.paddingRight = '8px';
+        
+        for (let i = current.title.length; i >= 0; i--) {
+          if (window._typewriterActive !== currentRun) return;
+          titleEl.textContent = current.title.substring(0, i);
+          await new Promise(r => setTimeout(r, 40));
+        }
+        
+        // 6. Next sequence
+        seqIndex = (seqIndex + 1) % sequences.length;
+        
+        titleEl.style.borderRight = 'none';
+        titleEl.style.paddingRight = '0';
+        await new Promise(r => setTimeout(r, 500));
+      }
+    }
+    
+    runTypeWriter();
+  }
+
+  const langBtn = document.getElementById('login-lang-btn');
+  if (langBtn) {
+    langBtn.addEventListener('click', () => {
+      const newLang = window.getLanguage() === 'en' ? 'hi' : 'en';
+      window.setLanguage(newLang);
+      langBtn.textContent = newLang === 'en' ? 'हिन्दी' : 'English';
     });
   }
 

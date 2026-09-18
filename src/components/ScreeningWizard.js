@@ -106,12 +106,12 @@ export function renderScreeningWizard(container, onCompleteScreening, onOpenRepo
           <!-- Quick Preset Demo Buttons -->
           <div style="display:flex; align-items:center; gap:0.4rem; flex-wrap:wrap;">
             <span style="font-size:0.75rem; font-weight:700; color:var(--slate-500);" data-i18n="wiz.s1.presets">${window.t('wiz.s1.presets')}</span>
-            <button class="btn btn-secondary btn-sm preset-btn" data-stage="0" data-ungradable="false">Level 0</button>
-            <button class="btn btn-secondary btn-sm preset-btn" data-stage="1" data-ungradable="false">Level 1</button>
-            <button class="btn btn-secondary btn-sm preset-btn" data-stage="2" data-ungradable="false" style="border-color:var(--primary-500); background:var(--primary-50); color:var(--primary-800); font-weight:700;">Level 2</button>
-            <button class="btn btn-secondary btn-sm preset-btn" data-stage="3" data-ungradable="false">Level 3</button>
-            <button class="btn btn-secondary btn-sm preset-btn" data-stage="4" data-ungradable="false">Level 4</button>
-            <button class="btn btn-secondary btn-sm preset-btn" data-stage="2" data-ungradable="true" style="color:#b91c1c;">Ungradable</button>
+            <button class="btn btn-secondary btn-sm preset-btn" data-stage="0" data-ungradable="false" data-i18n="wiz.s1.level0">${window.t('wiz.s1.level0') || 'Level 0'}</button>
+            <button class="btn btn-secondary btn-sm preset-btn" data-stage="1" data-ungradable="false" data-i18n="wiz.s1.level1">${window.t('wiz.s1.level1') || 'Level 1'}</button>
+            <button class="btn btn-secondary btn-sm preset-btn" data-stage="2" data-ungradable="false" style="border-color:var(--primary-500); background:var(--primary-50); color:var(--primary-800); font-weight:700;" data-i18n="wiz.s1.level2">${window.t('wiz.s1.level2') || 'Level 2'}</button>
+            <button class="btn btn-secondary btn-sm preset-btn" data-stage="3" data-ungradable="false" data-i18n="wiz.s1.level3">${window.t('wiz.s1.level3') || 'Level 3'}</button>
+            <button class="btn btn-secondary btn-sm preset-btn" data-stage="4" data-ungradable="false" data-i18n="wiz.s1.level4">${window.t('wiz.s1.level4') || 'Level 4'}</button>
+            <button class="btn btn-secondary btn-sm preset-btn" data-stage="2" data-ungradable="true" style="color:#b91c1c;" data-i18n="wiz.s1.ungradableBtn">${window.t('wiz.s1.ungradableBtn') || 'Ungradable'}</button>
           </div>
         </div>
 
@@ -135,9 +135,9 @@ export function renderScreeningWizard(container, onCompleteScreening, onOpenRepo
             <label class="form-label" data-i18n="wiz.s1.pgender">${window.t('wiz.s1.pgender')}</label>
             <select id="p-gender" class="form-select">
               <option value="" disabled ${!patientData.gender ? 'selected' : ''}>${window.t('wiz.s1.selectGender')}</option>
-              <option value="Female" ${patientData.gender === 'Female' ? 'selected' : ''}>Female</option>
-              <option value="Male" ${patientData.gender === 'Male' ? 'selected' : ''}>Male</option>
-              <option value="Other" ${patientData.gender === 'Other' ? 'selected' : ''}>Other</option>
+              <option value="Female" ${patientData.gender === 'Female' ? 'selected' : ''} data-i18n="wiz.s1.female">${window.t('wiz.s1.female') || 'Female'}</option>
+              <option value="Male" ${patientData.gender === 'Male' ? 'selected' : ''} data-i18n="wiz.s1.male">${window.t('wiz.s1.male') || 'Male'}</option>
+              <option value="Other" ${patientData.gender === 'Other' ? 'selected' : ''} data-i18n="wiz.s1.other">${window.t('wiz.s1.other') || 'Other'}</option>
             </select>
           </div>
 
@@ -157,10 +157,10 @@ export function renderScreeningWizard(container, onCompleteScreening, onOpenRepo
             <label class="form-label" data-i18n="wiz.s1.pstatus">${window.t('wiz.s1.pstatus')}</label>
             <select id="p-status" class="form-select">
               <option value="" disabled ${!patientData.diabetesStatus ? 'selected' : ''}>${window.t('wiz.s1.selectStatus')}</option>
-              <option value="Type 2 Diabetes" ${patientData.diabetesStatus === 'Type 2 Diabetes' ? 'selected' : ''}>Type 2 Diabetes</option>
-              <option value="Type 1 Diabetes" ${patientData.diabetesStatus === 'Type 1 Diabetes' ? 'selected' : ''}>Type 1 Diabetes</option>
-              <option value="Gestational Diabetes" ${patientData.diabetesStatus === 'Gestational Diabetes' ? 'selected' : ''}>Gestational Diabetes</option>
-              <option value="Pre-diabetic" ${patientData.diabetesStatus === 'Pre-diabetic' ? 'selected' : ''}>Pre-diabetic</option>
+              <option value="Type 2 Diabetes" ${patientData.diabetesStatus === 'Type 2 Diabetes' ? 'selected' : ''} data-i18n="wiz.s1.type2">${window.t('wiz.s1.type2') || 'Type 2 Diabetes'}</option>
+              <option value="Type 1 Diabetes" ${patientData.diabetesStatus === 'Type 1 Diabetes' ? 'selected' : ''} data-i18n="wiz.s1.type1">${window.t('wiz.s1.type1') || 'Type 1 Diabetes'}</option>
+              <option value="Gestational Diabetes" ${patientData.diabetesStatus === 'Gestational Diabetes' ? 'selected' : ''} data-i18n="wiz.s1.gestational">${window.t('wiz.s1.gestational') || 'Gestational Diabetes'}</option>
+              <option value="Pre-diabetic" ${patientData.diabetesStatus === 'Pre-diabetic' ? 'selected' : ''} data-i18n="wiz.s1.prediabetic">${window.t('wiz.s1.prediabetic') || 'Pre-diabetic'}</option>
             </select>
           </div>
 
@@ -203,7 +203,7 @@ export function renderScreeningWizard(container, onCompleteScreening, onOpenRepo
       const id = target.querySelector('#p-id').value;
       const name = target.querySelector('#p-name').value;
       if (!id || !name) {
-        alert("Please enter at least the Patient ID and Name before proceeding.");
+        alert(window.t('wiz.s1.reqAlert') || "Please enter at least the Patient ID and Name before proceeding.");
         return;
       }
       
@@ -288,7 +288,7 @@ export function renderScreeningWizard(container, onCompleteScreening, onOpenRepo
               <div id="eye-tracking-overlay" style="display:none; position:absolute; border:2px dashed #10b981; border-radius:4px; box-shadow:0 0 15px rgba(16,185,129,0.5); pointer-events:none; z-index:10; box-sizing:border-box;"></div>
               <div id="auto-capture-toast" style="display:none; position:absolute; top:50%; left:50%; transform:translate(-50%, -50%); background:rgba(16,185,129,0.9); color:white; padding:0.5rem 1rem; border-radius:2rem; font-weight:700; font-size:0.875rem; z-index:20; white-space:nowrap;">
                 <i data-lucide="scan-eye" style="width:16px;height:16px; display:inline-block; vertical-align:middle; margin-right:4px;"></i>
-                Eye Detected - Capturing...
+                <span data-i18n="wiz.s2.capturing">${window.t('wiz.s2.capturing') || 'Eye Detected - Capturing...'}</span>
               </div>
               ${isUngradableCase ? `
                 <div style="position:absolute; top:10px; left:10px; background:rgba(239,68,68,0.9); color:white; font-size:0.75rem; font-weight:700; padding:0.25rem 0.6rem; border-radius:var(--radius-full);">
