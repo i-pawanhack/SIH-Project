@@ -9,7 +9,7 @@ const translations = {
     "login.title2": "SCREENING",
     "login.subtitle": "Earlier Insights • Healthier Visions",
     
-    "login.info1.title": "AI ANALYSIS",
+    "login.info1.title": "NETRA KALYAN",
     "login.info1.desc": "Retinal image processing",
     "login.info2.title": "EARLY DETECTION",
     "login.info2.desc": "Identify diabetic changes",

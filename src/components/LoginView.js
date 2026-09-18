@@ -1,145 +1,79 @@
 export function renderLoginView(container, onLoginSuccess) {
   container.innerHTML = `
     <style>
+      #view-login {
+        transform: none !important;
+        animation: none !important;
+      }
       /* Premium Healthcare Color Palette */
       :root {
-        --deep-navy: #082B49;
-        --med-teal: #00A99D;
-        --bright-cyan: #24C6D8;
-        --soft-mint: #DDF8F4;
+        --deep-navy: var(--primary-800, #115e59);
+        --med-teal: var(--primary-600, #0d9488);
+        --bright-cyan: var(--primary-400, #2dd4bf);
+        --soft-mint: var(--primary-50, #f0fdfa);
         --pure-white: #FFFFFF;
-        --light-blue: #F2FAFC;
-        --text-gray: #475569;
-        --border-gray: #E2E8F0;
+        --light-blue: var(--slate-50, #f8fafc);
+        --text-gray: var(--slate-600, #475569);
+        --border-gray: var(--slate-200, #e2e8f0);
       }
 
-      .lang-wrapper {
-        position: absolute;
-        top: 24px;
-        right: 24px;
-        z-index: 100;
-        display: flex;
-        align-items: center;
-        background: var(--pure-white);
-        border: 1px solid var(--border-gray);
-        border-radius: 8px;
-        padding: 4px 12px;
-        box-shadow: 0 4px 12px rgba(8, 43, 73, 0.05);
-        gap: 6px;
-        transition: all 0.2s ease;
-      }
-      .lang-wrapper:hover {
-        border-color: var(--med-teal);
-        box-shadow: 0 4px 12px rgba(0, 169, 157, 0.1);
-      }
-      .lang-selector {
-        border: none;
-        background: transparent;
-        font-family: 'Inter', sans-serif;
-        font-size: 13px;
-        font-weight: 600;
-        color: var(--deep-navy);
-        cursor: pointer;
-        outline: none;
-        padding: 4px 0;
-      }
+      * { box-sizing: border-box; }
 
-      /* Animations */
-      @keyframes float {
-        0%, 100% { transform: translateY(0px); }
-        50% { transform: translateY(-10px); }
-      }
-      @keyframes pulse-glow {
-        0%, 100% { box-shadow: 0 0 15px rgba(36, 198, 216, 0.2); }
-        50% { box-shadow: 0 0 25px rgba(36, 198, 216, 0.6); }
-      }
-      @keyframes scan-line {
-        0% { top: 0; opacity: 0; }
-        10% { opacity: 1; }
-        90% { opacity: 1; }
-        100% { top: 100%; opacity: 0; }
-      }
-      @keyframes spin-slow {
-        100% { transform: rotate(360deg); }
-      }
-
-      .glass-card {
-        background: rgba(255, 255, 255, 0.7);
-        backdrop-filter: blur(12px);
-        -webkit-backdrop-filter: blur(12px);
-        border: 1px solid rgba(255, 255, 255, 0.5);
-        box-shadow: 0 8px 32px rgba(8, 43, 73, 0.05);
-      }
-
-      /* Global Layout */
       .login-wrapper {
         position: fixed;
-        top: 0;
-        left: 0;
-        width: 100%;
-        height: 100vh;
+        inset: 0;
         display: flex;
-        z-index: 50;
+        flex-direction: column;
         font-family: 'Inter', sans-serif;
         background-color: var(--light-blue);
         overflow: hidden;
       }
 
-      /* Background Pattern */
-      .bg-pattern {
-        position: absolute;
-        inset: 0;
-        background-image: 
-          linear-gradient(rgba(0, 169, 157, 0.03) 1px, transparent 1px),
-          linear-gradient(90deg, rgba(0, 169, 157, 0.03) 1px, transparent 1px);
-        background-size: 30px 30px;
-        z-index: -2;
+      /* Animations */
+      @keyframes fadeInUp {
+        from { opacity: 0; transform: translateY(20px); }
+        to { opacity: 1; transform: translateY(0); }
+      }
+      .fade-in-up {
+        opacity: 0;
+        animation: fadeInUp 0.6s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+      }
+      @keyframes scaleIn {
+        from { opacity: 0; transform: scale(0.97); }
+        to { opacity: 1; transform: scale(1); }
+      }
+      .fade-in-scale {
+        opacity: 0;
+        animation: scaleIn 0.5s ease-out forwards;
+      }
+      @keyframes subtleFloat {
+        0%, 100% { transform: translateY(0); }
+        50% { transform: translateY(-8px); }
+      }
+      .floating-img {
+        animation: subtleFloat 6s ease-in-out infinite;
+      }
+      @keyframes spin {
+        from { transform: rotate(0deg); }
+        to { transform: rotate(360deg); }
       }
 
-      /* Wave SVG */
-      .bottom-wave {
-        position: absolute;
-        bottom: 0;
-        left: 0;
-        width: 100%;
-        height: 25vh;
-        z-index: 0;
-        pointer-events: none;
-      }
-
-      /* Left Section */
-      .left-section {
-        width: 58%;
-        height: 100%;
-        position: relative;
-        display: flex;
-        flex-direction: column;
-        padding: 40px 60px;
-        z-index: 1;
-      }
-
-      /* Right Section */
-      .right-section {
-        width: 42%;
-        height: 100%;
+      /* Top Header */
+      .top-header {
+        height: 72px;
+        background: var(--pure-white);
+        padding: 0 32px;
         display: flex;
         align-items: center;
-        justify-content: center;
-        position: relative;
-        z-index: 2;
-        background: radial-gradient(circle at top right, rgba(255,255,255,0.8), rgba(255,255,255,0.1));
+        justify-content: space-between;
+        box-shadow: 0 2px 10px rgba(8, 43, 73, 0.05);
+        z-index: 100;
+        flex-shrink: 0;
       }
-
-      /* Branding */
-      .brand-header {
+      .header-brand {
         display: flex;
-        flex-direction: column;
+        align-items: center;
         gap: 16px;
-      }
-      .logo-group {
-        display: flex;
-        align-items: center;
-        gap: 12px;
       }
       .logo-icon {
         width: 40px;
@@ -150,533 +84,545 @@ export function renderLoginView(container, onLoginSuccess) {
         align-items: center;
         justify-content: center;
         color: white;
-        box-shadow: 0 4px 12px rgba(0, 169, 157, 0.3);
+        box-shadow: 0 4px 12px rgba(0, 169, 157, 0.2);
       }
-      .brand-title {
+      .header-titles {
+        display: flex;
+        flex-direction: column;
+      }
+      .header-title-main {
         font-family: 'Outfit', sans-serif;
-        font-size: 28px;
+        font-size: 24px;
         font-weight: 800;
         color: var(--deep-navy);
         line-height: 1.1;
-        letter-spacing: -0.5px;
       }
-      .brand-title span {
+      .header-title-main span:last-child {
         color: var(--med-teal);
       }
-      .brand-subtitle {
-        font-size: 15px;
+      .header-subtitle {
+        font-size: 12px;
         color: var(--text-gray);
         font-weight: 500;
-        letter-spacing: 1px;
-        text-transform: uppercase;
+      }
+      .header-right {
+        display: flex;
+        align-items: center;
+        gap: 24px;
       }
       .badge {
-        display: inline-flex;
+        display: flex;
         align-items: center;
         gap: 6px;
         background: var(--soft-mint);
         color: var(--deep-navy);
-        padding: 4px 12px;
+        padding: 6px 14px;
         border-radius: 20px;
-        font-size: 12px;
+        font-size: 13px;
         font-weight: 700;
-        width: fit-content;
         border: 1px solid rgba(0, 169, 157, 0.2);
       }
+      .lang-wrapper {
+        display: flex;
+        align-items: center;
+        gap: 6px;
+      }
+      .lang-selector {
+        border: none;
+        background: transparent;
+        font-family: 'Inter', sans-serif;
+        font-size: 14px;
+        font-weight: 600;
+        color: var(--text-gray);
+        cursor: pointer;
+        outline: none;
+      }
 
-      /* Hero Visual Area */
-      .hero-visual {
+      /* Main Content */
+      .main-content {
+        flex: 1;
+        display: flex;
+        height: calc(100vh - 120px);
+      }
+
+      /* Left Section */
+      .left-section {
+        flex: 0 0 58%;
+        position: relative;
+        background: linear-gradient(135deg, var(--deep-navy), var(--primary-700, #0f766e));
+        display: flex;
+        flex-direction: column;
+        overflow: hidden;
+      }
+      
+      .hero-content {
         flex: 1;
         display: flex;
         align-items: center;
-        justify-content: center;
-        position: relative;
-        margin-top: 20px;
+        padding: 0 40px;
+        gap: 40px;
+        padding-bottom: 120px; /* space for wave */
       }
-      .eye-container {
-        position: relative;
-        width: 420px;
-        height: 420px;
+      .hero-image-wrapper {
+        flex-shrink: 0;
+        width: 45vmin;
+        height: 45vmin;
+        max-width: 480px;
+        max-height: 480px;
         border-radius: 50%;
-        display: flex;
-        align-items: center;
-        justify-content: center;
-        animation: pulse-glow 4s infinite;
-        background: white;
+        margin-left: -15%;
+        box-shadow: 0 20px 50px rgba(0,0,0,0.4);
+        border: 6px solid rgba(255,255,255,0.05);
+        overflow: hidden;
+        background: #000;
       }
-      
-      .eye-image {
-        width: 360px;
-        height: 360px;
-        border-radius: 50%;
-        object-fit: cover;
-        z-index: 2;
-        box-shadow: inset 0 0 40px rgba(0,0,0,0.5);
-      }
-      
-      .scanning-ring {
-        position: absolute;
-        width: 460px;
-        height: 460px;
-        border-radius: 50%;
-        border: 2px dashed rgba(36, 198, 216, 0.4);
-        animation: spin-slow 20s linear infinite;
-        z-index: 1;
-      }
-      
-      .scanning-ring-2 {
-        position: absolute;
-        width: 500px;
-        height: 500px;
-        border-radius: 50%;
-        border: 1px solid rgba(0, 169, 157, 0.2);
-        animation: spin-slow 35s linear infinite reverse;
-        z-index: 1;
-      }
-
-      .scan-overlay {
-        position: absolute;
-        top: 0;
-        left: 0;
+      .hero-image-wrapper img {
         width: 100%;
-        height: 2px;
-        background: var(--bright-cyan);
-        box-shadow: 0 0 10px var(--bright-cyan);
-        animation: scan-line 3s ease-in-out infinite;
-        z-index: 3;
-        border-radius: 50%;
+        height: 100%;
+        object-fit: cover;
+        opacity: 0.9;
+        transform: scale(1.35);
       }
-
-      /* Floating Info Cards */
-      .info-card {
-        position: absolute;
-        padding: 12px 16px;
-        border-radius: 12px;
-        display: flex;
-        align-items: center;
-        gap: 12px;
-        width: 220px;
-        animation: float 6s ease-in-out infinite;
-        z-index: 10;
+      .hero-text {
+        flex: 1;
+        color: white;
       }
-      .info-card.top-left { top: 10%; left: 0; animation-delay: 0s; }
-      .info-card.top-right { top: 25%; right: -20px; animation-delay: 1.5s; }
-      .info-card.bottom-left { bottom: 25%; left: -20px; animation-delay: 3s; }
-      .info-card.bottom-right { bottom: 10%; right: 0; animation-delay: 4.5s; }
-
-      .info-icon {
-        width: 32px;
-        height: 32px;
-        border-radius: 8px;
-        background: var(--soft-mint);
-        color: var(--med-teal);
-        display: flex;
-        align-items: center;
-        justify-content: center;
-      }
-      .info-text h4 {
-        font-size: 12px;
+      .hero-text h1 {
+        font-family: 'Outfit', sans-serif;
+        font-size: 46px;
         font-weight: 700;
-        color: var(--deep-navy);
-        margin: 0 0 2px 0;
+        line-height: 1.2;
+        margin: 0 0 16px 0;
+        color: var(--soft-mint);
       }
-      .info-text p {
-        font-size: 11px;
-        color: var(--text-gray);
+      .hero-text p {
+        font-size: 18px;
+        line-height: 1.5;
+        color: rgba(255,255,255,0.85);
         margin: 0;
       }
 
-      /* Footer Text */
-      .bottom-text {
+      /* Features & Wave */
+      .features-container {
         position: absolute;
-        bottom: 30px;
-        width: calc(100% - 120px);
-        display: flex;
-        justify-content: space-between;
-        align-items: center;
+        bottom: 0;
+        left: 0;
+        width: 100%;
+        background: var(--pure-white);
+        padding: 24px 40px 40px 40px;
         z-index: 10;
       }
-      .bottom-text-left {
-        font-size: 13px;
-        font-weight: 700;
-        color: var(--deep-navy);
-        letter-spacing: 2px;
-        display: flex;
-        gap: 16px;
-      }
-      .bottom-text-left span {
-        color: var(--med-teal);
-      }
-      .bottom-text-right {
-        font-size: 14px;
-        font-weight: 600;
-        color: var(--deep-navy);
-      }
-
-      /* Login Card */
-      .login-card {
+      .features-wave {
+        position: absolute;
+        bottom: 100%;
+        left: 0;
         width: 100%;
-        max-width: 440px;
-        background: var(--pure-white);
-        border-radius: 24px;
-        padding: 48px;
-        box-shadow: 0 20px 40px rgba(8, 43, 73, 0.08), 0 0 0 1px rgba(0, 169, 157, 0.1);
+        height: 80px;
+        fill: var(--pure-white);
+        pointer-events: none;
+      }
+      .features-grid {
+        display: grid;
+        grid-template-columns: repeat(4, 1fr);
+        gap: 20px;
+        max-width: 800px;
+        margin: 0 auto;
+      }
+      .feature-item {
         display: flex;
         flex-direction: column;
-        gap: 32px;
-        position: relative;
-      }
-      
-      .login-card-header {
+        align-items: center;
         text-align: center;
       }
-      .login-card-header .hospital-icon {
+      .feature-icon {
         width: 48px;
         height: 48px;
+        border-radius: 50%;
         background: var(--soft-mint);
         color: var(--med-teal);
-        border-radius: 12px;
-        display: inline-flex;
+        display: flex;
         align-items: center;
         justify-content: center;
-        margin-bottom: 16px;
+        margin-bottom: 12px;
+        transition: transform 0.3s ease;
       }
-      .login-card-header h2 {
+      .feature-item:hover .feature-icon {
+        transform: scale(1.1);
+      }
+      .feature-item h4 {
+        font-size: 14px;
+        font-weight: 700;
+        color: var(--deep-navy);
+        margin: 0 0 4px 0;
+      }
+      .feature-item p {
+        font-size: 12px;
+        color: var(--text-gray);
+        line-height: 1.4;
+        margin: 0;
+      }
+
+      /* Right Section (Login) */
+      .right-section {
+        flex: 1;
+        background: var(--light-blue);
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        padding: 32px;
+        position: relative;
+      }
+      .login-card {
+        width: 100%;
+        max-width: 420px;
+        background: var(--pure-white);
+        border-radius: 16px;
+        padding: 48px 40px;
+        box-shadow: 0 12px 32px rgba(8, 43, 73, 0.08);
+      }
+      .login-card h2 {
         font-family: 'Outfit', sans-serif;
         font-size: 28px;
         font-weight: 700;
         color: var(--deep-navy);
         margin: 0 0 8px 0;
       }
-      .login-card-header p {
-        font-size: 15px;
+      .login-prompt {
+        font-size: 14px;
         color: var(--text-gray);
-        margin: 0;
+        margin: 0 0 32px 0;
       }
 
-      .form-group {
-        display: flex;
-        flex-direction: column;
-        gap: 8px;
-      }
-      .form-group label {
-        font-size: 14px;
-        font-weight: 600;
-        color: var(--deep-navy);
-      }
       .input-wrapper {
         position: relative;
-        display: flex;
-        align-items: center;
-      }
-      .input-wrapper i.leading-icon {
-        position: absolute;
-        left: 16px;
-        color: var(--med-teal);
+        margin-bottom: 20px;
       }
       .input-wrapper input {
         width: 100%;
-        padding: 14px 16px 14px 48px;
+        padding: 14px 14px 14px 44px;
         border: 1.5px solid var(--border-gray);
-        border-radius: 12px;
+        border-radius: 8px;
         font-size: 15px;
         color: var(--deep-navy);
-        transition: all 0.2s ease;
-        outline: none;
+        transition: all 0.2s;
         background: #FAFAFA;
       }
       .input-wrapper input:focus {
         border-color: var(--med-teal);
         background: var(--pure-white);
         box-shadow: 0 0 0 4px rgba(0, 169, 157, 0.1);
+        outline: none;
       }
       .input-wrapper input::placeholder {
         color: #94A3B8;
       }
+      .leading-icon {
+        position: absolute;
+        left: 14px;
+        top: 50%;
+        transform: translateY(-50%);
+        color: #94A3B8;
+        transition: color 0.2s;
+        pointer-events: none;
+      }
+      .input-wrapper input:focus + .leading-icon,
+      .input-wrapper input:focus ~ .leading-icon {
+        color: var(--med-teal);
+      }
       
-      .form-options {
+      .trailing-icon-btn {
+        position: absolute;
+        right: 14px;
+        top: 50%;
+        transform: translateY(-50%);
+        background: none;
+        border: none;
+        color: #94A3B8;
+        cursor: pointer;
+        padding: 4px;
+        display: flex;
+        transition: color 0.2s;
+      }
+      .trailing-icon-btn:hover {
+        color: var(--deep-navy);
+      }
+
+      .error-msg {
+        color: #ef4444;
+        font-size: 13px;
+        font-weight: 500;
+        margin-bottom: 16px;
+        display: none;
+        background: #fef2f2;
+        padding: 10px;
+        border-radius: 6px;
+        border: 1px solid #fecaca;
+      }
+
+      .submit-btn {
+        width: 100%;
+        padding: 14px;
+        background: var(--med-teal);
+        color: white;
+        border: none;
+        border-radius: 8px;
+        font-size: 16px;
+        font-weight: 600;
+        cursor: pointer;
+        transition: all 0.2s;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        gap: 8px;
+      }
+      .submit-btn:hover:not(:disabled) {
+        background: #00968b;
+        transform: translateY(-1px);
+        box-shadow: 0 6px 16px rgba(0, 169, 157, 0.25);
+      }
+      .submit-btn:disabled {
+        opacity: 0.7;
+        cursor: not-allowed;
+      }
+
+      .card-links {
         display: flex;
         justify-content: space-between;
         align-items: center;
-      }
-      .checkbox-group {
-        display: flex;
-        align-items: center;
-        gap: 8px;
-      }
-      .checkbox-group input {
-        width: 16px;
-        height: 16px;
-        accent-color: var(--med-teal);
-        cursor: pointer;
-      }
-      .checkbox-group label {
+        margin-top: 24px;
         font-size: 14px;
-        color: var(--text-gray);
-        cursor: pointer;
       }
       .forgot-link {
-        font-size: 14px;
+        color: var(--text-gray);
+        text-decoration: none;
+        font-weight: 500;
+        transition: color 0.2s;
+      }
+      .forgot-link:hover {
+        color: var(--med-teal);
+      }
+      .register-text {
+        color: var(--text-gray);
+      }
+      .register-text a {
         color: var(--med-teal);
         font-weight: 600;
         text-decoration: none;
       }
-      
-      .submit-btn {
-        width: 100%;
-        padding: 16px;
-        background: linear-gradient(135deg, var(--med-teal), var(--bright-cyan));
-        color: white;
-        border: none;
-        border-radius: 12px;
-        font-size: 16px;
-        font-weight: 700;
-        cursor: pointer;
-        display: flex;
-        justify-content: center;
-        align-items: center;
-        gap: 8px;
-        transition: all 0.3s ease;
-        box-shadow: 0 8px 20px rgba(0, 169, 157, 0.3);
-      }
-      .submit-btn:hover {
-        transform: translateY(-2px);
-        box-shadow: 0 12px 24px rgba(0, 169, 157, 0.4);
-      }
-      
-      .auth-note {
-        text-align: center;
-        font-size: 13px;
-        color: var(--text-gray);
-        display: flex;
-        align-items: center;
-        justify-content: center;
-        gap: 6px;
+      .register-text a:hover {
+        text-decoration: underline;
       }
 
-      /* Security Footer */
-      .security-footer {
-        margin-top: 8px;
-        padding-top: 24px;
-        border-top: 1px solid var(--border-gray);
-        display: flex;
-        flex-direction: column;
-        align-items: center;
-        gap: 12px;
-        text-align: center;
+      .card-divider {
+        height: 1px;
+        background: var(--border-gray);
+        margin: 32px 0;
       }
-      .security-title {
-        font-size: 13px;
+
+      .help-section {
+        display: flex;
+        align-items: center;
+        gap: 16px;
+      }
+      .help-icon {
+        color: var(--deep-navy);
+      }
+      .help-title {
         font-weight: 700;
         color: var(--deep-navy);
-        display: flex;
-        align-items: center;
-        gap: 6px;
-      }
-      .security-desc {
-        font-size: 12px;
-        color: var(--text-gray);
-        line-height: 1.5;
-        max-width: 300px;
-      }
-      .security-icons {
-        display: flex;
-        gap: 16px;
-        margin-top: 4px;
-      }
-      .security-icons div {
-        display: flex;
-        flex-direction: column;
-        align-items: center;
-        gap: 4px;
-        font-size: 10px;
-        font-weight: 600;
-        color: var(--text-gray);
-      }
-      .security-icons i {
-        color: var(--med-teal);
-        width: 16px;
-        height: 16px;
-      }
-      
-      .error-msg {
-        color: #ef4444;
         font-size: 14px;
-        font-weight: 500;
-        text-align: center;
-        display: none;
-        background: #fef2f2;
-        padding: 10px;
-        border-radius: 8px;
-        border: 1px solid #fecaca;
+        margin-bottom: 2px;
+      }
+      .help-desc {
+        font-size: 13px;
+        color: var(--text-gray);
+      }
+
+      /* Footer */
+      .bottom-footer {
+        height: 48px;
+        background: var(--deep-navy);
+        color: rgba(255, 255, 255, 0.8);
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        padding: 0 32px;
+        font-size: 13px;
+        flex-shrink: 0;
+        z-index: 100;
+      }
+      .footer-right {
+        display: flex;
+        gap: 24px;
+      }
+      .footer-right span {
+        cursor: pointer;
+        transition: color 0.2s;
+      }
+      .footer-right span:hover {
+        color: var(--pure-white);
+      }
+
+      /* Responsive */
+      @media (max-width: 1024px) {
+        .left-section { flex: 0 0 50%; }
+        .hero-text h1 { font-size: 36px; }
+        .features-grid { gap: 12px; }
+      }
+      @media (max-width: 768px) {
+        .login-wrapper { overflow: auto; display: block; }
+        .top-header { position: sticky; top: 0; padding: 0 16px; }
+        .badge { display: none; }
+        .main-content { flex-direction: column; height: auto; }
+        .left-section { flex: none; width: 100%; height: auto; padding-top: 40px; }
+        .hero-content { padding: 0 24px 32px 24px; flex-direction: column; text-align: center; }
+        .hero-image-wrapper { margin-left: 0; width: 240px; height: 240px; margin-bottom: 32px; }
+        .features-container { position: relative; padding: 32px 24px; }
+        .features-wave { display: none; }
+        .features-grid { grid-template-columns: repeat(2, 1fr); gap: 24px; }
+        .right-section { padding: 40px 24px; }
+        .login-card { padding: 32px 24px; }
+        .bottom-footer { flex-direction: column; gap: 12px; height: auto; padding: 24px; text-align: center; }
       }
     </style>
 
     <div class="login-wrapper">
-      <div class="lang-wrapper">
-        <i data-lucide="globe" style="width:14px;height:14px;color:var(--text-gray);"></i>
-        <select class="lang-selector" id="login-lang-select">
-          <option value="en" ${window.getLanguage() === 'en' ? 'selected' : ''}>English</option>
-          <option value="hi" ${window.getLanguage() === 'hi' ? 'selected' : ''}>हिन्दी</option>
-        </select>
-      </div>
-      <div class="bg-pattern"></div>
       
-      <!-- Flowing Wave Background -->
-      <svg class="bottom-wave" viewBox="0 0 1440 320" preserveAspectRatio="none">
-        <path fill="rgba(0, 169, 157, 0.05)" fill-opacity="1" d="M0,256L48,229.3C96,203,192,149,288,154.7C384,160,480,224,576,218.7C672,213,768,139,864,128C960,117,1056,171,1152,197.3C1248,224,1344,224,1392,224L1440,224L1440,320L1392,320C1344,320,1248,320,1152,320C1056,320,960,320,864,320C768,320,672,320,576,320C480,320,384,320,288,320C192,320,96,320,48,320L0,320Z"></path>
-        <path fill="rgba(36, 198, 216, 0.08)" fill-opacity="1" d="M0,128L48,154.7C96,181,192,235,288,240C384,245,480,203,576,170.7C672,139,768,117,864,122.7C960,128,1056,160,1152,165.3C1248,171,1344,149,1392,138.7L1440,128L1440,320L1392,320C1344,320,1248,320,1152,320C1056,320,960,320,864,320C768,320,672,320,576,320C480,320,384,320,288,320C192,320,96,320,48,320L0,320Z"></path>
-      </svg>
-
-      <!-- LEFT SECTION (58%) -->
-      <div class="left-section">
-        
-        <div class="brand-header">
-          <div class="logo-group">
-            <div class="logo-icon">
-              <i data-lucide="eye" style="width: 24px; height: 24px;"></i>
+      <!-- HEADER -->
+      <header class="top-header">
+        <div class="header-brand">
+          <div class="logo-icon"><i data-lucide="eye" style="width:22px;height:22px"></i></div>
+          <div class="header-titles">
+            <div class="header-title-main">
+              <span data-i18n="login.title1">${window.t('login.title1')}</span> 
+              <span data-i18n="login.title2">${window.t('login.title2')}</span>
             </div>
-            <div class="badge">
-              <i data-lucide="sparkles" style="width: 12px; height: 12px;"></i>
-              <span data-i18n="login.badge">${window.t('login.badge')}</span>
-            </div>
-          </div>
-          <h1 class="brand-title">
-            <span data-i18n="login.title1">${window.t('login.title1')}</span><br>
-            <span data-i18n="login.title2">${window.t('login.title2')}</span>
-          </h1>
-          <div class="brand-subtitle" data-i18n="login.subtitle">
-            ${window.t('login.subtitle')}
+            <div class="header-subtitle" data-i18n="login.subtitle">${window.t('login.subtitle')}</div>
           </div>
         </div>
+        <div class="header-right">
+          <div class="badge">
+            <i data-lucide="sparkles" style="width:14px;height:14px"></i>
+            <span data-i18n="login.badge">${window.t('login.badge')}</span>
+          </div>
+          <div class="lang-wrapper">
+            <i data-lucide="globe" style="width:16px;height:16px;color:var(--text-gray);"></i>
+            <select class="lang-selector" id="login-lang-select">
+              <option value="en" ${window.getLanguage() === 'en' ? 'selected' : ''}>English</option>
+              <option value="hi" ${window.getLanguage() === 'hi' ? 'selected' : ''}>हिन्दी</option>
+            </select>
+          </div>
+        </div>
+      </header>
 
-        <div class="hero-visual">
-          
-          <!-- Glass Cards -->
-          <div class="info-card glass-card top-left">
-            <div class="info-icon"><i data-lucide="cpu" style="width: 18px; height: 18px;"></i></div>
-            <div class="info-text">
-              <h4 data-i18n="login.info1.title">${window.t('login.info1.title')}</h4>
+      <!-- MAIN -->
+      <main class="main-content">
+        
+        <!-- LEFT SECTION -->
+        <div class="left-section">
+          <div class="hero-content">
+            <div class="hero-image-wrapper floating-img">
+              <img src="src/teal_glowing_eye.jpg" alt="AI Glowing Eye" onerror="this.src='assets/retinal_hud.jpg'">
+            </div>
+            <div class="hero-text fade-in-up">
+              <h1 data-i18n="login.info1.title">${window.t('login.info1.title')}</h1>
               <p data-i18n="login.info1.desc">${window.t('login.info1.desc')}</p>
             </div>
           </div>
 
-          <div class="info-card glass-card top-right">
-            <div class="info-icon"><i data-lucide="search" style="width: 18px; height: 18px;"></i></div>
-            <div class="info-text">
-              <h4 data-i18n="login.info2.title">${window.t('login.info2.title')}</h4>
-              <p data-i18n="login.info2.desc">${window.t('login.info2.desc')}</p>
-            </div>
-          </div>
+          <div class="features-container">
+            <svg class="features-wave" viewBox="0 0 1440 120" preserveAspectRatio="none">
+              <path d="M0,120 C480,0 960,120 1440,40 L1440,120 L0,120 Z"></path>
+            </svg>
+            <div class="features-grid">
+              
+              <div class="feature-item fade-in-up" style="animation-delay: 0.1s">
+                <div class="feature-icon"><i data-lucide="eye" style="width:24px;height:24px"></i></div>
+                <h4 data-i18n="login.info1.title">${window.t('login.info1.title')}</h4>
+                <p data-i18n="login.info1.desc">${window.t('login.info1.desc')}</p>
+              </div>
+              
+              <div class="feature-item fade-in-up" style="animation-delay: 0.2s">
+                <div class="feature-icon"><i data-lucide="user-plus" style="width:24px;height:24px"></i></div>
+                <h4 data-i18n="login.info2.title">${window.t('login.info2.title')}</h4>
+                <p data-i18n="login.info2.desc">${window.t('login.info2.desc')}</p>
+              </div>
+              
+              <div class="feature-item fade-in-up" style="animation-delay: 0.3s">
+                <div class="feature-icon"><i data-lucide="shield-check" style="width:24px;height:24px"></i></div>
+                <h4 data-i18n="login.info3.title">${window.t('login.info3.title')}</h4>
+                <p data-i18n="login.info3.desc">${window.t('login.info3.desc')}</p>
+              </div>
+              
+              <div class="feature-item fade-in-up" style="animation-delay: 0.4s">
+                <div class="feature-icon"><i data-lucide="users" style="width:24px;height:24px"></i></div>
+                <h4 data-i18n="login.info4.title">${window.t('login.info4.title')}</h4>
+                <p data-i18n="login.info4.desc">${window.t('login.info4.desc')}</p>
+              </div>
 
-          <div class="info-card glass-card bottom-left">
-            <div class="info-icon"><i data-lucide="activity" style="width: 18px; height: 18px;"></i></div>
-            <div class="info-text">
-              <h4 data-i18n="login.info3.title">${window.t('login.info3.title')}</h4>
-              <p data-i18n="login.info3.desc">${window.t('login.info3.desc')}</p>
             </div>
-          </div>
-
-          <div class="info-card glass-card bottom-right">
-            <div class="info-icon"><i data-lucide="shield-check" style="width: 18px; height: 18px;"></i></div>
-            <div class="info-text">
-              <h4 data-i18n="login.info4.title">${window.t('login.info4.title')}</h4>
-              <p data-i18n="login.info4.desc">${window.t('login.info4.desc')}</p>
-            </div>
-          </div>
-
-          <!-- Main Eye/AI Visual -->
-          <div class="eye-container">
-            <div class="scanning-ring"></div>
-            <div class="scanning-ring-2"></div>
-            <img src="src/Loginpagephoto.jpeg" alt="Retina Fundus" class="eye-image" onerror="this.src='assets/retinal_hud.jpg'">
-            <div class="scan-overlay"></div>
           </div>
         </div>
 
-        <div class="bottom-text">
-          <div class="bottom-text-left" data-i18n="login.footer.left">
-            ${window.t('login.footer.left')}
-          </div>
-          <div class="bottom-text-right" data-i18n="login.footer.right">
-            ${window.t('login.footer.right')}
-          </div>
-        </div>
-      </div>
-
-      <!-- RIGHT SECTION (42%) -->
-      <div class="right-section">
-        <div class="login-card">
-          
-          <div class="login-card-header">
-            <div class="hospital-icon">
-              <i data-lucide="building-2" style="width: 24px; height: 24px;"></i>
-            </div>
+        <!-- RIGHT SECTION -->
+        <div class="right-section">
+          <div class="login-card fade-in-scale">
+            
             <h2 data-i18n="login.welcome">${window.t('login.welcome')}</h2>
-            <p data-i18n="login.prompt">${window.t('login.prompt')}</p>
-          </div>
-
-          <form id="login-form" style="display: flex; flex-direction: column; gap: 24px;">
-            <div class="form-group">
-              <label for="phc-id" data-i18n="login.phcId">${window.t('login.phcId')}</label>
+            <p class="login-prompt" data-i18n="login.prompt">${window.t('login.prompt')}</p>
+            
+            <form id="login-form">
               <div class="input-wrapper">
-                <i data-lucide="building" class="leading-icon" style="width: 18px; height: 18px;"></i>
+                <i data-lucide="building" class="leading-icon" style="width:18px;height:18px"></i>
                 <input type="text" id="phc-id" data-i18n="login.phcIdPlaceholder" placeholder="${window.t('login.phcIdPlaceholder')}" required autocomplete="username">
               </div>
-            </div>
-
-            <div class="form-group">
-              <label for="password" data-i18n="login.password">${window.t('login.password')}</label>
+              
               <div class="input-wrapper">
-                <i data-lucide="lock" class="leading-icon" style="width: 18px; height: 18px;"></i>
+                <i data-lucide="lock" class="leading-icon" style="width:18px;height:18px"></i>
                 <input type="password" id="password" data-i18n="login.passwordPlaceholder" placeholder="${window.t('login.passwordPlaceholder')}" required autocomplete="current-password">
+                <button type="button" class="trailing-icon-btn" id="toggle-password" aria-label="Toggle password visibility">
+                  <i data-lucide="eye" style="width:18px;height:18px"></i>
+                </button>
               </div>
-            </div>
 
-            <div class="form-options">
-              <div class="checkbox-group">
-                <input type="checkbox" id="remember-me">
-                <label for="remember-me" data-i18n="login.rememberMe">${window.t('login.rememberMe')}</label>
+              <div id="login-error" class="error-msg"></div>
+
+              <button type="submit" class="submit-btn" id="login-submit-btn">
+                <span data-i18n="login.signIn">${window.t('login.signIn')}</span>
+              </button>
+              
+              <div class="card-links">
+                <a href="#" class="forgot-link" data-i18n="login.forgotPassword">${window.t('login.forgotPassword')}</a>
+                <span class="register-text">New User? <a href="#">Register</a></span>
               </div>
-              <a href="#" class="forgot-link" data-i18n="login.forgotPassword">${window.t('login.forgotPassword')}</a>
-            </div>
+            </form>
 
-            <div id="login-error" class="error-msg"></div>
-
-            <button type="submit" class="submit-btn">
-              <span data-i18n="login.signIn">${window.t('login.signIn')}</span> <i data-lucide="arrow-right" style="width: 18px; height: 18px;"></i>
-            </button>
+            <div class="card-divider"></div>
             
-            <div class="auth-note">
-              <i data-lucide="shield" style="width: 14px; height: 14px;"></i> <span data-i18n="login.authNote">${window.t('login.authNote')}</span>
-            </div>
-          </form>
-
-          <div class="security-footer">
-            <div class="security-title">
-              <i data-lucide="lock-keyhole" style="width: 14px; height: 14px;"></i> <span data-i18n="login.security.title">${window.t('login.security.title')}</span>
-            </div>
-            <div class="security-desc" data-i18n="login.security.desc">
-              ${window.t('login.security.desc')}
-            </div>
-            <div class="security-icons">
+            <div class="help-section">
+              <div class="help-icon"><i data-lucide="headset" style="width:28px;height:28px"></i></div>
               <div>
-                <i data-lucide="shield-check"></i>
-                <span data-i18n="login.security.feature1">${window.t('login.security.feature1')}</span>
-              </div>
-              <div>
-                <i data-lucide="file-key-2"></i>
-                <span data-i18n="login.security.feature2">${window.t('login.security.feature2')}</span>
-              </div>
-              <div>
-                <i data-lucide="user-check"></i>
-                <span data-i18n="login.security.feature3">${window.t('login.security.feature3')}</span>
+                <div class="help-title" data-i18n="login.security.title">${window.t('login.security.title')}</div>
+                <div class="help-desc" data-i18n="login.security.desc">${window.t('login.security.desc')}</div>
               </div>
             </div>
+            
           </div>
-
         </div>
-      </div>
+
+      </main>
+
+      <!-- FOOTER -->
+      <footer class="bottom-footer">
+        <div data-i18n="login.footer.left">${window.t('login.footer.left')}</div>
+        <div class="footer-right">
+          <span>Terms &amp; Conditions</span>
+          <span>Privacy Policy</span>
+          <span>Accessibility</span>
+          <span>Contact Us</span>
+        </div>
+      </footer>
+      
     </div>
   `;
 
@@ -691,26 +637,53 @@ export function renderLoginView(container, onLoginSuccess) {
     });
   }
 
+  const toggleBtn = document.getElementById('toggle-password');
+  const passwordInput = document.getElementById('password');
+
+  if (toggleBtn && passwordInput) {
+    toggleBtn.addEventListener('click', () => {
+      if (passwordInput.type === 'password') {
+        passwordInput.type = 'text';
+        toggleBtn.innerHTML = '<i data-lucide="eye-off" style="width:18px;height:18px"></i>';
+      } else {
+        passwordInput.type = 'password';
+        toggleBtn.innerHTML = '<i data-lucide="eye" style="width:18px;height:18px"></i>';
+      }
+      if (window.lucide) window.lucide.createIcons();
+    });
+  }
+
   const form = document.getElementById('login-form');
   const phcIdInput = document.getElementById('phc-id');
-  const passwordInput = document.getElementById('password');
   const errorDiv = document.getElementById('login-error');
+  const submitBtn = document.getElementById('login-submit-btn');
 
   form.addEventListener('submit', (e) => {
     e.preventDefault();
     errorDiv.style.display = 'none';
     
+    // Loading state
+    const originalBtnText = submitBtn.innerHTML;
+    submitBtn.innerHTML = '<i data-lucide="loader-2" class="spin" style="width:18px;height:18px;animation: spin 1s linear infinite;"></i>';
+    submitBtn.disabled = true;
+    if (window.lucide) window.lucide.createIcons();
+    
     const phcId = phcIdInput.value.trim();
     const password = passwordInput.value;
 
     import('../services/storageService.js').then(({ StorageService }) => {
-      const result = StorageService.verifyLogin(phcId, password);
-      if (result.success) {
-        onLoginSuccess();
-      } else {
-        errorDiv.textContent = result.message;
-        errorDiv.style.display = 'block';
-      }
+      // Simulate slight network delay for better UX
+      setTimeout(() => {
+        const result = StorageService.verifyLogin(phcId, password);
+        if (result.success) {
+          onLoginSuccess();
+        } else {
+          errorDiv.textContent = result.message;
+          errorDiv.style.display = 'block';
+          submitBtn.innerHTML = originalBtnText;
+          submitBtn.disabled = false;
+        }
+      }, 500);
     });
   });
 }
