@@ -155,6 +155,30 @@ export function renderLoginView(container, onLoginSuccess) {
         flex-direction: column;
         overflow: hidden;
       }
+      .left-section::before {
+        content: "";
+        position: absolute;
+        top: 40px;
+        right: 40px;
+        width: 120px;
+        height: 120px;
+        background-image: radial-gradient(rgba(255, 255, 255, 0.15) 2px, transparent 2px);
+        background-size: 16px 16px;
+        pointer-events: none;
+        z-index: 1;
+      }
+      .left-section::after {
+        content: "";
+        position: absolute;
+        top: 50%;
+        left: 20%;
+        width: 800px;
+        height: 800px;
+        background: radial-gradient(circle, rgba(45,212,191,0.15) 0%, transparent 60%);
+        transform: translate(-50%, -50%);
+        pointer-events: none;
+        z-index: 0;
+      }
       
       .hero-content {
         flex: 1;
@@ -164,18 +188,58 @@ export function renderLoginView(container, onLoginSuccess) {
         gap: 40px;
         padding-bottom: 120px; /* space for wave */
       }
-      .hero-image-wrapper {
+      .hud-wrapper {
+        position: relative;
         flex-shrink: 0;
         width: 45vmin;
         height: 45vmin;
         max-width: 480px;
         max-height: 480px;
-        border-radius: 50%;
         margin-left: -15%;
-        box-shadow: 0 20px 50px rgba(0,0,0,0.4);
-        border: 6px solid rgba(255,255,255,0.05);
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        z-index: 2;
+      }
+      .hud-wrapper::before {
+        content: "";
+        position: absolute;
+        top: -8%; left: -8%; right: -8%; bottom: -8%;
+        border-radius: 50%;
+        border: 4px solid rgba(45,212,191,0.8);
+        border-right-color: transparent;
+        border-left-color: transparent;
+        box-shadow: 0 0 15px rgba(45,212,191,0.5), inset 0 0 15px rgba(45,212,191,0.5);
+        animation: spin 15s linear infinite;
+        pointer-events: none;
+      }
+      .hud-wrapper::after {
+        content: "";
+        position: absolute;
+        top: -15%; left: -15%; right: -15%; bottom: -15%;
+        border-radius: 50%;
+        border: 2px dashed rgba(45,212,191,0.4);
+        animation: spin 25s linear infinite reverse;
+        pointer-events: none;
+      }
+      .hero-image-wrapper {
+        width: 100%;
+        height: 100%;
+        border-radius: 50%;
+        box-shadow: 0 20px 50px rgba(0,0,0,0.5);
+        border: 6px solid var(--bright-cyan);
         overflow: hidden;
         background: #000;
+        position: relative;
+        z-index: 2;
+      }
+      .hero-image-wrapper::after {
+        content: "";
+        position: absolute;
+        inset: 0;
+        border-radius: 50%;
+        box-shadow: inset 0 0 30px rgba(45,212,191,0.8);
+        pointer-events: none;
       }
       .hero-image-wrapper img {
         width: 100%;
@@ -227,8 +291,7 @@ export function renderLoginView(container, onLoginSuccess) {
         bottom: 100%;
         left: 0;
         width: 100%;
-        height: 80px;
-        fill: var(--pure-white);
+        height: 150px;
         pointer-events: none;
       }
       .features-grid {
@@ -473,6 +536,95 @@ export function renderLoginView(container, onLoginSuccess) {
         color: var(--pure-white);
       }
 
+      /* Accessibility Modal */
+      .access-modal-overlay {
+        position: fixed;
+        inset: 0;
+        background: rgba(15, 23, 42, 0.7);
+        display: none;
+        align-items: center;
+        justify-content: center;
+        z-index: 1000;
+        backdrop-filter: blur(4px);
+        opacity: 0;
+        transition: opacity 0.3s;
+      }
+      .access-modal-overlay.active {
+        display: flex;
+        opacity: 1;
+      }
+      .access-modal-content {
+        background: white;
+        width: 90%;
+        max-width: 640px;
+        max-height: 85vh;
+        border-radius: 16px;
+        box-shadow: 0 20px 40px rgba(0,0,0,0.2);
+        display: flex;
+        flex-direction: column;
+        overflow: hidden;
+        transform: translateY(20px);
+        transition: transform 0.3s;
+      }
+      .access-modal-overlay.active .access-modal-content {
+        transform: translateY(0);
+      }
+      .access-modal-header {
+        padding: 24px;
+        border-bottom: 1px solid var(--border-gray);
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        background: var(--pure-white);
+      }
+      .access-modal-header h3 {
+        margin: 0;
+        color: var(--deep-navy);
+        font-size: 20px;
+        font-family: 'Outfit', sans-serif;
+        display: flex;
+        align-items: center;
+        gap: 8px;
+      }
+      .access-modal-close {
+        background: none;
+        border: none;
+        cursor: pointer;
+        color: var(--text-gray);
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        padding: 4px;
+        border-radius: 6px;
+      }
+      .access-modal-close:hover {
+        background: var(--light-blue);
+        color: #ef4444;
+      }
+      .access-modal-body {
+        padding: 24px;
+        overflow-y: auto;
+        color: var(--text-gray);
+        font-size: 14.5px;
+        line-height: 1.6;
+      }
+      .access-modal-body h4 {
+        color: var(--med-teal);
+        font-size: 16px;
+        margin: 24px 0 8px 0;
+        font-weight: 700;
+      }
+      .access-modal-body h4:first-child {
+        margin-top: 0;
+      }
+      .access-modal-body ul {
+        padding-left: 20px;
+        margin-bottom: 16px;
+      }
+      .access-modal-body li {
+        margin-bottom: 6px;
+      }
+
       /* Responsive */
       @media (max-width: 1024px) {
         .left-section { flex: 0 0 50%; }
@@ -486,7 +638,8 @@ export function renderLoginView(container, onLoginSuccess) {
         .main-content { flex-direction: column; height: auto; }
         .left-section { flex: none; width: 100%; height: auto; padding-top: 40px; }
         .hero-content { padding: 0 24px 32px 24px; flex-direction: column; text-align: center; }
-        .hero-image-wrapper { margin-left: 0; width: 240px; height: 240px; margin-bottom: 32px; }
+        .hero-image-wrapper { margin-left: 0; width: 100%; height: 100%; }
+        .hud-wrapper { margin-left: 0; width: 240px; height: 240px; margin-bottom: 32px; }
         .features-container { position: relative; padding: 32px 24px; }
         .features-wave { display: none; }
         .features-grid { grid-template-columns: repeat(2, 1fr); gap: 24px; }
@@ -529,8 +682,10 @@ export function renderLoginView(container, onLoginSuccess) {
         <!-- LEFT SECTION -->
         <div class="left-section">
           <div class="hero-content">
-            <div class="hero-image-wrapper floating-img">
-              <img src="src/teal_glowing_eye.jpg" alt="AI Glowing Eye" onerror="this.src='assets/retinal_hud.jpg'">
+            <div class="hud-wrapper floating-img">
+              <div class="hero-image-wrapper">
+                <img src="src/teal_glowing_eye.jpg" alt="AI Glowing Eye" onerror="this.src='assets/retinal_hud.jpg'">
+              </div>
             </div>
             <div class="hero-text fade-in-up">
               <h1 id="hero-typing-title"></h1>
@@ -539,8 +694,10 @@ export function renderLoginView(container, onLoginSuccess) {
           </div>
 
           <div class="features-container">
-            <svg class="features-wave" viewBox="0 0 1440 120" preserveAspectRatio="none">
-              <path d="M0,120 C480,0 960,120 1440,40 L1440,120 L0,120 Z"></path>
+            <svg class="features-wave" viewBox="0 0 1440 250" preserveAspectRatio="none">
+              <path fill="rgba(255,255,255,0.15)" d="M0,160L48,144C96,128,192,96,288,106.7C384,117,480,171,576,165.3C672,160,768,96,864,74.7C960,53,1056,75,1152,90.7C1248,107,1344,117,1392,122.7L1440,128L1440,250L1392,250C1344,250,1248,250,1152,250C1056,250,960,250,864,250C768,250,672,250,576,250C480,250,384,250,288,250C192,250,96,250,48,250L0,250Z"></path>
+              <path fill="rgba(255,255,255,0.3)" d="M0,224L48,197.3C96,171,192,117,288,112C384,107,480,149,576,165.3C672,181,768,171,864,149.3C960,128,1056,96,1152,96C1248,96,1344,128,1392,144L1440,160L1440,250L1392,250C1344,250,1248,250,1152,250C1056,250,960,250,864,250C768,250,672,250,576,250C480,250,384,250,288,250C192,250,96,250,48,250L0,250Z"></path>
+              <path fill="var(--pure-white)" d="M0,128L48,144C96,160,192,192,288,192C384,192,480,160,576,133.3C672,107,768,85,864,96C960,107,1056,149,1152,160C1248,171,1344,149,1392,138.7L1440,128L1440,250L1392,250C1344,250,1248,250,1152,250C1056,250,960,250,864,250C768,250,672,250,576,250C480,250,384,250,288,250C192,250,96,250,48,250L0,250Z"></path>
             </svg>
             <div class="features-grid">
               
@@ -623,13 +780,357 @@ export function renderLoginView(container, onLoginSuccess) {
       <footer class="bottom-footer">
         <div data-i18n="login.footer.left">${window.t('login.footer.left')}</div>
         <div class="footer-right">
-          <a href="terms.html" target="_blank" data-i18n="login.terms" style="color: inherit; text-decoration: none; cursor: pointer;">${window.t('login.terms')}</a>
-          <a href="privacy.html" target="_blank" data-i18n="login.privacy" style="color: inherit; text-decoration: none; cursor: pointer;">${window.t('login.privacy')}</a>
-          <span data-i18n="login.accessibility">${window.t('login.accessibility')}</span>
-          <span data-i18n="login.contact">${window.t('login.contact')}</span>
+          <span data-i18n="login.terms" id="login-terms-btn" style="cursor: pointer; transition: color 0.2s;" onmouseover="this.style.color='var(--pure-white)'" onmouseout="this.style.color='rgba(255, 255, 255, 0.8)'">${window.t('login.terms')}</span>
+          <span data-i18n="login.privacy" id="login-privacy-btn" style="cursor: pointer; transition: color 0.2s;" onmouseover="this.style.color='var(--pure-white)'" onmouseout="this.style.color='rgba(255, 255, 255, 0.8)'">${window.t('login.privacy')}</span>
+          <span data-i18n="login.accessibility" id="login-accessibility-btn" style="cursor: pointer; transition: color 0.2s;" onmouseover="this.style.color='var(--pure-white)'" onmouseout="this.style.color='rgba(255, 255, 255, 0.8)'">${window.t('login.accessibility')}</span>
+          <span data-i18n="login.contact" id="login-contact-btn" style="cursor: pointer; transition: color 0.2s;" onmouseover="this.style.color='var(--pure-white)'" onmouseout="this.style.color='rgba(255, 255, 255, 0.8)'">${window.t('login.contact')}</span>
         </div>
       </footer>
       
+      <!-- Accessibility Modal -->
+      <div class="access-modal-overlay" id="access-modal">
+        <div class="access-modal-content">
+          <div class="access-modal-header">
+            <h3><i data-lucide="accessibility" style="width:20px;height:20px;"></i> Healthcare AI Designed for Wider Access</h3>
+            <button class="access-modal-close" id="access-modal-close">
+              <i data-lucide="x" style="width:20px;height:20px;"></i>
+            </button>
+          </div>
+          <div class="access-modal-body">
+            <p>Our objective is to make AI-assisted retinal screening understandable and usable in environments where specialist healthcare resources may be limited.</p>
+            
+            <h4>1. Simple User Interface</h4>
+            <p>The platform should provide:</p>
+            <ul>
+              <li>Clear navigation.</li>
+              <li>Simple terminology.</li>
+              <li>Large readable result areas.</li>
+              <li>Structured screening information.</li>
+              <li>Clear action recommendations.</li>
+            </ul>
+
+            <h4>2. Healthcare Worker Friendly</h4>
+            <p>The system is designed so that users do not need to understand the underlying AI mathematics to understand the screening workflow. The interface can clearly communicate: <br><strong>Image Quality &rarr; DR Result &rarr; Evidence &rarr; Confidence &rarr; Triage</strong></p>
+
+            <h4>3. Clear Triage States</h4>
+            <p>Important system states should be visually and textually identifiable: <strong>AUTO_SCREEN, HUMAN_REVIEW, RECAPTURE_REQUIRED</strong>. Critical information should not depend only on colour.</p>
+
+            <h4>4. Explainable AI</h4>
+            <p>Instead of presenting only an AI-generated class, the platform provides supporting computational evidence such as lesion locations, feature contributions, and retinal structure information.</p>
+
+            <h4>5. Rural Healthcare Context</h4>
+            <p>The architecture is designed with resource-constrained environments in mind, including:</p>
+            <ul>
+              <li>Limited specialist availability.</li>
+              <li>Variable image quality.</li>
+              <li>Intermittent connectivity.</li>
+              <li>Local screening workflows.</li>
+              <li>Telemedicine-assisted review.</li>
+              <li>Offline-first deployment considerations.</li>
+            </ul>
+
+            <h4>6. Image Quality Feedback</h4>
+            <p>Instead of simply rejecting a poor image, the system can communicate that the image needs to be recaptured. This helps users understand the next action required.</p>
+
+            <h4>7. Accessibility Improvements</h4>
+            <p>Future deployments may further support:</p>
+            <ul>
+              <li>Regional-language interfaces.</li>
+              <li>Voice guidance.</li>
+              <li>Larger text modes.</li>
+              <li>Screen-reader compatibility.</li>
+              <li>Keyboard navigation.</li>
+              <li>Low-bandwidth operation.</li>
+            </ul>
+            <p style="font-size: 12px; font-style: italic; opacity: 0.8; margin-top: 24px;">Note: Only features actually implemented in a deployment should be represented as currently available.</p>
+          </div>
+        </div>
+      </div>
+
+      <!-- Terms Modal -->
+      <div class="access-modal-overlay" id="terms-modal">
+        <div class="access-modal-content">
+          <div class="access-modal-header">
+            <h3><i data-lucide="file-text" style="width:20px;height:20px;"></i> Terms and Conditions</h3>
+            <button class="access-modal-close" id="terms-modal-close">
+              <i data-lucide="x" style="width:20px;height:20px;"></i>
+            </button>
+          </div>
+          <div class="access-modal-body">
+            
+            <h4>1. About the Platform</h4>
+            <p>This platform is an AI-assisted Diabetic Retinopathy (DR) screening and triage research prototype developed under SIH26038 – Explainable AI for Diabetic Retinopathy Screening in Rural India.</p>
+            <p>The platform uses retinal image processing, computer vision, machine learning, explainable AI, uncertainty estimation, and automated reporting to assist healthcare screening workflows.</p>
+            
+            <h4>2. Intended Purpose</h4>
+            <p>The platform is intended to:</p>
+            <ul>
+              <li>Assess retinal/fundus image quality.</li>
+              <li>Enhance retinal images for computational analysis.</li>
+              <li>Analyse retinal structures.</li>
+              <li>Detect potential retinal lesions.</li>
+              <li>Estimate DR severity from Grade 0 to Grade 4.</li>
+              <li>Provide explainable evidence associated with an AI prediction.</li>
+              <li>Provide confidence and uncertainty information.</li>
+              <li>Generate a structured screening report.</li>
+              <li>Support screening triage and referral workflows.</li>
+            </ul>
+
+            <h4>3. Medical Disclaimer</h4>
+            <p>The platform does not provide a final medical diagnosis.</p>
+            <p>AI-generated results are intended only as decision-support information and must not replace examination, diagnosis, or treatment decisions made by a qualified ophthalmologist or other appropriate healthcare professional.</p>
+
+            <h4>4. Image Quality Assessment</h4>
+            <p>Every submitted image may undergo an image-quality assessment before DR analysis.</p>
+            <p>If an image is considered insufficient or ungradable, the platform may return:<br><strong>RECAPTURE_REQUIRED</strong></p>
+            <p>In such cases, the system should not be interpreted as having diagnosed the patient.</p>
+
+            <h4>5. AI Screening & Triage</h4>
+            <p>The platform may assign a workflow status such as:</p>
+            <ul>
+              <li><strong>AUTO_SCREEN</strong> — suitable for automated screening workflow under the configured system criteria.</li>
+              <li><strong>HUMAN_REVIEW</strong> — requires review by an appropriately qualified healthcare professional.</li>
+              <li><strong>RECAPTURE_REQUIRED</strong> — image quality is insufficient for reliable analysis.</li>
+            </ul>
+            <p>These statuses represent system workflow decisions, not independent medical diagnoses.</p>
+
+            <h4>6. DR Severity</h4>
+            <p>The system is designed to work with five DR severity categories:</p>
+            <ul>
+              <li>Grade 0 — No DR</li>
+              <li>Grade 1 — Mild DR</li>
+              <li>Grade 2 — Moderate DR</li>
+              <li>Grade 3 — Severe DR</li>
+              <li>Grade 4 — Proliferative DR</li>
+            </ul>
+            <p>The predicted grade should always be interpreted together with the system's confidence, uncertainty, image quality, and explainability information.</p>
+
+            <h4>7. Explainability</h4>
+            <p>The platform may provide:</p>
+            <ul>
+              <li>Feature contribution information.</li>
+              <li>Lesion-grounded evidence.</li>
+              <li>Retinal structure information.</li>
+              <li>Optic-disc/fovea annotations.</li>
+              <li>Evidence visualizations.</li>
+            </ul>
+            <p>These visualizations explain aspects of the model's computational reasoning; they do not constitute clinical proof of disease.</p>
+
+            <h4>8. Uncertainty & Human Review</h4>
+            <p>The platform incorporates confidence, prediction margin, novelty/uncertainty indicators, and image-quality information.</p>
+            <p>Cases exceeding configured review criteria may be routed to:<br><strong>HUMAN_REVIEW</strong></p>
+            <p>A human reviewer should make the final clinical assessment.</p>
+
+            <h4>9. User Responsibilities</h4>
+            <p>Users are responsible for:</p>
+            <ul>
+              <li>Providing appropriate retinal images.</li>
+              <li>Using compatible imaging equipment.</li>
+              <li>Ensuring images correspond to the correct screening case.</li>
+              <li>Following image recapture instructions.</li>
+              <li>Protecting patient information.</li>
+              <li>Referring appropriate cases to qualified healthcare professionals.</li>
+            </ul>
+
+            <h4>10. No Guarantee of Clinical Accuracy</h4>
+            <p>System performance can vary depending on:</p>
+            <ul>
+              <li>Image quality.</li>
+              <li>Camera/device characteristics.</li>
+              <li>Patient population.</li>
+              <li>Disease distribution.</li>
+              <li>Imaging conditions.</li>
+              <li>Dataset/domain differences.</li>
+            </ul>
+            <p>The current prototype has not undergone external clinical validation and should not be treated as clinically validated software.</p>
+
+            <h4>11. Research Prototype</h4>
+            <p>This software has been developed for research, demonstration, and SIH purposes.</p>
+            <p>It has not been approved or cleared by clinical regulatory authorities such as CDSCO, US FDA, or CE-Mark.</p>
+
+            <h4>12. Emergency Situations</h4>
+            <p>This platform is not intended for emergency medical decision-making.</p>
+            <p>For urgent vision-related symptoms or medical emergencies, users should seek appropriate professional medical care.</p>
+
+            <h4>13. Changes to the Platform</h4>
+            <p>Features, algorithms, datasets, thresholds, interfaces, and workflows may be modified as part of future research and development.</p>
+
+            <h4>14. Acceptance</h4>
+            <p>By using this platform, users acknowledge that they understand its research and decision-support purpose and agree to use its outputs responsibly.</p>
+          </div>
+        </div>
+      </div>
+
+      <!-- Privacy Policy Modal -->
+      <div class="access-modal-overlay" id="privacy-modal">
+        <div class="access-modal-content">
+          <div class="access-modal-header">
+            <h3><i data-lucide="shield" style="width:20px;height:20px;"></i> Privacy Policy</h3>
+            <button class="access-modal-close" id="privacy-modal-close">
+              <i data-lucide="x" style="width:20px;height:20px;"></i>
+            </button>
+          </div>
+          <div class="access-modal-body">
+
+            <h4>1. Purpose</h4>
+            <p>This Privacy Policy explains how information may be handled when using the AI-assisted retinal screening platform.</p>
+
+            <h4>2. Information That May Be Processed</h4>
+            <p>Depending on deployment configuration, the system may process:</p>
+            <ul>
+              <li>Fundus/retinal images.</li>
+              <li>Patient or case identifiers.</li>
+              <li>Screening metadata.</li>
+              <li>Image-quality results.</li>
+              <li>DR prediction.</li>
+              <li>Lesion findings.</li>
+              <li>Retinal structure information.</li>
+              <li>Confidence scores.</li>
+              <li>Uncertainty indicators.</li>
+              <li>Explainability information.</li>
+              <li>Triage/referral status.</li>
+              <li>Generated screening reports.</li>
+            </ul>
+
+            <h4>3. Retinal Images Are Sensitive Information</h4>
+            <p>Retinal images can contain sensitive healthcare information and should be handled accordingly.</p>
+            <p>Users and deployment administrators should ensure that images are collected, transmitted, stored, and accessed according to applicable institutional policies and laws.</p>
+
+            <h4>4. Data Minimization</h4>
+            <p>Only information necessary for the intended screening workflow should be collected.</p>
+            <p>Avoid unnecessarily collecting:</p>
+            <ul>
+              <li>Personal identifiers.</li>
+              <li>Contact information.</li>
+              <li>Government identification numbers.</li>
+              <li>Unrelated medical information.</li>
+            </ul>
+
+            <h4>5. Use of Data</h4>
+            <p>Information processed by the platform may be used for:</p>
+            <ul>
+              <li>Retinal image analysis.</li>
+              <li>DR screening.</li>
+              <li>Lesion analysis.</li>
+              <li>Explainable prediction.</li>
+              <li>Uncertainty assessment.</li>
+              <li>Screening report generation.</li>
+              <li>Human-review workflows.</li>
+              <li>System testing and research, where appropriately authorized.</li>
+            </ul>
+
+            <h4>6. Data Storage</h4>
+            <p>Storage depends on the specific deployment configuration.</p>
+            <p>The platform documentation should not be interpreted as guaranteeing permanent storage, automatic deletion, or zero-storage processing unless that behaviour is actually implemented in the deployed system.</p>
+
+            <h4>7. Data Security</h4>
+            <p>Deployment administrators should implement appropriate safeguards, including:</p>
+            <ul>
+              <li>Authentication.</li>
+              <li>Role-based access.</li>
+              <li>Secure communication.</li>
+              <li>Controlled database access.</li>
+              <li>Secure image storage.</li>
+              <li>Access logging where applicable.</li>
+              <li>Protection against unauthorized downloads.</li>
+            </ul>
+
+            <h4>8. Patient Identification</h4>
+            <p>Patient-identifiable information should not be unnecessarily displayed in:</p>
+            <ul>
+              <li>Public URLs.</li>
+              <li>Screenshots.</li>
+              <li>Logs.</li>
+              <li>Demonstration videos.</li>
+              <li>Public repositories.</li>
+              <li>Publicly shared reports.</li>
+            </ul>
+
+            <h4>9. Third-Party Services</h4>
+            <p>If the deployed version uses external cloud services, APIs, storage providers, or healthcare systems, their respective privacy policies and data-processing terms may also apply.</p>
+
+            <h4>10. Research & Dataset Data</h4>
+            <p>Public research datasets used during development may have their own licenses, terms of use, and restrictions. Dataset-specific requirements must be followed separately.</p>
+
+            <h4>11. User Responsibility</h4>
+            <p>Organizations deploying the platform are responsible for determining:</p>
+            <ul>
+              <li>What patient information is collected.</li>
+              <li>Where it is stored.</li>
+              <li>Who can access it.</li>
+              <li>How long it is retained.</li>
+              <li>When it is deleted.</li>
+              <li>Which healthcare/privacy regulations apply to their deployment.</li>
+            </ul>
+
+            <h4>12. Privacy by Design</h4>
+            <p>The platform is intended to support a workflow where sensitive patient information is minimized and access is restricted to authorized users.</p>
+          </div>
+        </div>
+      </div>
+
+      <!-- Contact Modal -->
+      <div class="access-modal-overlay" id="contact-modal">
+        <div class="access-modal-content">
+          <div class="access-modal-header">
+            <h3><i data-lucide="mail" style="width:20px;height:20px;"></i> Contact Us</h3>
+            <button class="access-modal-close" id="contact-modal-close">
+              <i data-lucide="x" style="width:20px;height:20px;"></i>
+            </button>
+          </div>
+          <div class="access-modal-body">
+            <p><strong>Contact Team Synapse</strong></p>
+            <p>Explainable AI for Diabetic Retinopathy Screening in Rural India</p>
+            <p><strong>TEAM SYNAPSE</strong><br>SIH 2026 | SIH26038</p>
+            <p>We welcome technical discussions, academic collaboration, research discussions, and opportunities related to AI-assisted retinal screening.</p>
+            
+            <h4>Technical Queries</h4>
+            <p>Contact us regarding:</p>
+            <ul>
+              <li>AI/ML pipeline</li>
+              <li>Computer Vision</li>
+              <li>Retinal image processing</li>
+              <li>DR classification</li>
+              <li>Lesion detection</li>
+              <li>Explainable AI</li>
+              <li>Uncertainty estimation</li>
+              <li>Screening reports</li>
+              <li>Simulink scalability</li>
+              <li>Rural deployment architecture</li>
+            </ul>
+
+            <h4>Research & Academic Collaboration</h4>
+            <p>We are open to discussions with:</p>
+            <ul>
+              <li>Ophthalmology researchers</li>
+              <li>Healthcare institutions</li>
+              <li>Academic institutions</li>
+              <li>AI/ML researchers</li>
+              <li>Medical technology teams</li>
+              <li>Rural healthcare initiatives</li>
+            </ul>
+
+            <h4>Project Information</h4>
+            <ul>
+              <li><strong>Problem Statement:</strong> Explainable AI for Diabetic Retinopathy Screening in Rural India</li>
+              <li><strong>Problem Statement ID:</strong> SIH26038</li>
+              <li><strong>Team:</strong> TEAM SYNAPSE</li>
+              <li><strong>Team Lead:</strong> Ayush Bhalla</li>
+              <li><strong>Platform:</strong> AI-Assisted Retinal Screening & Triage Prototype</li>
+            </ul>
+
+            <h4>Contact</h4>
+            <ul>
+              <li><strong>Email:</strong> [official team/project email]</li>
+              <li><strong>GitHub:</strong> [project GitHub link]</li>
+              <li><strong>LinkedIn:</strong> [team/project LinkedIn link]</li>
+            </ul>
+
+            <h4>Medical Queries</h4>
+            <p>For medical diagnosis, treatment, or patient-specific medical advice, please consult a qualified ophthalmologist or appropriate healthcare professional. The platform is not a substitute for professional medical care.</p>
+          </div>
+        </div>
+      </div>
     </div>
   `;
 
@@ -779,4 +1280,34 @@ export function renderLoginView(container, onLoginSuccess) {
       }, 500);
     });
   });
+
+  const setupModal = (btnId, modalId, closeBtnId) => {
+    const btn = document.getElementById(btnId);
+    const modal = document.getElementById(modalId);
+    const closeBtn = document.getElementById(closeBtnId);
+
+    if (btn && modal && closeBtn) {
+      btn.addEventListener('click', () => {
+        modal.style.display = 'flex';
+        setTimeout(() => modal.classList.add('active'), 10);
+      });
+
+      closeBtn.addEventListener('click', () => {
+        modal.classList.remove('active');
+        setTimeout(() => modal.style.display = 'none', 300);
+      });
+
+      modal.addEventListener('click', (e) => {
+        if (e.target === modal) {
+          modal.classList.remove('active');
+          setTimeout(() => modal.style.display = 'none', 300);
+        }
+      });
+    }
+  };
+
+  setupModal('login-accessibility-btn', 'access-modal', 'access-modal-close');
+  setupModal('login-terms-btn', 'terms-modal', 'terms-modal-close');
+  setupModal('login-privacy-btn', 'privacy-modal', 'privacy-modal-close');
+  setupModal('login-contact-btn', 'contact-modal', 'contact-modal-close');
 }
