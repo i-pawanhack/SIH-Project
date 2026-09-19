@@ -18,6 +18,10 @@ import { renderDatasetsView } from './components/DatasetsView.js';
 import { openReportModal } from './components/ReportModal.js';
 import { renderLoginView } from './components/LoginView.js';
 
+if (!window.t) window.t = (key) => key;
+if (!window.getLanguage) window.getLanguage = () => 'en';
+if (!window.setLanguage) window.setLanguage = () => {};
+
 class DrishKalyanApp {
   constructor() {
     this.currentView = 'login';
@@ -36,15 +40,41 @@ class DrishKalyanApp {
     this.navigateTo(this.currentView);
 
     // Setup Window Resize / Lucide Hook
-    window.addEventListener('DOMContentLoaded', () => {
+    if (document.readyState === 'loading') {
+      window.addEventListener('DOMContentLoaded', () => {
+        if (window.lucide) window.lucide.createIcons();
+      });
+    } else {
       if (window.lucide) window.lucide.createIcons();
-    });
+    }
 
-    // Listen for language changes to re-render header and views if needed
+    // Listen for language changes to re-render header and views dynamically
     window.addEventListener('languageChanged', () => {
+      document.documentElement.lang = window.getLanguage();
       this.renderHeader();
-      // If we are on login, we don't re-render login to preserve inputs, translateDOM handles it.
-      // Other views could be handled similarly or re-rendered. For now, translateDOM in i18n handles most static text.
+
+      // If Report Modal is currently open, re-render it in the new language
+      const modalRoot = document.getElementById('modal-root');
+      if (modalRoot && !modalRoot.classList.contains('hidden') && this.activeReportCase) {
+        openReportModal(this.activeReportCase, () => {
+          this.activeReportCase = null;
+        });
+      }
+
+      // Re-render current active view
+      if (this.currentView === 'login') {
+        const loginContainer = document.getElementById('view-login');
+        if (loginContainer) {
+          renderLoginView(loginContainer, () => {
+            this.isAuthenticated = true;
+            this.showToast(window.getLanguage() === 'hi' ? 'प्रमाणीकरण सफल रहा' : 'Authentication Successful');
+            this.navigateTo('dashboard');
+          });
+        }
+      } else if (this.currentView !== 'new-screening') {
+        // new-screening handles its own internal re-render via its own listener to preserve form inputs
+        this.navigateTo(this.currentView, true);
+      }
     });
   }
 
@@ -139,8 +169,9 @@ class DrishKalyanApp {
   }
 
   showReport(screeningCase) {
+    this.activeReportCase = screeningCase;
     openReportModal(screeningCase, () => {
-      // Modal closed callback
+      this.activeReportCase = null;
     });
   }
 

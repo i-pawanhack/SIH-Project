@@ -82,7 +82,7 @@ const translations = {
     "dash.th.action": "Action",
     "dash.quality.acceptable": "Acceptable",
     "dash.quality.ungradable": "Ungradable",
-    "dash.ref.yes": "REFERABLE",
+    "dash.ref.yes": "REFERABLE (Refer to Specialist)",
     "dash.ref.no": "NON-REFERABLE",
     "dash.doc.confirmed": "Doctor Confirmed",
     "dash.doc.pending": "Pending Review",
@@ -114,8 +114,8 @@ const translations = {
     "report.facility": "Facility:",
     "report.patientInfo": "Patient Information",
     "report.patientId": "Patient ID:",
-    "report.name": "Name:",
-    "report.ageSex": "Age / Sex:",
+    "report.name": "Patient Name:",
+    "report.ageSex": "Age / Gender:",
     "report.diabetesStatus": "Diabetes Status:",
     "report.duration": "Duration:",
     "report.imageQuality": "Image Quality:",
@@ -327,12 +327,12 @@ const translations = {
     "wiz.s2.title": "Step 2: Retinal Fundus Image Acquisition",
     "wiz.s2.desc": "Capture image using connected portable fundus camera or upload standard macular-centered fundus photograph (.JPG, .JPEG, .PNG, .TIF, .TIFF).",
     "wiz.s2.patient": "Patient:",
-    "wiz.s2.drag": "Drag & Drop Retinal Image Here",
-    "wiz.s2.supports": "Supports standard 45° macular and optic disc fields",
-    "wiz.s2.browse": "Browse Local Files",
-    "wiz.s2.connect": "Connect USB Fundus Camera",
+    "wiz.s2.drag": "Drag & Drop Retinal Image here",
+    "wiz.s2.supports": "Supports JPEG, PNG, TIFF (Fundus Camera Export)",
+    "wiz.s2.browse": "Browse Files",
+    "wiz.s2.connect": "Simulate Live Camera",
     "wiz.s2.capture": "Capture Photo (Manual)",
-    "wiz.s2.preset": "Preset",
+    "wiz.s2.preset": "Reload Preset",
     "wiz.s2.preview": "Fundus Photograph Preview (512x512 RGB Standardized)",
     "wiz.s2.simBlurry": "Simulated Blurry / Artifact Image",
     "wiz.s2.back": "Back",
@@ -419,7 +419,7 @@ const translations = {
     "wiz.s6.printReport": "View & Print Full Report",
     "wiz.s6.sendDoc": "Send to Ophthalmologist Tele-Review",
     "wiz.s6.toastQueued": "Case successfully queued for Tele-Ophthalmology review!",
-    "dr.0.title": "No Apparent DR",
+    "dr.0.title": "No Diabetic Retinopathy",
     "dr.0.shortName": "Level 0 — No DR",
     "dr.0.description": "No microaneurysms, hemorrhages, or retinal lesions observed. Normal fundus appearance.",
     "dr.0.clinicalRecommendation": "Routine annual diabetic eye screening recommended. Maintain glycemic control.",
@@ -500,7 +500,7 @@ const translations = {
     "wiz.s1.gestational": "Gestational Diabetes",
     "wiz.s1.prediabetic": "Pre-diabetic",
     "wiz.s1.reqAlert": "Please enter at least the Patient ID and Name before proceeding.",
-    "wiz.s2.capturing": "Eye Detected - Capturing...",
+    "wiz.s2.capturing": "Eye Detected — Capturing...",
     "hist.noAi": "N/A (Ungradable)",
     "hist.l0": "Level 0",
     "hist.l1": "Level 1",
@@ -556,8 +556,38 @@ const translations = {
     "rural.specs.https": "Store-and-Forward HTTPS",
     "wiz.s1.genderSelect": "Select Gender...",
     "wiz.s1.durationSelect": "Select Duration...",
-    "wiz.s1.statusSelect": "Select Status..."
+    "wiz.s1.statusSelect": "Select Status...",
 
+    "patient.name": "Patient Name",
+    "patient.age": "Age",
+    "patient.gender": "Gender",
+    "patient.id": "Patient ID",
+    "patient.contact": "Contact Number",
+    "patient.address": "Address",
+    "patient.medhistory": "Medical History",
+    "wiz.s1.pcontact": "Contact Number",
+    "wiz.s1.paddress": "Address",
+    "wiz.s1.pmedhistory": "Medical History",
+    "wiz.s1.pidPlaceholder": "Enter Patient ID",
+    "wiz.s1.pnamePlaceholder": "Enter Patient Name",
+    "wiz.s1.pagePlaceholder": "Enter Age",
+    "wiz.s1.pcontactPlaceholder": "Enter Contact Number",
+    "wiz.s1.paddressPlaceholder": "Enter Address",
+    "wiz.s1.pmedhistoryPlaceholder": "Enter Medical History / Past Diagnoses",
+    "wiz.s2.uploadPrompt": "Upload Retinal Image",
+    "dr.noDR": "No Diabetic Retinopathy",
+    "dr.mild": "Mild",
+    "dr.moderate": "Moderate",
+    "dr.severe": "Severe",
+    "dr.proliferative": "Proliferative",
+    "dr.referAction": "Refer to Ophthalmologist",
+    "report.reportId": "Report ID:",
+    "report.date": "Date:",
+    "report.statusPending": "Status: Pending Specialist Review",
+    "report.yrs": "Yrs",
+    "report.contact": "Contact Number:",
+    "report.address": "Address:",
+    "report.medhistory": "Medical History:",
   },
   "hi": {
     "app.title": "दृश कल्याण",
@@ -625,14 +655,14 @@ const translations = {
     "dash.monitoring": "स्तर 0 और 1 निगरानी",
     "dash.recapture": "पुनर्प्राप्ति आवश्यक",
     "dash.teleQueue": "टेली-नेत्र विज्ञान कतार",
-    "dash.searchPlaceholder": "रोगी आईडी / नाम खोजें...",
+    "dash.searchPlaceholder": "मरीज आईडी / नाम खोजें...",
     "dash.allStages": "सभी डीआर चरण",
     "dash.l0": "स्तर 0 — कोई डीआर नहीं",
     "dash.l1": "स्तर 1 — हल्का एनपीडीआर",
     "dash.l2": "स्तर 2 — मध्यम एनपीडीआर",
     "dash.l3": "स्तर 3 — गंभीर एनपीडीआर",
     "dash.l4": "स्तर 4 — प्रोलिफेरेटिव डीआर",
-    "dash.th.patient": "रोगी",
+    "dash.th.patient": "मरीज",
     "dash.th.dateCentre": "तारीख और केंद्र",
     "dash.th.quality": "छवि गुणवत्ता",
     "dash.th.aiGrade": "एआई डीआर ग्रेड",
@@ -642,7 +672,7 @@ const translations = {
     "dash.th.action": "कार्रवाई",
     "dash.quality.acceptable": "स्वीकार्य",
     "dash.quality.ungradable": "अश्रेणीकरण योग्य",
-    "dash.ref.yes": "संदर्भ योग्य",
+    "dash.ref.yes": "संदर्भ योग्य (नेत्र रोग विशेषज्ञ से परामर्श लें)",
     "dash.ref.no": "गैर-संदर्भ योग्य",
     "dash.doc.confirmed": "डॉक्टर द्वारा पुष्ट",
     "dash.doc.pending": "लंबित समीक्षा",
@@ -657,9 +687,9 @@ const translations = {
     "wiz.s1.title": "चरण 1: रोगी पंजीकरण और जनसांख्यिकीय सेटअप",
     "wiz.s1.desc": "रोगी विवरण दर्ज करें या पूर्वनिर्धारित क्लिनिकल प्रोटोटाइप प्रोफ़ाइल लोड करें।",
     "wiz.s1.presets": "प्रोटोटाइप मामला लोड करें:",
-    "wiz.s1.pid": "रोगी आईडी",
-    "wiz.s1.pname": "रोगी का नाम",
-    "wiz.s1.page": "आयु",
+    "wiz.s1.pid": "मरीज आईडी",
+    "wiz.s1.pname": "मरीज का नाम",
+    "wiz.s1.page": "उम्र",
     "wiz.s1.pgender": "लिंग",
     "wiz.s1.selectGender": "लिंग चुनें...",
     "wiz.s1.pduration": "मधुमेह की अवधि",
@@ -673,9 +703,9 @@ const translations = {
     "report.print": "प्रिंट / पीडीएफ सहेजें",
     "report.facility": "सुविधा:",
     "report.patientInfo": "रोगी की जानकारी",
-    "report.patientId": "रोगी आईडी:",
-    "report.name": "नाम:",
-    "report.ageSex": "आयु / लिंग:",
+    "report.patientId": "मरीज आईडी:",
+    "report.name": "मरीज का नाम:",
+    "report.ageSex": "उम्र / लिंग:",
     "report.diabetesStatus": "मधुमेह की स्थिति:",
     "report.duration": "अवधि:",
     "report.imageQuality": "छवि गुणवत्ता:",
@@ -690,7 +720,7 @@ const translations = {
     "report.nonReferable": "गैर-संदर्भ योग्य",
     "report.aiConfidence": "एआई आत्मविश्वास:",
     "report.findings": "पहचाने गए रेटिना निष्कर्ष और साक्ष्य:",
-    "report.findingType": "निष्कर्ष प्रकार",
+    "report.findingType": "खोज प्रकार",
     "report.anatomicalRegion": "शारीरिक क्षेत्र",
     "report.severity": "गंभीरता",
     "report.modelAttribution": "मॉडल एट्रिब्यूशन",
@@ -887,12 +917,12 @@ const translations = {
     "wiz.s2.title": "चरण 2: रेटिनल फंडस छवि अधिग्रहण",
     "wiz.s2.desc": "जुड़े हुए पोर्टेबल फंडस कैमरे का उपयोग करके छवि कैप्चर करें या मानक मैक्यूलर-केंद्रित फंडस तस्वीर (.JPG, .JPEG, .PNG, .TIF, .TIFF) अपलोड करें।",
     "wiz.s2.patient": "रोगी:",
-    "wiz.s2.drag": "रेटिना छवि को यहां खींचें और छोड़ें",
-    "wiz.s2.supports": "मानक 45° मैक्यूलर और ऑप्टिक डिस्क फ़ील्ड का समर्थन करता है",
-    "wiz.s2.browse": "स्थानीय फ़ाइलें ब्राउज़ करें",
-    "wiz.s2.connect": "USB फंडस कैमरा कनेक्ट करें",
+    "wiz.s2.drag": "रेटिनल इमेज यहां खींचें और छोड़ें",
+    "wiz.s2.supports": "जेपीईजी, पीएनजी, टीआईएफएफ समर्थित",
+    "wiz.s2.browse": "फ़ाइलें चुनें",
+    "wiz.s2.connect": "लाइव कैमरा सिमुलेट करें",
     "wiz.s2.capture": "फोटो कैप्चर करें (मैनुअल)",
-    "wiz.s2.preset": "प्रीसेट",
+    "wiz.s2.preset": "प्रीसेट पुनः लोड करें",
     "wiz.s2.preview": "फंडस फोटोग्राफ पूर्वावलोकन (512x512 RGB मानकीकृत)",
     "wiz.s2.simBlurry": "सिम्युलेटेड धुंधला / कलाकृति छवि",
     "wiz.s2.back": "पीछे",
@@ -979,24 +1009,24 @@ const translations = {
     "wiz.s6.printReport": "पूरी रिपोर्ट देखें और प्रिंट करें",
     "wiz.s6.sendDoc": "नेत्र रोग विशेषज्ञ टेली-समीक्षा के लिए भेजें",
     "wiz.s6.toastQueued": "मामला सफलतापूर्वक टेली-ऑप्थल्मोलॉजी समीक्षा के लिए कतारबद्ध!",
-    "dr.0.title": "कोई स्पष्ट डीआर नहीं",
-    "dr.0.shortName": "स्तर 0 — कोई डीआर नहीं",
+    "dr.0.title": "डायबिटिक रेटिनोपैथी के कोई संकेत नहीं",
+    "dr.0.shortName": "स्तर 0 — कोई संकेत नहीं",
     "dr.0.description": "कोई माइक्रोएन्यूरिज्म, रक्तस्राव या रेटिनल घाव नहीं देखे गए। सामान्य फंडस उपस्थिति।",
     "dr.0.clinicalRecommendation": "नियमित वार्षिक मधुमेह नेत्र जांच की सिफारिश की जाती है। ग्लाइसेमिक नियंत्रण बनाए रखें।",
-    "dr.1.title": "हल्का गैर-प्रोलिफेरेटिव डीआर (NPDR)",
-    "dr.1.shortName": "स्तर 1 — हल्का NPDR",
+    "dr.1.title": "हल्का (हल्की गैर-प्रोलिफेरेटिव डायबिटिक रेटिनोपैथी)",
+    "dr.1.shortName": "स्तर 1 — हल्का",
     "dr.1.description": "केवल माइक्रोएन्यूरिज्म। मधुमेह रेटिनोपैथी का सबसे पहला नैदानिक रूप से पता लगाने योग्य चरण।",
     "dr.1.clinicalRecommendation": "6 से 12 महीनों में रेटिनल स्क्रीनिंग दोहराएं। सख्त रक्त शर्करा और रक्तचाप निगरानी की सलाह दें।",
-    "dr.2.title": "मध्यम गैर-प्रोलिफेरेटिव डीआर (NPDR)",
-    "dr.2.shortName": "स्तर 2 — मध्यम NPDR",
+    "dr.2.title": "मध्यम (मध्यम गैर-प्रोलिफेरेटिव डायबिटिक रेटिनोपैथी)",
+    "dr.2.shortName": "स्तर 2 — मध्यम",
     "dr.2.description": "केवल माइक्रोएन्यूरिज्म से अधिक लेकिन गंभीर NPDR से कम। हार्ड एक्सयूडेट्स, कॉटन-वूल स्पॉट, या मामूली धब्बा रक्तस्राव मौजूद हैं।",
     "dr.2.clinicalRecommendation": "व्यापक फैली हुई परीक्षा के लिए 2-4 सप्ताह के भीतर एक नेत्र रोग विशेषज्ञ को रेफरल की सिफारिश की गई।",
-    "dr.3.title": "गंभीर गैर-प्रोलिफेरेटिव डीआर (NPDR)",
-    "dr.3.shortName": "स्तर 3 — गंभीर NPDR",
+    "dr.3.title": "गंभीर (गंभीर गैर-प्रोलिफेरेटिव डायबिटिक रेटिनोपैथी)",
+    "dr.3.shortName": "स्तर 3 — गंभीर",
     "dr.3.description": "4-2-1 नियम को पूरा करता है: 4 चतुर्भुजों में गंभीर इंट्रा-रेटिनल रक्तस्राव, 2+ चतुर्भुजों में शिरापरक बीडिंग, या 1+ चतुर्भुज में IRMA।",
     "dr.3.clinicalRecommendation": "1-2 सप्ताह के भीतर तत्काल नेत्र संबंधी रेफरल। प्रोलिफेरेटिव डीआर में प्रगति का उच्च जोखिम।",
-    "dr.4.title": "प्रोलिफेरेटिव डीआर (PDR)",
-    "dr.4.shortName": "स्तर 4 — प्रोलिफेरेटिव डीआर",
+    "dr.4.title": "प्रोलिफेरेटिव (प्रोलिफेरेटिव डायबिटिक रेटिनोपैथी)",
+    "dr.4.shortName": "स्तर 4 — प्रोलिफेरेटिव",
     "dr.4.description": "ऑप्टिक डिस्क (NVD) या कहीं और (NVE) पर नव संवहनीकरण, और/या प्रेट्रिनल या विट्रियस रक्तस्राव।",
     "dr.4.clinicalRecommendation": "पैनरेटिनल फोटोकोएग्यूलेशन या एंटी-वीईजीएफ थेरेपी पर विचार करने के लिए 24-48 घंटों के भीतर विट्रेओरेटिनल विशेषज्ञ को उच्च-प्राथमिकता वाला तत्काल रेफरल।",
     "ev.type.Normal Retinal Vasculature": "सामान्य रेटिनल वास्कुलचर",
@@ -1059,8 +1089,8 @@ const translations = {
     "wiz.s1.type1": "टाइप 1 मधुमेह",
     "wiz.s1.gestational": "गर्भावधि मधुमेह",
     "wiz.s1.prediabetic": "पूर्व-मधुमेह",
-    "wiz.s1.reqAlert": "कृपया आगे बढ़ने से पहले कम से कम रोगी आईडी और नाम दर्ज करें।",
-    "wiz.s2.capturing": "आंख का पता चला - कैप्चर किया जा रहा है...",
+    "wiz.s1.reqAlert": "कृपया आगे बढ़ने से पहले कम से कम मरीज आईडी और मरीज का नाम दर्ज करें।",
+    "wiz.s2.capturing": "नेत्र संरेखित — कैप्चर हो रहा है...",
     "hist.noAi": "लागू नहीं (अग्रेड योग्य)",
     "hist.l0": "स्तर 0",
     "hist.l1": "स्तर 1",
@@ -1118,12 +1148,43 @@ const translations = {
     "wiz.s1.durationSelect": "अवधि चुनें...",
     "wiz.s1.statusSelect": "स्थिति चुनें..."
 
+    "patient.name": "मरीज का नाम",
+    "patient.age": "उम्र",
+    "patient.gender": "लिंग",
+    "patient.id": "मरीज आईडी",
+    "patient.contact": "संपर्क नंबर",
+    "patient.address": "पता",
+    "patient.medhistory": "चिकित्सीय इतिहास",
+    "wiz.s1.pcontact": "संपर्क नंबर",
+    "wiz.s1.paddress": "पता",
+    "wiz.s1.pmedhistory": "चिकित्सीय इतिहास",
+    "wiz.s1.pidPlaceholder": "मरीज आईडी दर्ज करें",
+    "wiz.s1.pnamePlaceholder": "मरीज का नाम दर्ज करें",
+    "wiz.s1.pagePlaceholder": "उम्र दर्ज करें",
+    "wiz.s1.pcontactPlaceholder": "संपर्क नंबर दर्ज करें",
+    "wiz.s1.paddressPlaceholder": "पता दर्ज करें",
+    "wiz.s1.pmedhistoryPlaceholder": "चिकित्सीय इतिहास दर्ज करें",
+    "wiz.s2.uploadPrompt": "रेटिनल इमेज अपलोड करें",
+    "dr.noDR": "डायबिटिक रेटिनोपैथी के कोई संकेत नहीं",
+    "dr.mild": "हल्का",
+    "dr.moderate": "मध्यम",
+    "dr.severe": "गंभीर",
+    "dr.proliferative": "प्रोलिफेरेटिव",
+    "dr.referAction": "नेत्र रोग विशेषज्ञ से परामर्श लें",
+    "report.reportId": "रिपोर्ट आईडी:",
+    "report.date": "तारीख:",
+    "report.statusPending": "स्थिति: विशेषज्ञ समीक्षा लंबित",
+    "report.yrs": "वर्ष",
+    "report.contact": "संपर्क नंबर:",
+    "report.address": "पता:",
+    "report.medhistory": "चिकित्सीय इतिहास:",
   }
 };
 
 class I18nService {
   constructor() {
     this.currentLanguage = localStorage.getItem('drishkalyan_lang') || 'en';
+    document.documentElement.lang = this.currentLanguage;
   }
 
   getLanguage() {
@@ -1134,6 +1195,7 @@ class I18nService {
     if (this.currentLanguage !== lang && translations[lang]) {
       this.currentLanguage = lang;
       localStorage.setItem('drishkalyan_lang', lang);
+      document.documentElement.lang = lang;
       window.dispatchEvent(new CustomEvent('languageChanged', { detail: { language: lang } }));
       this.translateDOM();
     }
@@ -1146,10 +1208,6 @@ class I18nService {
       if (el.tagName === 'INPUT' || el.tagName === 'TEXTAREA') {
         el.placeholder = translated;
       } else {
-        // Only replace text content if there's no complex inner HTML we want to preserve,
-        // or we can assume data-i18n elements only contain text or simple icons we might lose.
-        // To be safe with icons, let's update text nodes or innerHTML carefully.
-        // Actually, if we use data-i18n, we should put it on span tags that only contain the text.
         el.textContent = translated;
       }
     });
@@ -1157,18 +1215,14 @@ class I18nService {
 
   t(key) {
     let result = translations[this.currentLanguage];
-    
-    // Simple fallback to english if key not found in selected language
-    if (!result[key]) {
-      let enResult = translations['en'][key];
+    if (!result || !result[key]) {
+      let enResult = translations['en'] ? translations['en'][key] : null;
       if (enResult) return enResult;
-      return key; // return key as fallback if not found anywhere
+      return key;
     }
-    
     return result[key];
   }
   
-  // Method to allow dynamic registration of more keys if needed later
   addTranslations(lang, newTranslations) {
     if (translations[lang]) {
       translations[lang] = { ...translations[lang], ...newTranslations };
@@ -1176,64 +1230,174 @@ class I18nService {
   }
 }
 
-// Export a singleton instance
+// Export singleton
 export const i18n = new I18nService();
 
-// Also make it globally available for easy access in templates without importing everywhere
+// Global helpers
 window.t = (key) => i18n.t(key);
 window.setLanguage = (lang) => i18n.setLanguage(lang);
 window.getLanguage = () => i18n.getLanguage();
 
+window.formatDate = function(dateVal, includeTime = false) {
+  if (!dateVal) return '--';
+  const d = new Date(dateVal);
+  if (isNaN(d.getTime())) return String(dateVal);
+  const isHindi = window.getLanguage() === 'hi';
+  const locale = isHindi ? 'hi-IN' : 'en-IN';
+  const options = { day: '2-digit', month: 'short', year: 'numeric' };
+  if (includeTime) {
+    options.hour = '2-digit';
+    options.minute = '2-digit';
+  }
+  return d.toLocaleDateString(locale, options);
+};
 
-window.tData = function(value) {
-    if(!value) return '--';
-    let valStr = String(value);
-    
-    // Direct matches
-    const map = {
-        'Type 2 Diabetes': 'wiz.s1.type2',
-        'Type 1 Diabetes': 'wiz.s1.type1',
-        'Gestational Diabetes': 'wiz.s1.gestational',
-        'Pre-diabetic': 'wiz.s1.prediabetic',
-        'Newly Diagnosed': 'wiz.s1.newlyDiagnosed',
-        'Newly Diagnosed (< 1 yr)': 'wiz.s1.newlyDiagnosed1yr',
-        '1 - 5 Years': 'wiz.s1.oneToFive',
-        '6 - 10 Years': 'wiz.s1.sixToTen',
-        '11 - 20 Years': 'wiz.s1.elevenToTwenty',
-        '> 20 Years': 'wiz.s1.moreThanTwenty',
-        'Male': 'wiz.s1.male',
-        'Female': 'wiz.s1.female',
-        'Other': 'wiz.s1.other',
-        'PHC Rampur': 'centre.phcRampur',
-        'PHC Rampur — Primary Health Centre (District Ballia)': 'centre.phcRampurFull',
-        'CHC Kotdwar': 'centre.chcKotdwar',
-        'CHC Kotdwar — Community Health Centre (Pauri Garhwal)': 'centre.chcKotdwarFull',
-        'Mobile Retinal Van #3': 'centre.mobileVan3',
-        'Mobile Retinal Van #3 — Remote Outreach Vehicle (Kutch)': 'centre.mobileVan3Full',
-        'Sub-Centre Dharampur': 'centre.subDharampur',
-        'Sub-Centre Dharampur — Rural Outreach Post (Varanasi)': 'centre.subDharampurFull',
-        'PHC Sunderbans': 'centre.phcSunderbans',
-        'PHC Sunderbans — Delta Outpost Clinic (South 24 Parganas)': 'centre.phcSunderbansFull',
-        '4G Stable': 'rural.net.4g',
-        '2G Low Bandwidth': 'rural.net.2g',
-        'Offline Store-and-Forward': 'rural.net.offline',
-        'Optical Fiber': 'rural.net.fiber'
-    };
-    
-    if (map[valStr]) return window.t(map[valStr]);
+window.tData = function(value, category) {
+  if (value === undefined || value === null || value === '') return '--';
+  let valStr = String(value).trim();
+  const isHindi = window.getLanguage() === 'hi';
 
-    // If it is Hindi mode, translate "Years", "y", "Patients", "KB (Standard)"
-    if (window.getLanguage() === 'hi') {
-        valStr = valStr.replace(/Years/g, 'वर्ष');
-        valStr = valStr.replace(/yr/g, 'वर्ष');
-        valStr = valStr.replace(/y/g, 'व'); // e.g. 18y -> 18व
-        valStr = valStr.replace(/Patients/g, 'मरीज़');
-        valStr = valStr.replace(/KB \(Standard\)/g, 'केबी (मानक)');
-        
-        // Also handle "Male" and "Female" if they are inside strings like "(Male)"
-        valStr = valStr.replace(/Male/g, window.t('wiz.s1.male') || 'पुरुष');
-        valStr = valStr.replace(/Female/g, window.t('wiz.s1.female') || 'महिला');
-    }
-    
+  if (!isHindi) {
     return valStr;
+  }
+
+  // Preserve user-entered Hindi text (Devanagari script)
+  if (/[\u0900-\u097F]/.test(valStr) && !valStr.includes('(') && !valStr.includes('y')) {
+    return valStr;
+  }
+
+  // Direct mapping dictionary
+  const directMap = {
+    // Demo Patients
+    'Rameshwar Sharma': 'रामेश्वर शर्मा',
+    'Sunita Devi': 'सुनीता देवी',
+    'Mohammad Tariq': 'मोहम्मद तारिक',
+    'Kamla Bai': 'कमला बाई',
+    'Harish Patel': 'हरीश पटेल',
+    'Unknown Patient': 'अज्ञात मरीज',
+    'Unknown': 'अज्ञात',
+
+    // Demographics
+    'Male': 'पुरुष',
+    'Female': 'महिला',
+    'Other': 'अन्य',
+
+    // Diabetes Duration & Status
+    'Type 2 Diabetes': 'टाइप 2 मधुमेह',
+    'Type 1 Diabetes': 'टाइप 1 मधुमेह',
+    'Gestational Diabetes': 'गर्भकालीन मधुमेह',
+    'Pre-diabetic': 'प्री-डायबिटिक',
+    'Newly Diagnosed': 'हाल ही में निदान किया गया',
+    'Newly Diagnosed (< 1 yr)': 'हाल ही में निदान (< 1 वर्ष)',
+    '1 - 5 Years': '1 - 5 वर्ष',
+    '6 - 10 Years': '6 - 10 वर्ष',
+    '11 - 20 Years': '11 - 20 वर्ष',
+    '> 20 Years': '> 20 वर्ष',
+
+    // Facilities & Centres
+    'PHC Rampur': 'पीएचसी रामपुर',
+    'PHC Rampur — Primary Health Centre (District Ballia)': 'पीएचसी रामपुर — प्राथमिक स्वास्थ्य केंद्र (जिला बलिया)',
+    'CHC Kotdwar': 'सीएचसी कोटद्वार',
+    'CHC Kotdwar — Community Health Centre (Pauri Garhwal)': 'सीएचसी कोटद्वार — सामुदायिक स्वास्थ्य केंद्र (पौड़ी गढ़वाल)',
+    'Mobile Retinal Van #3': 'मोबाइल रेटिनल वैन #3',
+    'Mobile Retinal Van #3 — Remote Outreach Vehicle (Kutch)': 'मोबाइल रेटिनल वैन #3 — दूरस्थ आउटरीच वाहन (कच्छ)',
+    'Mobile Retinal Van #3 — Kutch Rural Outreach': 'मोबाइल रेटिनल वैन #3 — कच्छ ग्रामीण आउटरीच',
+    'Sub-Centre Dharampur': 'उप-केंद्र धरमपुर',
+    'Sub-Centre Dharampur — Rural Outreach Post (Varanasi)': 'उप-केंद्र धरमपुर — ग्रामीण आउटरीच पोस्ट (वाराणसी)',
+    'Sub-Centre Dharampur — Primary Clinic (Varanasi)': 'उप-केंद्र धरमपुर — प्राथमिक क्लिनिक (वाराणसी)',
+    'PHC Sunderbans': 'पीएचसी सुंदरवन',
+    'PHC Sunderbans — Delta Outpost Clinic (South 24 Parganas)': 'पीएचसी सुंदरवन — डेल्टा आउटपोस्ट क्लिनिक (दक्षिण 24 परगना)',
+    'PHC Sunderbans — Delta Medical Station': 'पीएचसी सुंदरवन — डेल्टा मेडिकल स्टेशन',
+    'Tele-Ophthalmology Hub — AIIMS Outreach': 'टेली-नेत्र विज्ञान हब — एम्स आउटरीच',
+    'AIIMS Tele-Retina Hub': 'एम्स टेली-रेटिना हब',
+
+    // Doctors
+    'Dr. Sharma': 'डॉ. शर्मा',
+    'Dr. Ananya Sen (Ophthalmologist, AIIMS)': 'डॉ. अनन्या सेन (नेत्र रोग विशेषज्ञ, एम्स)',
+    'Dr. Vivek Saxena (Vitreoretinal Specialist)': 'डॉ. विवेक सक्सेना (विट्रेओरेटिनल विशेषज्ञ)',
+    'Dr. Meenakshi Sundaram': 'डॉ. मीनाक्षी सुंदरम',
+
+    // AI & Severity Labels
+    'No Diabetic Retinopathy': 'डायबिटिक रेटिनोपैथी के कोई संकेत नहीं',
+    'No Apparent DR': 'डायबिटिक रेटिनोपैथी के कोई संकेत नहीं',
+    'Level 0 — No DR': 'स्तर 0 — कोई संकेत नहीं',
+    'Level 0': 'स्तर 0',
+    'Mild NPDR': 'हल्का एनपीडीआर',
+    'Mild Non-Proliferative DR (NPDR)': 'हल्का (हल्की गैर-प्रोलिफेरेटिव डायबिटिक रेटिनोपैथी)',
+    'Level 1 — Mild NPDR': 'स्तर 1 — हल्का',
+    'Level 1': 'स्तर 1',
+    'Moderate NPDR': 'मध्यम एनपीडीआर',
+    'Moderate Non-Proliferative DR (NPDR)': 'मध्यम (मध्यम गैर-प्रोलिफेरेटिव डायबिटिक रेटिनोपैथी)',
+    'Level 2 — Moderate NPDR': 'स्तर 2 — मध्यम',
+    'Level 2': 'स्तर 2',
+    'Severe NPDR': 'गंभीर एनपीडीआर',
+    'Severe Non-Proliferative DR (NPDR)': 'गंभीर (गंभीर गैर-प्रोलिफेरेटिव डायबिटिक रेटिनोपैथी)',
+    'Level 3 — Severe NPDR': 'स्तर 3 — गंभीर',
+    'Level 3': 'स्तर 3',
+    'Proliferative DR': 'प्रोलिफेरेटिव डीआर',
+    'Proliferative DR (PDR)': 'प्रोलिफेरेटिव (प्रोलिफेरेटिव डायबिटिक रेटिनोपैथी)',
+    'Level 4 — Proliferative DR': 'स्तर 4 — प्रोलिफेरेटिव',
+    'Level 4': 'स्तर 4',
+    'Mild': 'हल्का',
+    'Moderate': 'मध्यम',
+    'Severe': 'गंभीर',
+    'Proliferative': 'प्रोलिफेरेटिव',
+
+    // Triage & Actions
+    'Refer to Ophthalmologist': 'नेत्र रोग विशेषज्ञ से परामर्श लें',
+    'REFERABLE': 'संदर्भ योग्य (नेत्र रोग विशेषज्ञ से परामर्श लें)',
+    'NON-REFERABLE': 'गैर-संदर्भ योग्य',
+    'Referable': 'संदर्भ योग्य',
+    'Non-Referable': 'गैर-संदर्भ योग्य',
+    'REFERABLE DR': 'संदर्भ योग्य (नेत्र रोग विशेषज्ञ से परामर्श लें)',
+    'ACCEPTABLE': 'स्वीकार्य',
+    'Acceptable': 'स्वीकार्य',
+    'UNGRADABLE': 'अश्रेणीकरण योग्य',
+    'Ungradable': 'अश्रेणीकरण योग्य',
+    'BORDERLINE': 'सीमावर्ती',
+    'Borderline': 'सीमावर्ती',
+    'Reviewed': 'डॉक्टर द्वारा पुष्ट',
+    'Pending': 'लंबित समीक्षा',
+    'Confirmed': 'डॉक्टर द्वारा पुष्ट',
+    'Doctor Confirmed': 'डॉक्टर द्वारा पुष्ट',
+    'Pending Review': 'लंबित समीक्षा',
+    'Pending Doctor Review': 'लंबित डॉक्टर समीक्षा',
+    'Recapture Required': 'पुनर्प्राप्ति आवश्यक',
+    'RECAPTURE REQUIRED': 'पुनर्प्राप्ति आवश्यक',
+    'IMAGE UNGRADABLE — NO PREDICTION': 'छवि अश्रेणीकरण योग्य — कोई भविष्यवाणी नहीं',
+
+    // Network & Rural
+    '4G Stable': '4जी स्थिर',
+    '2G Low Bandwidth': '2जी कम बैंडविड्थ',
+    'Offline Store-and-Forward': 'ऑफलाइन स्टोर-एंड-फॉरवर्ड',
+    'Optical Fiber': 'ऑप्टिकल फाइबर',
+
+    // Common Notes
+    'Confirmed referable moderate/severe DR. Patient advised dilated slit-lamp exam and OCT at District Eye Hospital.': 'संदर्भ योग्य मध्यम/गंभीर डीआर की पुष्टि हुई। मरीज को जिला नेत्र अस्पताल में विस्तृत स्लिट-लैंप और ओसीटी जांच की सलाह दी गई।',
+    'Confirmed non-referable. Advised regular glucose control and annual follow-up.': 'गैर-संदर्भ योग्य की पुष्टि हुई। नियमित रक्त शर्करा नियंत्रण और वार्षिक अनुवर्ती जांच की सलाह दी गई।'
+  };
+
+  if (directMap[valStr]) return directMap[valStr];
+
+  // Pattern-based transformations
+  let res = valStr;
+  res = res.replace(/\bYears\b/gi, 'वर्ष');
+  res = res.replace(/\bYear\b/gi, 'वर्ष');
+  res = res.replace(/\byrs\b/gi, 'वर्ष');
+  res = res.replace(/\byr\b/gi, 'वर्ष');
+  res = res.replace(/\b(\d+)\s*y\b/gi, '$1 वर्ष');
+  res = res.replace(/\bPatients\b/gi, 'मरीज');
+  res = res.replace(/\bPatient\b/gi, 'मरीज');
+  res = res.replace(/\bMale\b/gi, 'पुरुष');
+  res = res.replace(/\bFemale\b/gi, 'महिला');
+  res = res.replace(/\bOther\b/gi, 'अन्य');
+  res = res.replace(/\bPending\b/gi, 'लंबित');
+  res = res.replace(/\bReviewed\b/gi, 'समीक्षित');
+  res = res.replace(/\bConfirmed\b/gi, 'पुष्ट');
+  res = res.replace(/\bAcceptable\b/gi, 'स्वीकार्य');
+  res = res.replace(/\bUngradable\b/gi, 'अश्रेणीकरण योग्य');
+  res = res.replace(/\bLevel\s*(\d+)/gi, 'स्तर $1');
+  res = res.replace(/\bKB\s*\(Standard\)/gi, 'केबी (मानक)');
+
+  return res;
 };

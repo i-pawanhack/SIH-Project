@@ -1,4 +1,5 @@
 export function renderLoginView(container, onLoginSuccess) {
+  const isHi = window.getLanguage() === 'hi';
   container.innerHTML = `
     <style>
       #view-login {
@@ -791,58 +792,44 @@ export function renderLoginView(container, onLoginSuccess) {
       <div class="access-modal-overlay" id="access-modal">
         <div class="access-modal-content">
           <div class="access-modal-header">
-            <h3><i data-lucide="accessibility" style="width:20px;height:20px;"></i> Healthcare AI Designed for Wider Access</h3>
+            <h3><i data-lucide="accessibility" style="width:20px;height:20px;"></i> ${isHi ? 'व्यापक स्वास्थ्य सेवा पहुँच के लिए डिज़ाइन किया गया एआई' : 'Healthcare AI Designed for Wider Access'}</h3>
             <button class="access-modal-close" id="access-modal-close">
               <i data-lucide="x" style="width:20px;height:20px;"></i>
             </button>
           </div>
           <div class="access-modal-body">
-            <p>Our objective is to make AI-assisted retinal screening understandable and usable in environments where specialist healthcare resources may be limited.</p>
-            
-            <h4>1. Simple User Interface</h4>
-            <p>The platform should provide:</p>
-            <ul>
-              <li>Clear navigation.</li>
-              <li>Simple terminology.</li>
-              <li>Large readable result areas.</li>
-              <li>Structured screening information.</li>
-              <li>Clear action recommendations.</li>
-            </ul>
-
-            <h4>2. Healthcare Worker Friendly</h4>
-            <p>The system is designed so that users do not need to understand the underlying AI mathematics to understand the screening workflow. The interface can clearly communicate: <br><strong>Image Quality &rarr; DR Result &rarr; Evidence &rarr; Confidence &rarr; Triage</strong></p>
-
-            <h4>3. Clear Triage States</h4>
-            <p>Important system states should be visually and textually identifiable: <strong>AUTO_SCREEN, HUMAN_REVIEW, RECAPTURE_REQUIRED</strong>. Critical information should not depend only on colour.</p>
-
-            <h4>4. Explainable AI</h4>
-            <p>Instead of presenting only an AI-generated class, the platform provides supporting computational evidence such as lesion locations, feature contributions, and retinal structure information.</p>
-
-            <h4>5. Rural Healthcare Context</h4>
-            <p>The architecture is designed with resource-constrained environments in mind, including:</p>
-            <ul>
-              <li>Limited specialist availability.</li>
-              <li>Variable image quality.</li>
-              <li>Intermittent connectivity.</li>
-              <li>Local screening workflows.</li>
-              <li>Telemedicine-assisted review.</li>
-              <li>Offline-first deployment considerations.</li>
-            </ul>
-
-            <h4>6. Image Quality Feedback</h4>
-            <p>Instead of simply rejecting a poor image, the system can communicate that the image needs to be recaptured. This helps users understand the next action required.</p>
-
-            <h4>7. Accessibility Improvements</h4>
-            <p>Future deployments may further support:</p>
-            <ul>
-              <li>Regional-language interfaces.</li>
-              <li>Voice guidance.</li>
-              <li>Larger text modes.</li>
-              <li>Screen-reader compatibility.</li>
-              <li>Keyboard navigation.</li>
-              <li>Low-bandwidth operation.</li>
-            </ul>
-            <p style="font-size: 12px; font-style: italic; opacity: 0.8; margin-top: 24px;">Note: Only features actually implemented in a deployment should be represented as currently available.</p>
+            ${isHi ? `
+              <p>हमारा उद्देश्य एआई-सहायता प्राप्त रेटिनल स्क्रीनिंग को उन परिवेशों में सुगम और व्यावहारिक बनाना है जहां विशेषज्ञ स्वास्थ्य संसाधन सीमित हो सकते हैं।</p>
+              <h4>1. सरल उपयोगकर्ता इंटरफ़ेस</h4>
+              <p>प्लेटफ़ॉर्म प्रदान करता है:</p>
+              <ul>
+                <li>स्पष्ट नेविगेशन।</li>
+                <li>सरल शब्दावली।</li>
+                <li>बड़े और पढ़ने में आसान परिणाम क्षेत्र।</li>
+                <li>संरचित स्क्रीनिंग जानकारी।</li>
+                <li>स्पष्ट कार्रवाई सिफारिशें।</li>
+              </ul>
+              <h4>2. स्वास्थ्य कार्यकर्ताओं के अनुकूल</h4>
+              <p>सिस्टम इस प्रकार तैयार किया गया है कि स्क्रीनिंग वर्कफ़्लो समझने के लिए जटिल गणितीय समझ की आवश्यकता नहीं है। इंटरफ़ेस स्पष्ट संचार करता है:<br><strong>छवि गुणवत्ता &rarr; डीआर परिणाम &rarr; साक्ष्य &rarr; आत्मविश्वास &rarr; ट्राइएज</strong></p>
+              <h4>3. स्पष्ट ट्राइएज स्थितियां</h4>
+              <p>महत्वपूर्ण स्थितियां स्पष्ट रूप से दृश्यमान हैं: <strong>स्वचालित स्क्रीनिंग, मानव समीक्षा, पुनर्प्राप्ति आवश्यक</strong>।</p>
+              <h4>4. व्याख्यात्मक एआई (Explainable AI)</h4>
+              <p>केवल एआई परिणाम देने के बजाय, प्लेटफ़ॉर्म घाव के स्थान, फीचर योगदान और रेटिना संरचना साक्ष्य प्रस्तुत करता है।</p>
+              <h4>5. ग्रामीण स्वास्थ्य संदर्भ</h4>
+              <p>यह वास्तुकला संसाधन-सीमित वातावरण को ध्यान में रखकर बनाई गई है, जिसमें कम बैंडविड्थ और ऑफलाइन क्षमताएं शामिल हैं।</p>
+            ` : `
+              <p>Our objective is to make AI-assisted retinal screening understandable and usable in environments where specialist healthcare resources may be limited.</p>
+              <h4>1. Simple User Interface</h4>
+              <p>The platform should provide: clear navigation, simple terminology, large readable result areas, structured screening information, and clear action recommendations.</p>
+              <h4>2. Healthcare Worker Friendly</h4>
+              <p>The system is designed so that users do not need to understand the underlying AI mathematics to understand the screening workflow.</p>
+              <h4>3. Clear Triage States</h4>
+              <p>Important system states should be visually and textually identifiable: <strong>AUTO_SCREEN, HUMAN_REVIEW, RECAPTURE_REQUIRED</strong>.</p>
+              <h4>4. Explainable AI</h4>
+              <p>Instead of presenting only an AI-generated class, the platform provides supporting computational evidence such as lesion locations and retinal structure information.</p>
+              <h4>5. Rural Healthcare Context</h4>
+              <p>The architecture is designed with resource-constrained environments in mind.</p>
+            `}
           </div>
         </div>
       </div>
@@ -851,7 +838,7 @@ export function renderLoginView(container, onLoginSuccess) {
       <div class="access-modal-overlay" id="terms-modal">
         <div class="access-modal-content">
           <div class="access-modal-header">
-            <h3><i data-lucide="file-text" style="width:20px;height:20px;"></i> Terms and Conditions</h3>
+            <h3><i data-lucide="file-text" style="width:20px;height:20px;"></i> ${isHi ? "नियम और शर्तें" : "Terms and Conditions"}</h3>
             <button class="access-modal-close" id="terms-modal-close">
               <i data-lucide="x" style="width:20px;height:20px;"></i>
             </button>
@@ -965,7 +952,7 @@ export function renderLoginView(container, onLoginSuccess) {
       <div class="access-modal-overlay" id="privacy-modal">
         <div class="access-modal-content">
           <div class="access-modal-header">
-            <h3><i data-lucide="shield" style="width:20px;height:20px;"></i> Privacy Policy</h3>
+            <h3><i data-lucide="shield" style="width:20px;height:20px;"></i> ${isHi ? "गोपनीयता नीति" : "Privacy Policy"}</h3>
             <button class="access-modal-close" id="privacy-modal-close">
               <i data-lucide="x" style="width:20px;height:20px;"></i>
             </button>
@@ -1073,7 +1060,7 @@ export function renderLoginView(container, onLoginSuccess) {
       <div class="access-modal-overlay" id="contact-modal">
         <div class="access-modal-content">
           <div class="access-modal-header">
-            <h3><i data-lucide="mail" style="width:20px;height:20px;"></i> Contact Us</h3>
+            <h3><i data-lucide="mail" style="width:20px;height:20px;"></i> ${isHi ? "संपर्क करें" : "Contact Us"}</h3>
             <button class="access-modal-close" id="contact-modal-close">
               <i data-lucide="x" style="width:20px;height:20px;"></i>
             </button>
@@ -1233,6 +1220,13 @@ export function renderLoginView(container, onLoginSuccess) {
 
   const toggleBtn = document.getElementById('toggle-password');
   const passwordInput = document.getElementById('password');
+
+
+  // Re-render on language change
+  const onLangChange = () => {
+    renderLoginView(container, onLoginSuccess);
+  };
+  window.addEventListener('languageChanged', onLangChange, { once: true });
 
   if (toggleBtn && passwordInput) {
     toggleBtn.addEventListener('click', () => {

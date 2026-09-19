@@ -85,6 +85,12 @@ export function renderDoctorReviewView(container, onOpenReport) {
     }
 
     if (window.lucide) window.lucide.createIcons();
+
+    // Re-render on language change
+    const onLangChange = () => {
+      renderDoctorReviewView(container, onOpenReport);
+    };
+    window.addEventListener('languageChanged', onLangChange, { once: true });
   }
 
   function renderInboxCards() {
@@ -111,7 +117,7 @@ export function renderDoctorReviewView(container, onOpenReport) {
       return `
         <div class="inbox-case-item" data-id="${c.id}" style="padding:0.75rem; border-radius:var(--radius-md); border:1px solid ${isSelected ? 'var(--primary-600)' : 'var(--border-card)'}; background:${isSelected ? 'var(--primary-50)' : 'white'}; cursor:pointer; transition:all var(--transition-fast);">
           <div style="display:flex; justify-content:space-between; align-items:flex-start; margin-bottom:0.25rem;">
-            <span style="font-weight:700; font-size:0.875rem; color:var(--slate-900);">${c.patient?.name || `<span data-i18n="doc.patient">${window.t('doc.patient')}</span>`}</span>
+            <span style="font-weight:700; font-size:0.875rem; color:var(--slate-900);">${window.tData(c.patient?.name || '') || `<span data-i18n="doc.patient">${window.t('doc.patient')}</span>`}</span>
             <span class="badge" style="font-size:0.6875rem; background:${isReviewed ? '#dcfce7' : '#fef3c7'}; color:${isReviewed ? '#15803d' : '#b45309'};" data-i18n="${isReviewed ? 'doc.badgeReviewed' : 'doc.badgePending'}">
               ${isReviewed ? window.t('doc.badgeReviewed') : window.t('doc.badgePending')}
             </span>
@@ -125,7 +131,7 @@ export function renderDoctorReviewView(container, onOpenReport) {
               : `<span class="badge ${drMeta.badgeClass}" style="font-size:0.7rem;" data-i18n="dr.${c.stage}.shortName">${window.t(`dr.${c.stage}.shortName`) || drMeta.shortName}</span>`
             }
             <span style="font-size:0.7rem; color:var(--slate-500);">
-              ${new Date(c.createdAt || Date.now()).toLocaleDateString(window.appLang === 'hi' ? 'hi-IN' : 'en-IN', { day:'2-digit', month:'short' })}
+              ${window.formatDate(c.createdAt || Date.now())}
             </span>
           </div>
         </div>
@@ -146,11 +152,11 @@ export function renderDoctorReviewView(container, onOpenReport) {
         <div class="card" style="display:flex; justify-content:space-between; align-items:center; flex-wrap:wrap; gap:1rem;">
           <div>
             <div style="display:flex; align-items:center; gap:0.5rem;">
-              <h2 style="font-size:1.3rem; color:var(--slate-900);">${c.patient?.name || `<span data-i18n="doc.patient">${window.t('doc.patient')}</span>`}</h2>
+              <h2 style="font-size:1.3rem; color:var(--slate-900);">${window.tData(c.patient?.name || '') || `<span data-i18n="doc.patient">${window.t('doc.patient')}</span>`}</h2>
               <span class="badge" style="background:var(--slate-100); color:var(--slate-700); font-family:var(--font-mono);">${c.patient?.id || c.id}</span>
             </div>
             <div style="font-size:0.8125rem; color:var(--slate-500); margin-top:0.2rem;">
-              <span data-i18n="doc.lblAge">${window.t('doc.lblAge')}</span> ${window.tData((c.patient?.age || "--") + "y")} • <span data-i18n="doc.lblGender">${window.t('doc.lblGender')}</span> ${window.tData(c.patient?.gender || "--")} • <span data-i18n="doc.lblDuration">${window.t('doc.lblDuration')}</span> ${window.tData(c.patient?.diabetesDuration || "--")} • <span data-i18n="doc.lblFacility">${window.t('doc.lblFacility')}</span> ${c.patient?.centre || 'PHC'}
+              <span data-i18n="doc.lblAge">${window.t('doc.lblAge')}</span> ${window.tData((c.patient?.age || "--") + "y")} • <span data-i18n="doc.lblGender">${window.t('doc.lblGender')}</span> ${window.tData(c.patient?.gender || "--")} • <span data-i18n="doc.lblDuration">${window.t('doc.lblDuration')}</span> ${window.tData(c.patient?.diabetesDuration || "--")} • <span data-i18n="doc.lblFacility">${window.t('doc.lblFacility')}</span> ${window.tData(c.patient?.centre || 'PHC')}
             </div>
           </div>
 

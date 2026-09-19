@@ -10,47 +10,73 @@ const STORAGE_KEY = 'drishkalyan_screenings_v1';
 const SYNC_QUEUE_KEY = 'drishkalyan_sync_queue_v1';
 const SETTINGS_KEY = 'drishkalyan_settings_v1';
 
+const memoryStore = {};
+
+function safeGet(key) {
+  try {
+    return localStorage.getItem(key) || memoryStore[key] || null;
+  } catch (e) {
+    return memoryStore[key] || null;
+  }
+}
+
+function safeSet(key, value) {
+  try {
+    localStorage.setItem(key, value);
+  } catch (e) {
+    console.warn(`[StorageService] Fallback to in-memory store for ${key}:`, e);
+    memoryStore[key] = value;
+  }
+}
+
 export class StorageService {
   /**
    * Initializes the storage database with preset sample cases if empty.
    */
   static initialize() {
-    if (!localStorage.getItem(STORAGE_KEY)) {
-      // Generate fundus and GradCAM images for sample cases
-      const initializedCases = SAMPLE_CASES.map(c => {
-        const rawImage = ImageProcessor.generateFundusImage(c.stage, c.isUngradable);
-        return {
+    try {
+      if (!safeGet(STORAGE_KEY)) {
+        // Store lightweight sample cases without huge upfront base64 canvas strings
+        const initializedCases = SAMPLE_CASES.map(c => ({
           ...c,
           createdAt: c.createdAt || new Date(Date.now() - Math.random() * 86400000 * 5).toISOString(),
-          rawImage: rawImage,
-          enhancedImage: c.isUngradable ? rawImage : null
-        };
-      });
-      localStorage.setItem(STORAGE_KEY, JSON.stringify(initializedCases));
-    }
-
-    if (!localStorage.getItem(SETTINGS_KEY)) {
-      localStorage.setItem(SETTINGS_KEY, JSON.stringify({
-        demoMode: true,
-        lowBandwidthMode: false,
-        activeCentre: 'PHC Rampur — Primary Health Centre (District Ballia)',
-        isOnline: navigator.onLine !== undefined ? navigator.onLine : true
-      }));
-    }
-
-    // Ensure default account PHC-001 exists with the correct password
-    if (!localStorage.getItem('drishkalyan_accounts_v1')) {
-      const initialAccounts = [{ phcId: 'PHC-001', password: '12345678', createdAt: new Date().toISOString() }];
-      localStorage.setItem('drishkalyan_accounts_v1', JSON.stringify(initialAccounts));
-    } else {
-      const accounts = JSON.parse(localStorage.getItem('drishkalyan_accounts_v1'));
-      const phc001 = accounts.find(a => a.phcId === 'PHC-001');
-      if (phc001) {
-        phc001.password = '12345678';
-      } else {
-        accounts.push({ phcId: 'PHC-001', password: '12345678', createdAt: new Date().toISOString() });
+          rawImage: null,
+          enhancedImage: null
+        }));
+        safeSet(STORAGE_KEY, JSON.stringify(initializedCases));
       }
-      localStorage.setItem('drishkalyan_accounts_v1', JSON.stringify(accounts));
+
+      if (!safeGet(SETTINGS_KEY)) {
+        safeSet(SETTINGS_KEY, JSON.stringify({
+          demoMode: true,
+          lowBandwidthMode: false,
+          activeCentre: 'PHC Rampur — Primary Health Centre (District Ballia)',
+          isOnline: navigator.onLine !== undefined ? navigator.onLine : true
+        }));
+      }
+
+      // Ensure default account PHC-001 exists with the correct password
+      const existingAccounts = safeGet('drishkalyan_accounts_v1');
+      if (!existingAccounts) {
+        const initialAccounts = [{ phcId: 'PHC-001', password: '12345678', createdAt: new Date().toISOString() }];
+        safeSet('drishkalyan_accounts_v1', JSON.stringify(initialAccounts));
+      } else {
+        try {
+          const accounts = JSON.parse(existingAccounts);
+          const phc001 = accounts.find(a => a.phcId === 'PHC-001');
+          if (phc001) {
+            phc001.password = '12345678';
+          } else {
+            accounts.push({ phcId: 'PHC-001', password: '12345678', createdAt: new Date().toISOString() });
+          }
+          safeSet('drishkalyan_accounts_v1', JSON.stringify(accounts));
+        } catch (e) {
+          const initialAccounts = [{ phcId: 'PHC-001', password: '12345678', createdAt: new Date().toISOString() }];
+          safeSet('drishkalyan_accounts_v1', JSON.stringify(initialAccounts));
+        }
+      }
+    } catch (err) {
+      console.error('[StorageService] Initialization error caught safely:', err);
     }
   }
 

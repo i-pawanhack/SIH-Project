@@ -16,7 +16,7 @@ export function renderDashboardView(container, onNavigate, onOpenReport) {
       <div>
         <h1 style="font-size:1.75rem; color:var(--slate-900);" data-i18n="dash.title">${window.t('dash.title')}</h1>
         <p style="color:var(--slate-600); font-size:0.875rem; margin-top:0.25rem;">
-          <span data-i18n="dash.activeFacility">${window.t('dash.activeFacility')}</span>: <strong>${settings.activeCentre || 'PHC Rampur — Primary Health Centre (District Ballia)'}</strong>
+          <span data-i18n="dash.activeFacility">${window.t('dash.activeFacility')}</span>: <strong>${window.tData(settings.activeCentre || 'PHC Rampur — Primary Health Centre (District Ballia)')}</strong>
         </p>
       </div>
       
@@ -202,15 +202,15 @@ export function renderDashboardView(container, onNavigate, onOpenReport) {
       return `
         <tr style="cursor:pointer;" data-case-id="${c.id}">
           <td>
-            <div style="font-weight:700; color:var(--slate-900);">${c.patient?.name || 'Unknown Patient'}</div>
+            <div style="font-weight:700; color:var(--slate-900);">${window.tData(c.patient?.name || 'Unknown Patient')}</div>
             <div style="font-size:0.75rem; color:var(--slate-500); font-family:var(--font-mono);">${c.patient?.id || c.id} • ${window.tData(c.patient?.age + "y")} (${window.tData(c.patient?.gender)})</div>
           </td>
           <td>
             <div style="font-size:0.8125rem; font-weight:600; color:var(--slate-700);">
-              ${new Date(c.createdAt || Date.now()).toLocaleDateString('en-IN', { day:'2-digit', month:'short', year:'numeric' })}
+              ${window.formatDate(c.createdAt || Date.now())}
             </div>
             <div style="font-size:0.7rem; color:var(--slate-500); max-width:180px; text-overflow:ellipsis; overflow:hidden; white-space:nowrap;">
-              ${c.patient?.centre ? c.patient.centre.split('—')[0] : 'PHC Rampur'}
+              ${window.tData(c.patient?.centre ? c.patient.centre.split('—')[0] : 'PHC Rampur')}
             </div>
           </td>
           <td>
@@ -274,4 +274,10 @@ export function renderDashboardView(container, onNavigate, onOpenReport) {
   // Navigation Button Handlers (Removed New Screening button)
 
   if (window.lucide) window.lucide.createIcons();
+
+  // Reactive re-render on language change
+  const onLangChange = () => {
+    renderDashboardView(container, onNavigate, onOpenReport);
+  };
+  window.addEventListener('languageChanged', onLangChange, { once: true });
 }

@@ -49,19 +49,19 @@ export function openReportModal(screeningCase, onClose) {
               ${window.t('report.subtitle') || 'AI-Assisted Diabetic Retinopathy Screening & Decision Support System'}
             </div>
             <div style="font-size:0.75rem; color:var(--slate-500); margin-top:0.2rem;">
-              <span data-i18n="report.facility">${window.t('report.facility')}</span> <strong>${patient.centre || 'Primary Health Centre (Rural Outreach)'}</strong>
+              <span data-i18n="report.facility">${window.t('report.facility')}</span> <strong>${window.tData(patient.centre || 'Primary Health Centre (Rural Outreach)')}</strong>
             </div>
           </div>
 
           <div style="text-align:right;">
             <div style="font-family:var(--font-mono); font-size:0.8125rem; font-weight:700; color:var(--slate-800);">
-              Report ID: ${screeningCase.id} | PHC ID: ${StorageService.getCurrentUser()}
+              ${window.t('report.reportId')} ${screeningCase.id} | PHC ID: ${StorageService.getCurrentUser()}
             </div>
             <div style="font-size:0.75rem; color:var(--slate-500);">
-              Date: ${new Date(screeningCase.createdAt || Date.now()).toLocaleDateString('en-IN', { day:'2-digit', month:'short', year:'numeric', hour:'2-digit', minute:'2-digit' })}
+              ${window.t('report.date')} ${window.formatDate(screeningCase.createdAt || Date.now(), true)}
             </div>
             <div style="font-size:0.75rem; color:#10b981; font-weight:700;" data-i18n="report.statusVerified">
-              ${window.t('report.statusVerified') || 'Status: Verified Tele-Screening'}
+              ${window.t('report.statusVerified')}
             </div>
           </div>
         </div>
@@ -73,11 +73,14 @@ export function openReportModal(screeningCase, onClose) {
           </div>
           <div style="display:grid; grid-template-columns:repeat(auto-fit, minmax(160px, 1fr)); gap:0.75rem; font-size:0.8125rem;">
             <div><span style="color:var(--slate-500);" data-i18n="report.patientId">${window.t('report.patientId')}</span> <strong>${patient.id || '--'}</strong></div>
-            <div><span style="color:var(--slate-500);" data-i18n="report.name">${window.t('report.name')}</span> <strong>${patient.name || '--'}</strong></div>
-            <div><span style="color:var(--slate-500);" data-i18n="report.ageSex">${window.t('report.ageSex')}</span> <strong>${patient.age || '--'} Yrs / ${window.tData(patient.gender)}</strong></div>
+            <div><span style="color:var(--slate-500);" data-i18n="report.name">${window.t('report.name')}</span> <strong>${window.tData(patient.name || '--')}</strong></div>
+            <div><span style="color:var(--slate-500);" data-i18n="report.ageSex">${window.t('report.ageSex')}</span> <strong>${window.tData(patient.age + 'y')} / ${window.tData(patient.gender)}</strong></div>
             <div><span style="color:var(--slate-500);" data-i18n="report.diabetesStatus">${window.t('report.diabetesStatus')}</span> <strong>${window.tData(patient.diabetesStatus)}</strong></div>
             <div><span style="color:var(--slate-500);" data-i18n="report.duration">${window.t('report.duration')}</span> <strong>${window.tData(patient.diabetesDuration)}</strong></div>
-            <div><span style="color:var(--slate-500);" data-i18n="report.imageQuality">${window.t('report.imageQuality')}</span> <strong>${screeningCase.imageQuality?.overall || 'ACCEPTABLE'}</strong></div>
+            <div><span style="color:var(--slate-500);" data-i18n="report.imageQuality">${window.t('report.imageQuality')}</span> <strong>${window.tData(screeningCase.imageQuality?.overall || 'ACCEPTABLE')}</strong></div>
+            ${patient.contact ? `<div><span style="color:var(--slate-500);" data-i18n="report.contact">${window.t('report.contact')}</span> <strong>${patient.contact}</strong></div>` : ''}
+            ${patient.address ? `<div><span style="color:var(--slate-500);" data-i18n="report.address">${window.t('report.address')}</span> <strong>${window.tData(patient.address)}</strong></div>` : ''}
+            ${patient.medHistory ? `<div style="grid-column:1 / -1;"><span style="color:var(--slate-500);" data-i18n="report.medhistory">${window.t('report.medhistory')}</span> <strong>${window.tData(patient.medHistory)}</strong></div>` : ''}
           </div>
         </div>
 
@@ -153,7 +156,7 @@ export function openReportModal(screeningCase, onClose) {
                   <tr>
                     <td><strong>${window.t(`ev.type.${ev.type}`) || ev.type}</strong></td>
                     <td>${window.t(`ev.region.${ev.region}`) || ev.region}</td>
-                    <td>${ev.severity}</td>
+                    <td>${window.tData(ev.severity)}</td>
                     <td>${ev.relevance}%</td>
                   </tr>
                 `).join('')}
@@ -219,4 +222,13 @@ export function openReportModal(screeningCase, onClose) {
   modalRoot.querySelector('#modal-footer-close-btn').addEventListener('click', close);
   modalRoot.querySelector('#modal-print-btn').addEventListener('click', printReport);
   modalRoot.querySelector('#modal-footer-print-btn').addEventListener('click', printReport);
+
+  // Re-render modal in new language if switched while open
+  const onLangChange = () => {
+    if (!modalRoot.classList.contains('hidden')) {
+      openReportModal(screeningCase, onClose);
+    }
+  };
+  window.addEventListener('languageChanged', onLangChange, { once: true });
+
 }

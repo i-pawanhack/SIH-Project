@@ -12,6 +12,16 @@ import sys
 PORTS = [8080, 8000, 3000, 8081, 5000, 8888]
 
 class Handler(http.server.SimpleHTTPRequestHandler):
+    extensions_map = http.server.SimpleHTTPRequestHandler.extensions_map.copy()
+    extensions_map.update({
+        '.js': 'application/javascript',
+        '.mjs': 'application/javascript',
+        '.css': 'text/css',
+        '.html': 'text/html',
+        '.png': 'image/png',
+        '.svg': 'image/svg+xml',
+    })
+
     def end_headers(self):
         self.send_header('Cache-Control', 'no-cache, no-store, must-revalidate')
         self.send_header('Pragma', 'no-cache')

@@ -80,7 +80,7 @@ export function renderCapacitySimulator(container) {
         <div>
           <div style="display:flex; align-items:center; gap:0.5rem;">
             <h1 style="font-size:1.75rem; color:var(--slate-900);" data-i18n="sim.title">${window.t('sim.title')}</h1>
-            <span class="badge" style="background:#e0f2fe; color:#0369a1; font-size:0.75rem;">MATLAB / SIMULINK DIGITAL TWIN</span>
+            <span class="badge" style="background:#e0f2fe; color:#0369a1; font-size:0.75rem;">${window.getLanguage() === 'hi' ? 'मैटलैब / सिमुलिंक डिजिटल ट्विन' : 'MATLAB / SIMULINK DIGITAL TWIN'}</span>
           </div>
           <p style="color:var(--slate-600); font-size:0.875rem; margin-top:0.25rem;" data-i18n="sim.desc">
             ${window.t('sim.desc')}
@@ -106,7 +106,7 @@ export function renderCapacitySimulator(container) {
               <i data-lucide="users" style="width:24px;height:24px;"></i>
             </div>
             <div style="font-size:0.75rem; font-weight:700;" data-i18n="sim.patients">${window.t('sim.patients')}</div>
-            <div style="font-size:0.65rem; color:#94a3b8;">${params.patientsPerDay} / day</div>
+            <div style="font-size:0.65rem; color:#94a3b8;">${params.patientsPerDay} / ${window.getLanguage() === 'hi' ? 'दिन' : 'day'}</div>
           </div>
 
           <div class="pipeline-connector-line"></div>
@@ -117,7 +117,7 @@ export function renderCapacitySimulator(container) {
               <i data-lucide="camera" style="width:24px;height:24px;"></i>
             </div>
             <div style="font-size:0.75rem; font-weight:700;" data-i18n="sim.cameras">${window.t('sim.cameras')}</div>
-            <div style="font-size:0.65rem; color:#94a3b8;">Cap: ${metrics.maxCameraDaily} / day</div>
+            <div style="font-size:0.65rem; color:#94a3b8;">${window.getLanguage() === 'hi' ? 'क्षमता' : 'Cap'}: ${metrics.maxCameraDaily} / ${window.getLanguage() === 'hi' ? 'दिन' : 'day'}</div>
           </div>
 
           <div class="pipeline-connector-line"></div>

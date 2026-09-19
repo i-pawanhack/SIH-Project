@@ -160,14 +160,14 @@ export function renderScreeningHistoryView(container, onOpenReport) {
       return `
         <tr style="cursor:pointer;" data-id="${c.id}">
           <td>
-            <div style="font-weight:700; color:var(--slate-900);">${c.patient?.name || window.t('dash.th.patient')}</div>
-            <div style="font-size:0.75rem; color:var(--slate-500); font-family:var(--font-mono);">${c.patient?.id || c.id} • ${c.patient?.age || '--'}y</div>
+            <div style="font-weight:700; color:var(--slate-900);">${window.tData(c.patient?.name || '') || window.t('dash.th.patient')}</div>
+            <div style="font-size:0.75rem; color:var(--slate-500); font-family:var(--font-mono);">${c.patient?.id || c.id} • ${window.tData((c.patient?.age || '--') + 'y')}</div>
           </td>
           <td style="font-size:0.8125rem;">
-            ${new Date(c.createdAt || Date.now()).toLocaleDateString('en-IN', { day:'2-digit', month:'short', year:'numeric' })}
+            ${window.formatDate(c.createdAt || Date.now())}
           </td>
           <td style="font-size:0.75rem; color:var(--slate-600); max-width:140px; text-overflow:ellipsis; overflow:hidden; white-space:nowrap;">
-            ${c.patient?.centre ? c.patient.centre.split('—')[0] : 'PHC'}
+            ${window.tData(c.patient?.centre ? c.patient.centre.split('—')[0] : 'PHC')}
           </td>
           <td>
             <span class="badge ${isUngradable ? 'badge-quality-ungradable' : 'badge-quality-acceptable'}" data-i18n="${isUngradable ? 'dash.quality.ungradable' : 'dash.quality.acceptable'}">
@@ -223,4 +223,10 @@ export function renderScreeningHistoryView(container, onOpenReport) {
   filterReview.addEventListener('change', renderRows);
 
   if (window.lucide) window.lucide.createIcons();
+
+  // Re-render on language change
+  const onLangChange = () => {
+    renderScreeningHistoryView(container, onOpenReport);
+  };
+  window.addEventListener('languageChanged', onLangChange, { once: true });
 }

@@ -30,7 +30,9 @@ export function renderScreeningWizard(container, onCompleteScreening, onOpenRepo
     diabetesDuration: '',
     diabetesStatus: '',
     centre: '',
-    contact: ''
+    contact: '',
+    address: '',
+    medHistory: ''
   };
 
   function updateView() {
@@ -86,6 +88,34 @@ export function renderScreeningWizard(container, onCompleteScreening, onOpenRepo
     else if (currentStep === 6) renderStep6(body);
 
     if (window.lucide) window.lucide.createIcons();
+
+    // Language switch hook for ScreeningWizard
+    const handleLangSwitch = () => {
+      if (currentStep === 1) {
+        const idEl = target.querySelector('#p-id');
+        const nameEl = target.querySelector('#p-name');
+        const ageEl = target.querySelector('#p-age');
+        const genderEl = target.querySelector('#p-gender');
+        const contactEl = target.querySelector('#p-contact');
+        const addressEl = target.querySelector('#p-address');
+        const durEl = target.querySelector('#p-duration');
+        const statEl = target.querySelector('#p-status');
+        const medEl = target.querySelector('#p-medhistory');
+        const centreEl = target.querySelector('#p-centre');
+        if (idEl) patientData.id = idEl.value;
+        if (nameEl) patientData.name = nameEl.value;
+        if (ageEl) patientData.age = ageEl.value;
+        if (genderEl) patientData.gender = genderEl.value;
+        if (contactEl) patientData.contact = contactEl.value;
+        if (addressEl) patientData.address = addressEl.value;
+        if (durEl) patientData.diabetesDuration = durEl.value;
+        if (statEl) patientData.diabetesStatus = statEl.value;
+        if (medEl) patientData.medHistory = medEl.value;
+        if (centreEl) patientData.centre = centreEl.value;
+      }
+      updateView();
+    };
+    window.addEventListener('languageChanged', handleLangSwitch, { once: true });
   }
 
   // STEP 1: PATIENT REGISTRATION FORM & PRESET SELECTOR
@@ -118,17 +148,17 @@ export function renderScreeningWizard(container, onCompleteScreening, onOpenRepo
         <form id="patient-form" class="form-grid" style="margin-bottom:1.75rem;">
           <div class="form-group">
             <label class="form-label" data-i18n="wiz.s1.pid">${window.t('wiz.s1.pid')}</label>
-            <input type="text" id="p-id" class="form-input" value="${patientData.id}" required>
+            <input type="text" id="p-id" class="form-input" value="${patientData.id}" placeholder="${window.t('wiz.s1.pidPlaceholder') || 'मरीज आईडी दर्ज करें'}" required>
           </div>
 
           <div class="form-group">
             <label class="form-label" data-i18n="wiz.s1.pname">${window.t('wiz.s1.pname')}</label>
-            <input type="text" id="p-name" class="form-input" value="${patientData.name}" required>
+            <input type="text" id="p-name" class="form-input" value="${patientData.name}" placeholder="${window.t('wiz.s1.pnamePlaceholder') || 'मरीज का नाम दर्ज करें'}" required>
           </div>
 
           <div class="form-group">
             <label class="form-label" data-i18n="wiz.s1.page">${window.t('wiz.s1.page')}</label>
-            <input type="number" id="p-age" class="form-input" value="${patientData.age}" min="1" max="120" required>
+            <input type="number" id="p-age" class="form-input" value="${patientData.age}" min="1" max="120" placeholder="${window.t('wiz.s1.pagePlaceholder') || 'उम्र दर्ज करें'}" required>
           </div>
 
           <div class="form-group">
@@ -142,14 +172,24 @@ export function renderScreeningWizard(container, onCompleteScreening, onOpenRepo
           </div>
 
           <div class="form-group">
+            <label class="form-label" data-i18n="wiz.s1.pcontact">${window.t('wiz.s1.pcontact')}</label>
+            <input type="text" id="p-contact" class="form-input" value="${patientData.contact || ''}" placeholder="${window.t('wiz.s1.pcontactPlaceholder') || 'संपर्क नंबर दर्ज करें'}">
+          </div>
+
+          <div class="form-group">
+            <label class="form-label" data-i18n="wiz.s1.paddress">${window.t('wiz.s1.paddress')}</label>
+            <input type="text" id="p-address" class="form-input" value="${patientData.address || ''}" placeholder="${window.t('wiz.s1.paddressPlaceholder') || 'पता दर्ज करें'}">
+          </div>
+
+          <div class="form-group">
             <label class="form-label" data-i18n="wiz.s1.pduration">${window.t('wiz.s1.pduration')}</label>
             <select id="p-duration" class="form-select">
               <option value="" disabled ${!patientData.diabetesDuration ? 'selected' : ''}>${window.t('wiz.s1.selectDuration')}</option>
-              <option value="Newly Diagnosed (< 1 yr)" ${patientData.diabetesDuration === 'Newly Diagnosed (< 1 yr)' ? 'selected' : ''}>Newly Diagnosed (< 1 yr)</option>
-              <option value="1 - 5 Years" ${patientData.diabetesDuration === '1 - 5 Years' ? 'selected' : ''}>${window.t("wiz.s1.oneToFive")}</option>
-              <option value="6 - 10 Years" ${patientData.diabetesDuration === '6 - 10 Years' ? 'selected' : ''}>${window.t("wiz.s1.sixToTen")}</option>
-              <option value="11 - 20 Years" ${patientData.diabetesDuration === '11 - 20 Years' ? 'selected' : ''}>${window.t("wiz.s1.elevenToTwenty")}</option>
-              <option value="> 20 Years" ${patientData.diabetesDuration === '> 20 Years' ? 'selected' : ''}>> 20 Years</option>
+              <option value="Newly Diagnosed (< 1 yr)" ${patientData.diabetesDuration === 'Newly Diagnosed (< 1 yr)' ? 'selected' : ''}>${window.tData('Newly Diagnosed (< 1 yr)')}</option>
+              <option value="1 - 5 Years" ${patientData.diabetesDuration === '1 - 5 Years' ? 'selected' : ''}>${window.tData("1 - 5 Years")}</option>
+              <option value="6 - 10 Years" ${patientData.diabetesDuration === '6 - 10 Years' ? 'selected' : ''}>${window.tData("6 - 10 Years")}</option>
+              <option value="11 - 20 Years" ${patientData.diabetesDuration === '11 - 20 Years' ? 'selected' : ''}>${window.tData("11 - 20 Years")}</option>
+              <option value="> 20 Years" ${patientData.diabetesDuration === '> 20 Years' ? 'selected' : ''}>${window.tData("> 20 Years")}</option>
             </select>
           </div>
 
@@ -157,18 +197,23 @@ export function renderScreeningWizard(container, onCompleteScreening, onOpenRepo
             <label class="form-label" data-i18n="wiz.s1.pstatus">${window.t('wiz.s1.pstatus')}</label>
             <select id="p-status" class="form-select">
               <option value="" disabled ${!patientData.diabetesStatus ? 'selected' : ''}>${window.t('wiz.s1.selectStatus')}</option>
-              <option value="Type 2 Diabetes" ${patientData.diabetesStatus === 'Type 2 Diabetes' ? 'selected' : ''} data-i18n="wiz.s1.type2">${window.t('wiz.s1.type2') || 'Type 2 Diabetes'}</option>
-              <option value="Type 1 Diabetes" ${patientData.diabetesStatus === 'Type 1 Diabetes' ? 'selected' : ''} data-i18n="wiz.s1.type1">${window.t('wiz.s1.type1') || 'Type 1 Diabetes'}</option>
-              <option value="Gestational Diabetes" ${patientData.diabetesStatus === 'Gestational Diabetes' ? 'selected' : ''} data-i18n="wiz.s1.gestational">${window.t('wiz.s1.gestational') || 'Gestational Diabetes'}</option>
-              <option value="Pre-diabetic" ${patientData.diabetesStatus === 'Pre-diabetic' ? 'selected' : ''} data-i18n="wiz.s1.prediabetic">${window.t('wiz.s1.prediabetic') || 'Pre-diabetic'}</option>
+              <option value="Type 2 Diabetes" ${patientData.diabetesStatus === 'Type 2 Diabetes' ? 'selected' : ''} data-i18n="wiz.s1.type2">${window.tData('Type 2 Diabetes')}</option>
+              <option value="Type 1 Diabetes" ${patientData.diabetesStatus === 'Type 1 Diabetes' ? 'selected' : ''} data-i18n="wiz.s1.type1">${window.tData('Type 1 Diabetes')}</option>
+              <option value="Gestational Diabetes" ${patientData.diabetesStatus === 'Gestational Diabetes' ? 'selected' : ''} data-i18n="wiz.s1.gestational">${window.tData('Gestational Diabetes')}</option>
+              <option value="Pre-diabetic" ${patientData.diabetesStatus === 'Pre-diabetic' ? 'selected' : ''} data-i18n="wiz.s1.prediabetic">${window.tData('Pre-diabetic')}</option>
             </select>
+          </div>
+
+          <div class="form-group" style="grid-column:1 / -1;">
+            <label class="form-label" data-i18n="wiz.s1.pmedhistory">${window.t('wiz.s1.pmedhistory')}</label>
+            <input type="text" id="p-medhistory" class="form-input" value="${patientData.medHistory || ''}" placeholder="${window.t('wiz.s1.pmedhistoryPlaceholder') || 'चिकित्सीय इतिहास दर्ज करें'}">
           </div>
 
           <div class="form-group" style="grid-column:1 / -1;">
             <label class="form-label" data-i18n="wiz.s1.pcentre">${window.t('wiz.s1.pcentre')}</label>
             <select id="p-centre" class="form-select">
               <option value="" disabled ${!patientData.centre ? 'selected' : ''}>${window.t('wiz.s1.selectCentre')}</option>
-              ${SCREENING_CENTRES.map(c => `<option value="${c}" ${patientData.centre === c ? 'selected' : ''}>${c}</option>`).join('')}
+              ${SCREENING_CENTRES.map(c => `<option value="${c}" ${patientData.centre === c ? 'selected' : ''}>${window.tData(c)}</option>`).join('')}
             </select>
           </div>
         </form>
@@ -211,8 +256,11 @@ export function renderScreeningWizard(container, onCompleteScreening, onOpenRepo
       patientData.name = name;
       patientData.age = target.querySelector('#p-age').value;
       patientData.gender = target.querySelector('#p-gender').value;
+      patientData.contact = target.querySelector('#p-contact')?.value || '';
+      patientData.address = target.querySelector('#p-address')?.value || '';
       patientData.diabetesDuration = target.querySelector('#p-duration').value;
       patientData.diabetesStatus = target.querySelector('#p-status').value;
+      patientData.medHistory = target.querySelector('#p-medhistory')?.value || '';
       patientData.centre = target.querySelector('#p-centre').value;
 
       currentStep = 2;
@@ -239,7 +287,7 @@ export function renderScreeningWizard(container, onCompleteScreening, onOpenRepo
             </p>
           </div>
           <span class="badge" style="background:#e0f2fe; color:#0369a1;">
-            <span data-i18n="wiz.s2.patient">${window.t('wiz.s2.patient')}</span> ${patientData.name} (${patientData.id})
+            <span data-i18n="wiz.s2.patient">${window.t('wiz.s2.patient')}</span> ${window.tData(patientData.name)} (${patientData.id})
           </span>
         </div>
 
@@ -251,7 +299,10 @@ export function renderScreeningWizard(container, onCompleteScreening, onOpenRepo
                 <i data-lucide="upload-cloud" style="width:32px;height:32px;"></i>
               </div>
               <div>
-                <div style="font-weight:700; color:var(--slate-900); font-size:1rem; margin-bottom:0.25rem;" data-i18n="wiz.s2.drag">
+                <div style="font-weight:800; color:var(--primary-700); font-size:1.1rem; margin-bottom:0.35rem;" data-i18n="wiz.s2.uploadPrompt">
+                  ${window.t('wiz.s2.uploadPrompt')}
+                </div>
+                <div style="font-weight:600; color:var(--slate-800); font-size:0.9rem; margin-bottom:0.25rem;" data-i18n="wiz.s2.drag">
                   ${window.t('wiz.s2.drag')}
                 </div>
                 <div style="font-size:0.8125rem; color:var(--slate-500);" data-i18n="wiz.s2.supports">
@@ -968,7 +1019,7 @@ export function renderScreeningWizard(container, onCompleteScreening, onOpenRepo
                 ${window.t(`dr.${aiDiagnosticResult.level}.title`) || drMeta.title}
               </h1>
               <div style="color:#94a3b8; font-size:0.875rem;">
-                <span data-i18n="wiz.s6.patient">${window.t('wiz.s6.patient')}</span> <strong>${patientData.name}</strong> • ${patientData.id} • ${patientData.age}y (${window.tData(patientData.gender)}) • <span data-i18n="wiz.s6.centre">${window.t('wiz.s6.centre')}</span> ${patientData.centre.split('—')[0]}
+                <span data-i18n="wiz.s6.patient">${window.t('wiz.s6.patient')}</span> <strong>${window.tData(patientData.name)}</strong> • ${patientData.id} • ${window.tData(patientData.age + 'y')} (${window.tData(patientData.gender)}) • <span data-i18n="wiz.s6.centre">${window.t('wiz.s6.centre')}</span> ${window.tData(patientData.centre.split('—')[0])}
               </div>
             </div>
 
