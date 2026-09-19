@@ -178,7 +178,7 @@ export function renderDashboardView(container, onNavigate, onOpenReport) {
       }
 
       return matchQuery && matchDr;
-    });
+    }).slice(0, 5);
 
     if (filtered.length === 0) {
       tableBody.innerHTML = `

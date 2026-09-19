@@ -8,6 +8,7 @@ import { ImageProcessor } from '../services/imageProcessor.js';
 import { AIService } from '../services/aiService.js';
 import { StorageService } from '../services/storageService.js';
 import { SCREENING_CENTRES, DR_SEVERITY_LEVELS } from '../types.js';
+import { TransliterationService } from '../services/transliterationService.js';
 
 export function renderScreeningWizard(container, onCompleteScreening, onOpenReport) {
   // Wizard State
@@ -92,16 +93,16 @@ export function renderScreeningWizard(container, onCompleteScreening, onOpenRepo
     // Language switch hook for ScreeningWizard
     const handleLangSwitch = () => {
       if (currentStep === 1) {
-        const idEl = target.querySelector('#p-id');
-        const nameEl = target.querySelector('#p-name');
-        const ageEl = target.querySelector('#p-age');
-        const genderEl = target.querySelector('#p-gender');
-        const contactEl = target.querySelector('#p-contact');
-        const addressEl = target.querySelector('#p-address');
-        const durEl = target.querySelector('#p-duration');
-        const statEl = target.querySelector('#p-status');
-        const medEl = target.querySelector('#p-medhistory');
-        const centreEl = target.querySelector('#p-centre');
+        const idEl = body.querySelector('#p-id');
+        const nameEl = body.querySelector('#p-name');
+        const ageEl = body.querySelector('#p-age');
+        const genderEl = body.querySelector('#p-gender');
+        const contactEl = body.querySelector('#p-contact');
+        const addressEl = body.querySelector('#p-address');
+        const durEl = body.querySelector('#p-duration');
+        const statEl = body.querySelector('#p-status');
+        const medEl = body.querySelector('#p-medhistory');
+        const centreEl = body.querySelector('#p-centre');
         if (idEl) patientData.id = idEl.value;
         if (nameEl) patientData.name = nameEl.value;
         if (ageEl) patientData.age = ageEl.value;
@@ -226,6 +227,12 @@ export function renderScreeningWizard(container, onCompleteScreening, onOpenRepo
         </div>
       </div>
     `;
+
+    // Enable Transliteration for Text Fields
+    TransliterationService.enableTransliteration(target.querySelector('#p-name'));
+    TransliterationService.enableTransliteration(target.querySelector('#p-contact'));
+    TransliterationService.enableTransliteration(target.querySelector('#p-address'));
+    TransliterationService.enableTransliteration(target.querySelector('#p-medhistory'));
 
     // Handle Presets
     target.querySelectorAll('.preset-btn').forEach(btn => {

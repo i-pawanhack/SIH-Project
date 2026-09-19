@@ -49,7 +49,7 @@ const translations = {
     "nav.logout": "Logout",
     "nav.tagline": "Explainable AI for Diabetic Retinopathy Screening",
     "nav.phcSubtitle": "Primary Health Centre",
-    "nav.profileEdit": "Profile Edit",
+    "nav.profile": "Profile",
     "dash.title": "Clinical Retinal Screening Dashboard",
     "dash.activeFacility": "Active Facility",
     "dash.newScreening": "New Screening",
@@ -639,7 +639,7 @@ const translations = {
     "nav.logout": "लॉग आउट",
     "nav.tagline": "डायबिटिक रेटिनोपैथी स्क्रीनिंग के लिए व्याख्यात्मक एआई",
     "nav.phcSubtitle": "प्राथमिक स्वास्थ्य केंद्र",
-    "nav.profileEdit": "प्रोफ़ाइल संपादित करें",
+    "nav.profile": "प्रोफ़ाइल",
     "dash.title": "क्लिनिकल रेटिनल स्क्रीनिंग डैशबोर्ड",
     "dash.activeFacility": "सक्रिय केंद्र",
     "dash.newScreening": "नई स्क्रीनिंग",
@@ -1146,7 +1146,7 @@ const translations = {
     "rural.specs.https": "स्टोर-एंड-फॉरवर्ड HTTPS",
     "wiz.s1.genderSelect": "लिंग चुनें...",
     "wiz.s1.durationSelect": "अवधि चुनें...",
-    "wiz.s1.statusSelect": "स्थिति चुनें..."
+    "wiz.s1.statusSelect": "स्थिति चुनें...",
 
     "patient.name": "मरीज का नाम",
     "patient.age": "उम्र",

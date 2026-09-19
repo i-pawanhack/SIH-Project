@@ -91,6 +91,8 @@ export function renderScreeningHistoryView(container, onOpenReport) {
           </tbody>
         </table>
       </div>
+      <!-- Pagination Container -->
+      <div id="hist-pagination" style="display:flex; justify-content:center; align-items:center; gap:0.5rem; padding: 1rem 1.25rem; border-top: 1px solid var(--border-card);"></div>
     </div>
   `;
 
@@ -99,6 +101,9 @@ export function renderScreeningHistoryView(container, onOpenReport) {
   const filterReferral = container.querySelector('#hist-filter-referral');
   const filterReview = container.querySelector('#hist-filter-review');
   const tableBody = container.querySelector('#hist-table-body');
+
+  let currentPage = 1;
+  const ITEMS_PER_PAGE = 10;
 
   function renderRows() {
     const query = searchInput.value.toLowerCase().trim();
@@ -138,6 +143,14 @@ export function renderScreeningHistoryView(container, onOpenReport) {
       return matchQuery && matchGrade && matchRef && matchRev;
     });
 
+    const totalItems = filtered.length;
+    const totalPages = Math.ceil(totalItems / ITEMS_PER_PAGE);
+    
+    if (currentPage > totalPages && totalPages > 0) currentPage = totalPages;
+
+    const startIdx = (currentPage - 1) * ITEMS_PER_PAGE;
+    const pagedItems = filtered.slice(startIdx, startIdx + ITEMS_PER_PAGE);
+
     if (filtered.length === 0) {
       tableBody.innerHTML = `
         <tr>
@@ -151,7 +164,7 @@ export function renderScreeningHistoryView(container, onOpenReport) {
       return;
     }
 
-    tableBody.innerHTML = filtered.map(c => {
+    tableBody.innerHTML = pagedItems.map(c => {
       const isUngradable = c.isUngradable || c.imageQuality?.overall === 'UNGRADABLE';
       const drMeta = DR_SEVERITY_LEVELS[c.stage] || DR_SEVERITY_LEVELS[0];
       const isReferable = !isUngradable && (c.stage >= 2);
@@ -213,14 +226,55 @@ export function renderScreeningHistoryView(container, onOpenReport) {
     });
 
     if (window.lucide) window.lucide.createIcons();
+    
+    renderPagination(totalPages);
+  }
+
+  function renderPagination(totalPages) {
+    const paginationEl = container.querySelector('#hist-pagination');
+    if (totalPages <= 1) {
+      paginationEl.innerHTML = '';
+      return;
+    }
+
+    let html = `
+      <button class="btn btn-secondary btn-sm ${currentPage === 1 ? 'disabled' : ''}" data-page="${currentPage - 1}" style="padding:0.4rem 0.75rem; background: white; border-color: #e2e8f0; color: #334155;">Previous</button>
+    `;
+
+    for (let i = 1; i <= totalPages; i++) {
+        if (i === 1 || i === totalPages || (i >= currentPage - 2 && i <= currentPage + 2)) {
+            const isCurrent = i === currentPage;
+            const bg = isCurrent ? '#0ea5e9' : 'white';
+            const fg = isCurrent ? 'white' : '#0ea5e9';
+            html += `<button class="btn btn-secondary btn-sm" data-page="${i}" style="padding:0.4rem 0.75rem; background:${bg}; color:${fg}; border-color:${isCurrent ? '#0ea5e9' : '#e2e8f0'}; font-weight:${isCurrent ? '600' : '400'}; min-width:32px;">${i}</button>`;
+        } else if (i === currentPage - 3 || i === currentPage + 3) {
+            html += `<span style="padding:0.4rem; color:var(--slate-500);">...</span>`;
+        }
+    }
+
+    html += `
+      <button class="btn btn-secondary btn-sm ${currentPage === totalPages ? 'disabled' : ''}" data-page="${currentPage + 1}" style="padding:0.4rem 0.75rem; background: white; border-color: #e2e8f0; color: #334155;">Next</button>
+    `;
+
+    paginationEl.innerHTML = html;
+
+    paginationEl.querySelectorAll('button').forEach(btn => {
+      if (!btn.classList.contains('disabled')) {
+        btn.addEventListener('click', () => {
+          currentPage = parseInt(btn.getAttribute('data-page'), 10);
+          renderRows();
+        });
+      }
+    });
   }
 
   renderRows();
 
-  searchInput.addEventListener('input', renderRows);
-  filterGrade.addEventListener('change', renderRows);
-  filterReferral.addEventListener('change', renderRows);
-  filterReview.addEventListener('change', renderRows);
+  const resetAndRender = () => { currentPage = 1; renderRows(); };
+  searchInput.addEventListener('input', resetAndRender);
+  filterGrade.addEventListener('change', resetAndRender);
+  filterReferral.addEventListener('change', resetAndRender);
+  filterReview.addEventListener('change', resetAndRender);
 
   if (window.lucide) window.lucide.createIcons();
 

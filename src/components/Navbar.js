@@ -3,6 +3,7 @@
  */
 
 import { StorageService } from '../services/storageService.js';
+import { openProfileModal } from './ProfileModal.js';
 
 export function renderNavbar(container, currentView, onNavigate, onDemoToggle) {
   const stats = StorageService.getStats();
@@ -38,14 +39,12 @@ export function renderNavbar(container, currentView, onNavigate, onDemoToggle) {
             <a class="nav-item ${currentView === 'screening-history' ? 'active' : ''}" data-view="screening-history">
               <i data-lucide="history" style="width:16px;height:16px;"></i>
               <span data-i18n="nav.history">${window.t('nav.history')}</span>
-              <span class="nav-badge-counter">${stats.total}</span>
             </a>
           </li>
           <li>
             <a class="nav-item ${currentView === 'doctor-review' ? 'active' : ''}" data-view="doctor-review">
               <i data-lucide="stethoscope" style="width:16px;height:16px;"></i>
               <span data-i18n="nav.doctorReview">${window.t('nav.doctorReview')}</span>
-              ${stats.pendingDoctor > 0 ? `<span class="nav-badge-counter" style="background:#f59e0b;">${stats.pendingDoctor}</span>` : ''}
             </a>
           </li>
           <li>
@@ -85,7 +84,7 @@ export function renderNavbar(container, currentView, onNavigate, onDemoToggle) {
             <!-- Dropdown Menu -->
             <div class="profile-dropdown" id="profile-dropdown" style="display: none; position: absolute; top: 100%; right: 0; margin-top: 8px; background: white; border: 1px solid #e2e8f0; border-radius: 8px; box-shadow: 0 4px 6px -1px rgb(0 0 0 / 0.1), 0 2px 4px -2px rgb(0 0 0 / 0.1); min-width: 160px; z-index: 50; overflow: hidden;">
               <div class="dropdown-item" id="btn-profile-edit" style="padding: 10px 16px; font-size: 14px; color: #334155; cursor: pointer; display: flex; align-items: center; gap: 8px; transition: background 0.2s;" onmouseover="this.style.background='#f8fafc'" onmouseout="this.style.background='white'">
-                <i data-lucide="edit" style="width:14px;height:14px;"></i> <span data-i18n="nav.profileEdit">${window.t('nav.profileEdit') || 'Profile Edit'}</span>
+                <i data-lucide="user" style="width:14px;height:14px;"></i> <span data-i18n="nav.profile">${window.t('nav.profile') || 'Profile'}</span>
               </div>
               <div style="height: 1px; background: #e2e8f0; width: 100%;"></div>
               <div class="dropdown-item" id="btn-logout" style="padding: 10px 16px; font-size: 14px; color: #ef4444; cursor: pointer; display: flex; align-items: center; gap: 8px; transition: background 0.2s;" onmouseover="this.style.background='#fef2f2'" onmouseout="this.style.background='white'">
@@ -139,8 +138,7 @@ export function renderNavbar(container, currentView, onNavigate, onDemoToggle) {
     container.querySelector('#btn-profile-edit').addEventListener('click', (e) => {
       e.stopPropagation();
       profileDropdown.style.display = 'none';
-      // Placeholder for actual profile edit logic
-      alert('Profile Edit functionality coming soon.');
+      openProfileModal();
     });
 
     container.querySelector('#btn-logout').addEventListener('click', (e) => {
