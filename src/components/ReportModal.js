@@ -35,8 +35,8 @@ export function openReportModal(screeningCase, onClose) {
         </div>
       </div>
 
-      <!-- Printable Report Body -->
-      <div class="modal-body" style="padding:2rem;">
+      <!-- Screen Report Body -->
+      <div class="modal-body screen-only" style="padding:2rem;">
         
         <!-- Official Hospital / Tele-Health Header -->
         <div style="display:flex; justify-content:space-between; align-items:center; border-bottom:2px solid var(--slate-900); padding-bottom:1rem; margin-bottom:1.5rem;">
@@ -193,6 +193,116 @@ export function openReportModal(screeningCase, onClose) {
           ${window.t('report.disclaimer')}
         </div>
 
+      </div>
+
+      <!-- Print Report Body (Visually hidden on screen, overrides on print) -->
+      <div class="print-wrapper" style="display: none;">
+        <div class="print-header-wave"></div>
+        <div class="print-footer-wave"></div>
+        
+        <div class="print-content">
+          <!-- Header Logo -->
+          <div style="display:flex; justify-content:center; align-items:center; margin-bottom:15px; margin-top:-15px;">
+             <div style="background:white; border-radius:50%; padding:8px; width:50px; height:50px; display:flex; justify-content:center; align-items:center; position:absolute; left: 30px; top: 15px;">
+               <img src="src/logo.jpeg" alt="Eye Logo" style="width:100%; height:100%; object-fit:cover; border-radius:50%; opacity:0.8;">
+             </div>
+             <div style="display:flex; flex-direction:column; align-items:center; color:white;">
+               <div style="font-size:14px; font-weight:700; letter-spacing:2px; text-transform:uppercase;">Report</div>
+               <h1 style="font-size:26px; font-weight:400; margin:0; font-family:var(--font-heading); letter-spacing:1px;">Drishti Kalyan</h1>
+               <div style="font-size:7px; letter-spacing:1px; text-transform:uppercase; color:#d8b981; margin-top:4px;">Vision & Health Screening Programme</div>
+             </div>
+          </div>
+          
+          <!-- Section 1: PATIENT DETAILS -->
+          <div class="print-section-header">PATIENT DETAILS</div>
+          <div class="print-table-box print-grid-3col">
+             <div class="print-field"><div class="print-field-label">Patient Name</div><div class="print-field-value">${window.tData(patient.name || '--')}</div></div>
+             <div class="print-field"><div class="print-field-label">Age</div><div class="print-field-value">${window.tData(patient.age ? patient.age + 'y' : '--')}</div></div>
+             <div class="print-field"><div class="print-field-label">Gender</div><div class="print-field-value">${window.tData(patient.gender || '--')}</div></div>
+             <div class="print-field"><div class="print-field-label">Date of Birth</div><div class="print-field-value">--</div></div>
+             <div class="print-field"><div class="print-field-label">Contact Number</div><div class="print-field-value">${patient.contact || '--'}</div></div>
+             <div class="print-field"><div class="print-field-label">Date of Examination</div><div class="print-field-value">${window.formatDate(screeningCase.createdAt || Date.now(), true)}</div></div>
+             <div class="print-field"><div class="print-field-label">Guardian / Spouse Name</div><div class="print-field-value">--</div></div>
+             <div class="print-field"><div class="print-field-label">Occupation</div><div class="print-field-value">--</div></div>
+             <div class="print-field"><div class="print-field-label">Blood Group</div><div class="print-field-value">--</div></div>
+             <div class="print-field"><div class="print-field-label">Aadhaar / Health ID</div><div class="print-field-value">--</div></div>
+             <div class="print-field"><div class="print-field-label">Village / Ward</div><div class="print-field-value">--</div></div>
+             <div class="print-field"><div class="print-field-label">Referred By</div><div class="print-field-value">--</div></div>
+             <div class="print-field" style="grid-column: 1 / -1;"><div class="print-field-label">Address</div><div class="print-field-value">${window.tData(patient.address || '--')}</div></div>
+          </div>
+          
+          <!-- Section 2: PHC ID DETAILS -->
+          <div class="print-section-header">PHC ID DETAILS</div>
+          <div class="print-table-box print-grid-3col">
+             <div class="print-field"><div class="print-field-label">PHC ID NO.</div><div class="print-field-value">${StorageService.getCurrentUser() || '--'}</div></div>
+             <div class="print-field"><div class="print-field-label">PHC NAME</div><div class="print-field-value">${window.tData(patient.centre || 'Primary Health Centre')}</div></div>
+             <div class="print-field"><div class="print-field-label">REGISTRATION NO.</div><div class="print-field-value">--</div></div>
+             <div class="print-field"><div class="print-field-label">DISTRICT</div><div class="print-field-value">--</div></div>
+             <div class="print-field"><div class="print-field-label">BLOCK / TALUKA</div><div class="print-field-value">--</div></div>
+             <div class="print-field"><div class="print-field-label">STATE</div><div class="print-field-value">--</div></div>
+          </div>
+          
+          <!-- Section 3: CLINICAL / EXAMINATION IMAGES -->
+          <div class="print-section-header">CLINICAL / EXAMINATION IMAGES</div>
+          <div class="print-image-grid-v2">
+             <div class="print-image-slot-v2">
+               <img src="${screeningCase.rawImage}" alt="Image 1">
+             </div>
+             <div class="print-image-slot-v2">
+               ${!isUngradable && screeningCase.gradCamImage ? `<img src="${screeningCase.gradCamImage}" alt="Image 2">` : `<div class="print-image-placeholder"><i data-lucide="camera"></i><span>IMAGE 2</span></div>`}
+             </div>
+             <div class="print-image-slot-v2"><div class="print-image-placeholder"><i data-lucide="camera"></i><span>IMAGE 3</span></div></div>
+             <div class="print-image-slot-v2"><div class="print-image-placeholder"><i data-lucide="camera"></i><span>IMAGE 4</span></div></div>
+             <div class="print-image-slot-v2"><div class="print-image-placeholder"><i data-lucide="camera"></i><span>IMAGE 5</span></div></div>
+             <div class="print-image-slot-v2"><div class="print-image-placeholder"><i data-lucide="camera"></i><span>IMAGE 6</span></div></div>
+          </div>
+          
+          <!-- Section 4: RISK / SEVERITY HEATMAP -->
+          <div class="print-section-header">RISK / SEVERITY HEATMAP</div>
+          <div class="print-heatmap-box">
+             ${isUngradable ? window.t('report.ungradable') : (window.t(`dr.${screeningCase.stage}.title`) || drMeta?.title || 'ATTACH / INSERT HEATMAP HERE')}
+          </div>
+          <div class="print-heatmap-scale">
+             <span>Low Risk</span><span>Moderate</span><span>Elevated</span><span>High</span><span>Severe</span>
+          </div>
+          
+          <!-- Section 5: CLINICAL OBSERVATIONS / REMARKS -->
+          <div class="print-section-header" style="margin-top:6px;">CLINICAL OBSERVATIONS / REMARKS</div>
+          <ul class="print-remarks-list">
+            ${(!isUngradable && screeningCase.aiResult?.evidence) ? screeningCase.aiResult.evidence.slice(0, 5).map(ev => `
+              <li>${window.t(`ev.type.${ev.type}`) || ev.type} in ${window.t(`ev.region.${ev.region}`) || ev.region} (${window.tData(ev.severity)})</li>
+            `).join('') : `
+              <li>${isUngradable ? window.t('report.defocus') : 'No significant observations found.'}</li>
+              <li></li>
+              <li></li>
+              <li></li>
+              <li></li>
+            `}
+            ${(!isUngradable && screeningCase.aiResult?.evidence && screeningCase.aiResult.evidence.length < 5) ? Array.from({length: 5 - screeningCase.aiResult.evidence.length}).map(() => '<li></li>').join('') : ''}
+          </ul>
+        </div>
+        
+        <div class="print-footer-info-v2">
+           <div class="print-footer-header-v2">PHC DETAILS</div>
+           <div class="print-footer-grid-v2">
+             <div class="print-footer-col-v2">
+                <div class="print-footer-label-v2">PHC NAME & ADDRESS</div>
+                <div class="print-footer-line-v2">${window.tData(patient.centre || 'Primary Health Centre')}</div>
+             </div>
+             <div class="print-footer-col-v2">
+                <div class="print-footer-label-v2">CONTACT NUMBER</div>
+                <div class="print-footer-line-v2">${patient.contact || '--'}</div>
+             </div>
+             <div class="print-footer-col-v2">
+                <div class="print-footer-label-v2">MEDICAL OFFICER</div>
+                <div class="print-footer-line-v2">${docReview.reviewedBy || window.t("report.aiimsHub") || 'AIIMS Hub'}</div>
+             </div>
+             <div class="print-footer-col-v2">
+                <div class="print-footer-label-v2">DATE & STAMP</div>
+                <div class="print-footer-line-v2"></div>
+             </div>
+           </div>
+        </div>
       </div>
 
       <!-- Modal Footer -->

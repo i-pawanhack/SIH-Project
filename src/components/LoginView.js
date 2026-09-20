@@ -1070,33 +1070,6 @@ export function renderLoginView(container, onLoginSuccess) {
             <p>Explainable AI for Diabetic Retinopathy Screening in Rural India</p>
             <p><strong>TEAM SYNAPSE</strong><br>SIH 2026 | SIH26038</p>
             <p>We welcome technical discussions, academic collaboration, research discussions, and opportunities related to AI-assisted retinal screening.</p>
-            
-            <h4>Technical Queries</h4>
-            <p>Contact us regarding:</p>
-            <ul>
-              <li>AI/ML pipeline</li>
-              <li>Computer Vision</li>
-              <li>Retinal image processing</li>
-              <li>DR classification</li>
-              <li>Lesion detection</li>
-              <li>Explainable AI</li>
-              <li>Uncertainty estimation</li>
-              <li>Screening reports</li>
-              <li>Simulink scalability</li>
-              <li>Rural deployment architecture</li>
-            </ul>
-
-            <h4>Research & Academic Collaboration</h4>
-            <p>We are open to discussions with:</p>
-            <ul>
-              <li>Ophthalmology researchers</li>
-              <li>Healthcare institutions</li>
-              <li>Academic institutions</li>
-              <li>AI/ML researchers</li>
-              <li>Medical technology teams</li>
-              <li>Rural healthcare initiatives</li>
-            </ul>
-
             <h4>Project Information</h4>
             <ul>
               <li><strong>Problem Statement:</strong> Explainable AI for Diabetic Retinopathy Screening in Rural India</li>
@@ -1262,14 +1235,19 @@ export function renderLoginView(container, onLoginSuccess) {
     import('../services/storageService.js').then(({ StorageService }) => {
       // Simulate slight network delay for better UX
       setTimeout(() => {
-        const result = StorageService.verifyLogin(phcId, password);
-        if (result.success) {
-          onLoginSuccess();
+        const adminResult = StorageService.verifyAdminLogin(phcId, password);
+        if (adminResult.success) {
+          onLoginSuccess('admin');
         } else {
-          errorDiv.textContent = result.message;
-          errorDiv.style.display = 'block';
-          submitBtn.innerHTML = originalBtnText;
-          submitBtn.disabled = false;
+          const result = StorageService.verifyLogin(phcId, password);
+          if (result.success) {
+            onLoginSuccess('phc');
+          } else {
+            errorDiv.textContent = result.message;
+            errorDiv.style.display = 'block';
+            submitBtn.innerHTML = originalBtnText;
+            submitBtn.disabled = false;
+          }
         }
       }, 500);
     });

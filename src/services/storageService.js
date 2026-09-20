@@ -290,4 +290,28 @@ export class StorageService {
   static logout() {
     localStorage.removeItem('drishkalyan_logins_v1');
   }
+
+  // --- Admin Authentication ---
+  static verifyAdminLogin(email, password) {
+    const ADMIN_EMAIL = 'admin@drishkalyan.in';
+    const ADMIN_PASSWORD = 'DrishKalyan@Admin2026';
+    
+    if (email === ADMIN_EMAIL && password === ADMIN_PASSWORD) {
+      localStorage.setItem('drishkalyan_admin_session_v1', JSON.stringify({
+        email,
+        name: 'DRISH KALYAN Administrator',
+        timestamp: new Date().toISOString()
+      }));
+      return { success: true };
+    }
+    return { success: false, message: 'Invalid admin credentials' };
+  }
+
+  static isAdminLoggedIn() {
+    return !!localStorage.getItem('drishkalyan_admin_session_v1');
+  }
+
+  static logoutAdmin() {
+    localStorage.removeItem('drishkalyan_admin_session_v1');
+  }
 }

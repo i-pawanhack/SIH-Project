@@ -27,7 +27,7 @@ export function renderDashboardView(container, onNavigate, onOpenReport) {
     <!-- KPI Metric Cards Grid -->
     <div class="kpi-grid">
       <!-- Total Screenings -->
-      <div class="kpi-card" style="--kpi-accent: var(--primary-600); --kpi-bg: var(--primary-50);">
+      <div class="kpi-card" id="kpi-total" style="--kpi-accent: var(--primary-600); --kpi-bg: var(--primary-50); cursor: pointer; transition: transform 0.2s;">
         <div>
           <div class="kpi-label" data-i18n="dash.totalScreenings">${window.t('dash.totalScreenings')}</div>
           <div class="kpi-value">${stats.total}</div>
@@ -41,7 +41,7 @@ export function renderDashboardView(container, onNavigate, onOpenReport) {
       </div>
 
       <!-- Referable Cases -->
-      <div class="kpi-card" style="--kpi-accent: #ef4444; --kpi-bg: #fee2e2;">
+      <div class="kpi-card" id="kpi-referable" style="--kpi-accent: #ef4444; --kpi-bg: #fee2e2; cursor: pointer; transition: transform 0.2s;">
         <div>
           <div class="kpi-label" data-i18n="dash.referableCases">${window.t('dash.referableCases')}</div>
           <div class="kpi-value" style="color:#b91c1c;">${stats.referable}</div>
@@ -55,7 +55,7 @@ export function renderDashboardView(container, onNavigate, onOpenReport) {
       </div>
 
       <!-- Non-Referable Cases -->
-      <div class="kpi-card" style="--kpi-accent: #10b981; --kpi-bg: #dcfce7;">
+      <div class="kpi-card" id="kpi-nonreferable" style="--kpi-accent: #10b981; --kpi-bg: #dcfce7; cursor: pointer; transition: transform 0.2s;">
         <div>
           <div class="kpi-label" data-i18n="dash.nonReferableCases">${window.t('dash.nonReferableCases')}</div>
           <div class="kpi-value" style="color:#15803d;">${stats.nonReferable}</div>
@@ -69,7 +69,7 @@ export function renderDashboardView(container, onNavigate, onOpenReport) {
       </div>
 
       <!-- Ungradable Images -->
-      <div class="kpi-card" style="--kpi-accent: #f59e0b; --kpi-bg: #fef3c7;">
+      <div class="kpi-card" id="kpi-ungradable" style="--kpi-accent: #f59e0b; --kpi-bg: #fef3c7; cursor: pointer; transition: transform 0.2s;">
         <div>
           <div class="kpi-label" data-i18n="dash.ungradableImages">${window.t('dash.ungradableImages')}</div>
           <div class="kpi-value" style="color:#b45309;">${stats.ungradable}</div>
@@ -83,7 +83,7 @@ export function renderDashboardView(container, onNavigate, onOpenReport) {
       </div>
 
       <!-- Pending Doctor Review -->
-      <div class="kpi-card" style="--kpi-accent: #0284c7; --kpi-bg: #e0f2fe;">
+      <div class="kpi-card" id="kpi-pending" style="--kpi-accent: #0284c7; --kpi-bg: #e0f2fe; cursor: pointer; transition: transform 0.2s;">
         <div>
           <div class="kpi-label" data-i18n="dash.pendingDoctor">${window.t('dash.pendingDoctor')}</div>
           <div class="kpi-value" style="color:#0369a1;">${stats.pendingDoctor}</div>
@@ -158,6 +158,8 @@ export function renderDashboardView(container, onNavigate, onOpenReport) {
   const searchInput = container.querySelector('#dash-search-input');
   const filterDr = container.querySelector('#dash-filter-dr');
 
+  let activeCardFilter = 'ALL';
+
   function renderRows() {
     const query = searchInput.value.toLowerCase().trim();
     const drFilter = filterDr.value;
@@ -177,7 +179,18 @@ export function renderDashboardView(container, onNavigate, onOpenReport) {
         }
       }
 
-      return matchQuery && matchDr;
+      let matchCard = true;
+      if (activeCardFilter === 'REFERABLE') {
+        matchCard = !item.isUngradable && item.stage >= 2;
+      } else if (activeCardFilter === 'NON_REFERABLE') {
+        matchCard = !item.isUngradable && item.stage < 2;
+      } else if (activeCardFilter === 'UNGRADABLE') {
+        matchCard = item.isUngradable || item.imageQuality?.overall === 'UNGRADABLE';
+      } else if (activeCardFilter === 'PENDING') {
+        matchCard = item.doctorReview?.status !== 'Reviewed';
+      }
+
+      return matchQuery && matchDr && matchCard;
     }).slice(0, 5);
 
     if (filtered.length === 0) {
@@ -271,7 +284,47 @@ export function renderDashboardView(container, onNavigate, onOpenReport) {
   searchInput.addEventListener('input', renderRows);
   filterDr.addEventListener('change', renderRows);
 
-  // Navigation Button Handlers (Removed New Screening button)
+  const resetStyles = () => {
+    container.querySelectorAll('.kpi-card').forEach(c => {
+      c.style.transform = 'scale(1)';
+      c.style.cursor = 'pointer';
+    });
+  };
+
+  const applyActiveStyle = (el) => {
+    resetStyles();
+    el.style.transform = 'scale(1.05)';
+  };
+
+  container.querySelectorAll('.kpi-card').forEach(c => {
+    c.style.cursor = 'pointer';
+  });
+
+  container.querySelector('#kpi-total').addEventListener('click', (e) => {
+    activeCardFilter = 'ALL';
+    applyActiveStyle(e.currentTarget);
+    renderRows();
+  });
+  container.querySelector('#kpi-referable').addEventListener('click', (e) => {
+    activeCardFilter = 'REFERABLE';
+    applyActiveStyle(e.currentTarget);
+    renderRows();
+  });
+  container.querySelector('#kpi-nonreferable').addEventListener('click', (e) => {
+    activeCardFilter = 'NON_REFERABLE';
+    applyActiveStyle(e.currentTarget);
+    renderRows();
+  });
+  container.querySelector('#kpi-ungradable').addEventListener('click', (e) => {
+    activeCardFilter = 'UNGRADABLE';
+    applyActiveStyle(e.currentTarget);
+    renderRows();
+  });
+  container.querySelector('#kpi-pending').addEventListener('click', (e) => {
+    activeCardFilter = 'PENDING';
+    applyActiveStyle(e.currentTarget);
+    renderRows();
+  });
 
   if (window.lucide) window.lucide.createIcons();
 

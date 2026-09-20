@@ -17,6 +17,7 @@ import { renderCapacitySimulator } from './components/CapacitySimulator.js';
 import { renderDatasetsView } from './components/DatasetsView.js';
 import { openReportModal } from './components/ReportModal.js';
 import { renderLoginView } from './components/LoginView.js';
+import { renderAdminDashboardView } from './components/AdminDashboardView.js';
 
 if (!window.t) window.t = (key) => key;
 if (!window.getLanguage) window.getLanguage = () => 'en';
@@ -65,10 +66,14 @@ class DrishKalyanApp {
       if (this.currentView === 'login') {
         const loginContainer = document.getElementById('view-login');
         if (loginContainer) {
-          renderLoginView(loginContainer, () => {
+          renderLoginView(loginContainer, (role) => {
             this.isAuthenticated = true;
             this.showToast(window.getLanguage() === 'hi' ? 'प्रमाणीकरण सफल रहा' : 'Authentication Successful');
-            this.navigateTo('dashboard');
+            if (role === 'admin') {
+              this.navigateTo('admin-dashboard');
+            } else {
+              this.navigateTo('dashboard');
+            }
           });
         }
       } else if (this.currentView !== 'new-screening') {
@@ -82,7 +87,7 @@ class DrishKalyanApp {
     const bannerRoot = document.getElementById('safety-banner-root');
     const navRoot = document.getElementById('navbar-root');
 
-    if (this.currentView === 'login') {
+    if (this.currentView === 'login' || this.currentView.startsWith('admin-')) {
       if (bannerRoot) bannerRoot.style.display = 'none';
       if (navRoot) navRoot.style.display = 'none';
       return;
@@ -117,11 +122,20 @@ class DrishKalyanApp {
       if (viewName === 'login') {
         renderLoginView(
           targetContainer,
-          () => {
+          (role) => {
             this.isAuthenticated = true;
             this.showToast('Authentication Successful');
-            this.navigateTo('dashboard');
+            if (role === 'admin') {
+              this.navigateTo('admin-dashboard');
+            } else {
+              this.navigateTo('dashboard');
+            }
           }
+        );
+      } else if (viewName === 'admin-dashboard') {
+        renderAdminDashboardView(
+          targetContainer,
+          (v) => this.navigateTo(v)
         );
       } else if (viewName === 'dashboard') {
         renderDashboardView(
