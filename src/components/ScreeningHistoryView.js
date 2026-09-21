@@ -174,7 +174,7 @@ export function renderScreeningHistoryView(container, onOpenReport) {
         <tr style="cursor:pointer;" data-id="${c.id}">
           <td>
             <div style="font-weight:700; color:var(--slate-900);">${window.tData(c.patient?.name || '') || window.t('dash.th.patient')}</div>
-            <div style="font-size:0.75rem; color:var(--slate-500); font-family:var(--font-mono);">${c.patient?.id || c.id} • ${window.tData((c.patient?.age || '--') + 'y')}</div>
+            <div style="font-size:0.75rem; color:var(--slate-500); font-family:var(--font-mono);">${window.tData(c.patient?.id || c.id)} • ${window.tData((c.patient?.age || '--') + 'y')}</div>
           </td>
           <td style="font-size:0.8125rem;">
             ${window.formatDate(c.createdAt || Date.now())}
@@ -238,7 +238,7 @@ export function renderScreeningHistoryView(container, onOpenReport) {
     }
 
     let html = `
-      <button class="btn btn-secondary btn-sm ${currentPage === 1 ? 'disabled' : ''}" data-page="${currentPage - 1}" style="padding:0.4rem 0.75rem; background: white; border-color: #e2e8f0; color: #334155;">Previous</button>
+      <button class="btn btn-secondary btn-sm ${currentPage === 1 ? 'disabled' : ''}" data-page="${currentPage - 1}" style="padding:0.4rem 0.75rem; background: white; border-color: #e2e8f0; color: #334155;" data-i18n="hist.prev">${window.tData('Previous')}</button>
     `;
 
     for (let i = 1; i <= totalPages; i++) {
@@ -253,7 +253,7 @@ export function renderScreeningHistoryView(container, onOpenReport) {
     }
 
     html += `
-      <button class="btn btn-secondary btn-sm ${currentPage === totalPages ? 'disabled' : ''}" data-page="${currentPage + 1}" style="padding:0.4rem 0.75rem; background: white; border-color: #e2e8f0; color: #334155;">Next</button>
+      <button class="btn btn-secondary btn-sm ${currentPage === totalPages ? 'disabled' : ''}" data-page="${currentPage + 1}" style="padding:0.4rem 0.75rem; background: white; border-color: #e2e8f0; color: #334155;" data-i18n="hist.next">${window.tData('Next')}</button>
     `;
 
     paginationEl.innerHTML = html;

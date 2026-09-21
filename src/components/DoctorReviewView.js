@@ -123,7 +123,7 @@ export function renderDoctorReviewView(container, onOpenReport) {
             </span>
           </div>
           <div style="font-size:0.75rem; color:var(--slate-500); font-family:var(--font-mono); margin-bottom:0.4rem;">
-            ${c.patient?.id || c.id} • ${window.tData((c.patient?.age || "--") + "y")}
+            ${window.tData(c.patient?.id || c.id)} • ${window.tData((c.patient?.age || "--") + "y")}
           </div>
           <div style="display:flex; justify-content:space-between; align-items:center;">
             ${isUngradable 
@@ -153,7 +153,7 @@ export function renderDoctorReviewView(container, onOpenReport) {
           <div>
             <div style="display:flex; align-items:center; gap:0.5rem;">
               <h2 style="font-size:1.3rem; color:var(--slate-900);">${window.tData(c.patient?.name || '') || `<span data-i18n="doc.patient">${window.t('doc.patient')}</span>`}</h2>
-              <span class="badge" style="background:var(--slate-100); color:var(--slate-700); font-family:var(--font-mono);">${c.patient?.id || c.id}</span>
+              <span class="badge" style="background:var(--slate-100); color:var(--slate-700); font-family:var(--font-mono);">${window.tData(c.patient?.id || c.id)}</span>
             </div>
             <div style="font-size:0.8125rem; color:var(--slate-500); margin-top:0.2rem;">
               <span data-i18n="doc.lblAge">${window.t('doc.lblAge')}</span> ${window.tData((c.patient?.age || "--") + "y")} • <span data-i18n="doc.lblGender">${window.t('doc.lblGender')}</span> ${window.tData(c.patient?.gender || "--")} • <span data-i18n="doc.lblDuration">${window.t('doc.lblDuration')}</span> ${window.tData(c.patient?.diabetesDuration || "--")} • <span data-i18n="doc.lblFacility">${window.t('doc.lblFacility')}</span> ${window.tData(c.patient?.centre || 'PHC')}

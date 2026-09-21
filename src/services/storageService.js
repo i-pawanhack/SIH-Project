@@ -257,12 +257,13 @@ export class StorageService {
   }
 
   static verifyLogin(phcId, password) {
+    const normPhcId = (phcId || '').replace(/पीएचसी/g, 'PHC').trim();
     const accounts = this.getAccounts();
-    const account = accounts.find(a => a.phcId === phcId && a.password === password);
+    const account = accounts.find(a => (a.phcId === phcId || a.phcId === normPhcId) && a.password === password);
     if (account) {
       // Save timestamp
       const logins = this.getLogins();
-      logins.push({ phcId, timestamp: new Date().toISOString() });
+      logins.push({ phcId: normPhcId, timestamp: new Date().toISOString() });
       localStorage.setItem('drishkalyan_logins_v1', JSON.stringify(logins));
       
       return { success: true };

@@ -131,7 +131,7 @@ export function renderRuralModeView(container) {
           <div style="font-size:0.8125rem; color:var(--slate-600); display:flex; flex-direction:column; gap:0.35rem;">
             <div><span data-i18n="rural.lblRuntime">${window.t('rural.lblRuntime')}</span> <strong>${window.t("rural.specs.model")}</strong></div>
             <div><span data-i18n="rural.lblQuant">${window.t('rural.lblQuant')}</span> <strong>${window.t("rural.specs.quant")}</strong></div>
-            <div><span data-i18n="rural.lblLatency">${window.t('rural.lblLatency')}</span> <strong>142 ms <span data-i18n="rural.noInternet">(${window.t('rural.noInternet')})</span></strong></div>
+            <div><span data-i18n="rural.lblLatency">${window.t('rural.lblLatency')}</span> <strong>${window.tData("142 ms")} <span data-i18n="rural.noInternet">(${window.t('rural.noInternet')})</span></strong></div>
             <div><span data-i18n="rural.lblModelSize">${window.t('rural.lblModelSize')}</span> <strong>${window.t("rural.specs.size")}</strong></div>
           </div>
         </div>
@@ -140,14 +140,14 @@ export function renderRuralModeView(container) {
         <div class="card">
           <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:0.75rem;">
             <div style="font-weight:700; font-size:0.875rem; color:var(--slate-900);" data-i18n="rural.card3.title">${window.t('rural.card3.title')}</div>
-            <span class="badge" style="background:#dbeafe; color:#1e40af;" data-i18n="${settings.lowBandwidthMode ? 'rural.badge2G' : 'rural.badge4G'}">
-              ${settings.lowBandwidthMode ? window.t('rural.badge2G') : window.t('rural.badge4G')}
+            <span class="badge" style="background:#dbeafe; color:#1e40af;">
+              ${settings.lowBandwidthMode ? window.tData('2G Compressed') : window.tData('4G Stable')}
             </span>
           </div>
           <div style="font-size:0.8125rem; color:var(--slate-600); display:flex; flex-direction:column; gap:0.35rem;">
             <div><span data-i18n="rural.lblNetwork">${window.t('rural.lblNetwork')}</span> <strong>${window.t("rural.specs.telemetry")}</strong></div>
             <div><span data-i18n="rural.lblPendingQueue">${window.t('rural.lblPendingQueue')}</span> <strong>${syncQueue.length} <span data-i18n="rural.cases">${window.t('rural.cases')}</span></strong></div>
-            <div><span data-i18n="rural.lblComp">${window.t('rural.lblComp')}</span> <strong>${settings.lowBandwidthMode ? 'JPEG 85% + GradCAM Vector' : 'Standard Full-Res'}</strong></div>
+            <div><span data-i18n="rural.lblComp">${window.t('rural.lblComp')}</span> <strong>${settings.lowBandwidthMode ? window.tData('JPEG 85% + GradCAM Vector') : window.tData('Standard Full-Res')}</strong></div>
             <div><span data-i18n="rural.lblProtocol">${window.t('rural.lblProtocol')}</span> <strong>${window.t("rural.specs.https")}</strong></div>
           </div>
         </div>
@@ -188,9 +188,9 @@ export function renderRuralModeView(container) {
             <tbody>
               ${screenings.slice(0, 5).map((c, i) => `
                 <tr>
-                  <td style="font-family:var(--font-mono); font-weight:700;">${c.id}</td>
-                  <td><strong>${c.patient?.name || window.t('doc.patient')}</strong> (${c.patient?.id || '--'})</td>
-                  <td style="font-size:0.8125rem;">${c.patient?.centre ? c.patient.centre.split('—')[0] : 'PHC Rampur'}</td>
+                  <td style="font-family:var(--font-mono); font-weight:700;">${window.tData(c.id)}</td>
+                  <td><strong>${window.tData(c.patient?.name || '') || window.t('doc.patient')}</strong> (${window.tData(c.patient?.id || '--')})</td>
+                  <td style="font-size:0.8125rem;">${window.tData(c.patient?.centre ? c.patient.centre.split('—')[0] : 'PHC Rampur')}</td>
                   <td>
                     ${c.isUngradable ? `<span class="badge badge-quality-ungradable" data-i18n="hist.ungradable">${window.t('hist.ungradable')}</span>` : `<span class="badge badge-dr-${c.stage}">${window.t("dash.l" + c.stage + "_short")}</span>`}
                   </td>
@@ -201,7 +201,7 @@ export function renderRuralModeView(container) {
                     </span>
                   </td>
                   <td style="font-family:var(--font-mono); font-size:0.8125rem;">
-                    ${settings.lowBandwidthMode ? '34 KB (Vector Heatmap)' : '${window.tData("240 KB (Standard)")}'}
+                    ${settings.lowBandwidthMode ? window.tData('34 KB (Vector Heatmap)') : window.tData('240 KB (Standard)')}
                   </td>
                 </tr>
               `).join('')}
@@ -225,6 +225,11 @@ export function renderRuralModeView(container) {
 
     container.querySelector('#rural-trigger-sync-btn').addEventListener('click', triggerSync);
     container.querySelector('#queue-sync-btn').addEventListener('click', triggerSync);
+
+    const onLangChange = () => {
+      updateView();
+    };
+    window.addEventListener('languageChanged', onLangChange, { once: true });
 
     if (window.lucide) window.lucide.createIcons();
   }

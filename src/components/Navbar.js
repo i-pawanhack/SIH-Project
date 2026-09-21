@@ -76,7 +76,7 @@ export function renderNavbar(container, currentView, onNavigate, onDemoToggle) {
             </div>
             <div style="display: flex; flex-direction: column;">
               <span style="font-size: 14px; font-weight: 600; color: #1e293b; display: flex; align-items: center; gap: 4px;">
-                ${currentPHC} <i data-lucide="chevron-down" style="width:14px;height:14px;color:#64748b;"></i>
+                ${window.tData(currentPHC)} <i data-lucide="chevron-down" style="width:14px;height:14px;color:#64748b;"></i>
               </span>
               <span style="font-size: 12px; color: #64748b;" data-i18n="nav.phcSubtitle">${window.t('nav.phcSubtitle') || 'Primary Health Centre'}</span>
             </div>

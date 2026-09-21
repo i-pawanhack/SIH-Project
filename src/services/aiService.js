@@ -201,7 +201,7 @@ export class AIService {
   static getAnatomicalLandmarks(stage = 0, eyeBox = null) {
     let cx = 300;
     let cy = 300;
-    let radius = 270;
+    let radius = 260;
     
     if (eyeBox) {
        cx = eyeBox.x + (eyeBox.width / 2);
@@ -209,21 +209,113 @@ export class AIService {
        radius = Math.max(eyeBox.width, eyeBox.height) * 0.8;
     }
 
+    const odX = cx - radius * 0.45; // Exactly matching imageProcessor.js (183px)
+    const odY = cy; // 300px
+    const maculaX = cx + radius * 0.25; // 365px
+    const maculaY = cy + radius * 0.05; // 313px
+
+    const lesions = [];
+
+    if (stage >= 1) {
+      lesions.push({
+        id: 'microaneurysms_1',
+        type: 'Microaneurysms',
+        label: 'Microaneurysms',
+        labelHi: 'माइक्रोएन्यूरिज्म',
+        x: cx - 65, // 235px
+        y: cy + 65, // 365px
+        radius: 22,
+        color: '#ef4444',
+        align: 'left'
+      });
+    }
+
+    if (stage >= 2) {
+      // Yellow dots (Hard Exudates 1) near Macula & Temporal Arcade (Top Center-Right)
+      lesions.push({
+        id: 'hard_exudates_1',
+        type: 'Hard Exudates',
+        label: 'Hard Exudates',
+        labelHi: 'हार्ड एक्सयूडेट्स',
+        x: maculaX - 35, // 330px
+        y: maculaY - 35, // 278px
+        radius: 28,
+        color: '#facc15',
+        align: 'top'
+      });
+      // Yellow dots (Hard Exudates 2) (Bottom Right)
+      lesions.push({
+        id: 'hard_exudates_2',
+        type: 'Hard Exudates',
+        label: 'Hard Exudates',
+        labelHi: 'हार्ड एक्सयूडेट्स',
+        x: maculaX + 60, // 425px
+        y: maculaY + 45, // 358px
+        radius: 26,
+        color: '#facc15',
+        align: 'bottom'
+      });
+      lesions.push({
+        id: 'hemorrhages_1',
+        type: 'Hemorrhages',
+        label: 'Blot Hemorrhage',
+        labelHi: 'रेटिनल रक्तस्राव',
+        x: cx + 20, // 320px
+        y: cy + 135, // 435px
+        radius: 24,
+        color: '#b91c1c',
+        align: 'bottom'
+      });
+    }
+
+    if (stage >= 3) {
+      lesions.push({
+        id: 'cotton_wool_1',
+        type: 'Cotton Wool Spots',
+        label: 'Cotton Wool Spot',
+        labelHi: 'कॉटन वूल स्पॉट',
+        x: cx - 70,
+        y: cy - 75,
+        radius: 25,
+        color: '#f8fafc',
+        align: 'top-left'
+      });
+    }
+
+    if (stage >= 4) {
+      lesions.push({
+        id: 'neovascular_1',
+        type: 'Neovascularization',
+        label: 'Neovascular Frond',
+        labelHi: 'नियोवैस्कुलराइजेशन',
+        x: odX + 25,
+        y: odY - 15,
+        radius: 28,
+        color: '#dc2626',
+        align: 'top'
+      });
+    }
+
     return {
       opticDisc: {
-        x: cx - radius * 0.35,
-        y: cy,
-        radius: radius * 0.17,
-        label: 'Optic Disc (Cup-to-Disc Ratio: 0.35)',
+        x: odX,
+        y: odY,
+        radius: 48,
+        label: 'Optic Disc',
+        labelHi: 'ऑप्टिक डिस्क',
+        align: 'left',
         status: stage === 4 ? 'Neovascularization Observed' : 'Clear Margins'
       },
       fovea: {
-        x: cx + radius * 0.25,
-        y: cy + radius * 0.05,
-        radius: radius * 0.11,
+        x: maculaX,
+        y: maculaY,
+        radius: 35,
         label: 'Fovea Centralis (Macula)',
+        labelHi: 'फोविया (मैक्युला केंद्र)',
+        align: 'bottom',
         status: stage >= 2 ? 'Exudates in Perimacular Ring' : 'Intact Foveal Avascular Zone (FAZ)'
       },
+      lesions: lesions,
       vesselDensity: {
         score: '84.2%',
         caliber: stage >= 3 ? 'Venous Beading / Dilated' : 'Normal Caliber (A/V 2:3)',

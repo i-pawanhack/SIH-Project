@@ -121,6 +121,19 @@ export function renderScreeningWizard(container, onCompleteScreening, onOpenRepo
 
   // STEP 1: PATIENT REGISTRATION FORM & PRESET SELECTOR
   function renderStep1(target) {
+    const isHindiMode = window.getLanguage() === 'hi';
+    if (!patientData.id || (isHindiMode && (patientData.id === 'PHC-002' || patientData.id === 'PHC-001'))) {
+      patientData.id = isHindiMode ? 'पीएचसी-002' : 'PHC-002';
+    }
+    if (!patientData.name || (isHindiMode && (patientData.name === 'Pawan' || patientData.name === 'पावान'))) {
+      patientData.name = isHindiMode ? 'पवन' : 'Pawan';
+    }
+    if (!patientData.age) patientData.age = '38';
+    if (!patientData.gender) patientData.gender = 'Male';
+    if (!patientData.diabetesDuration) patientData.diabetesDuration = '6 - 10 Years';
+    if (!patientData.diabetesStatus) patientData.diabetesStatus = 'Type 2 Diabetes';
+    if (!patientData.centre) patientData.centre = SCREENING_CENTRES[0] || 'PHC Rampur';
+
     target.innerHTML = `
       <div class="card" style="max-width:850px; margin:0 auto;">
         <div class="card-header">
@@ -229,6 +242,7 @@ export function renderScreeningWizard(container, onCompleteScreening, onOpenRepo
     `;
 
     // Enable Transliteration for Text Fields
+    TransliterationService.enableTransliteration(target.querySelector('#p-id'));
     TransliterationService.enableTransliteration(target.querySelector('#p-name'));
     TransliterationService.enableTransliteration(target.querySelector('#p-contact'));
     TransliterationService.enableTransliteration(target.querySelector('#p-address'));
@@ -997,11 +1011,6 @@ export function renderScreeningWizard(container, onCompleteScreening, onOpenRepo
       aiDiagnosticResult = AIService.evaluateClassification(selectedStage, eyeBox);
       gradCamDataUrl = AIService.generateGradCAMHeatmap(selectedStage, 600, 600, eyeBox);
 
-      // Trigger Confetti for completing analysis
-      if (window.confetti) {
-        window.confetti({ particleCount: 40, spread: 60, origin: { y: 0.6 } });
-      }
-
       currentStep = 6;
       updateView();
     }, 2200);
@@ -1072,15 +1081,109 @@ export function renderScreeningWizard(container, onCompleteScreening, onOpenRepo
               <img id="layer-fundus-base" src="${enhancedImageDataUrl || rawImageDataUrl}" class="fundus-canvas-layer" alt="Base Fundus">
               <img id="layer-gradcam-heat" src="${gradCamDataUrl}" class="fundus-canvas-layer" alt="Grad-CAM Layer" style="opacity:${heatmapOpacity}; mix-blend-mode:screen;">
               
-              <!-- SVG Anatomical Overlay Layer -->
+              <!-- SVG Anatomical & Lesion Overlay Layer -->
               <svg id="layer-svg-structures" class="fundus-overlay-svg" viewBox="0 0 600 600" style="display:none;">
-                <!-- Optic Disc Landmark -->
-                <circle cx="${aiDiagnosticResult.landmarks.opticDisc.x}" cy="${aiDiagnosticResult.landmarks.opticDisc.y}" r="${aiDiagnosticResult.landmarks.opticDisc.radius}" stroke="#38bdf8" stroke-width="2.5" stroke-dasharray="4,4" fill="rgba(56, 189, 248, 0.15)" />
-                <text x="${aiDiagnosticResult.landmarks.opticDisc.x - 35}" y="${aiDiagnosticResult.landmarks.opticDisc.y - 50}" fill="#38bdf8" font-size="12" font-weight="bold" data-i18n="wiz.s6.opticDisc">${window.t('wiz.s6.opticDisc')}</text>
+                ${(() => {
+                  function renderSvgLandmarkBadge({ circleX, circleY, circleRadius, labelText, strokeColor, align = 'top', i18nKey = null }) {
+                    const charWidth = 7.5;
+                    const w = Math.min(280, Math.max(90, Math.ceil(labelText.length * charWidth + 28)));
+                    const h = 24;
+                    const rx = 12;
+                    const margin = 14;
+                    const viewBoxSize = 600;
 
-                <!-- Fovea Landmark -->
-                <circle cx="${aiDiagnosticResult.landmarks.fovea.x}" cy="${aiDiagnosticResult.landmarks.fovea.y}" r="${aiDiagnosticResult.landmarks.fovea.radius}" stroke="#facc15" stroke-width="2" stroke-dasharray="3,3" fill="rgba(250, 204, 21, 0.15)" />
-                <text x="${aiDiagnosticResult.landmarks.fovea.x - 20}" y="${aiDiagnosticResult.landmarks.fovea.y - 35}" fill="#facc15" font-size="12" font-weight="bold" data-i18n="wiz.s6.fovea">${window.t('wiz.s6.fovea')}</text>
+                    let lineStartX = circleX;
+                    let lineStartY = circleY;
+                    let targetX = circleX;
+                    let targetY = circleY;
+
+                    if (align === 'top') {
+                      lineStartY = circleY - circleRadius;
+                      targetY = lineStartY - 20;
+                    } else if (align === 'bottom') {
+                      lineStartY = circleY + circleRadius;
+                      targetY = lineStartY + 20;
+                    } else if (align === 'left') {
+                      lineStartX = circleX - circleRadius;
+                      targetX = lineStartX - 24;
+                    } else if (align === 'right') {
+                      lineStartX = circleX + circleRadius;
+                      targetX = lineStartX + 24;
+                    } else if (align === 'top-left') {
+                      lineStartX = circleX - circleRadius * 0.7;
+                      lineStartY = circleY - circleRadius * 0.7;
+                      targetX = lineStartX - 22;
+                      targetY = lineStartY - 18;
+                    } else if (align === 'bottom-right') {
+                      lineStartX = circleX + circleRadius * 0.7;
+                      lineStartY = circleY + circleRadius * 0.7;
+                      targetX = lineStartX + 22;
+                      targetY = lineStartY + 18;
+                    }
+
+                    let rawRectX = targetX - w / 2;
+                    let rawRectY = targetY - h / 2;
+
+                    // Clamping badge rectangle safely inside viewBox frame bounds
+                    let rectX = Math.max(margin, Math.min(viewBoxSize - margin - w, rawRectX));
+                    let rectY = Math.max(margin, Math.min(viewBoxSize - margin - h, rawRectY));
+
+                    let badgeCenterX = rectX + w / 2;
+                    let badgeCenterY = rectY + h / 2;
+
+                    // Pointer line connects from circle boundary to nearest clamped rectangle edge
+                    let lineEndX = Math.max(rectX, Math.min(rectX + w, lineStartX));
+                    let lineEndY = Math.max(rectY, Math.min(rectY + h, lineStartY));
+
+                    const i18nAttr = i18nKey ? `data-i18n="${i18nKey}"` : '';
+
+                    return `
+                      <g class="landmark-group">
+                        <circle cx="${circleX}" cy="${circleY}" r="${circleRadius}" stroke="${strokeColor}" stroke-width="2.2" stroke-dasharray="4,4" fill="${strokeColor}18" />
+                        <circle cx="${circleX}" cy="${circleY}" r="3.5" fill="${strokeColor}" />
+                        <line x1="${lineStartX}" y1="${lineStartY}" x2="${lineEndX}" y2="${lineEndY}" stroke="${strokeColor}" stroke-width="1.8" />
+                        <rect x="${rectX}" y="${rectY}" width="${w}" height="${h}" rx="${rx}" fill="rgba(15, 23, 42, 0.95)" stroke="${strokeColor}" stroke-width="1.4" />
+                        <text x="${badgeCenterX}" y="${badgeCenterY}" fill="${strokeColor}" font-size="11" font-weight="bold" text-anchor="middle" dominant-baseline="central" ${i18nAttr}>${labelText}</text>
+                      </g>
+                    `;
+                  }
+
+                  const od = aiDiagnosticResult.landmarks.opticDisc;
+                  const fv = aiDiagnosticResult.landmarks.fovea;
+
+                  const odBadge = renderSvgLandmarkBadge({
+                    circleX: od.x,
+                    circleY: od.y,
+                    circleRadius: od.radius,
+                    labelText: window.t('wiz.s6.opticDisc'),
+                    strokeColor: '#38bdf8',
+                    align: od.align || 'left',
+                    i18nKey: 'wiz.s6.opticDisc'
+                  });
+
+                  const fvBadge = renderSvgLandmarkBadge({
+                    circleX: fv.x,
+                    circleY: fv.y,
+                    circleRadius: fv.radius,
+                    labelText: window.t('wiz.s6.fovea'),
+                    strokeColor: '#facc15',
+                    align: fv.align || 'bottom',
+                    i18nKey: 'wiz.s6.fovea'
+                  });
+
+                  const lesionBadges = (aiDiagnosticResult.landmarks.lesions || []).map(lesion => {
+                    return renderSvgLandmarkBadge({
+                      circleX: lesion.x,
+                      circleY: lesion.y,
+                      circleRadius: lesion.radius,
+                      labelText: window.tData(lesion.label),
+                      strokeColor: lesion.color,
+                      align: lesion.align || 'top'
+                    });
+                  }).join('');
+
+                  return odBadge + fvBadge + lesionBadges;
+                })()}
               </svg>
             </div>
 

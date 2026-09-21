@@ -588,6 +588,70 @@ const translations = {
     "report.contact": "Contact Number:",
     "report.address": "Address:",
     "report.medhistory": "Medical History:",
+    "fundus.consoleTitle": "Dedicated Fundus Camera Console",
+    "fundus.hardwareNotice": "Fundus Camera Optical Mode (Webcam Simulation Mode — Requires macro eye lens / ophthalmoscope attachment for true retinal optical capture)",
+    "fundus.aligned": "Eye Aligned — Ready to Capture",
+    "fundus.aligning": "Aligning eye with target reticle...",
+    "fundus.zooming": "Eye Detected — Optical Macro Zooming In...",
+    "fundus.macroLocked": "Eye Locked (Macro 4.5X Zoom) — Ready to Capture",
+    "fundus.noFundus": "No valid fundus view locked",
+    "fundus.captureBtn": "Capture Retinal Fundus View",
+    "fundus.presetsTitle": "Clinical Prototype Fundus Presets:",
+    "err.invalidFundus": "Invalid fundus image. Please capture the retina using the fundus camera.",
+    "err.noFundusView": "Fundus view not detected. Please align the eye with the camera and try again.",
+    "err.blurry": "Image is too blurry. Please keep the eye steady and capture again.",
+    "err.lowLight": "Insufficient illumination. Please reposition the eye.",
+    "rural.title": "Offline Sync & Tele-Triage",
+    "rural.desc": "Cloud dispatch and store-and-forward telemetry pipeline for tele-ophthalmologists.",
+    "rural.lowBandwidthOn": "2G Low-Bandwidth Mode (Active)",
+    "rural.lowBandwidthOff": "Low-Bandwidth Compression Mode",
+    "rural.syncQueue": "Sync Queue",
+    "rural.architecture": "Rural Edge Architecture",
+    "rural.archSubtitle": "Offline Store-and-Forward Tele-Triage Pipeline",
+    "rural.n1.title": "1. Optical Capture",
+    "rural.n1.desc": "RetinaCam 45D Pro",
+    "rural.n2.title": "2. Quality Guard",
+    "rural.n2.desc": "Blur & FOV Filter",
+    "rural.n3.title": "3. CLAHE Contrast",
+    "rural.n3.desc": "Microvascular Boost",
+    "rural.n4.title": "4. Edge AI Model",
+    "rural.n4.desc": "EfficientNet INT8",
+    "rural.n5.title": "5. Local Storage",
+    "rural.n5.desc": "Store & Forward Queue",
+    "rural.n6.title": "6. Tele-Sync",
+    "rural.n6.desc": "Cloud Tele-Review",
+    "rural.card1.title": "Portable Camera Unit",
+    "rural.card1.status": "CONNECTED",
+    "rural.lblDevice": "Device:",
+    "rural.lblResolution": "Resolution:",
+    "rural.lblIllum": "Illumination:",
+    "rural.lblPupil": "Pupil Tracking:",
+    "rural.card2.title": "Local Edge AI Engine",
+    "rural.card2.status": "ACTIVE",
+    "rural.lblRuntime": "Inference Runtime:",
+    "rural.lblQuant": "Quantization:",
+    "rural.lblLatency": "Inference Latency:",
+    "rural.noInternet": "No Internet Required",
+    "rural.lblModelSize": "Model Size:",
+    "rural.card3.title": "Rural Tele-Sync Uplink",
+    "rural.badge2G": "2G Compressed",
+    "rural.badge4G": "4G LTE Ready",
+    "rural.lblNetwork": "Network Type:",
+    "rural.lblPendingQueue": "Pending Sync Queue:",
+    "rural.cases": "Screening Cases",
+    "rural.lblComp": "Compression Mode:",
+    "rural.lblProtocol": "Sync Protocol:",
+    "rural.queueTitle": "Offline Sync Queue & Telemetry Payload",
+    "rural.queueDesc": "Store-and-forward queue holding encrypted screening cases awaiting cellular telemetry dispatch.",
+    "rural.forceSync": "Force Sync Now",
+    "rural.thCaseId": "Case ID",
+    "rural.thPatient": "Patient",
+    "rural.thCentre": "Facility / Centre",
+    "rural.thAiFinding": "AI DR Finding",
+    "rural.thQueueStatus": "Queue Status",
+    "rural.thPayloadSize": "Payload Size",
+    "rural.synced": "SYNCED & QUEUED",
+    "rural.alert": "Sync queue cleared and successfully dispatched to Cloud Tele-Ophthalmology Hub!"
   },
   "hi": {
     "app.title": "दृश कल्याण",
@@ -915,7 +979,7 @@ const translations = {
     "doc.btnSubmit": "अंतिम नैदानिक निर्णय पर हस्ताक्षर करें और सबमिट करें",
     "doc.toastSuccess": "नैदानिक समीक्षा सफलतापूर्वक दर्ज की गई और सिंक की गई!",
     "wiz.s2.title": "चरण 2: रेटिनल फंडस छवि अधिग्रहण",
-    "wiz.s2.desc": "जुड़े हुए पोर्टेबल फंडस कैमरे का उपयोग करके छवि कैप्चर करें या मानक मैक्यूलर-केंद्रित फंडस तस्वीर (.JPG, .JPEG, .PNG, .TIF, .TIFF) अपलोड करें।",
+    "wiz.s2.desc": "जुड़े हुए पोर्टेबल फंडस कैमरे का उपयोग करके छवि कैप्चर करें या मानक मैक्यूलर-केंद्रित फंडस तस्वीर (.जेपीजी, .जेपीईजी, .पीएनजी, .टिफ, .टिफ़) अपलोड करें।",
     "wiz.s2.patient": "रोगी:",
     "wiz.s2.drag": "रेटिनल इमेज यहां खींचें और छोड़ें",
     "wiz.s2.supports": "जेपीईजी, पीएनजी, टीआईएफएफ समर्थित",
@@ -1134,16 +1198,16 @@ const translations = {
     "dash.l3_short": "स्तर 3",
     "dash.l4_short": "स्तर 4",
     "report.aiimsHub": "एम्स टेली-रेटिना हब",
-    "rural.specs.camera": "रेटिनाकैम 45D प्रो (USB 3.0)",
+    "rural.specs.camera": "रेटिनाकैम 45D प्रो (यूएसबी 3.0)",
     "rural.specs.res": "2048 x 1536 (सब-सैंपल 512x)",
     "rural.specs.illum": "इन्फ्रारेड + व्हाइट एलईडी फ्लैश",
     "rural.specs.pupil": "सक्रिय ऑटो-अलाइनमेंट",
-    "rural.specs.model": "TensorFlow Lite / ONNX Edge",
-    "rural.specs.quant": "INT8 अनुकूलित",
-    "rural.specs.runtime": "142 ms",
-    "rural.specs.size": "18.4 MB (EfficientNet बैकबोन)",
+    "rural.specs.model": "टेन्सरफ्लो लाइट / ओएनएनएक्स एज",
+    "rural.specs.quant": "आईएनटी8 अनुकूलित",
+    "rural.specs.runtime": "142 मिलीसेकंड",
+    "rural.specs.size": "18.4 एमबी (एफिशिएंटनेट बैकबोन)",
     "rural.specs.telemetry": "सेल्युलर टेलीमेट्री सिंक",
-    "rural.specs.https": "स्टोर-एंड-फॉरवर्ड HTTPS",
+    "rural.specs.https": "स्टोर-एंड-फॉरवर्ड एचटीटीपीएस",
     "wiz.s1.genderSelect": "लिंग चुनें...",
     "wiz.s1.durationSelect": "अवधि चुनें...",
     "wiz.s1.statusSelect": "स्थिति चुनें...",
@@ -1178,6 +1242,19 @@ const translations = {
     "report.contact": "संपर्क नंबर:",
     "report.address": "पता:",
     "report.medhistory": "चिकित्सीय इतिहास:",
+    "fundus.consoleTitle": "समर्पित फंडस कैमरा कंसोल",
+    "fundus.hardwareNotice": "फंडस कैमरा ऑप्टिकल मोड (वेबकैम सिमुलेशन — ऑप्थैल्मोस्कोप/मैक्रो लेंस अटैचमेंट आवश्यक)",
+    "fundus.aligned": "आंख संरेखित — कैप्चर के लिए तैयार",
+    "fundus.aligning": "लक्ष्य रेटिकल के साथ आंख संरेखित की जा रही है...",
+    "fundus.zooming": "आंख मिली — ऑप्टिकल मैक्रो ज़ूम किया जा रहा है...",
+    "fundus.macroLocked": "आंख लॉक (मैक्रो 4.5X ज़ूम) — कैप्चर के लिए तैयार",
+    "fundus.noFundus": "कोई वैध फंडस दृश्य लॉक नहीं हुआ",
+    "fundus.captureBtn": "रेटिनल फंडस दृश्य कैप्चर करें",
+    "fundus.presetsTitle": "नेदानिक प्रोटोटाइप फंडस प्रीसेट:",
+    "err.invalidFundus": "अमान्य फंडस छवि। कृपया फंडस कैमरा का उपयोग करके रेटिना कैप्चर करें।",
+    "err.noFundusView": "फंडस दृश्य नहीं मिला। कृपया आंख को कैमरे के साथ संरेखित करें और पुनः प्रयास करें।",
+    "err.blurry": "छवि अत्यधिक धुंधली है। कृपया आंख को स्थिर रखें और पुनः कैप्चर करें।",
+    "err.lowLight": "अपर्याप्त प्रकाश व्यवस्था। कृपया आंख को पुनः स्थिति में लाएं।",
   }
 };
 
@@ -1214,13 +1291,15 @@ class I18nService {
   }
 
   t(key) {
-    let result = translations[this.currentLanguage];
-    if (!result || !result[key]) {
-      let enResult = translations['en'] ? translations['en'][key] : null;
-      if (enResult) return enResult;
-      return key;
+    const lang = this.currentLanguage || 'en';
+    let dict = translations[lang];
+    if (dict && dict[key] !== undefined) {
+      return dict[key];
     }
-    return result[key];
+    if (lang !== 'en' && translations['en'] && translations['en'][key] !== undefined) {
+      return translations['en'][key];
+    }
+    return key;
   }
   
   addTranslations(lang, newTranslations) {
@@ -1252,12 +1331,260 @@ window.formatDate = function(dateVal, includeTime = false) {
   return d.toLocaleDateString(locale, options);
 };
 
+// Transliteration helper for English names to Devanagari Hindi
+function transliterateEnglishToHindi(text) {
+  if (!text || typeof text !== 'string') return text;
+
+  const nameDict = {
+    'AYUSH': 'आयुष', 'Ayush': 'आयुष', 'ayush': 'आयुष',
+    'AYUSHI': 'आयुषी', 'Ayushi': 'आयुषी', 'ayushi': 'आयुषी',
+    'PUCE': 'पुस', 'Puce': 'पुस', 'puce': 'पुस',
+    'PIYUSH': 'पीयूष', 'Piyush': 'पीयूष', 'piyush': 'पीयूष',
+    'BHURA': 'भूरा', 'Bhura': 'भूरा', 'bhura': 'भूरा',
+    'JAY': 'जय', 'Jay': 'जय', 'jay': 'जय',
+    'RAMESHWAR': 'रामेश्वर', 'Rameshwar': 'रामेश्वर',
+    'SUNITA': 'सुनीता', 'Sunita': 'सुनीता',
+    'MOHAMMAD': 'मोहम्मद', 'Mohammad': 'मोहम्मद',
+    'TARIQ': 'तारिक', 'Tariq': 'तारिक',
+    'KAMLA': 'कमला', 'Kamla': 'कमला',
+    'BAI': 'बाई', 'Bai': 'बाई',
+    'HARISH': 'हरीश', 'Harish': 'हरीश',
+    'PATEL': 'पटेल', 'Patel': 'पटेल',
+    'ANITA': 'अनीता', 'Anita': 'अनीता',
+    'VERMA': 'वर्मा', 'Verma': 'वर्मा',
+    'RAJESH': 'राजेश', 'Rajesh': 'राजेश',
+    'KUMAR': 'कुमार', 'Kumar': 'कुमार',
+    'SHARMA': 'शर्मा', 'Sharma': 'शर्मा',
+    'DEVI': 'देवी', 'Devi': 'देवी',
+    'SINGH': 'सिंह', 'Singh': 'सिंह',
+    'GUPTA': 'गुप्ता', 'Gupta': 'गुप्ता',
+    'YADAV': 'यादव', 'Yadav': 'यादव',
+    'PAWAN': 'पवन', 'Pawan': 'पवन',
+    'RAHUL': 'राहुल', 'Rahul': 'राहुल',
+    'POOJA': 'पूजा', 'Pooja': 'पूजा',
+    'PRIYA': 'प्रिया', 'Priya': 'प्रिया',
+    'AMIT': 'अमित', 'Amit': 'अमित',
+    'ROHIT': 'रोहित', 'Rohit': 'रोहित',
+    'VIKAS': 'विकास', 'Vikas': 'विकास',
+    'SANJAY': 'संजय', 'Sanjay': 'संजय',
+    'VIJAY': 'विजय', 'Vijay': 'विजय',
+    'AJAY': 'अजय', 'Ajay': 'अजय',
+    'NEHA': 'नेहा', 'Neha': 'नेहा',
+    'GEETA': 'गीता', 'Geeta': 'गीता',
+    'SUMAN': 'सुमन', 'Suman': 'सुमन',
+    'DEEPAK': 'दीपक', 'Deepak': 'दीपक',
+    'SUNIL': 'सुनील', 'Sunil': 'सुनील',
+    'ANIL': 'अनिल', 'Anil': 'अनिल',
+    'MUKESH': 'मुकेश', 'Mukesh': 'मुकेश',
+    'DINESH': 'दिनेश', 'Dinesh': 'दिनेश',
+    'SURESH': 'सुरेश', 'Suresh': 'सुरेश',
+    'RAMESH': 'रमेश', 'Ramesh': 'रमेश',
+    'MAHESH': 'महेश', 'Mahesh': 'महेश',
+    'NARESH': 'नरेश', 'Naresh': 'नरेश',
+    'ASHOK': 'अशोक', 'Ashok': 'अशोक'
+  };
+
+  const words = text.split(/(\s+|[•\-\(\),\/]+)/);
+  const result = words.map(chunk => {
+    if (!chunk || !/[a-zA-Z]/.test(chunk)) return chunk;
+    const trimmed = chunk.trim();
+    if (nameDict[trimmed]) return nameDict[trimmed];
+    if (nameDict[trimmed.toUpperCase()]) return nameDict[trimmed.toUpperCase()];
+
+    return transliteratePhonetic(trimmed);
+  });
+
+  return result.join('');
+}
+
+function transliteratePhonetic(w) {
+  let word = (w || '').toLowerCase().trim();
+  
+  const exactDict = {
+    'ayush': 'आयुष', 'ayushi': 'आयुषी', 'aayush': 'आयुष',
+    'piyush': 'पीयूष', 'puce': 'पुस', 'pawan': 'पवन',
+    'bhura': 'भूरा', 'jay': 'जय', 'ajay': 'अजय', 'vijay': 'विजय',
+    'sanjay': 'संजय', 'rameshwar': 'रामेश्वर', 'sunita': 'सुनीता',
+    'sharma': 'शर्मा', 'singh': 'सिंह', 'verma': 'वर्मा', 'gupta': 'गुप्ता',
+    'patel': 'पटेल', 'kumar': 'कुमार', 'yadav': 'यादव', 'devi': 'देवी'
+  };
+
+  if (exactDict[word]) return exactDict[word];
+
+  const multiRules = [
+    ['sharma', 'शर्मा'], ['singh', 'सिंह'], ['verma', 'वर्मा'], ['gupta', 'गुप्ता'],
+    ['patel', 'पटेल'], ['kumar', 'कुमार'], ['yadav', 'यादव'], ['devi', 'देवी'],
+    ['bhura', 'भूरा'], ['jay', 'जय'], ['ajay', 'अजय'], ['vijay', 'विजय'],
+    ['sanjay', 'संजय'], ['ayush', 'आयुष'], ['sh', 'श'], ['ch', 'च'], ['th', 'थ'],
+    ['dh', 'ध'], ['bh', 'भ'], ['gh', 'घ'], ['jh', 'झ'], ['kh', 'ख'],
+    ['ph', 'फ'], ['rh', 'ढ़'], ['ee', 'ी'], ['oo', 'ू'], ['ai', 'ै'],
+    ['au', 'ौ'], ['ou', 'ौ']
+  ];
+
+  for (const [en, hi] of multiRules) {
+    if (word === en) return hi;
+  }
+
+  const singleCharMap = {
+    'a': 'ा', 'b': 'ब', 'c': 'क', 'd': 'द', 'e': 'े', 'f': 'फ',
+    'g': 'ग', 'h': 'ह', 'i': 'ि', 'j': 'ज', 'k': 'क', 'l': 'ल',
+    'm': 'म', 'n': 'न', 'o': 'ो', 'p': 'प', 'q': 'क', 'r': 'र',
+    's': 'स', 't': 'त', 'u': 'ु', 'v': 'व', 'w': 'व', 'x': 'क्स',
+    'y': 'य', 'z': 'ज़'
+  };
+
+  const vowelInitial = {
+    'a': 'अ', 'i': 'इ', 'u': 'उ', 'e': 'ए', 'o': 'ओ'
+  };
+
+  let out = '';
+  let i = 0;
+  while (i < word.length) {
+    if (i < word.length - 1) {
+      const sub2 = word.substr(i, 2);
+      const m2 = multiRules.find(([en]) => en === sub2);
+      if (m2) {
+        out += m2[1];
+        i += 2;
+        continue;
+      }
+    }
+    const ch = word[i];
+    if (i === 0 && vowelInitial[ch]) {
+      out += vowelInitial[ch];
+    } else if (singleCharMap[ch]) {
+      out += singleCharMap[ch];
+    } else {
+      out += ch;
+    }
+    i++;
+  }
+
+  // Cleanup mangled outputs
+  out = out.replace(/आयुसह/g, 'आयुष');
+  out = out.replace(/पहस/g, 'पुस');
+  out = out.replace(/पावान/g, 'पवन');
+
+  return out;
+}
+
 window.tData = function(value, category) {
   if (value === undefined || value === null || value === '') return '--';
   let valStr = String(value).trim();
   const isHindi = window.getLanguage() === 'hi';
 
+  const directMapEnglish = {
+    'पवन': 'Pawan',
+    'पावान': 'Pawan',
+    'भूरा': 'Bhura',
+    'जय': 'Jay',
+    'पीएचसी-001': 'PHC-001',
+    'पीएचसी-002': 'PHC-002',
+    'पीएचसी-003': 'PHC-003',
+    'पीएचसी-004': 'PHC-004',
+    'पीएचसी-005': 'PHC-005',
+    'पीएचसी': 'PHC',
+    'रामेश्वर शर्मा': 'Rameshwar Sharma',
+    'रामेश्वर': 'Rameshwar',
+    'सुनीता देवी': 'Sunita Devi',
+    'सुनीता': 'Sunita',
+    'मोहम्मद तारिक': 'Mohammad Tariq',
+    'मोहम्मद': 'Mohammad',
+    'तारिक': 'Tariq',
+    'कमला बाई': 'Kamla Bai',
+    'कमला': 'Kamla',
+    'बाई': 'Bai',
+    'हरीश पटेल': 'Harish Patel',
+    'हरीश': 'Harish',
+    'पटेल': 'Patel',
+    'अनीता वर्मा': 'Anita Verma',
+    'अनीता': 'Anita',
+    'वर्मा': 'Verma',
+    'राजेश कुमार': 'Rajesh Kumar',
+    'राजेश': 'Rajesh',
+    'कुमार': 'Kumar',
+    'शर्मा': 'Sharma',
+    'देवी': 'Devi',
+    'सिंह': 'Singh',
+    'गुप्ता': 'Gupta',
+    'यादव': 'Yadav',
+    'अज्ञात मरीज': 'Unknown Patient',
+    'अज्ञात': 'Unknown',
+    'पुरुष': 'Male',
+    'महिला': 'Female',
+    'अन्य': 'Other',
+    'टाइप 2 मधुमेह': 'Type 2 Diabetes',
+    'टाइप 1 मधुमेह': 'Type 1 Diabetes',
+    'गर्भकालीन मधुमेह': 'Gestational Diabetes',
+    'प्री-डायबिटिक': 'Pre-diabetic',
+    'हाल ही में निदान किया गया': 'Newly Diagnosed',
+    'हाल ही में निदान (< 1 वर्ष)': 'Newly Diagnosed (< 1 yr)',
+    '1 - 5 वर्ष': '1 - 5 Years',
+    '6 - 10 वर्ष': '6 - 10 Years',
+    '11 - 20 वर्ष': '11 - 20 Years',
+    '> 20 वर्ष': '> 20 Years',
+    'पीएचसी रामपुर': 'PHC Rampur',
+    'सीएचसी कोटद्वार': 'CHC Kotdwar',
+    'मोबाइल रेटिनल वैन #3': 'Mobile Retinal Van #3',
+    'उप-केंद्र धरमपुर': 'Sub-Centre Dharampur',
+    'पीएचसी सुंदरवन': 'PHC Sunderbans',
+    'एम्स टेली-रेटिना हब': 'AIIMS Tele-Retina Hub',
+    'डॉ. शर्मा': 'Dr. Sharma',
+    'डॉ. अनन्या सेन (नेत्र रोग विशेषज्ञ, एम्स)': 'Dr. Ananya Sen (Ophthalmologist, AIIMS)',
+    'डॉ. विवेक सक्सेना (विट्रेओरेटिनल विशेषज्ञ)': 'Dr. Vivek Saxena (Vitreoretinal Specialist)',
+    'डॉ. मीनाक्षी सुंदरम': 'Dr. Meenakshi Sundaram',
+    'एसआईएच 2026 • एसआईएच26038': 'SIH 2026 • SIH26038',
+    'एसआईएच 2026 | एसआईएच26038': 'SIH 2026 | SIH26038',
+    'एसआईएच 2026': 'SIH 2026',
+    'एसआईएच26038': 'SIH26038',
+    'एसआईएच': 'SIH',
+    'ऑप्टिक डिस्क': 'Optic Disc',
+    'फोविया (मैक्युला केंद्र)': 'Fovea Centralis (Macula)',
+    'हार्ड एक्सयूडेट्स (वसा का जमाव)': 'Hard Exudates',
+    'हार्ड एक्सयूडेट्स (वसा जमाव)': 'Hard Exudates (Lipid Deposits)',
+    'हार्ड एक्सयूडेट्स': 'Hard Exudates',
+    'माइक्रोएन्यूरिज्म': 'Microaneurysms',
+    'रेटिनल रक्तस्राव (हेमरेज)': 'Blot Hemorrhage',
+    'रेटिनल रक्तस्राव': 'Hemorrhages',
+    'कॉटन वूल स्पॉट (इस्कीमिक घाव)': 'Cotton Wool Spot',
+    'कॉटन वूल स्पॉट्स (इस्कीमिक घाव)': 'Cotton Wool Spots',
+    'कॉटन वूल स्पॉट्स': 'Cotton Wool Spots',
+    'नियोवैस्कुलराइजेशन (नई असामान्‍य वाहिकाएं)': 'Neovascularization',
+    'नियोवैस्कुलराइजेशन (नई वाहिकाएं)': 'Neovascular Frond (NVD)',
+    'नियोवैस्कुलराइजेशन': 'Neovascularization',
+    'पिछला': 'Previous',
+    'अगला': 'Next'
+  };
+
   if (!isHindi) {
+    if (directMapEnglish[valStr]) return directMapEnglish[valStr];
+    if (/[\u0900-\u097F]/.test(valStr)) {
+      let resEn = valStr;
+      resEn = resEn.replace(/एसआईएच-(\d+)/g, 'SIH-$1');
+      resEn = resEn.replace(/एसआईएच(\d+)/g, 'SIH$1');
+      resEn = resEn.replace(/एसआईएच/g, 'SIH');
+      resEn = resEn.replace(/केस-(\d+)(-\d+)?/g, 'CASE-$1$2');
+      resEn = resEn.replace(/केस/g, 'CASE');
+      resEn = resEn.replace(/पीटी-आईएनडी-(\d+)/g, 'PT-IND-$1');
+      resEn = resEn.replace(/पीआईडी-(\d+)/g, 'PID-$1');
+      resEn = resEn.replace(/पीएचसी-(\d+)/g, 'PHC-$1');
+      resEn = resEn.replace(/पीएचसी/g, 'PHC');
+      resEn = resEn.replace(/एमसीआई-(\d+)/g, 'MCI-$1');
+      resEn = resEn.replace(/एमसीआई/g, 'MCI');
+      resEn = resEn.replace(/वर्ष/g, 'Years');
+      resEn = resEn.replace(/मरीज/g, 'Patient');
+      resEn = resEn.replace(/पुरुष/g, 'Male');
+      resEn = resEn.replace(/महिला/g, 'Female');
+      resEn = resEn.replace(/अन्य/g, 'Other');
+
+      const parts = resEn.split(/(\s+|[•\-\(\),\/]+)/);
+      const translatedParts = parts.map(part => {
+        const trimmed = part.trim();
+        if (directMapEnglish[trimmed]) return directMapEnglish[trimmed];
+        return part;
+      });
+      return translatedParts.join('');
+    }
     return valStr;
   }
 
@@ -1268,14 +1595,73 @@ window.tData = function(value, category) {
 
   // Direct mapping dictionary
   const directMap = {
-    // Demo Patients
+    // Demo & User-Entered Patient Names
+    'BHURA': 'भूरा',
+    'Bhura': 'भूरा',
+    'bhura': 'भूरा',
+    'JAY': 'जय',
+    'Jay': 'जय',
+    'jay': 'जय',
     'Rameshwar Sharma': 'रामेश्वर शर्मा',
+    'RAMESHWAR SHARMA': 'रामेश्वर शर्मा',
+    'Rameshwar': 'रामेश्वर',
+    'RAMESHWAR': 'रामेश्वर',
     'Sunita Devi': 'सुनीता देवी',
+    'SUNITA DEVI': 'सुनीता देवी',
+    'Sunita': 'सुनीता',
+    'SUNITA': 'सुनीता',
     'Mohammad Tariq': 'मोहम्मद तारिक',
+    'MOHAMMAD TARIQ': 'मोहम्मद तारिक',
+    'Mohammad': 'मोहम्मद',
+    'MOHAMMAD': 'मोहम्मद',
+    'Tariq': 'तारिक',
+    'TARIQ': 'तारिक',
     'Kamla Bai': 'कमला बाई',
+    'KAMLA BAI': 'कमला बाई',
+    'Kamla': 'कमला',
+    'KAMLA': 'कमला',
+    'Bai': 'बाई',
+    'BAI': 'बाई',
     'Harish Patel': 'हरीश पटेल',
+    'HARISH PATEL': 'हरीश पटेल',
+    'Harish': 'हरीश',
+    'HARISH': 'हरीश',
+    'Patel': 'पटेल',
+    'PATEL': 'पटेल',
+    'Anita Verma': 'अनीता वर्मा',
+    'ANITA VERMA': 'अनीता वर्मा',
+    'Anita': 'अनीता',
+    'ANITA': 'अनीता',
+    'Verma': 'वर्मा',
+    'VERMA': 'वर्मा',
+    'Rajesh Kumar': 'राजेश कुमार',
+    'RAJESH KUMAR': 'राजेश कुमार',
+    'Rajesh': 'राजेश',
+    'RAJESH': 'राजेश',
+    'Kumar': 'कुमार',
+    'KUMAR': 'कुमार',
+    'Sharma': 'शर्मा',
+    'SHARMA': 'शर्मा',
+    'Devi': 'देवी',
+    'DEVI': 'देवी',
+    'Singh': 'सिंह',
+    'SINGH': 'सिंह',
+    'Gupta': 'गुप्ता',
+    'GUPTA': 'गुप्ता',
+    'Yadav': 'यादव',
+    'YADAV': 'यादव',
+    'Pawan': 'पवन',
+    'PAWAN': 'पवन',
+    'Rahul': 'राहुल',
+    'RAHUL': 'राहुल',
+    'Pooja': 'पूजा',
+    'POOJA': 'पूजा',
+    'Priya': 'प्रिया',
+    'PRIYA': 'प्रिया',
     'Unknown Patient': 'अज्ञात मरीज',
     'Unknown': 'अज्ञात',
+    'Previous': 'पिछला',
+    'Next': 'अगला',
 
     // Demographics
     'Male': 'पुरुष',
@@ -1372,6 +1758,330 @@ window.tData = function(value, category) {
     'Offline Store-and-Forward': 'ऑफलाइन स्टोर-एंड-फॉरवर्ड',
     'Optical Fiber': 'ऑप्टिकल फाइबर',
 
+    // Admin & Site Navigation
+    'Dashboard': 'डैशबोर्ड',
+    'Website Management': 'वेबसाइट प्रबंधन',
+    'User Management': 'उपयोगकर्ता प्रबंधन',
+    'Patient Management': 'मरीज प्रबंधन',
+    'Screening Management': 'स्क्रीनिंग प्रबंधन',
+    'AI / Model Management': 'एआई / मॉडल प्रबंधन',
+    'Analytics & Reports': 'विश्लेषण और रिपोर्ट',
+    'Notifications': 'सूचनाएं',
+    'Media / Assets': 'मीडिया / संपत्ति',
+    'Content / Blog': 'सामग्री / ब्लॉग',
+    'System Monitoring': 'सिस्टम निगरानी',
+    'Security': 'सुरक्षा',
+    'Site Settings': 'साइट सेटिंग्स',
+    'Backup & Recovery': 'बैकअप और रिकवरी',
+    'Logout': 'लॉगआउट',
+    'Admin': 'एडमिन',
+    'ADMIN CONTROL PANEL': 'एडमिन कंट्रोल पैनल',
+    'DRISH KALYAN Admin': 'दृष्टि कल्याण एडमिन',
+
+    // Admin Dashboard & Subview Detailed Strings
+    'Explainable AI-powered Diabetic Retinopathy Screening for Rural Healthcare': 'ग्रामीण स्वास्थ्य सेवा के लिए व्याख्यात्मक एआई-संचालित डायबिटिक रेटिनोपैथी स्क्रीनिंग',
+    'Overview of platform activity, screening volume, and AI performance.': 'प्लेटफ़ॉर्म गतिविधि, स्क्रीनिंग मात्रा और एआई प्रदर्शन का अवलोकन।',
+    'Total Patients': 'कुल मरीज',
+    'Screenings Completed': 'पूर्ण की गई स्क्रीनिंग',
+    'Positive DR Cases': 'पॉजिटिव डीआर मामले',
+    'High-Risk Cases': 'उच्च जोखिम वाले मामले',
+    'Active PHCs': 'सक्रिय पीएचसी',
+    'Active Doctors': 'सक्रिय डॉक्टर',
+    'AI Model Accuracy': 'एआई मॉडल सटीकता',
+    'Pending Reviews': 'लंबित समीक्षाएं',
+    'Screening Trend (Mock Data)': 'स्क्रीनिंग रुझान (प्रारूप डेटा)',
+    '[ Line Chart Placeholder: Daily Screenings ]': '[ लाइन चार्ट: दैनिक स्क्रीनिंग ]',
+    'DR Severity Distribution': 'डीआर गंभीरता वितरण',
+    '[ Donut Chart Placeholder: No DR / Mild / Moderate / Severe / Proliferative ]': '[ डोनाट चार्ट: कोई डीआर नहीं / हल्का / मध्यम / गंभीर / प्रोलिफेरेटिव ]',
+    'Rural Screening Coverage (Mock Data)': 'ग्रामीण स्क्रीनिंग कवरेज (प्रारूप डेटा)',
+    'District': 'जिला',
+    'Total Screenings': 'कुल स्क्रीनिंग',
+    'Positivity Rate': 'पॉजिटिविटी दर',
+    'Homepage': 'होमपेज',
+    'About Us': 'हमारे बारे में',
+    'Services': 'सेवाएं',
+    'FAQs': 'सामान्य प्रश्न (FAQs)',
+    'Contact Info': 'संपर्क जानकारी',
+    'Announcements': 'घोषणाएं',
+    'Manage Homepage': 'होमपेज प्रबंधित करें',
+    'Update hero sections, statistics, and call-to-action buttons here.': 'मुख्य अनुभाग, आंकड़े और बटन यहां अपडेट करें।',
+    'Hero Title': 'मुख्य शीर्षक (Hero Title)',
+    'Hero Subtitle': 'मुख्य उपशीर्षक',
+    'Save Changes': 'परिवर्तन सहेजें',
+    'Admins': 'प्रशासक (Admins)',
+    'PHC Staff': 'पीएचसी कर्मचारी',
+    'Doctors': 'डॉक्टर',
+    'System Administrators': 'सिस्टम प्रशासक',
+    '+ Add Admin': '+ एडमिन जोड़ें',
+    'Name': 'नाम',
+    'Email': 'ईमेल',
+    'Role': 'भूमिका',
+    'Status': 'स्थिति',
+    'Last Login': 'अंतिम लॉगिन',
+    'Actions': 'कार्रवाइयां',
+    'Super Admin': 'सुपर एडमिन',
+    'Active': 'सक्रिय',
+    'Just now': 'अभी',
+    'Edit': 'संपादित करें',
+    'Search Patient ID...': 'मरीज आईडी खोजें...',
+    'Age/Gender': 'आयु/लिंग',
+    'Location (PHC)': 'स्थान (पीएचसी)',
+    'Screenings': 'स्क्रीनिंग',
+    'Risk Level': 'जोखिम स्तर',
+    'Doctor Status': 'डॉक्टर स्थिति',
+    'Moderate': 'मध्यम',
+    'High': 'उच्च',
+    'Low': 'कम',
+    'All PHCs': 'सभी पीएचसी',
+    'All DR Stages': 'सभी डीआर चरण',
+    'Screening ID': 'स्क्रीनिंग आईडी',
+    'AI Prediction': 'एआई भविष्यवाणी',
+    'Confidence': 'विश्वास दर',
+    'Review Status': 'समीक्षा स्थिति',
+    'Final Status': 'अंतिम स्थिति',
+    'Requires Review': 'समीक्षा की आवश्यकता',
+    'Urgent Referral': 'तत्काल परामर्श',
+    'Normal': 'सामान्य',
+    'Moderate DR': 'मध्यम डीआर',
+    'Severe DR': 'गंभीर डीआर',
+    'Today': 'आज',
+    'Yesterday': 'कल',
+    'Model Status': 'मॉडल स्थिति',
+    'Online': 'ऑनलाइन',
+    'Current Model:': 'वर्तमान मॉडल:',
+    'Last Updated:': 'अंतिम अपडेट:',
+    'Accuracy:': 'सटीकता:',
+    'Sensitivity:': 'संवेदनशीलता:',
+    'Specificity:': 'विशिष्टता:',
+    'AUC Score:': 'एयूसी स्कोर:',
+    'Explainable AI Monitoring': 'व्याख्यात्मक एआई निगरानी',
+    'Active Explainability Techniques:': 'सक्रिय व्याख्यात्मक तकनीकें:',
+    'Grad-CAM': 'ग्रैड-कैम (Grad-CAM)',
+    'Heatmap Analysis': 'हीटमैप विश्लेषण',
+    'Lesion Localization': 'घाव स्थानीयकरण',
+    'Confidence Score': 'विश्वास स्कोर',
+    'Feature Importance': 'विशेषता महत्व',
+    'Sample Explainability Output:': 'नमूना व्याख्यात्मक आउटपुट:',
+    'Prediction:': 'भविष्यवाणी:',
+    'Affected Region:': 'प्रभावित क्षेत्र:',
+    'Retinal lesion detected (Hemorrhage)': 'रेटिनल घाव का पता चला (रक्तस्राव)',
+    '* AI screening results are intended to support clinical review and should not be considered a standalone medical diagnosis.': '* एआई स्क्रीनिंग परिणाम नैदानिक समीक्षा का समर्थन करने के लिए हैं और इसे स्वतंत्र चिकित्सा निदान नहीं माना जाना चाहिए।',
+    'Generate Report': 'रिपोर्ट बनाएं',
+    'Comprehensive Analytics Dashboard Placeholder': 'व्यापक विश्लेषण डैशबोर्ड',
+    'Notifications Center': 'सूचना केंद्र',
+    'High-Risk Screening Detected at PHC Rampur': 'पीएचसी रामपुर में उच्च जोखिम वाली स्क्रीनिंग का पता चला',
+    '2 mins ago': '2 मिनट पहले',
+    'Model DRISH-XAI v2.1 successfully deployed.': 'मॉडल दृष्टि-XAI v2.1 सफलतापूर्वक तैनात किया गया।',
+    '1 hour ago': '1 घंटे पहले',
+    '12 pending screenings exceed 24hr SLA for doctor review.': '12 लंबित स्क्रीनिंग डॉक्टर समीक्षा की 24 घंटे की समय सीमा से अधिक हैं।',
+    '3 hours ago': '3 घंटे पहले',
+    'System backup completed successfully.': 'सिस्टम बैकअप सफलतापूर्वक पूरा हुआ।',
+    '1 day ago': '1 दिन पहले',
+    'Images': 'चित्र',
+    'Videos': 'वीडियो',
+    'Documents': 'दस्तावेज़',
+    'Media Library': 'मीडिया लाइब्रेरी',
+    'Upload Files': 'फ़ाइलें अपलोड करें',
+    'Content / Blog Management': 'सामग्री / ब्लॉग प्रबंधन',
+    '+ Create Post': '+ पोस्ट बनाएं',
+    'Title': 'शीर्षक',
+    'Category': 'श्रेणी',
+    'Published': 'प्रकाशित',
+    'Draft': 'प्रारूप (ड्राफ्ट)',
+    'Understanding Explainable AI in DR Screening': 'डीआर स्क्रीनिंग में व्याख्यात्मक एआई को समझना',
+    'Expanding Rural Healthcare Access': 'ग्रामीण स्वास्थ्य सेवा पहुंच का विस्तार',
+    'Technology': 'प्रौद्योगिकी',
+    'Impact': 'प्रभाव',
+    'Server Status': 'सर्वर स्थिति',
+    'CPU Usage': 'सीपीयू उपयोग',
+    'Memory': 'मेमोरी',
+    'Storage': 'स्टोरेज',
+    'Uptime': 'अपटाइम',
+    '48% Used': '48% उपयोग हुआ',
+    '99.98% (45 days)': '99.98% (45 दिन)',
+    'API & Database': 'एपीआई और डेटाबेस',
+    'API Availability': 'एपीआई उपलब्धता',
+    'Avg Response': 'औसत प्रतिक्रिया',
+    'Database': 'डेटाबेस',
+    'Connected': 'कनेक्टेड',
+    'Active Conns': 'सक्रिय कनेक्शन',
+    'Recent Error Logs': 'हालिया त्रुटि लॉग',
+    'Timestamp': 'समय मोहर',
+    'Service': 'सेवा',
+    'Message': 'संदेश',
+    'Severity': 'गंभीरता',
+    'Warning': 'चेतावनी',
+    'Error': 'त्रुटि',
+    'Failed to parse Dicom tag': 'डाइकॉम टैग को पार्स करने में विफल',
+    'Network timeout during batch upload': 'बैच अपलोड के दौरान नेटवर्क समय समाप्त',
+    'Login Activity': 'लॉगिन गतिविधि',
+    'Roles & Permissions': 'भूमिकाएं और अनुमतियां',
+    '2FA Settings': '2FA सेटिंग्स',
+    'Recent Login Activity': 'हालिया लॉगिन गतिविधि',
+    'User': 'उपयोगकर्ता',
+    'IP Address': 'आईपी पता',
+    'Device': 'उपकरण (डिवाइस)',
+    'Success': 'सफल',
+    'Failed': 'विफल',
+    'General': 'सामान्य',
+    'Email SMTP': 'ईमेल एसएमटीपी',
+    'Maintenance': 'रखरखाव',
+    'General Settings': 'सामान्य सेटिंग्स',
+    'Platform Name': 'प्लेटफ़ॉर्म नाम',
+    'Contact Email': 'संपर्क ईमेल',
+    'Timezone': 'समय क्षेत्र',
+    'Save Settings': 'सेटिंग्स सहेजें',
+    'System Backup & Recovery': 'सिस्टम बैकअप और रिकवरी',
+    'Current Status': 'वर्तमान स्थिति',
+    'Last Backup:': 'अंतिम बैकअप:',
+    'Backup Size:': 'बैकअप आकार:',
+    'Next Scheduled:': 'अगला निर्धारित:',
+    'Create Manual Backup': 'मैन्युअल बैकअप बनाएं',
+    'Download Latest': 'नवीनतम डाउनलोड करें',
+    'Restore': 'पुनर्स्थापित करें (Restore)',
+    'Bareilly': 'बरेली',
+    'Lucknow': 'लखनऊ',
+    'Prayagraj': 'प्रयागराज',
+    'Varanasi': 'वाराणसी',
+    'Gorakhpur': 'गोरखपुर',
+
+    // Safety Banner, Profile & Print Headers
+    'TEAM SYNAPSE': 'टीम सिनेप्स',
+    'Explainable AI for Diabetic Retinopathy Screening in Rural India': 'भारत के ग्रामीण क्षेत्रों में डायबिटिक रेटिनोपैथी स्क्रीनिंग के लिए व्याख्यात्मक एआई',
+    'Terms & Conditions': 'नियम और शर्तें',
+    'Privacy Policy': 'गोपनीयता नीति',
+    'Accessibility': 'पहुंच (एक्सेसिबिलिटी)',
+    'Contact Us': 'संपर्क करें',
+    'AI-Assisted Screening & Triage Research Prototype': 'एआई-सहायता प्राप्त स्क्रीनिंग और ट्राइएज अनुसंधान प्रोटोटाइप',
+    'Medical Disclaimer:': 'चिकित्सा अस्वीकरण:',
+    'AI-generated results are intended for screening and decision support only and must not replace evaluation by a qualified ophthalmologist.': 'एआई द्वारा उत्पन्न परिणाम केवल स्क्रीनिंग और निर्णय सहायता के लिए हैं और इन्हें किसी योग्य नेत्र रोग विशेषज्ञ द्वारा मूल्यांकन का विकल्प नहीं माना जाना चाहिए।',
+    'Profile Details': 'प्रोफ़ाइल विवरण',
+    'PHC ID': 'पीएचसी आईडी',
+    'Facility Name': 'सुविधा / केंद्र का नाम',
+    'Doctor Name': 'डॉक्टर का नाम',
+    'Specialization': 'विशेषज्ञता',
+    'Medical License No.': 'मेडिकल लाइसेंस सं.',
+    'Contact Info': 'संपर्क जानकारी',
+    'Address': 'पता',
+    'Primary Health Centre (District A)': 'प्राथमिक स्वास्थ्य केंद्र (जिला ए)',
+    'Ophthalmologist / General Physician': 'नेत्र रोग विशेषज्ञ / सामान्य चिकित्सक',
+    'Plot No. 12, Rural Health Block, District A, State': 'प्लाट नं. 12, ग्रामीण स्वास्थ्य ब्लॉक, जिला ए, राज्य',
+    'PATIENT DETAILS': 'मरीज का विवरण',
+    'PHC ID DETAILS': 'पीएचसी आईडी विवरण',
+    'CLINICAL / EXAMINATION IMAGES': 'नैदानिक / परीक्षा चित्र',
+    'RISK / SEVERITY HEATMAP': 'जोखिम / गंभीरता हीटमैप',
+    'CLINICAL OBSERVATIONS / REMARKS': 'नैदानिक अवलोकन / टिप्पणियां',
+    'PHC DETAILS': 'पीएचसी विवरण',
+    'Patient Name': 'मरीज का नाम',
+    'Age': 'आयु',
+    'Gender': 'लिंग',
+    'Date of Birth': 'जन्म तिथि',
+    'Contact Number': 'संपर्क नंबर',
+    'Date of Examination': 'जांच की तिथि',
+    'Guardian / Spouse Name': 'अभिभावक / जीवनसाथी का नाम',
+    'Occupation': 'व्यवसाय',
+    'Blood Group': 'रक्त समूह',
+    'Aadhaar / Health ID': 'आधार / स्वास्थ्य आईडी',
+    'Village / Ward': 'गांव / वार्ड',
+    'Referred By': 'संदर्भितकर्ता',
+    'PHC ID NO.': 'पीएचसी आईडी सं.',
+    'PHC NAME': 'पीएचसी का नाम',
+    'REGISTRATION NO.': 'पंजीकरण संख्या',
+    'DISTRICT': 'जिला',
+    'BLOCK / TALUKA': 'ब्लॉक / तालुका',
+    'STATE': 'राज्य',
+    'Low Risk': 'कम जोखिम',
+    'Elevated': 'उन्नत',
+    'Severe': 'गंभीर',
+    'PHC NAME & ADDRESS': 'पीएचसी का नाम एवं पता',
+    'CONTACT NUMBER': 'संपर्क नंबर',
+    'MEDICAL OFFICER': 'चिकित्सा अधिकारी',
+    'DATE & STAMP': 'तिथि एवं मोहर',
+    'Dr. Ananya Sen, MS (AIIMS Tele-Ophthalmology)': 'डॉ. अनन्या सेन, एमएस (एम्स टेली-ऑप्थैल्मोलॉजी)',
+    'Specialist': 'विशेषज्ञ',
+    '4.2 Hours': '4.2 घंटे',
+    '142 ms / image': '142 मिलीसेकंड / छवि',
+    '428 Patients': '428 मरीज',
+    '312 Patients': '312 मरीज',
+    '540 Patients': '540 मरीज',
+    '195 Patients': '195 मरीज',
+    'Ballia, Uttar Pradesh': 'बलिया, उत्तर प्रदेश',
+    'Pauri Garhwal, Uttarakhand': 'पौड़ी गढ़वाल, उत्तराखंड',
+    'Kutch, Gujarat': 'कच्छ, गुजरात',
+    'Varanasi, Uttar Pradesh': 'वाराणसी, उत्तर प्रदेश',
+
+    // Camera, Camera Features & Quality
+    'Fundus Camera Optical Mode (Webcam Simulation Mode — Requires macro eye lens / ophthalmoscope attachment for true retinal optical capture)': 'फंडस कैमरा ऑप्टिकल मोड (वेबकैम सिमुलेशन — ऑप्थैल्मोस्कोप/मैक्रो लेंस अटैचमेंट आवश्यक)',
+    'Connect / Capture': 'कैमरा कनेक्ट करें / कैप्चर करें',
+    'Capture Retinal Fundus View': 'रेटिनल फंडस दृश्य कैप्चर करें',
+    'Start Live Optical Feed': 'लाइव ऑप्टिकल फीड शुरू करें',
+    'Stop Camera Feed': 'कैमरा फीड बंद करें',
+    'Upload Retinal Fundus File': 'रेटिनल फंडस फ़ाइल अपलोड करें',
+    'Clinical Prototype Fundus Presets:': 'नैदानिक प्रोटोटाइप फंडस प्रीसेट:',
+    'Level 0 (Normal)': 'स्तर 0 (सामान्य)',
+    'Level 1 (Mild)': 'स्तर 1 (हल्का)',
+    'Level 2 (Mod)': 'स्तर 2 (मध्यम)',
+    'Level 3 (Severe)': 'स्तर 3 (गंभीर)',
+    'Level 4 (PDR)': 'स्तर 4 (प्रोलिफेरेटिव)',
+    'Ungradable': 'अश्रेणीकरण योग्य',
+    'Focus & Sharpness': 'फोकस और तीक्ष्णता',
+    'Illumination & Contrast': 'प्रकाश और कंट्रास्ट',
+    'Field of View & Positioning': 'दृष्टि क्षेत्र और स्थिति',
+    'Retinal Structures Visibility': 'रेटिनल संरचना दृश्यता',
+    'Reflection & Flare Artifacts': 'प्रतिबिंब और चमक कलाकृतियां',
+    'Sharp Retinal Vessels': 'स्पष्ट रेटिनल वाहिकाएं',
+    'Uniform Illumination': 'समान प्रकाश व्यवस्था',
+    'Full 45° Standard FOV': 'पूर्ण 45° मानक दृष्टि क्षेत्र',
+    'Clear Optic Disc & Macula': 'स्पष्ट ऑप्टिक डिस्क और मैक्युला',
+    'No Significant Artifacts': 'कोई महत्वपूर्ण कलाकृतियां नहीं',
+
+    // Diagnostic & Report Buttons
+    'Print Diagnostic Report': 'नैदानिक रिपोर्ट प्रिंट करें',
+    'Export PDF': 'पीडीएफ निर्यात करें',
+    'Export CSV': 'सीएसवी निर्यात करें',
+    'Confirm & Sign Off': 'पुष्टि करें और हस्ताक्षर करें',
+    'Recapture Requested': 'पुनर्प्राप्ति का अनुरोध किया गया',
+    'Save Profile': 'प्रोफ़ाइल सहेजें',
+    'Close': 'बंद करें',
+    'Submit Review': 'समीक्षा जमा करें',
+
+    // Diagnostic Findings
+    'Optic Disc': 'ऑप्टिक डिस्क',
+    'Fovea': 'फोविया (मैक्युला केंद्र)',
+    'Fovea Centralis (Macula)': 'फोविया (मैक्युला केंद्र)',
+    'Vascular Arcades': 'रेटिनल रक्त वाहिकाएं',
+    'Microaneurysms': 'माइक्रोएन्यूरिज्म',
+    'Hard Exudates': 'हार्ड एक्सयूडेट्स (वसा जमाव)',
+    'Hard Exudates (Lipid Deposits)': 'हार्ड एक्सयूडेट्स (वसा जमाव)',
+    'Hemorrhages': 'रेटिनल रक्तस्राव (हेमरेज)',
+    'Blot Hemorrhage': 'रेटिनल रक्तस्राव (हेमरेज)',
+    'Neovascularization': 'नियोवैस्कुलराइजेशन (नई असामान्‍य वाहिकाएं)',
+    'Neovascular Frond (NVD)': 'नियोवैस्कुलराइजेशन (नई वाहिकाएं)',
+    'Cotton Wool Spots': 'कॉटन वूल स्पॉट्स (इस्कीमिक घाव)',
+    'Cotton Wool Spot': 'कॉटन वूल स्पॉट (इस्कीमिक घाव)',
+
+    // Brand Titles
+    'Drishti Kalyan': 'दृश कल्याण',
+    'Drish Kalyan': 'दृश कल्याण',
+    'DRISH KALYAN': 'दृश कल्याण',
+
+    // Section Titles & Eye Labels
+    'REPORT': 'रिपोर्ट (REPORT)',
+    'VISION & HEALTH SCREENING PROGRAMME': 'दृष्टि एवं स्वास्थ्य जांच कार्यक्रम',
+    'AI DR Classification:': 'एआई डीआर वर्गीकरण:',
+    'Identified Evidence:': 'पहचाने गए साक्ष्य / लक्षण:',
+    'Tele-Triage Referral Status:': 'टेली-ट्राइज रेफरल स्थिति:',
+    'Specialist Clinical Notes:': 'विशेषज्ञ नैदानिक नोट्स:',
+    'Reviewing Specialist:': 'समीक्षाकर्ता नेत्र विशेषज्ञ:',
+    'LEFT EYE (OS / बायां नेत्र)': 'बायां नेत्र (Left Eye — OS)',
+    'RIGHT EYE (OD / दायां नेत्र)': 'दायां नेत्र (Right Eye — OD)',
+    'IMAGE 1: Original Fundus (Left Eye / OS)': 'इमेज 1: मूल फंडस (बायां नेत्र)',
+    'IMAGE 2: Grad-CAM Heatmap (Left Eye / OS)': 'इमेज 2: ग्रैड-कॅम हीटमैप (बायां नेत्र)',
+    'IMAGE 3: Anatomical Structures (Left Eye / OS)': 'इमेज 3: अनाटोमिकल संरचनाएं (बायां नेत्र)',
+    'IMAGE 4: Original Fundus (Right Eye / OD)': 'इमेज 4: मूल फंडस (दायां नेत्र)',
+    'IMAGE 5: Grad-CAM Heatmap (Right Eye / OD)': 'इमेज 5: ग्रैड-कॅम हीटमैप (दायां नेत्र)',
+    'IMAGE 6: Anatomical Structures (Right Eye / OD)': 'इमेज 6: अनाटोमिकल संरचनाएं (दायां नेत्र)',
+
     // Common Notes
     'Confirmed referable moderate/severe DR. Patient advised dilated slit-lamp exam and OCT at District Eye Hospital.': 'संदर्भ योग्य मध्यम/गंभीर डीआर की पुष्टि हुई। मरीज को जिला नेत्र अस्पताल में विस्तृत स्लिट-लैंप और ओसीटी जांच की सलाह दी गई।',
     'Confirmed non-referable. Advised regular glucose control and annual follow-up.': 'गैर-संदर्भ योग्य की पुष्टि हुई। नियमित रक्त शर्करा नियंत्रण और वार्षिक अनुवर्ती जांच की सलाह दी गई।'
@@ -1381,6 +2091,17 @@ window.tData = function(value, category) {
 
   // Pattern-based transformations
   let res = valStr;
+  res = res.replace(/\bSIH-(\d+)\b/gi, 'एसआईएच-$1');
+  res = res.replace(/\bSIH(\d+)\b/gi, 'एसआईएच$1');
+  res = res.replace(/\bSIH\b/gi, 'एसआईएच');
+  res = res.replace(/\bCASE-(\d+)(-\d+)?\b/gi, 'केस-$1$2');
+  res = res.replace(/\bCASE\b/gi, 'केस');
+  res = res.replace(/\bPT-IND-(\d+)\b/gi, 'पीटी-आईएनडी-$1');
+  res = res.replace(/\bPID-(\d+)\b/gi, 'पीआईडी-$1');
+  res = res.replace(/\bPHC-(\d+)\b/gi, 'पीएचसी-$1');
+  res = res.replace(/\bPHC\b/gi, 'पीएचसी');
+  res = res.replace(/\bMCI-(\d+)\b/gi, 'एमसीआई-$1');
+  res = res.replace(/\bMCI\b/gi, 'एमसीआई');
   res = res.replace(/\bYears\b/gi, 'वर्ष');
   res = res.replace(/\bYear\b/gi, 'वर्ष');
   res = res.replace(/\byrs\b/gi, 'वर्ष');
@@ -1398,6 +2119,38 @@ window.tData = function(value, category) {
   res = res.replace(/\bUngradable\b/gi, 'अश्रेणीकरण योग्य');
   res = res.replace(/\bLevel\s*(\d+)/gi, 'स्तर $1');
   res = res.replace(/\bKB\s*\(Standard\)/gi, 'केबी (मानक)');
+  res = res.replace(/\bday\b/gi, 'दिन');
+  res = res.replace(/\bdays\b/gi, 'दिन');
+  res = res.replace(/\bHours\b/gi, 'घंटे');
+  res = res.replace(/\bHour\b/gi, 'घंटा');
+  res = res.replace(/\bmins\b/gi, 'मिनट');
+  res = res.replace(/\bmin\b/gi, 'मिनट');
+  res = res.replace(/\bUSB\b/gi, 'यूएसबी');
+  res = res.replace(/\bMB\b/gi, 'एमबी');
+  res = res.replace(/\bKB\b/gi, 'केबी');
+  res = res.replace(/\bms\b/gi, 'मिलीसेकंड');
+  res = res.replace(/\b2G\b/gi, '2जी');
+  res = res.replace(/\b4G\b/gi, '4जी');
+  res = res.replace(/\bHTTPS\b/gi, 'एचटीटीपीएस');
+  res = res.replace(/\bJPEG\b/gi, 'जेपीईजी');
+  res = res.replace(/\.JPG\b/gi, '.जेपीजी');
+  res = res.replace(/\.JPEG\b/gi, '.जेपीईजी');
+  res = res.replace(/\.PNG\b/gi, '.पीएनजी');
+  res = res.replace(/\.TIFF\b/gi, '.टिफ़');
+  res = res.replace(/\.TIF\b/gi, '.टिफ');
+  res = res.replace(/\bONNX\b/gi, 'ओएनएनएक्स');
+  res = res.replace(/\bTensorFlow\b/gi, 'टेन्सरफ्लो');
+  res = res.replace(/\bEfficientNet\b/gi, 'एफिशिएंटनेट');
+  res = res.replace(/\bINT8\b/gi, 'आईएनटी8');
+  res = res.replace(/\bGradCAM\b/gi, 'ग्रैड-कैम');
+  res = res.replace(/\bVector\b/gi, 'वेक्टर');
+  res = res.replace(/\bCompressed\b/gi, 'संपीडित');
+  res = res.replace(/\bStable\b/gi, 'स्थिर');
+
+  // If result still contains English Latin letters, run transliteration for patient names or unmapped words
+  if (/[a-zA-Z]/.test(res)) {
+    res = transliterateEnglishToHindi(res);
+  }
 
   return res;
 };

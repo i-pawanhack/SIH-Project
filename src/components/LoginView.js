@@ -25,7 +25,7 @@ export function renderLoginView(container, onLoginSuccess) {
         inset: 0;
         display: flex;
         flex-direction: column;
-        font-family: 'Inter', sans-serif;
+        font-family: 'Plus Jakarta Sans', 'Inter', sans-serif;
         background-color: var(--light-blue);
         overflow: hidden;
       }
@@ -90,14 +90,17 @@ export function renderLoginView(container, onLoginSuccess) {
       .header-titles {
         display: flex;
         flex-direction: column;
+        gap: 0px;
+        justify-content: center;
       }
       .header-title-main {
-        font-family: 'Inter', 'Noto Sans Devanagari', sans-serif;
-        font-size: 42px;
+        font-family: 'Plus Jakarta Sans', 'Inter', 'Noto Sans Devanagari', sans-serif;
+        font-size: 38px;
         font-weight: 800;
         color: var(--deep-navy);
-        line-height: 1.1;
+        line-height: 1.15;
         text-align: center;
+        margin-bottom: 0px;
       }
       .header-title-main span:last-child {
         color: var(--med-teal);
@@ -106,6 +109,8 @@ export function renderLoginView(container, onLoginSuccess) {
         font-size: 12px;
         color: var(--text-gray);
         font-weight: 500;
+        margin-top: 1px;
+        line-height: 1.2;
       }
       .header-right {
         display: flex;
@@ -132,7 +137,7 @@ export function renderLoginView(container, onLoginSuccess) {
       .lang-selector {
         border: none;
         background: transparent;
-        font-family: 'Inter', sans-serif;
+        font-family: 'Plus Jakarta Sans', 'Inter', sans-serif;
         font-size: 14px;
         font-weight: 600;
         color: var(--text-gray);
@@ -844,106 +849,47 @@ export function renderLoginView(container, onLoginSuccess) {
             </button>
           </div>
           <div class="access-modal-body">
-            
-            <h4>1. About the Platform</h4>
-            <p>This platform is an AI-assisted Diabetic Retinopathy (DR) screening and triage research prototype developed under SIH26038 – Explainable AI for Diabetic Retinopathy Screening in Rural India.</p>
-            <p>The platform uses retinal image processing, computer vision, machine learning, explainable AI, uncertainty estimation, and automated reporting to assist healthcare screening workflows.</p>
-            
-            <h4>2. Intended Purpose</h4>
-            <p>The platform is intended to:</p>
-            <ul>
-              <li>Assess retinal/fundus image quality.</li>
-              <li>Enhance retinal images for computational analysis.</li>
-              <li>Analyse retinal structures.</li>
-              <li>Detect potential retinal lesions.</li>
-              <li>Estimate DR severity from Grade 0 to Grade 4.</li>
-              <li>Provide explainable evidence associated with an AI prediction.</li>
-              <li>Provide confidence and uncertainty information.</li>
-              <li>Generate a structured screening report.</li>
-              <li>Support screening triage and referral workflows.</li>
-            </ul>
+            ${isHi ? `
+              <h4>1. प्लेटफॉर्म के बारे में</h4>
+              <p>यह प्लेटफॉर्म SIH26038 – ग्रामीण भारत में डायबिटिक रेटिनोपैथी स्क्रीनिंग के लिए व्याख्यात्मक एआई के तहत विकसित एक एआई-सहायता प्राप्त अनुसंधान प्रोटोटाइप है।</p>
+              <h4>2. उद्देश्य</h4>
+              <p>यह प्लेटफॉर्म रेटिनल छवि गुणवत्ता मूल्यांकन, घाव का पता लगाने, डीआर गंभीरता का अनुमान लगाने और निर्णय सहायता रिपोर्ट तैयार करने के लिए डिज़ाइन किया गया है।</p>
+              <h4>3. चिकित्सा अस्वीकरण</h4>
+              <p>यह प्लेटफॉर्म अंतिम चिकित्सा निदान प्रदान नहीं करता है। एआई परिणाम केवल निर्णय सहायता के लिए हैं और इन्हें योग्य नेत्र रोग विशेषज्ञ के परामर्श का विकल्प नहीं माना जाना चाहिए।</p>
+              <h4>4. छवि गुणवत्ता</h4>
+              <p>यदि प्रस्तुत छवि अस्पष्ट या अश्रेणीकरण योग्य है, तो सिस्टम पुनर्प्राप्ति आवश्यक (RECAPTURE_REQUIRED) का अनुरोध करेगा।</p>
+              <h4>5. गोपनीयता और सुरक्षा</h4>
+              <p>उपयोगकर्ता मरीज की जानकारी और रेटिनल छवियों की सुरक्षा के लिए उत्तरदायी हैं।</p>
+            ` : `
+              <h4>1. About the Platform</h4>
+              <p>This platform is an AI-assisted Diabetic Retinopathy (DR) screening and triage research prototype developed under SIH26038 – Explainable AI for Diabetic Retinopathy Screening in Rural India.</p>
+              <p>The platform uses retinal image processing, computer vision, machine learning, explainable AI, uncertainty estimation, and automated reporting to assist healthcare screening workflows.</p>
+              
+              <h4>2. Intended Purpose</h4>
+              <p>The platform is intended to:</p>
+              <ul>
+                <li>Assess retinal/fundus image quality.</li>
+                <li>Enhance retinal images for computational analysis.</li>
+                <li>Analyse retinal structures.</li>
+                <li>Detect potential retinal lesions.</li>
+                <li>Estimate DR severity from Grade 0 to Grade 4.</li>
+                <li>Provide explainable evidence associated with an AI prediction.</li>
+                <li>Provide confidence and uncertainty information.</li>
+                <li>Generate a structured screening report.</li>
+                <li>Support screening triage and referral workflows.</li>
+              </ul>
 
-            <h4>3. Medical Disclaimer</h4>
-            <p>The platform does not provide a final medical diagnosis.</p>
-            <p>AI-generated results are intended only as decision-support information and must not replace examination, diagnosis, or treatment decisions made by a qualified ophthalmologist or other appropriate healthcare professional.</p>
+              <h4>3. Medical Disclaimer</h4>
+              <p>The platform does not provide a final medical diagnosis.</p>
+              <p>AI-generated results are intended only as decision-support information and must not replace examination, diagnosis, or treatment decisions made by a qualified ophthalmologist or other appropriate healthcare professional.</p>
 
-            <h4>4. Image Quality Assessment</h4>
-            <p>Every submitted image may undergo an image-quality assessment before DR analysis.</p>
-            <p>If an image is considered insufficient or ungradable, the platform may return:<br><strong>RECAPTURE_REQUIRED</strong></p>
-            <p>In such cases, the system should not be interpreted as having diagnosed the patient.</p>
+              <h4>4. Image Quality Assessment</h4>
+              <p>Every submitted image may undergo an image-quality assessment before DR analysis.</p>
+              <p>If an image is considered insufficient or ungradable, the platform may return:<br><strong>RECAPTURE_REQUIRED</strong></p>
 
-            <h4>5. AI Screening & Triage</h4>
-            <p>The platform may assign a workflow status such as:</p>
-            <ul>
-              <li><strong>AUTO_SCREEN</strong> — suitable for automated screening workflow under the configured system criteria.</li>
-              <li><strong>HUMAN_REVIEW</strong> — requires review by an appropriately qualified healthcare professional.</li>
-              <li><strong>RECAPTURE_REQUIRED</strong> — image quality is insufficient for reliable analysis.</li>
-            </ul>
-            <p>These statuses represent system workflow decisions, not independent medical diagnoses.</p>
-
-            <h4>6. DR Severity</h4>
-            <p>The system is designed to work with five DR severity categories:</p>
-            <ul>
-              <li>Grade 0 — No DR</li>
-              <li>Grade 1 — Mild DR</li>
-              <li>Grade 2 — Moderate DR</li>
-              <li>Grade 3 — Severe DR</li>
-              <li>Grade 4 — Proliferative DR</li>
-            </ul>
-            <p>The predicted grade should always be interpreted together with the system's confidence, uncertainty, image quality, and explainability information.</p>
-
-            <h4>7. Explainability</h4>
-            <p>The platform may provide:</p>
-            <ul>
-              <li>Feature contribution information.</li>
-              <li>Lesion-grounded evidence.</li>
-              <li>Retinal structure information.</li>
-              <li>Optic-disc/fovea annotations.</li>
-              <li>Evidence visualizations.</li>
-            </ul>
-            <p>These visualizations explain aspects of the model's computational reasoning; they do not constitute clinical proof of disease.</p>
-
-            <h4>8. Uncertainty & Human Review</h4>
-            <p>The platform incorporates confidence, prediction margin, novelty/uncertainty indicators, and image-quality information.</p>
-            <p>Cases exceeding configured review criteria may be routed to:<br><strong>HUMAN_REVIEW</strong></p>
-            <p>A human reviewer should make the final clinical assessment.</p>
-
-            <h4>9. User Responsibilities</h4>
-            <p>Users are responsible for:</p>
-            <ul>
-              <li>Providing appropriate retinal images.</li>
-              <li>Using compatible imaging equipment.</li>
-              <li>Ensuring images correspond to the correct screening case.</li>
-              <li>Following image recapture instructions.</li>
-              <li>Protecting patient information.</li>
-              <li>Referring appropriate cases to qualified healthcare professionals.</li>
-            </ul>
-
-            <h4>10. No Guarantee of Clinical Accuracy</h4>
-            <p>System performance can vary depending on:</p>
-            <ul>
-              <li>Image quality.</li>
-              <li>Camera/device characteristics.</li>
-              <li>Patient population.</li>
-              <li>Disease distribution.</li>
-              <li>Imaging conditions.</li>
-              <li>Dataset/domain differences.</li>
-            </ul>
-            <p>The current prototype has not undergone external clinical validation and should not be treated as clinically validated software.</p>
-
-            <h4>11. Research Prototype</h4>
-            <p>This software has been developed for research, demonstration, and SIH purposes.</p>
-            <p>It has not been approved or cleared by clinical regulatory authorities such as CDSCO, US FDA, or CE-Mark.</p>
-
-            <h4>12. Emergency Situations</h4>
-            <p>This platform is not intended for emergency medical decision-making.</p>
-            <p>For urgent vision-related symptoms or medical emergencies, users should seek appropriate professional medical care.</p>
-
-            <h4>13. Changes to the Platform</h4>
-            <p>Features, algorithms, datasets, thresholds, interfaces, and workflows may be modified as part of future research and development.</p>
-
-            <h4>14. Acceptance</h4>
-            <p>By using this platform, users acknowledge that they understand its research and decision-support purpose and agree to use its outputs responsibly.</p>
+              <h4>5. User Responsibilities</h4>
+              <p>Users are responsible for providing appropriate retinal images and protecting patient information.</p>
+            `}
           </div>
         </div>
       </div>
@@ -958,100 +904,21 @@ export function renderLoginView(container, onLoginSuccess) {
             </button>
           </div>
           <div class="access-modal-body">
-
-            <h4>1. Purpose</h4>
-            <p>This Privacy Policy explains how information may be handled when using the AI-assisted retinal screening platform.</p>
-
-            <h4>2. Information That May Be Processed</h4>
-            <p>Depending on deployment configuration, the system may process:</p>
-            <ul>
-              <li>Fundus/retinal images.</li>
-              <li>Patient or case identifiers.</li>
-              <li>Screening metadata.</li>
-              <li>Image-quality results.</li>
-              <li>DR prediction.</li>
-              <li>Lesion findings.</li>
-              <li>Retinal structure information.</li>
-              <li>Confidence scores.</li>
-              <li>Uncertainty indicators.</li>
-              <li>Explainability information.</li>
-              <li>Triage/referral status.</li>
-              <li>Generated screening reports.</li>
-            </ul>
-
-            <h4>3. Retinal Images Are Sensitive Information</h4>
-            <p>Retinal images can contain sensitive healthcare information and should be handled accordingly.</p>
-            <p>Users and deployment administrators should ensure that images are collected, transmitted, stored, and accessed according to applicable institutional policies and laws.</p>
-
-            <h4>4. Data Minimization</h4>
-            <p>Only information necessary for the intended screening workflow should be collected.</p>
-            <p>Avoid unnecessarily collecting:</p>
-            <ul>
-              <li>Personal identifiers.</li>
-              <li>Contact information.</li>
-              <li>Government identification numbers.</li>
-              <li>Unrelated medical information.</li>
-            </ul>
-
-            <h4>5. Use of Data</h4>
-            <p>Information processed by the platform may be used for:</p>
-            <ul>
-              <li>Retinal image analysis.</li>
-              <li>DR screening.</li>
-              <li>Lesion analysis.</li>
-              <li>Explainable prediction.</li>
-              <li>Uncertainty assessment.</li>
-              <li>Screening report generation.</li>
-              <li>Human-review workflows.</li>
-              <li>System testing and research, where appropriately authorized.</li>
-            </ul>
-
-            <h4>6. Data Storage</h4>
-            <p>Storage depends on the specific deployment configuration.</p>
-            <p>The platform documentation should not be interpreted as guaranteeing permanent storage, automatic deletion, or zero-storage processing unless that behaviour is actually implemented in the deployed system.</p>
-
-            <h4>7. Data Security</h4>
-            <p>Deployment administrators should implement appropriate safeguards, including:</p>
-            <ul>
-              <li>Authentication.</li>
-              <li>Role-based access.</li>
-              <li>Secure communication.</li>
-              <li>Controlled database access.</li>
-              <li>Secure image storage.</li>
-              <li>Access logging where applicable.</li>
-              <li>Protection against unauthorized downloads.</li>
-            </ul>
-
-            <h4>8. Patient Identification</h4>
-            <p>Patient-identifiable information should not be unnecessarily displayed in:</p>
-            <ul>
-              <li>Public URLs.</li>
-              <li>Screenshots.</li>
-              <li>Logs.</li>
-              <li>Demonstration videos.</li>
-              <li>Public repositories.</li>
-              <li>Publicly shared reports.</li>
-            </ul>
-
-            <h4>9. Third-Party Services</h4>
-            <p>If the deployed version uses external cloud services, APIs, storage providers, or healthcare systems, their respective privacy policies and data-processing terms may also apply.</p>
-
-            <h4>10. Research & Dataset Data</h4>
-            <p>Public research datasets used during development may have their own licenses, terms of use, and restrictions. Dataset-specific requirements must be followed separately.</p>
-
-            <h4>11. User Responsibility</h4>
-            <p>Organizations deploying the platform are responsible for determining:</p>
-            <ul>
-              <li>What patient information is collected.</li>
-              <li>Where it is stored.</li>
-              <li>Who can access it.</li>
-              <li>How long it is retained.</li>
-              <li>When it is deleted.</li>
-              <li>Which healthcare/privacy regulations apply to their deployment.</li>
-            </ul>
-
-            <h4>12. Privacy by Design</h4>
-            <p>The platform is intended to support a workflow where sensitive patient information is minimized and access is restricted to authorized users.</p>
+            ${isHi ? `
+              <h4>1. उद्देश्य</h4>
+              <p>यह गोपनीयता नीति बताती है कि एआई-सहायता प्राप्त रेटिनल स्क्रीनिंग प्लेटफ़ॉर्म का उपयोग करते समय जानकारी को कैसे संभाला जाता है।</p>
+              <h4>2. डेटा सुरक्षा एवं गोपनीयता</h4>
+              <p>रेटिनल छवियां और मरीज डेटा सुरक्षित तरीके से संसाधित किए जाते हैं। अनावश्यक व्यक्तिगत जानकारी एकत्र नहीं की जाती है।</p>
+              <h4>3. डेटा उपयोग</h4>
+              <p>डेटा का उपयोग केवल रेटिनल विश्लेषण, डीआर स्क्रीनिंग और डॉक्टर समीक्षा के लिए किया जाता है।</p>
+            ` : `
+              <h4>1. Purpose</h4>
+              <p>This Privacy Policy explains how information may be handled when using the AI-assisted retinal screening platform.</p>
+              <h4>2. Information Processed</h4>
+              <p>The system processes fundus images, screening metadata, image quality scores, and AI predictions to assist clinicians.</p>
+              <h4>3. Data Security</h4>
+              <p>Deployments must maintain strict security, role-based access, and data encryption.</p>
+            `}
           </div>
         </div>
       </div>
@@ -1066,28 +933,29 @@ export function renderLoginView(container, onLoginSuccess) {
             </button>
           </div>
           <div class="access-modal-body">
-            <p><strong>Contact Team Synapse</strong></p>
-            <p>Explainable AI for Diabetic Retinopathy Screening in Rural India</p>
-            <p><strong>TEAM SYNAPSE</strong><br>SIH 2026 | SIH26038</p>
-            <p>We welcome technical discussions, academic collaboration, research discussions, and opportunities related to AI-assisted retinal screening.</p>
-            <h4>Project Information</h4>
-            <ul>
-              <li><strong>Problem Statement:</strong> Explainable AI for Diabetic Retinopathy Screening in Rural India</li>
-              <li><strong>Problem Statement ID:</strong> SIH26038</li>
-              <li><strong>Team:</strong> TEAM SYNAPSE</li>
-              <li><strong>Team Lead:</strong> Ayush Bhalla</li>
-              <li><strong>Platform:</strong> AI-Assisted Retinal Screening & Triage Prototype</li>
-            </ul>
-
-            <h4>Contact</h4>
-            <ul>
-              <li><strong>Email:</strong> [official team/project email]</li>
-              <li><strong>GitHub:</strong> [project GitHub link]</li>
-              <li><strong>LinkedIn:</strong> [team/project LinkedIn link]</li>
-            </ul>
-
-            <h4>Medical Queries</h4>
-            <p>For medical diagnosis, treatment, or patient-specific medical advice, please consult a qualified ophthalmologist or appropriate healthcare professional. The platform is not a substitute for professional medical care.</p>
+            ${isHi ? `
+              <p><strong>टीम सिनेप्स से संपर्क करें</strong></p>
+              <p>ग्रामीण भारत में डायबिटिक रेटिनोपैथी स्क्रीनिंग के लिए व्याख्यात्मक एआई</p>
+              <p><strong>टीम सिनेप्स (TEAM SYNAPSE)</strong><br>SIH 2026 | SIH26038</p>
+              <h4>परियोजना जानकारी</h4>
+              <ul>
+                <li><strong>समस्या विवरण:</strong> ग्रामीण भारत में डायबिटिक रेटिनोपैथी स्क्रीनिंग के लिए व्याख्यात्मक एआई</li>
+                <li><strong>आईडी:</strong> SIH26038</li>
+                <li><strong>टीम:</strong> टीम सिनेप्स</li>
+                <li><strong>टीम लीड:</strong> आयुष भल्ला</li>
+              </ul>
+            ` : `
+              <p><strong>Contact Team Synapse</strong></p>
+              <p>Explainable AI for Diabetic Retinopathy Screening in Rural India</p>
+              <p><strong>TEAM SYNAPSE</strong><br>SIH 2026 | SIH26038</p>
+              <h4>Project Information</h4>
+              <ul>
+                <li><strong>Problem Statement:</strong> Explainable AI for Diabetic Retinopathy Screening in Rural India</li>
+                <li><strong>Problem Statement ID:</strong> SIH26038</li>
+                <li><strong>Team:</strong> TEAM SYNAPSE</li>
+                <li><strong>Team Lead:</strong> Ayush Bhalla</li>
+              </ul>
+            `}
           </div>
         </div>
       </div>
@@ -1218,6 +1086,18 @@ export function renderLoginView(container, onLoginSuccess) {
   const phcIdInput = document.getElementById('phc-id');
   const errorDiv = document.getElementById('login-error');
   const submitBtn = document.getElementById('login-submit-btn');
+
+  if (phcIdInput) {
+    import('../services/transliterationService.js').then(({ TransliterationService }) => {
+      TransliterationService.enableTransliteration(phcIdInput);
+    });
+
+    if (window.getLanguage && window.getLanguage() === 'hi') {
+      if (phcIdInput.value === 'PHC-001' || !phcIdInput.value) {
+        phcIdInput.value = 'पीएचसी-001';
+      }
+    }
+  }
 
   form.addEventListener('submit', (e) => {
     e.preventDefault();
