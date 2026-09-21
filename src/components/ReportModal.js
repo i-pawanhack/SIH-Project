@@ -116,8 +116,8 @@ export function openReportModal(screeningCase, onClose) {
               <div style="font-weight:600; color:#334155; border-bottom:1px solid #e2e8f0; padding-bottom:3px;">${window.tData(patient.guardian || 'Rameshwar Sharma')}</div>
             </div>
             <div>
-              <div style="font-size:0.65rem; color:#0d6b63; font-weight:700; text-transform:uppercase; margin-bottom:2px;">${window.tData('OCCUPATION')}</div>
-              <div style="font-weight:600; color:#334155; border-bottom:1px solid #e2e8f0; padding-bottom:3px;">${window.tData(patient.occupation || 'Farmer')}</div>
+              <div style="font-size:0.65rem; color:#0d6b63; font-weight:700; text-transform:uppercase; margin-bottom:2px;" data-i18n="report.bloodSugar">${window.tData('BLOOD SUGAR LEVEL / HbA1c')}</div>
+              <div style="font-weight:700; color:#0d6b63; border-bottom:1px solid #e2e8f0; padding-bottom:3px;">${window.tData(patient.bloodSugar || '215 mg/dL (HbA1c 8.6%)')}</div>
             </div>
             <div>
               <div style="font-size:0.65rem; color:#0d6b63; font-weight:700; text-transform:uppercase; margin-bottom:2px;">${window.tData('BLOOD GROUP')}</div>
@@ -125,8 +125,8 @@ export function openReportModal(screeningCase, onClose) {
             </div>
 
             <div>
-              <div style="font-size:0.65rem; color:#0d6b63; font-weight:700; text-transform:uppercase; margin-bottom:2px;">${window.tData('AADHAAR / HEALTH ID')}</div>
-              <div style="font-weight:600; color:#334155; border-bottom:1px solid #e2e8f0; padding-bottom:3px;">${patient.aadhaar || 'ABHA-9812-4512-8921'}</div>
+              <div style="font-size:0.65rem; color:#0d6b63; font-weight:700; text-transform:uppercase; margin-bottom:2px;">${window.tData('AYUSHMAN CARD NO.')}</div>
+              <div style="font-weight:600; color:#334155; border-bottom:1px solid #e2e8f0; padding-bottom:3px;">${window.tData(patient.ayushmanNo || patient.aadhaar || 'ABHA-9812-4512-8921')}</div>
             </div>
             <div>
               <div style="font-size:0.65rem; color:#0d6b63; font-weight:700; text-transform:uppercase; margin-bottom:2px;">${window.tData('VILLAGE / WARD')}</div>
@@ -162,7 +162,7 @@ export function openReportModal(screeningCase, onClose) {
             </div>
             <div>
               <div style="font-size:0.65rem; color:#0d6b63; font-weight:700; text-transform:uppercase; margin-bottom:2px;">${window.tData('REGISTRATION NO.')}</div>
-              <div style="font-weight:700; color:#1e293b; border-bottom:1px solid #e2e8f0; padding-bottom:3px;">REG-2026-8941</div>
+              <div style="font-weight:700; color:#1e293b; border-bottom:1px solid #e2e8f0; padding-bottom:3px;">${window.tData(screeningCase.regNo || 'REG-2026-8941')}</div>
             </div>
 
             <div>
@@ -180,100 +180,108 @@ export function openReportModal(screeningCase, onClose) {
           </div>
         </div>
 
-        <!-- SECTION 3: CLINICAL / EXAMINATION IMAGES -->
-        <div class="official-pdf-section-title" style="display:flex; align-items:center; color:#0d6b63; font-weight:800; font-size:0.8125rem; letter-spacing:0.06em; margin-bottom:0.5rem; text-transform:uppercase;">
-          <span style="display:inline-block; width:9px; height:9px; background-color:#0d6b63; border-radius:50%; margin-right:8px;"></span>
-          <span>${window.tData('CLINICAL / EXAMINATION IMAGES')}</span>
-        </div>
-
-        <!-- TOP SUB-SECTION: LEFT EYE (OS) -->
-        <div style="font-size:0.725rem; font-weight:800; color:#0d6b63; background:#e6f4f1; border-left:4px solid #0d6b63; padding:4px 10px; border-radius:0 4px 4px 0; margin-bottom:0.5rem; display:flex; align-items:center; justify-content:space-between;">
-          <span>👁️ ${window.tData('LEFT EYE (OS / बायां नेत्र)')}</span>
-          <span style="font-size:0.65rem; color:#064e4b; font-weight:700;">LATERALITY: OS (LEFT)</span>
-        </div>
-
-        <div style="display:grid; grid-template-columns:repeat(3, 1fr); gap:0.75rem; margin-bottom:1rem;">
-          <!-- Left Eye Image 1 -->
-          <div style="border:1.5px dashed #0d6b63; border-radius:8px; padding:6px; background:#f0fdfa; text-align:center;">
-            <div style="font-size:0.65rem; font-weight:700; color:#0d6b63; margin-bottom:4px;">${window.tData('IMAGE 1: Original Fundus (Left Eye / OS)')}</div>
-            <div style="height:110px; border-radius:4px; overflow:hidden; background:#000;">
-              <img src="${screeningCase.rawImage}" style="width:100%; height:100%; object-fit:contain;">
-            </div>
+        <!-- PAGE 2 CONTAINER: CLINICAL EXAMINATION IMAGES & RISK SEVERITY HEATMAP -->
+        <div class="official-pdf-page-2" style="page-break-inside: avoid; break-inside: avoid; margin-top: 1.75rem;">
+          
+          <!-- SECTION 3: CLINICAL / EXAMINATION IMAGES -->
+          <div class="official-pdf-section-title" style="display:flex; align-items:center; color:#0d6b63; font-weight:800; font-size:0.8125rem; letter-spacing:0.06em; margin-bottom:0.5rem; text-transform:uppercase;">
+            <span style="display:inline-block; width:9px; height:9px; background-color:#0d6b63; border-radius:50%; margin-right:8px;"></span>
+            <span>${window.tData('CLINICAL / EXAMINATION IMAGES')}</span>
           </div>
 
-          <!-- Left Eye Image 2 -->
-          <div style="border:1.5px dashed #0d6b63; border-radius:8px; padding:6px; background:#f0fdfa; text-align:center;">
-            <div style="font-size:0.65rem; font-weight:700; color:#0d6b63; margin-bottom:4px;">${window.tData('IMAGE 2: Grad-CAM Heatmap (Left Eye / OS)')}</div>
-            <div style="height:110px; border-radius:4px; overflow:hidden; background:#000; position:relative;">
-              <img src="${screeningCase.rawImage}" style="width:100%; height:100%; object-fit:contain;">
-              ${!isUngradable && screeningCase.gradCamImage ? `
-                <img src="${screeningCase.gradCamImage}" style="position:absolute; top:0; left:0; width:100%; height:100%; object-fit:contain; opacity:0.75; mix-blend-mode:screen;">
-              ` : ''}
+          <div style="border:1px solid #cce2e0; border-radius:10px; padding:0.85rem 1rem; background:#ffffff; margin-bottom:1.25rem; box-shadow:0 1px 3px rgba(0,0,0,0.02); page-break-inside:avoid; break-inside:avoid;">
+            
+            <!-- TOP SUB-SECTION: LEFT EYE (OS) -->
+            <div style="font-size:0.725rem; font-weight:800; color:#0d6b63; background:#e6f4f1; border-left:4px solid #0d6b63; padding:4px 10px; border-radius:0 4px 4px 0; margin-bottom:0.5rem; display:flex; align-items:center; justify-content:space-between;">
+              <span>👁️ ${window.tData('LEFT EYE (OS / बायां नेत्र)')}</span>
+              <span style="font-size:0.65rem; color:#064e4b; font-weight:700;">LATERALITY: OS (LEFT)</span>
             </div>
-          </div>
 
-          <!-- Left Eye Image 3 -->
-          <div style="border:1.5px dashed #0d6b63; border-radius:8px; padding:6px; background:#f0fdfa; text-align:center;">
-            <div style="font-size:0.65rem; font-weight:700; color:#0d6b63; margin-bottom:4px;">${window.tData('IMAGE 3: Anatomical Structures (Left Eye / OS)')}</div>
-            <div style="height:110px; border-radius:4px; overflow:hidden; background:#000; display:flex; justify-content:center; align-items:center;">
-              <img src="${screeningCase.rawImage}" style="width:100%; height:100%; object-fit:contain; filter:contrast(1.15);">
+            <div style="display:grid; grid-template-columns:repeat(3, 1fr); gap:0.75rem; margin-bottom:0.85rem;">
+              <!-- Left Eye Image 1 -->
+              <div style="border:1.5px dashed #0d6b63; border-radius:8px; padding:5px; background:#f0fdfa; text-align:center;">
+                <div style="font-size:0.625rem; font-weight:700; color:#0d6b63; margin-bottom:3px;">${window.tData('IMAGE 1: Original Fundus (Left Eye / OS)')}</div>
+                <div style="height:95px; border-radius:4px; overflow:hidden; background:#000;">
+                  <img src="${screeningCase.rawImage}" style="width:100%; height:100%; object-fit:contain;">
+                </div>
+              </div>
+
+              <!-- Left Eye Image 2 -->
+              <div style="border:1.5px dashed #0d6b63; border-radius:8px; padding:5px; background:#f0fdfa; text-align:center;">
+                <div style="font-size:0.625rem; font-weight:700; color:#0d6b63; margin-bottom:3px;">${window.tData('IMAGE 2: Grad-CAM Heatmap (Left Eye / OS)')}</div>
+                <div style="height:95px; border-radius:4px; overflow:hidden; background:#000; position:relative;">
+                  <img src="${screeningCase.rawImage}" style="width:100%; height:100%; object-fit:contain;">
+                  ${!isUngradable && screeningCase.gradCamImage ? `
+                    <img src="${screeningCase.gradCamImage}" style="position:absolute; top:0; left:0; width:100%; height:100%; object-fit:contain; opacity:0.75; mix-blend-mode:screen;">
+                  ` : ''}
+                </div>
+              </div>
+
+              <!-- Left Eye Image 3 -->
+              <div style="border:1.5px dashed #0d6b63; border-radius:8px; padding:5px; background:#f0fdfa; text-align:center;">
+                <div style="font-size:0.625rem; font-weight:700; color:#0d6b63; margin-bottom:3px;">${window.tData('IMAGE 3: Anatomical Structures (Left Eye / OS)')}</div>
+                <div style="height:95px; border-radius:4px; overflow:hidden; background:#000; display:flex; justify-content:center; align-items:center;">
+                  <img src="${screeningCase.rawImage}" style="width:100%; height:100%; object-fit:contain; filter:contrast(1.15);">
+                </div>
+              </div>
             </div>
-          </div>
-        </div>
 
-        <!-- BOTTOM SUB-SECTION: RIGHT EYE (OD) -->
-        <div style="font-size:0.725rem; font-weight:800; color:#0d6b63; background:#e6f4f1; border-left:4px solid #0d6b63; padding:4px 10px; border-radius:0 4px 4px 0; margin-bottom:0.5rem; display:flex; align-items:center; justify-content:space-between;">
-          <span>👁️ ${window.tData('RIGHT EYE (OD / दायां नेत्र)')}</span>
-          <span style="font-size:0.65rem; color:#064e4b; font-weight:700;">LATERALITY: OD (RIGHT)</span>
-        </div>
-
-        <div style="display:grid; grid-template-columns:repeat(3, 1fr); gap:0.75rem; margin-bottom:1.25rem;">
-          <!-- Right Eye Image 4 -->
-          <div style="border:1.5px dashed #0d6b63; border-radius:8px; padding:6px; background:#f0fdfa; text-align:center;">
-            <div style="font-size:0.65rem; font-weight:700; color:#0d6b63; margin-bottom:4px;">${window.tData('IMAGE 4: Original Fundus (Right Eye / OD)')}</div>
-            <div style="height:110px; border-radius:4px; overflow:hidden; background:#000;">
-              <img src="${screeningCase.rawImage}" style="width:100%; height:100%; object-fit:contain; transform:scaleX(-1);">
+            <!-- BOTTOM SUB-SECTION: RIGHT EYE (OD) -->
+            <div style="font-size:0.725rem; font-weight:800; color:#0d6b63; background:#e6f4f1; border-left:4px solid #0d6b63; padding:4px 10px; border-radius:0 4px 4px 0; margin-bottom:0.5rem; display:flex; align-items:center; justify-content:space-between;">
+              <span>👁️ ${window.tData('RIGHT EYE (OD / दायां नेत्र)')}</span>
+              <span style="font-size:0.65rem; color:#064e4b; font-weight:700;">LATERALITY: OD (RIGHT)</span>
             </div>
-          </div>
 
-          <!-- Right Eye Image 5 -->
-          <div style="border:1.5px dashed #0d6b63; border-radius:8px; padding:6px; background:#f0fdfa; text-align:center;">
-            <div style="font-size:0.65rem; font-weight:700; color:#0d6b63; margin-bottom:4px;">${window.tData('IMAGE 5: Grad-CAM Heatmap (Right Eye / OD)')}</div>
-            <div style="height:110px; border-radius:4px; overflow:hidden; background:#000; position:relative;">
-              <img src="${screeningCase.rawImage}" style="width:100%; height:100%; object-fit:contain; transform:scaleX(-1);">
-              ${!isUngradable && screeningCase.gradCamImage ? `
-                <img src="${screeningCase.gradCamImage}" style="position:absolute; top:0; left:0; width:100%; height:100%; object-fit:contain; opacity:0.75; mix-blend-mode:screen; transform:scaleX(-1);">
-              ` : ''}
+            <div style="display:grid; grid-template-columns:repeat(3, 1fr); gap:0.75rem; margin-bottom:0.85rem;">
+              <!-- Right Eye Image 4 -->
+              <div style="border:1.5px dashed #0d6b63; border-radius:8px; padding:5px; background:#f0fdfa; text-align:center;">
+                <div style="font-size:0.625rem; font-weight:700; color:#0d6b63; margin-bottom:3px;">${window.tData('IMAGE 4: Original Fundus (Right Eye / OD)')}</div>
+                <div style="height:95px; border-radius:4px; overflow:hidden; background:#000;">
+                  <img src="${screeningCase.rawImage}" style="width:100%; height:100%; object-fit:contain; transform:scaleX(-1);">
+                </div>
+              </div>
+
+              <!-- Right Eye Image 5 -->
+              <div style="border:1.5px dashed #0d6b63; border-radius:8px; padding:5px; background:#f0fdfa; text-align:center;">
+                <div style="font-size:0.625rem; font-weight:700; color:#0d6b63; margin-bottom:3px;">${window.tData('IMAGE 5: Grad-CAM Heatmap (Right Eye / OD)')}</div>
+                <div style="height:95px; border-radius:4px; overflow:hidden; background:#000; position:relative;">
+                  <img src="${screeningCase.rawImage}" style="width:100%; height:100%; object-fit:contain; transform:scaleX(-1);">
+                  ${!isUngradable && screeningCase.gradCamImage ? `
+                    <img src="${screeningCase.gradCamImage}" style="position:absolute; top:0; left:0; width:100%; height:100%; object-fit:contain; opacity:0.75; mix-blend-mode:screen; transform:scaleX(-1);">
+                  ` : ''}
+                </div>
+              </div>
+
+              <!-- Right Eye Image 6 -->
+              <div style="border:1.5px dashed #0d6b63; border-radius:8px; padding:5px; background:#f0fdfa; text-align:center;">
+                <div style="font-size:0.625rem; font-weight:700; color:#0d6b63; margin-bottom:3px;">${window.tData('IMAGE 6: Anatomical Structures (Right Eye / OD)')}</div>
+                <div style="height:95px; border-radius:4px; overflow:hidden; background:#000; display:flex; justify-content:center; align-items:center;">
+                  <img src="${screeningCase.rawImage}" style="width:100%; height:100%; object-fit:contain; filter:contrast(1.15); transform:scaleX(-1);">
+                </div>
+              </div>
             </div>
-          </div>
 
-          <!-- Right Eye Image 6 -->
-          <div style="border:1.5px dashed #0d6b63; border-radius:8px; padding:6px; background:#f0fdfa; text-align:center;">
-            <div style="font-size:0.65rem; font-weight:700; color:#0d6b63; margin-bottom:4px;">${window.tData('IMAGE 6: Anatomical Structures (Right Eye / OD)')}</div>
-            <div style="height:110px; border-radius:4px; overflow:hidden; background:#000; display:flex; justify-content:center; align-items:center;">
-              <img src="${screeningCase.rawImage}" style="width:100%; height:100%; object-fit:contain; filter:contrast(1.15); transform:scaleX(-1);">
+            <!-- SECTION 4: RISK / SEVERITY HEATMAP INTEGRATED WITH EXAMINATION IMAGES -->
+            <div style="margin-top:0.75rem; padding-top:0.75rem; border-top:1.5px dashed #cbd5e1;">
+              <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:0.4rem;">
+                <span style="font-size:0.75rem; font-weight:800; color:#0d6b63; text-transform:uppercase; letter-spacing:0.04em;">🔥 ${window.tData('RISK / SEVERITY HEATMAP')}</span>
+                <span style="font-size:0.65rem; font-weight:700; color:#0f172a; background:#e2e8f0; padding:2px 8px; border-radius:12px;">${window.tData('AI CALIBRATED SCALE')}</span>
+              </div>
+
+              <div style="border:1.5px solid #cbd5e1; border-radius:8px; height:38px; background:linear-gradient(to right, #bbf7d0 0%, #fef08a 25%, #fed7aa 50%, #fca5a5 75%, #ef4444 100%); display:flex; align-items:center; justify-content:center; font-weight:800; font-size:0.875rem; color:#0f172a; position:relative; box-shadow:0 2px 4px rgba(0,0,0,0.05);">
+                <div style="background:rgba(255,255,255,0.95); padding:3px 12px; border-radius:20px; border:1px solid #94a3b8; box-shadow:0 2px 6px rgba(0,0,0,0.1); font-size:0.8125rem;">
+                  ${isUngradable ? window.t('report.ungradable') : `${window.t(`dr.${screeningCase.stage}.title`) || drMeta.title} (${screeningCase.aiResult?.confidence || '91.8'}% Confidence)`}
+                </div>
+              </div>
+              <div style="display:flex; justify-content:space-between; font-size:0.7rem; color:#0d6b63; font-weight:700; margin-top:4px; padding:0 4px;">
+                <span>${window.tData('Low Risk')}</span>
+                <span>${window.tData('Moderate')}</span>
+                <span>${window.tData('Elevated')}</span>
+                <span>${window.tData('High')}</span>
+                <span>${window.tData('Severe')}</span>
+              </div>
             </div>
-          </div>
-        </div>
 
-        <!-- SECTION 4: RISK / SEVERITY HEATMAP -->
-        <div class="official-pdf-section-title" style="display:flex; align-items:center; color:#0d6b63; font-weight:800; font-size:0.8125rem; letter-spacing:0.06em; margin-bottom:0.5rem; text-transform:uppercase;">
-          <span style="display:inline-block; width:9px; height:9px; background-color:#0d6b63; border-radius:50%; margin-right:8px;"></span>
-          <span>${window.tData('RISK / SEVERITY HEATMAP')}</span>
-        </div>
-
-        <div style="margin-bottom:1.25rem;">
-          <div style="border:1.5px solid #cbd5e1; border-radius:8px; height:44px; background:linear-gradient(to right, #bbf7d0 0%, #fef08a 25%, #fed7aa 50%, #fca5a5 75%, #ef4444 100%); display:flex; align-items:center; justify-content:center; font-weight:800; font-size:0.875rem; color:#0f172a; position:relative; box-shadow:0 2px 4px rgba(0,0,0,0.05);">
-            <div style="background:rgba(255,255,255,0.92); padding:4px 14px; border-radius:20px; border:1px solid #94a3b8; box-shadow:0 2px 6px rgba(0,0,0,0.1); font-size:0.8125rem;">
-              ${isUngradable ? window.t('report.ungradable') : `${window.t(`dr.${screeningCase.stage}.title`) || drMeta.title} (${screeningCase.aiResult?.confidence || '91.8'}% Confidence)`}
-            </div>
-          </div>
-          <div style="display:flex; justify-content:space-between; font-size:0.7rem; color:#0d6b63; font-weight:700; margin-top:4px; padding:0 4px;">
-            <span>${window.tData('Low Risk')}</span>
-            <span>${window.tData('Moderate')}</span>
-            <span>${window.tData('Elevated')}</span>
-            <span>${window.tData('High')}</span>
-            <span>${window.tData('Severe')}</span>
           </div>
         </div>
 

@@ -30,6 +30,7 @@ export function renderScreeningWizard(container, onCompleteScreening, onOpenRepo
     gender: '',
     diabetesDuration: '',
     diabetesStatus: '',
+    bloodSugar: '',
     centre: '',
     contact: '',
     address: '',
@@ -132,11 +133,14 @@ export function renderScreeningWizard(container, onCompleteScreening, onOpenRepo
     if (!patientData.gender) patientData.gender = 'Male';
     if (!patientData.diabetesDuration) patientData.diabetesDuration = '6 - 10 Years';
     if (!patientData.diabetesStatus) patientData.diabetesStatus = 'Type 2 Diabetes';
-    if (!patientData.centre) patientData.centre = SCREENING_CENTRES[0] || 'PHC Rampur';
+    if (!patientData.bloodSugar) patientData.bloodSugar = '215 mg/dL (HbA1c 8.6%)';
+    if (!patientData.centre || patientData.centre.includes('Sunderbans') || patientData.centre.includes('Rampur')) {
+      patientData.centre = SCREENING_CENTRES[0];
+    }
 
     target.innerHTML = `
       <div class="card" style="max-width:850px; margin:0 auto;">
-        <div class="card-header">
+        <div class="card-header" style="flex-wrap:wrap; gap:1rem;">
           <div>
             <h2 class="card-title">
               <i data-lucide="user-plus" style="width:22px;height:22px; color:var(--primary-600);"></i>
@@ -147,15 +151,31 @@ export function renderScreeningWizard(container, onCompleteScreening, onOpenRepo
             </p>
           </div>
 
-          <!-- Quick Preset Demo Buttons -->
-          <div style="display:flex; align-items:center; gap:0.4rem; flex-wrap:wrap;">
-            <span style="font-size:0.75rem; font-weight:700; color:var(--slate-500);" data-i18n="wiz.s1.presets">${window.t('wiz.s1.presets')}</span>
-            <button class="btn btn-secondary btn-sm preset-btn" data-stage="0" data-ungradable="false" data-i18n="wiz.s1.level0">${window.t('wiz.s1.level0') || 'Level 0'}</button>
-            <button class="btn btn-secondary btn-sm preset-btn" data-stage="1" data-ungradable="false" data-i18n="wiz.s1.level1">${window.t('wiz.s1.level1') || 'Level 1'}</button>
-            <button class="btn btn-secondary btn-sm preset-btn" data-stage="2" data-ungradable="false" style="border-color:var(--primary-500); background:var(--primary-50); color:var(--primary-800); font-weight:700;" data-i18n="wiz.s1.level2">${window.t('wiz.s1.level2') || 'Level 2'}</button>
-            <button class="btn btn-secondary btn-sm preset-btn" data-stage="3" data-ungradable="false" data-i18n="wiz.s1.level3">${window.t('wiz.s1.level3') || 'Level 3'}</button>
-            <button class="btn btn-secondary btn-sm preset-btn" data-stage="4" data-ungradable="false" data-i18n="wiz.s1.level4">${window.t('wiz.s1.level4') || 'Level 4'}</button>
-            <button class="btn btn-secondary btn-sm preset-btn" data-stage="2" data-ungradable="true" style="color:#b91c1c;" data-i18n="wiz.s1.ungradableBtn">${window.t('wiz.s1.ungradableBtn') || 'Ungradable'}</button>
+          <!-- Quick Preset Demo Buttons & Sugar Level Selector -->
+          <div style="display:flex; flex-direction:column; gap:0.6rem; align-items:flex-end;">
+            <div style="display:flex; align-items:center; gap:0.4rem; flex-wrap:wrap;">
+              <span style="font-size:0.75rem; font-weight:700; color:var(--slate-500);" data-i18n="wiz.s1.presets">${window.t('wiz.s1.presets')}</span>
+              <button class="btn btn-secondary btn-sm preset-btn" data-stage="0" data-ungradable="false" data-i18n="wiz.s1.level0">${window.t('wiz.s1.level0') || 'Level 0'}</button>
+              <button class="btn btn-secondary btn-sm preset-btn" data-stage="1" data-ungradable="false" data-i18n="wiz.s1.level1">${window.t('wiz.s1.level1') || 'Level 1'}</button>
+              <button class="btn btn-secondary btn-sm preset-btn" data-stage="2" data-ungradable="false" style="border-color:var(--primary-500); background:var(--primary-50); color:var(--primary-800); font-weight:700;" data-i18n="wiz.s1.level2">${window.t('wiz.s1.level2') || 'Level 2'}</button>
+              <button class="btn btn-secondary btn-sm preset-btn" data-stage="3" data-ungradable="false" data-i18n="wiz.s1.level3">${window.t('wiz.s1.level3') || 'Level 3'}</button>
+              <button class="btn btn-secondary btn-sm preset-btn" data-stage="4" data-ungradable="false" data-i18n="wiz.s1.level4">${window.t('wiz.s1.level4') || 'Level 4'}</button>
+              <button class="btn btn-secondary btn-sm preset-btn" data-stage="2" data-ungradable="true" style="color:#b91c1c;" data-i18n="wiz.s1.ungradableBtn">${window.t('wiz.s1.ungradableBtn') || 'Ungradable'}</button>
+            </div>
+
+            <!-- Sugar Level Choice Selector directly under Load Prototype Case -->
+            <div style="display:flex; align-items:center; gap:0.5rem; background:linear-gradient(135deg, #f0fdf4 0%, #ecfdf5 100%); border:1.5px solid #a7f3d0; border-radius:var(--radius-md); padding:0.4rem 0.75rem; box-shadow:0 1px 3px rgba(0,0,0,0.04);">
+              <i data-lucide="droplet" style="width:16px;height:16px; color:#059669;"></i>
+              <span style="font-size:0.75rem; font-weight:800; color:#065f46;" data-i18n="wiz.s1.sugarPreset">${window.t('wiz.s1.sugarPreset')}</span>
+              <select id="header-sugar-select" class="form-select" style="padding:0.25rem 0.6rem; font-size:0.78125rem; font-weight:700; border-color:#34d399; color:#064e4b; background:white; cursor:pointer;">
+                <option value="115 mg/dL (HbA1c 6.4%)" ${patientData.bloodSugar.includes('115') ? 'selected' : ''}>${window.tData('115 mg/dL (HbA1c 6.4% — Normal Fasting)')}</option>
+                <option value="140 mg/dL (HbA1c 7.0%)" ${patientData.bloodSugar.includes('140') ? 'selected' : ''}>${window.tData('140 mg/dL (HbA1c 7.0% — Pre-diabetic Range)')}</option>
+                <option value="165 mg/dL (HbA1c 7.5%)" ${patientData.bloodSugar.includes('165') ? 'selected' : ''}>${window.tData('165 mg/dL (HbA1c 7.5% — Mild Elevation)')}</option>
+                <option value="215 mg/dL (HbA1c 8.6%)" ${patientData.bloodSugar.includes('215') || !patientData.bloodSugar ? 'selected' : ''}>${window.tData('215 mg/dL (HbA1c 8.6% — Moderate Hyperglycemia)')}</option>
+                <option value="275 mg/dL (HbA1c 10.2%)" ${patientData.bloodSugar.includes('275') ? 'selected' : ''}>${window.tData('275 mg/dL (HbA1c 10.2% — Severe Hyperglycemia)')}</option>
+                <option value="340 mg/dL (HbA1c 11.8%)" ${patientData.bloodSugar.includes('340') ? 'selected' : ''}>${window.tData('340 mg/dL (HbA1c 11.8% — Critical Hyperglycemia)')}</option>
+              </select>
+            </div>
           </div>
         </div>
 
@@ -218,6 +238,19 @@ export function renderScreeningWizard(container, onCompleteScreening, onOpenRepo
             </select>
           </div>
 
+          <div class="form-group">
+            <label class="form-label" data-i18n="wiz.s1.psugar">${window.t('wiz.s1.psugar') || 'Blood Sugar Level / HbA1c (ब्लड शुगर स्तर)'}</label>
+            <select id="p-sugar" class="form-select">
+              <option value="115 mg/dL (HbA1c 6.4%)" ${patientData.bloodSugar.includes('115') ? 'selected' : ''}>${window.tData('115 mg/dL (HbA1c 6.4% — Normal Fasting)')}</option>
+              <option value="140 mg/dL (HbA1c 7.0%)" ${patientData.bloodSugar.includes('140') ? 'selected' : ''}>${window.tData('140 mg/dL (HbA1c 7.0% — Pre-diabetic Range)')}</option>
+              <option value="165 mg/dL (HbA1c 7.5%)" ${patientData.bloodSugar.includes('165') ? 'selected' : ''}>${window.tData('165 mg/dL (HbA1c 7.5% — Mild Elevation)')}</option>
+              <option value="215 mg/dL (HbA1c 8.6%)" ${patientData.bloodSugar.includes('215') || !patientData.bloodSugar ? 'selected' : ''}>${window.tData('215 mg/dL (HbA1c 8.6% — Moderate Hyperglycemia)')}</option>
+              <option value="275 mg/dL (HbA1c 10.2%)" ${patientData.bloodSugar.includes('275') ? 'selected' : ''}>${window.tData('275 mg/dL (HbA1c 10.2% — Severe Hyperglycemia)')}</option>
+              <option value="340 mg/dL (HbA1c 11.8%)" ${patientData.bloodSugar.includes('340') ? 'selected' : ''}>${window.tData('340 mg/dL (HbA1c 11.8% — Critical Hyperglycemia)')}</option>
+              <option value="380 mg/dL (HbA1c 13.0%)" ${patientData.bloodSugar.includes('380') ? 'selected' : ''}>${window.tData('380+ mg/dL (HbA1c 13.0% — Extreme High Risk)')}</option>
+            </select>
+          </div>
+
           <div class="form-group" style="grid-column:1 / -1;">
             <label class="form-label" data-i18n="wiz.s1.pmedhistory">${window.t('wiz.s1.pmedhistory')}</label>
             <input type="text" id="p-medhistory" class="form-input" value="${patientData.medHistory || ''}" placeholder="${window.t('wiz.s1.pmedhistoryPlaceholder') || 'चिकित्सीय इतिहास दर्ज करें'}">
@@ -246,13 +279,55 @@ export function renderScreeningWizard(container, onCompleteScreening, onOpenRepo
     TransliterationService.enableTransliteration(target.querySelector('#p-name'));
     TransliterationService.enableTransliteration(target.querySelector('#p-contact'));
     TransliterationService.enableTransliteration(target.querySelector('#p-address'));
+    TransliterationService.enableTransliteration(target.querySelector('#p-sugar'));
     TransliterationService.enableTransliteration(target.querySelector('#p-medhistory'));
+
+    // Preset Data profiles matching Level 0 - 4 and Ungradable
+    const presetProfiles = {
+      0: { sugar: '115 mg/dL (HbA1c 6.4%)', id: isHindiMode ? 'पीएचसी-000' : 'PHC-000', name: isHindiMode ? 'रामेश्वर' : 'Rameshwar', age: '52', duration: '1 - 5 Years' },
+      1: { sugar: '165 mg/dL (HbA1c 7.5%)', id: isHindiMode ? 'पीएचसी-001' : 'PHC-001', name: isHindiMode ? 'सुनीता' : 'Sunita', age: '49', duration: '6 - 10 Years' },
+      2: { sugar: '215 mg/dL (HbA1c 8.6%)', id: isHindiMode ? 'पीएचसी-002' : 'PHC-002', name: isHindiMode ? 'पवन' : 'Pawan', age: '38', duration: '6 - 10 Years' },
+      3: { sugar: '275 mg/dL (HbA1c 10.2%)', id: isHindiMode ? 'पीएचसी-003' : 'PHC-003', name: isHindiMode ? 'हरीश' : 'Harish', age: '58', duration: '11 - 20 Years' },
+      4: { sugar: '340 mg/dL (HbA1c 11.8%)', id: isHindiMode ? 'पीएचसी-004' : 'PHC-004', name: isHindiMode ? 'मीना' : 'Meena', age: '63', duration: '> 20 Years' },
+      ungradable: { sugar: '230 mg/dL (HbA1c 9.0%)', id: isHindiMode ? 'पीएचसी-005' : 'PHC-005', name: isHindiMode ? 'विक्रम' : 'Vikram', age: '45', duration: '1 - 5 Years' }
+    };
+
+    // Sync Header Sugar Level Dropdown & Form Sugar Level Select
+    const headerSugarEl = target.querySelector('#header-sugar-select');
+    const formSugarEl = target.querySelector('#p-sugar');
+
+    if (headerSugarEl && formSugarEl) {
+      headerSugarEl.addEventListener('change', (e) => {
+        formSugarEl.value = e.target.value;
+        patientData.bloodSugar = e.target.value;
+      });
+      formSugarEl.addEventListener('change', (e) => {
+        headerSugarEl.value = e.target.value;
+        patientData.bloodSugar = e.target.value;
+      });
+    }
 
     // Handle Presets
     target.querySelectorAll('.preset-btn').forEach(btn => {
       btn.addEventListener('click', () => {
         selectedStage = parseInt(btn.getAttribute('data-stage'), 10);
         isUngradableCase = btn.getAttribute('data-ungradable') === 'true';
+
+        const profileKey = isUngradableCase ? 'ungradable' : selectedStage;
+        const prof = presetProfiles[profileKey];
+        if (prof) {
+          const idEl = target.querySelector('#p-id');
+          const nameEl = target.querySelector('#p-name');
+          const ageEl = target.querySelector('#p-age');
+          const durEl = target.querySelector('#p-duration');
+          if (formSugarEl) formSugarEl.value = prof.sugar;
+          if (headerSugarEl) headerSugarEl.value = prof.sugar;
+          patientData.bloodSugar = prof.sugar;
+          if (idEl) idEl.value = prof.id;
+          if (nameEl) nameEl.value = prof.name;
+          if (ageEl) ageEl.value = prof.age;
+          if (durEl) durEl.value = prof.duration;
+        }
 
         target.querySelectorAll('.preset-btn').forEach(b => {
           b.style.borderColor = 'var(--border-card)';
@@ -281,6 +356,7 @@ export function renderScreeningWizard(container, onCompleteScreening, onOpenRepo
       patientData.address = target.querySelector('#p-address')?.value || '';
       patientData.diabetesDuration = target.querySelector('#p-duration').value;
       patientData.diabetesStatus = target.querySelector('#p-status').value;
+      patientData.bloodSugar = target.querySelector('#p-sugar')?.value || '215 mg/dL (HbA1c 8.6%)';
       patientData.medHistory = target.querySelector('#p-medhistory')?.value || '';
       patientData.centre = target.querySelector('#p-centre').value;
 

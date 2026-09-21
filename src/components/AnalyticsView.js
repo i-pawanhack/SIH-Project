@@ -146,11 +146,11 @@ export function renderAnalyticsView(container) {
           </div>
           <div style="display:flex; justify-content:space-between; padding:0.5rem; background:var(--slate-50); border-radius:var(--radius-sm);">
             <span data-i18n="aly.kpiTurnaround">${window.t('aly.kpiTurnaround')}</span>
-            <strong style="color:var(--slate-900);">4.2 Hours</strong>
+            <strong style="color:var(--slate-900);">${window.tData('4.2 Hours')}</strong>
           </div>
           <div style="display:flex; justify-content:space-between; padding:0.5rem; background:var(--slate-50); border-radius:var(--radius-sm);">
             <span data-i18n="aly.kpiLatency">${window.t('aly.kpiLatency')}</span>
-            <strong style="color:var(--slate-900); font-family:var(--font-mono);">142 ms / image</strong>
+            <strong style="color:var(--slate-900); font-family:var(--font-mono);">${window.tData('142 ms / image')}</strong>
           </div>
         </div>
       </div>
@@ -218,4 +218,11 @@ export function renderAnalyticsView(container) {
   `;
 
   if (window.lucide) window.lucide.createIcons();
+
+  const onLangChange = () => {
+    if (document.body.contains(container)) {
+      renderAnalyticsView(container);
+    }
+  };
+  window.addEventListener('languageChanged', onLangChange, { once: true });
 }

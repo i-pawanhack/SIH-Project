@@ -68,6 +68,11 @@ export const QUALITY_STATUS = {
 };
 
 export const SCREENING_CENTRES = [
+  'PHC Bareilly — Primary Health Centre (District Bareilly)',
+  'CHC Nawabganj — Community Health Centre (District Bareilly)',
+  'District Hospital Bareilly — Tele-Ophthalmology Hub',
+  '300 Bed Hospital Bareilly — Super Specialty Hub (District Bareilly)',
+  'CHC Faridpur — Community Health Centre (District Bareilly)',
   'PHC Rampur — Primary Health Centre (District Ballia)',
   'CHC Kotdwar — Community Health Centre (Pauri Garhwal)',
   'Mobile Retinal Van #3 — Kutch Rural Outreach',
