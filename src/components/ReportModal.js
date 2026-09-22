@@ -78,12 +78,12 @@ export function openReportModal(screeningCase, onClose) {
         </div>
 
         <!-- SECTION 1: PATIENT DETAILS -->
-        <div class="official-pdf-section-title" style="display:flex; align-items:center; color:#0d6b63; font-weight:800; font-size:0.8125rem; letter-spacing:0.06em; margin-bottom:0.5rem; text-transform:uppercase;">
+        <div class="official-pdf-section-title patient-details-title" style="display:flex; align-items:center; color:#0d6b63; font-weight:800; font-size:0.8125rem; letter-spacing:0.06em; margin-bottom:0.5rem; text-transform:uppercase;">
           <span style="display:inline-block; width:9px; height:9px; background-color:#0d6b63; border-radius:50%; margin-right:8px;"></span>
           <span data-i18n="report.patientInfo">${window.tData('PATIENT DETAILS')}</span>
         </div>
 
-        <div class="official-pdf-card" style="border:1px solid #cce2e0; border-radius:8px; padding:0.85rem 1rem; background:#ffffff; margin-bottom:1.25rem; box-shadow:0 1px 3px rgba(0,0,0,0.02);">
+        <div class="official-pdf-card patient-details-card" style="border:1px solid #cce2e0; border-radius:8px; padding:0.85rem 1rem; background:#ffffff; margin-bottom:0.5rem; box-shadow:0 1px 3px rgba(0,0,0,0.02);">
           <div style="display:grid; grid-template-columns:repeat(3, 1fr); column-gap:1.25rem; row-gap:0.75rem; font-size:0.8125rem;">
             <div>
               <div style="font-size:0.65rem; color:#0d6b63; font-weight:700; text-transform:uppercase; margin-bottom:2px;" data-i18n="report.name">${window.tData('PATIENT NAME')}</div>
@@ -150,7 +150,7 @@ export function openReportModal(screeningCase, onClose) {
           <span>${window.tData('PHC ID DETAILS')}</span>
         </div>
 
-        <div class="official-pdf-card" style="border:1px solid #cce2e0; border-radius:8px; padding:0.85rem 1rem; background:#ffffff; margin-bottom:1.25rem; box-shadow:0 1px 3px rgba(0,0,0,0.02);">
+        <div class="official-pdf-card" style="border:1px solid #cce2e0; border-radius:8px; padding:0.85rem 1rem; background:#ffffff; margin-bottom:0.5rem; box-shadow:0 1px 3px rgba(0,0,0,0.02);">
           <div style="display:grid; grid-template-columns:repeat(3, 1fr); column-gap:1.25rem; row-gap:0.75rem; font-size:0.8125rem;">
             <div>
               <div style="font-size:0.65rem; color:#0d6b63; font-weight:700; text-transform:uppercase; margin-bottom:2px;">${window.tData('PHC ID NO.')}</div>
@@ -181,7 +181,7 @@ export function openReportModal(screeningCase, onClose) {
         </div>
 
         <!-- PAGE 2 CONTAINER: CLINICAL EXAMINATION IMAGES & RISK SEVERITY HEATMAP -->
-        <div class="official-pdf-page-2" style="page-break-inside: avoid; break-inside: avoid; margin-top: 1.75rem;">
+        <div class="official-pdf-page-2" style="page-break-inside: avoid; break-inside: avoid; margin-top: 0.5rem;">
           
           <!-- SECTION 3: CLINICAL / EXAMINATION IMAGES -->
           <div class="official-pdf-section-title" style="display:flex; align-items:center; color:#0d6b63; font-weight:800; font-size:0.8125rem; letter-spacing:0.06em; margin-bottom:0.5rem; text-transform:uppercase;">
@@ -201,7 +201,7 @@ export function openReportModal(screeningCase, onClose) {
               <!-- Left Eye Image 1 -->
               <div style="border:1.5px dashed #0d6b63; border-radius:8px; padding:5px; background:#f0fdfa; text-align:center;">
                 <div style="font-size:0.625rem; font-weight:700; color:#0d6b63; margin-bottom:3px;">${window.tData('IMAGE 1: Original Fundus (Left Eye / OS)')}</div>
-                <div style="height:95px; border-radius:4px; overflow:hidden; background:#000;">
+                <div style="height:85px; border-radius:4px; overflow:hidden; background:#000;">
                   <img src="${screeningCase.rawImage}" style="width:100%; height:100%; object-fit:contain;">
                 </div>
               </div>
@@ -209,7 +209,7 @@ export function openReportModal(screeningCase, onClose) {
               <!-- Left Eye Image 2 -->
               <div style="border:1.5px dashed #0d6b63; border-radius:8px; padding:5px; background:#f0fdfa; text-align:center;">
                 <div style="font-size:0.625rem; font-weight:700; color:#0d6b63; margin-bottom:3px;">${window.tData('IMAGE 2: Grad-CAM Heatmap (Left Eye / OS)')}</div>
-                <div style="height:95px; border-radius:4px; overflow:hidden; background:#000; position:relative;">
+                <div style="height:85px; border-radius:4px; overflow:hidden; background:#000; position:relative;">
                   <img src="${screeningCase.rawImage}" style="width:100%; height:100%; object-fit:contain;">
                   ${!isUngradable && screeningCase.gradCamImage ? `
                     <img src="${screeningCase.gradCamImage}" style="position:absolute; top:0; left:0; width:100%; height:100%; object-fit:contain; opacity:0.75; mix-blend-mode:screen;">
@@ -220,7 +220,7 @@ export function openReportModal(screeningCase, onClose) {
               <!-- Left Eye Image 3 -->
               <div style="border:1.5px dashed #0d6b63; border-radius:8px; padding:5px; background:#f0fdfa; text-align:center;">
                 <div style="font-size:0.625rem; font-weight:700; color:#0d6b63; margin-bottom:3px;">${window.tData('IMAGE 3: Anatomical Structures (Left Eye / OS)')}</div>
-                <div style="height:95px; border-radius:4px; overflow:hidden; background:#000; display:flex; justify-content:center; align-items:center;">
+                <div style="height:85px; border-radius:4px; overflow:hidden; background:#000; display:flex; justify-content:center; align-items:center;">
                   <img src="${screeningCase.rawImage}" style="width:100%; height:100%; object-fit:contain; filter:contrast(1.15);">
                 </div>
               </div>
@@ -236,7 +236,7 @@ export function openReportModal(screeningCase, onClose) {
               <!-- Right Eye Image 4 -->
               <div style="border:1.5px dashed #0d6b63; border-radius:8px; padding:5px; background:#f0fdfa; text-align:center;">
                 <div style="font-size:0.625rem; font-weight:700; color:#0d6b63; margin-bottom:3px;">${window.tData('IMAGE 4: Original Fundus (Right Eye / OD)')}</div>
-                <div style="height:95px; border-radius:4px; overflow:hidden; background:#000;">
+                <div style="height:85px; border-radius:4px; overflow:hidden; background:#000;">
                   <img src="${screeningCase.rawImage}" style="width:100%; height:100%; object-fit:contain; transform:scaleX(-1);">
                 </div>
               </div>
@@ -244,7 +244,7 @@ export function openReportModal(screeningCase, onClose) {
               <!-- Right Eye Image 5 -->
               <div style="border:1.5px dashed #0d6b63; border-radius:8px; padding:5px; background:#f0fdfa; text-align:center;">
                 <div style="font-size:0.625rem; font-weight:700; color:#0d6b63; margin-bottom:3px;">${window.tData('IMAGE 5: Grad-CAM Heatmap (Right Eye / OD)')}</div>
-                <div style="height:95px; border-radius:4px; overflow:hidden; background:#000; position:relative;">
+                <div style="height:85px; border-radius:4px; overflow:hidden; background:#000; position:relative;">
                   <img src="${screeningCase.rawImage}" style="width:100%; height:100%; object-fit:contain; transform:scaleX(-1);">
                   ${!isUngradable && screeningCase.gradCamImage ? `
                     <img src="${screeningCase.gradCamImage}" style="position:absolute; top:0; left:0; width:100%; height:100%; object-fit:contain; opacity:0.75; mix-blend-mode:screen; transform:scaleX(-1);">
@@ -255,7 +255,7 @@ export function openReportModal(screeningCase, onClose) {
               <!-- Right Eye Image 6 -->
               <div style="border:1.5px dashed #0d6b63; border-radius:8px; padding:5px; background:#f0fdfa; text-align:center;">
                 <div style="font-size:0.625rem; font-weight:700; color:#0d6b63; margin-bottom:3px;">${window.tData('IMAGE 6: Anatomical Structures (Right Eye / OD)')}</div>
-                <div style="height:95px; border-radius:4px; overflow:hidden; background:#000; display:flex; justify-content:center; align-items:center;">
+                <div style="height:85px; border-radius:4px; overflow:hidden; background:#000; display:flex; justify-content:center; align-items:center;">
                   <img src="${screeningCase.rawImage}" style="width:100%; height:100%; object-fit:contain; filter:contrast(1.15); transform:scaleX(-1);">
                 </div>
               </div>
@@ -286,10 +286,15 @@ export function openReportModal(screeningCase, onClose) {
         </div>
 
         <!-- SECTION 5: CLINICAL OBSERVATIONS / REMARKS -->
-        <div class="official-pdf-section-title" style="display:flex; align-items:center; color:#0d6b63; font-weight:800; font-size:0.8125rem; letter-spacing:0.06em; margin-bottom:0.5rem; text-transform:uppercase;">
-          <span style="display:inline-block; width:9px; height:9px; background-color:#0d6b63; border-radius:50%; margin-right:8px;"></span>
-          <span>${window.tData('CLINICAL OBSERVATIONS / REMARKS')}</span>
-        </div>
+        <div style="page-break-before: always; break-before: page; padding-top: 1rem; display: flex; flex-direction: column; min-height: 93vh; justify-content: space-between;">
+          
+          <div>
+            <div id="page2-header-anchor" class="print-only"></div>
+            
+            <div class="official-pdf-section-title" style="display:flex; align-items:center; color:#0d6b63; font-weight:800; font-size:0.8125rem; letter-spacing:0.06em; margin-bottom:0.5rem; text-transform:uppercase;">
+              <span style="display:inline-block; width:9px; height:9px; background-color:#0d6b63; border-radius:50%; margin-right:8px;"></span>
+              <span>${window.tData('CLINICAL OBSERVATIONS / REMARKS')}</span>
+            </div>
 
         <div style="border:1px solid #cce2e0; border-radius:8px; padding:0.85rem 1rem; background:#ffffff; margin-bottom:1.5rem; box-shadow:0 1px 3px rgba(0,0,0,0.02);">
           <ul style="list-style:none; padding:0; margin:0; display:flex; flex-direction:column; gap:0.5rem; font-size:0.8125rem; color:#1e293b;">
@@ -340,6 +345,9 @@ export function openReportModal(screeningCase, onClose) {
             </div>
           </div>
         </div>
+          
+          </div> <!-- Close inner div -->
+        </div> <!-- Close flex wrapper -->
 
       </div>
 
@@ -370,6 +378,20 @@ export function openReportModal(screeningCase, onClose) {
   modalRoot.querySelector('#modal-footer-close-btn').addEventListener('click', close);
   modalRoot.querySelector('#modal-print-btn').addEventListener('click', printReport);
   modalRoot.querySelector('#modal-footer-print-btn').addEventListener('click', printReport);
+
+  setTimeout(() => {
+    // Clone header and patient details for page 2 (Print layout)
+    const page2Anchor = modalRoot.querySelector('#page2-header-anchor');
+    const headerToClone = modalRoot.querySelector('.official-pdf-header');
+    const detailsTitleToClone = modalRoot.querySelector('.patient-details-title');
+    const detailsToClone = modalRoot.querySelector('.patient-details-card');
+
+    if (page2Anchor && headerToClone && detailsToClone) {
+      page2Anchor.appendChild(headerToClone.cloneNode(true));
+      if (detailsTitleToClone) page2Anchor.appendChild(detailsTitleToClone.cloneNode(true));
+      page2Anchor.appendChild(detailsToClone.cloneNode(true));
+    }
+  }, 50);
 
   // Re-render modal in new language if switched while open
   const onLangChange = () => {

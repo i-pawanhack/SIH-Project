@@ -147,7 +147,7 @@ export class StorageService {
         status: 'Reviewed',
         reviewedAt: new Date().toISOString()
       };
-      localStorage.setItem(STORAGE_KEY, JSON.stringify(list));
+      safeSet(STORAGE_KEY, JSON.stringify(list));
       return target;
     }
     return null;
@@ -218,7 +218,7 @@ export class StorageService {
   }
 
   static clearSyncQueue() {
-    localStorage.setItem(SYNC_QUEUE_KEY, JSON.stringify([]));
+    safeSet(SYNC_QUEUE_KEY, JSON.stringify([]));
   }
 
   static getSettings() {
@@ -233,7 +233,7 @@ export class StorageService {
   static updateSettings(newSettings) {
     const current = this.getSettings();
     const updated = { ...current, ...newSettings };
-    localStorage.setItem(SETTINGS_KEY, JSON.stringify(updated));
+    safeSet(SETTINGS_KEY, JSON.stringify(updated));
     return updated;
   }
 
@@ -252,7 +252,7 @@ export class StorageService {
       return { success: false, message: 'Account already exists' };
     }
     accounts.push({ phcId, password, createdAt: new Date().toISOString() });
-    localStorage.setItem('drishkalyan_accounts_v1', JSON.stringify(accounts));
+    safeSet('drishkalyan_accounts_v1', JSON.stringify(accounts));
     return { success: true };
   }
 
@@ -262,9 +262,12 @@ export class StorageService {
     const account = accounts.find(a => (a.phcId === phcId || a.phcId === normPhcId) && a.password === password);
     if (account) {
       // Save timestamp
-      const logins = this.getLogins();
+      let logins = this.getLogins();
       logins.push({ phcId: normPhcId, timestamp: new Date().toISOString() });
-      localStorage.setItem('drishkalyan_logins_v1', JSON.stringify(logins));
+      if (logins.length > 20) {
+        logins = logins.slice(-20);
+      }
+      safeSet('drishkalyan_logins_v1', JSON.stringify(logins));
       
       return { success: true };
     }
@@ -298,7 +301,7 @@ export class StorageService {
     const ADMIN_PASSWORD = 'DrishKalyan@Admin2026';
     
     if (email === ADMIN_EMAIL && password === ADMIN_PASSWORD) {
-      localStorage.setItem('drishkalyan_admin_session_v1', JSON.stringify({
+      safeSet('drishkalyan_admin_session_v1', JSON.stringify({
         email,
         name: 'DRISH KALYAN Administrator',
         timestamp: new Date().toISOString()

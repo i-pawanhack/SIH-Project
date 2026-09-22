@@ -1345,3 +1345,7 @@ h1, h2, h3, h4, h5, h6 {
 #fundus-reticle-overlay {
   animation: reticlePulse 3s ease-in-out infinite;
 }
+
+.print-only { display: none !important; }
+@media print { .print-only { display: block !important; } }
+

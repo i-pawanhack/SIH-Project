@@ -1115,19 +1115,28 @@ export function renderLoginView(container, onLoginSuccess) {
     import('../services/storageService.js').then(({ StorageService }) => {
       // Simulate slight network delay for better UX
       setTimeout(() => {
-        const adminResult = StorageService.verifyAdminLogin(phcId, password);
-        if (adminResult.success) {
-          onLoginSuccess('admin');
-        } else {
-          const result = StorageService.verifyLogin(phcId, password);
-          if (result.success) {
-            onLoginSuccess('phc');
+        try {
+          const adminResult = StorageService.verifyAdminLogin(phcId, password);
+          if (adminResult.success) {
+            onLoginSuccess('admin');
           } else {
-            errorDiv.textContent = result.message;
-            errorDiv.style.display = 'block';
-            submitBtn.innerHTML = originalBtnText;
-            submitBtn.disabled = false;
+            const result = StorageService.verifyLogin(phcId, password);
+            if (result.success) {
+              onLoginSuccess('phc');
+            } else {
+              errorDiv.textContent = result.message;
+              errorDiv.style.display = 'block';
+              submitBtn.innerHTML = originalBtnText;
+              submitBtn.disabled = false;
+            }
           }
+        } catch (e) {
+          alert("Login error: " + e.message);
+          console.error(e);
+          errorDiv.textContent = 'Unexpected error occurred: ' + e.message;
+          errorDiv.style.display = 'block';
+          submitBtn.innerHTML = originalBtnText;
+          submitBtn.disabled = false;
         }
       }, 500);
     });
