@@ -156,7 +156,7 @@ export function renderDoctorReviewView(container, onOpenReport) {
               <span class="badge" style="background:var(--slate-100); color:var(--slate-700); font-family:var(--font-mono);">${window.tData(c.patient?.id || c.id)}</span>
             </div>
             <div style="font-size:0.8125rem; color:var(--slate-500); margin-top:0.2rem;">
-              <span data-i18n="doc.lblAge">${window.t('doc.lblAge')}</span> ${window.tData((c.patient?.age || "--") + "y")} • <span data-i18n="doc.lblGender">${window.t('doc.lblGender')}</span> ${window.tData(c.patient?.gender || "--")} • <span data-i18n="doc.lblDuration">${window.t('doc.lblDuration')}</span> ${window.tData(c.patient?.diabetesDuration || "--")} • <span data-i18n="doc.lblFacility">${window.t('doc.lblFacility')}</span> ${window.tData(c.patient?.centre || 'PHC')}
+              <span data-i18n="doc.lblAge">${window.t('doc.lblAge')}</span> ${window.tData((c.patient?.age || "--") + "y")} • <span data-i18n="doc.lblGender">${window.t('doc.lblGender')}</span> ${window.tData(c.patient?.gender || "--")} • <span data-i18n="doc.lblFacility">${window.t('doc.lblFacility')}</span> ${window.tData(c.patient?.centre || 'PHC')}
             </div>
           </div>
 

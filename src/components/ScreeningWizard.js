@@ -215,28 +215,6 @@ export function renderScreeningWizard(container, onCompleteScreening, onOpenRepo
             <input type="text" id="p-address" class="form-input" value="${patientData.address || ''}" placeholder="${window.t('wiz.s1.paddressPlaceholder') || 'पता दर्ज करें'}">
           </div>
 
-          <div class="form-group">
-            <label class="form-label" data-i18n="wiz.s1.pduration">${window.t('wiz.s1.pduration')}</label>
-            <select id="p-duration" class="form-select">
-              <option value="" disabled ${!patientData.diabetesDuration ? 'selected' : ''}>${window.t('wiz.s1.selectDuration')}</option>
-              <option value="Newly Diagnosed (< 1 yr)" ${patientData.diabetesDuration === 'Newly Diagnosed (< 1 yr)' ? 'selected' : ''}>${window.tData('Newly Diagnosed (< 1 yr)')}</option>
-              <option value="1 - 5 Years" ${patientData.diabetesDuration === '1 - 5 Years' ? 'selected' : ''}>${window.tData("1 - 5 Years")}</option>
-              <option value="6 - 10 Years" ${patientData.diabetesDuration === '6 - 10 Years' ? 'selected' : ''}>${window.tData("6 - 10 Years")}</option>
-              <option value="11 - 20 Years" ${patientData.diabetesDuration === '11 - 20 Years' ? 'selected' : ''}>${window.tData("11 - 20 Years")}</option>
-              <option value="> 20 Years" ${patientData.diabetesDuration === '> 20 Years' ? 'selected' : ''}>${window.tData("> 20 Years")}</option>
-            </select>
-          </div>
-
-          <div class="form-group">
-            <label class="form-label" data-i18n="wiz.s1.pstatus">${window.t('wiz.s1.pstatus')}</label>
-            <select id="p-status" class="form-select">
-              <option value="" disabled ${!patientData.diabetesStatus ? 'selected' : ''}>${window.t('wiz.s1.selectStatus')}</option>
-              <option value="Type 2 Diabetes" ${patientData.diabetesStatus === 'Type 2 Diabetes' ? 'selected' : ''} data-i18n="wiz.s1.type2">${window.tData('Type 2 Diabetes')}</option>
-              <option value="Type 1 Diabetes" ${patientData.diabetesStatus === 'Type 1 Diabetes' ? 'selected' : ''} data-i18n="wiz.s1.type1">${window.tData('Type 1 Diabetes')}</option>
-              <option value="Gestational Diabetes" ${patientData.diabetesStatus === 'Gestational Diabetes' ? 'selected' : ''} data-i18n="wiz.s1.gestational">${window.tData('Gestational Diabetes')}</option>
-              <option value="Pre-diabetic" ${patientData.diabetesStatus === 'Pre-diabetic' ? 'selected' : ''} data-i18n="wiz.s1.prediabetic">${window.tData('Pre-diabetic')}</option>
-            </select>
-          </div>
 
           <div class="form-group">
             <label class="form-label" data-i18n="wiz.s1.psugar">${window.t('wiz.s1.psugar') || 'Blood Sugar Level / HbA1c (ब्लड शुगर स्तर)'}</label>
@@ -251,10 +229,6 @@ export function renderScreeningWizard(container, onCompleteScreening, onOpenRepo
             </select>
           </div>
 
-          <div class="form-group" style="grid-column:1 / -1;">
-            <label class="form-label" data-i18n="wiz.s1.pmedhistory">${window.t('wiz.s1.pmedhistory')}</label>
-            <input type="text" id="p-medhistory" class="form-input" value="${patientData.medHistory || ''}" placeholder="${window.t('wiz.s1.pmedhistoryPlaceholder') || 'चिकित्सीय इतिहास दर्ज करें'}">
-          </div>
 
           <div class="form-group" style="grid-column:1 / -1;">
             <label class="form-label" data-i18n="wiz.s1.pcentre">${window.t('wiz.s1.pcentre')}</label>
@@ -354,10 +328,7 @@ export function renderScreeningWizard(container, onCompleteScreening, onOpenRepo
       patientData.gender = target.querySelector('#p-gender').value;
       patientData.contact = target.querySelector('#p-contact')?.value || '';
       patientData.address = target.querySelector('#p-address')?.value || '';
-      patientData.diabetesDuration = target.querySelector('#p-duration').value;
-      patientData.diabetesStatus = target.querySelector('#p-status').value;
       patientData.bloodSugar = target.querySelector('#p-sugar')?.value || '215 mg/dL (HbA1c 8.6%)';
-      patientData.medHistory = target.querySelector('#p-medhistory')?.value || '';
       patientData.centre = target.querySelector('#p-centre').value;
 
       currentStep = 2;
