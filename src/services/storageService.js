@@ -297,8 +297,8 @@ export class StorageService {
 
   // --- Admin Authentication ---
   static verifyAdminLogin(email, password) {
-    const ADMIN_EMAIL = 'admin@drishkalyan.in';
-    const ADMIN_PASSWORD = 'DrishKalyan@Admin2026';
+    const ADMIN_EMAIL = 'synapse.official.2026@gmail.com';
+    const ADMIN_PASSWORD = '987654321';
     
     if (email === ADMIN_EMAIL && password === ADMIN_PASSWORD) {
       safeSet('drishkalyan_admin_session_v1', JSON.stringify({

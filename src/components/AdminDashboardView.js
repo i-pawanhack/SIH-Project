@@ -11,65 +11,332 @@ export function renderAdminDashboardView(container, onNavigate) {
 
     container.innerHTML = `
       <style>
-        #view-admin-dashboard { padding: 0 !important; }
-        .admin-layout { display: flex; height: 100vh; background: var(--light-blue); font-family: 'Inter', sans-serif; }
-        .admin-sidebar { width: 260px; background: var(--deep-navy); color: white; display: flex; flex-direction: column; flex-shrink: 0; }
-        .admin-sidebar-header { padding: 24px 20px; border-bottom: 1px solid rgba(255,255,255,0.1); }
-        .admin-nav { flex: 1; overflow-y: auto; padding: 16px 0; }
-        .admin-nav::-webkit-scrollbar { width: 6px; }
-        .admin-nav::-webkit-scrollbar-thumb { background: rgba(255,255,255,0.2); border-radius: 10px; }
-        .admin-nav-item { padding: 12px 24px; display: flex; align-items: center; gap: 12px; color: rgba(255,255,255,0.7); cursor: pointer; transition: 0.2s; font-size: 0.9rem; }
-        .admin-nav-item:hover { background: rgba(255,255,255,0.05); color: white; }
-        .admin-nav-item.active { background: rgba(255,255,255,0.1); color: white; border-left: 4px solid var(--bright-cyan); }
+        /* Force Fullscreen Admin View by overriding parent container styles */
+        body { margin: 0; padding: 0; overflow: hidden; }
+        .main-content-wrapper { 
+          max-width: none !important; 
+          margin: 0 !important; 
+          padding: 0 !important; 
+          height: 100vh;
+        }
+        #navbar-root { display: none !important; }
+        #safety-banner-root { display: none !important; }
+        #view-admin-dashboard { padding: 0 !important; height: 100%; width: 100%; }
         
+        /* New Aesthetics based on image */
+        :root {
+          --sidebar-bg: #094943;
+          --sidebar-active: #13776a;
+          --bg-dashboard: #f4f7fb;
+          --card-border: #e8eef3;
+          --text-main: #1e293b;
+          --text-muted: #64748b;
+          --green-trend: #10b981;
+          --red-trend: #ef4444;
+          --blue-accent: #3b82f6;
+          --orange-accent: #f59e0b;
+        }
+
+        .admin-layout { 
+          display: flex; 
+          height: 100vh; 
+          background: var(--bg-dashboard); 
+          font-family: 'Inter', sans-serif; 
+          color: var(--text-main);
+        }
+        
+        /* Sidebar Styling */
+        .admin-sidebar { 
+          width: 260px; 
+          background: var(--sidebar-bg); 
+          color: white; 
+          display: flex; 
+          flex-direction: column; 
+          flex-shrink: 0; 
+        }
+        .admin-sidebar-header { 
+          padding: 24px 20px 10px; 
+          display: flex;
+          align-items: center;
+          gap: 12px;
+        }
+        .admin-sidebar-header .logo-eye {
+          width: 40px; height: 40px;
+          background: rgba(255,255,255,0.1);
+          border-radius: 50%;
+          display: flex; align-items: center; justify-content: center;
+        }
+        .admin-sidebar-header-text h2 {
+          margin: 0; font-size: 1.15rem; font-weight: 700; font-family: 'Outfit', sans-serif;
+          letter-spacing: 0.5px;
+        }
+        .admin-sidebar-header-text p {
+          margin: 0; font-size: 0.55rem; color: rgba(255,255,255,0.7);
+          text-transform: uppercase; letter-spacing: 0.5px;
+        }
+
+        .admin-nav { 
+          flex: 1; 
+          overflow-y: auto; 
+          padding: 10px 0 20px; 
+        }
+        .admin-nav::-webkit-scrollbar { width: 4px; }
+        .admin-nav::-webkit-scrollbar-thumb { background: rgba(255,255,255,0.1); }
+        
+        .nav-category {
+          font-size: 0.65rem;
+          text-transform: uppercase;
+          color: rgba(255,255,255,0.4);
+          margin: 18px 20px 8px;
+          font-weight: 600;
+          letter-spacing: 0.05em;
+        }
+
+        .admin-nav-item { 
+          padding: 10px 20px; 
+          margin: 2px 12px;
+          display: flex; 
+          align-items: center; 
+          gap: 12px; 
+          color: rgba(255,255,255,0.8); 
+          cursor: pointer; 
+          border-radius: 8px;
+          font-size: 0.8rem; 
+          transition: 0.2s; 
+          font-weight: 500;
+        }
+        .admin-nav-item:hover { 
+          background: rgba(255,255,255,0.05); 
+          color: white; 
+        }
+        .admin-nav-item.active { 
+          background: var(--sidebar-active); 
+          color: white; 
+        }
+        .nav-badge {
+          background: #ef4444; color: white; border-radius: 50%; width: 18px; height: 18px;
+          display: flex; align-items: center; justify-content: center; font-size: 0.65rem; font-weight: bold;
+          margin-left: auto;
+        }
+        
+        .sidebar-footer {
+          padding: 20px;
+          text-align: center;
+          font-size: 0.7rem;
+          color: rgba(255,255,255,0.6);
+          border-top: 1px solid rgba(255,255,255,0.1);
+          position: relative;
+          overflow: hidden;
+        }
+        .sidebar-village-graphic {
+          width: 100%;
+          height: 40px;
+          opacity: 0.4;
+          margin-bottom: 12px;
+        }
+
+        /* Main Content Styling */
         .admin-main { flex: 1; display: flex; flex-direction: column; overflow: hidden; }
-        .admin-header { height: 64px; background: white; border-bottom: 1px solid var(--border-gray); display: flex; align-items: center; justify-content: space-between; padding: 0 24px; flex-shrink: 0; }
-        .admin-content-area { flex: 1; overflow-y: auto; padding: 24px; }
         
-        /* Utility styles for sub-views */
-        .admin-card { background: white; border: 1px solid var(--border-gray); border-radius: 8px; padding: 20px; box-shadow: 0 1px 3px rgba(0,0,0,0.05); margin-bottom: 24px; }
-        .admin-card-header { display: flex; justify-content: space-between; align-items: center; border-bottom: 1px solid var(--border-gray); padding-bottom: 16px; margin-bottom: 16px; }
-        .admin-card-title { font-size: 1.1rem; font-weight: 600; color: var(--slate-800); margin: 0; display:flex; align-items:center; gap:8px;}
+        .admin-header { 
+          height: 70px; 
+          background: white; 
+          border-bottom: 1px solid var(--card-border); 
+          display: flex; 
+          align-items: center; 
+          justify-content: space-between; 
+          padding: 0 24px; 
+          flex-shrink: 0; 
+        }
         
-        .admin-grid { display: grid; gap: 20px; grid-template-columns: repeat(auto-fit, minmax(240px, 1fr)); }
+        .header-greeting { display: flex; align-items: center; gap: 12px; }
+        .header-greeting-icon { color: #f59e0b; }
+        .header-greeting-text h3 { margin: 0; font-size: 1.1rem; color: var(--text-main); font-weight: 600; }
+        .header-greeting-text p { margin: 0; font-size: 0.75rem; color: var(--text-muted); }
+
+        .header-stats {
+          display: flex; gap: 16px; font-size: 0.75rem; font-weight: 500; align-items: center;
+        }
+        .stat-badge {
+          display: flex; align-items: center; gap: 6px; color: var(--text-muted);
+          background: var(--bg-dashboard); padding: 4px 10px; border-radius: 20px;
+          border: 1px solid var(--card-border);
+        }
+        .dot { width: 6px; height: 6px; border-radius: 50%; }
+        .dot.green { background: #10b981; }
+        .dot.orange { background: #f59e0b; }
         
-        .admin-tabs { display: flex; border-bottom: 1px solid var(--border-gray); margin-bottom: 20px; gap: 24px; }
-        .admin-tab { padding: 10px 4px; border-bottom: 2px solid transparent; color: var(--slate-500); cursor: pointer; font-weight: 500; }
-        .admin-tab.active { border-bottom-color: var(--med-teal); color: var(--med-teal); }
+        .header-profile { display: flex; align-items: center; gap: 16px; margin-left: 20px; }
+        .notification-icon { position: relative; color: var(--text-muted); cursor: pointer; }
+        .notification-icon .badge { position: absolute; top: -2px; right: -2px; background: #ef4444; width: 8px; height: 8px; border-radius: 50%; border: 2px solid white; }
+        .profile-info { display: flex; align-items: center; gap: 10px; text-align: right; border-left: 1px solid var(--card-border); padding-left: 16px; }
+        .profile-info .avatar { width: 36px; height: 36px; background: #334155; color: white; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-weight: bold; }
+        .profile-info .details h4 { margin: 0; font-size: 0.85rem; }
+        .profile-info .details p { margin: 0; font-size: 0.7rem; color: var(--text-muted); }
+
+        .admin-content-area { 
+          flex: 1; 
+          overflow-y: auto; 
+          padding: 24px; 
+        }
         
-        .admin-badge { padding: 4px 8px; border-radius: 4px; font-size: 0.75rem; font-weight: 600; }
-        .badge-green { background: #dcfce7; color: #166534; }
-        .badge-yellow { background: #fef08a; color: #854d0e; }
-        .badge-red { background: #fee2e2; color: #991b1b; }
-        .badge-gray { background: #f1f5f9; color: #475569; }
+        /* Grid Layouts */
+        .dash-grid-kpi {
+          display: grid;
+          grid-template-columns: repeat(8, 1fr);
+          gap: 16px;
+          margin-bottom: 20px;
+        }
         
-        .admin-table { width: 100%; border-collapse: collapse; font-size: 0.875rem; }
-        .admin-table th { text-align: left; padding: 12px; border-bottom: 1px solid var(--border-gray); color: var(--slate-500); font-weight: 600; background: #f8fafc; }
-        .admin-table td { padding: 12px; border-bottom: 1px solid var(--border-gray); color: var(--slate-700); }
-        .admin-table tr:hover { background: #f8fafc; }
+        .dash-card {
+          background: white;
+          border-radius: 12px;
+          border: 1px solid var(--card-border);
+          box-shadow: 0 1px 2px rgba(0,0,0,0.03);
+          padding: 16px;
+          display: flex; flex-direction: column;
+        }
+        .kpi-card { position: relative; overflow: hidden; padding: 14px 16px; }
+        .kpi-card .kpi-header { display: flex; align-items: center; gap: 8px; margin-bottom: 12px; font-size: 0.75rem; color: var(--text-muted); font-weight: 500; }
+        .kpi-icon-box {
+          width: 28px; height: 28px; border-radius: 8px; display: flex; align-items: center; justify-content: center;
+        }
+        .kpi-card h3 { margin: 0; font-size: 1.3rem; font-weight: 700; color: var(--text-main); }
+        .kpi-trend { font-size: 0.65rem; font-weight: 600; display: flex; align-items: center; gap: 4px; margin-top: 6px; }
+        .trend-up { color: var(--green-trend); }
+        .trend-down { color: var(--red-trend); }
+        .trend-text { color: var(--text-muted); font-weight: 400; }
+
+        .dash-grid-row-2 {
+          display: grid;
+          grid-template-columns: 1fr 1fr 1fr;
+          gap: 20px;
+          margin-bottom: 20px;
+        }
+
+        .dash-grid-row-3 {
+          display: grid;
+          grid-template-columns: 1.5fr 1.2fr 1fr;
+          gap: 20px;
+          margin-bottom: 20px;
+        }
+        
+        .card-header { display: flex; justify-content: space-between; align-items: center; margin-bottom: 16px; }
+        .card-title { font-size: 0.95rem; font-weight: 600; display: flex; align-items: center; gap: 8px; margin: 0; color: var(--text-main); }
+        .card-action { font-size: 0.75rem; color: var(--blue-accent); font-weight: 500; cursor: pointer; display: flex; align-items: center; gap: 4px; }
+        
+        /* Specific components */
+        .overview-flow { display: flex; align-items: center; justify-content: space-between; background: #f8fafc; border-radius: 40px; padding: 12px 24px; margin-bottom: 20px; border: 1px solid var(--card-border); }
+        .flow-step { display: flex; flex-direction: column; align-items: center; gap: 4px; }
+        .flow-icon { width: 44px; height: 44px; border-radius: 50%; display: flex; align-items: center; justify-content: center; }
+        .flow-value { font-size: 1.15rem; font-weight: 700; }
+        .flow-label { font-size: 0.65rem; color: var(--text-muted); text-transform: uppercase; letter-spacing: 0.5px; }
+        .flow-arrow { color: #cbd5e1; }
+        
+        .overview-timeline { display: flex; justify-content: space-between; font-size: 0.65rem; color: var(--text-muted); font-weight: 600; padding: 0 10px; position: relative; }
+        .overview-timeline::before { content: ''; position: absolute; left: 30px; right: 30px; top: 6px; height: 2px; background: var(--card-border); z-index: 0; }
+        .timeline-step { background: white; padding: 0 8px; z-index: 1; }
+
+        .alert-item { display: flex; gap: 12px; margin-bottom: 10px; padding: 10px; border-radius: 8px; background: #fafafa; border: 1px solid var(--card-border); align-items: flex-start; }
+        .alert-item.red { background: #fef2f2; border-color: #fee2e2; }
+        .alert-item.orange { background: #fffbeb; border-color: #fef3c7; }
+        .alert-item.blue { background: #eff6ff; border-color: #dbeafe; }
+        .alert-icon { width: 22px; height: 22px; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-size: 12px; flex-shrink: 0; }
+        .alert-content { flex: 1; }
+        .alert-title { font-size: 0.75rem; font-weight: 600; margin-bottom: 2px; color: var(--text-main); }
+        .alert-desc { font-size: 0.65rem; color: var(--text-muted); }
+        .alert-time { font-size: 0.65rem; color: var(--text-muted); white-space: nowrap; }
+
+        .monitor-chart { display: flex; justify-content: center; margin: 16px 0; position: relative; }
+        .monitor-chart-circle { width: 130px; height: 130px; border-radius: 50%; border: 12px solid #10b981; border-right-color: #f1f5f9; display: flex; flex-direction: column; align-items: center; justify-content: center; }
+        .monitor-stats { display: flex; justify-content: space-between; border-top: 1px solid var(--card-border); padding-top: 12px; margin-top: auto; }
+        .monitor-stat { text-align: center; }
+        .monitor-stat-val { font-size: 0.9rem; font-weight: 700; display: flex; align-items: center; justify-content: center; gap: 4px; }
+        .monitor-stat-label { font-size: 0.65rem; color: var(--text-muted); }
+
+        .admin-table { width: 100%; border-collapse: collapse; font-size: 0.75rem; }
+        .admin-table th { text-align: left; padding: 10px; border-bottom: 1px solid var(--card-border); color: var(--text-muted); font-weight: 600; }
+        .admin-table td { padding: 10px; border-bottom: 1px solid var(--card-border); color: var(--text-main); }
+        .admin-table tr:last-child td { border-bottom: none; }
+        .status-pill { padding: 4px 8px; border-radius: 20px; font-size: 0.65rem; font-weight: 600; display: inline-flex; align-items: center; gap: 4px; }
+        .status-pill.active { color: #166534; }
+        .status-pill.pending { color: #b45309; }
+        .status-pill.attention { color: #ef4444; }
+        
+        .map-container { display: flex; gap: 20px; align-items: center; flex:1; }
+        .map-visual { flex: 1; text-align: center; display:flex; justify-content:center; }
+        .map-legend { width: 140px; display: flex; flex-direction: column; gap: 12px; }
+        .legend-item { display: flex; align-items: center; gap: 8px; font-size: 0.65rem; color: var(--text-muted); }
+        .legend-dot { width: 8px; height: 8px; border-radius: 50%; }
+        
+        .district-card { background: #0f766e; color: white; padding: 12px; border-radius: 8px; margin-top: 16px; display:flex; align-items:center; justify-content:space-between; cursor:pointer;}
+        .district-title { font-size: 0.75rem; font-weight: 600; margin-bottom: 0;}
+        .district-stats { display: flex; flex-direction:column; gap:4px; font-size:0.65rem; color: rgba(255,255,255,0.8); }
+        
+        .progress-bar-bg { height: 6px; background: #e2e8f0; border-radius: 3px; overflow: hidden; margin-top: 6px; }
+        .progress-bar-fill { height: 100%; background: #10b981; }
       </style>
 
       <div class="admin-layout">
+        <!-- Sidebar -->
         <aside class="admin-sidebar">
           <div class="admin-sidebar-header">
-            <h2 style="margin:0; font-size: 1.25rem; color: var(--soft-mint); font-family: 'Outfit', sans-serif; letter-spacing: 0.5px;">DRISH KALYAN</h2>
-            <div style="font-size: 0.75rem; color: rgba(255,255,255,0.7); margin-top: 4px; font-weight: 500;">${window.tData('ADMIN CONTROL PANEL')}</div>
+            <div class="logo-eye">
+              <i data-lucide="eye" style="width:24px;height:24px;color:white;"></i>
+            </div>
+            <div class="admin-sidebar-header-text">
+              <h2>DRISHTI KALYAN</h2>
+              <p>Healthier Eyes &bull; Stronger Rural India</p>
+            </div>
           </div>
           <nav class="admin-nav" id="admin-nav-container"></nav>
+          
+          <div class="sidebar-footer">
+            <svg class="sidebar-village-graphic" viewBox="0 0 100 40" preserveAspectRatio="none">
+              <!-- Simple village vector shapes -->
+              <path d="M10,40 L10,25 L15,15 L20,25 L20,40 Z" fill="rgba(255,255,255,0.2)"/>
+              <path d="M40,40 L40,25 L48,10 L56,25 L56,40 Z" fill="rgba(255,255,255,0.3)"/>
+              <circle cx="85" cy="20" r="10" fill="rgba(255,255,255,0.1)"/>
+              <path d="M85,30 L85,40" stroke="rgba(255,255,255,0.1)" stroke-width="2"/>
+              <path d="M0,40 L100,40" stroke="rgba(255,255,255,0.4)" stroke-width="1"/>
+            </svg>
+            Better Vision | Brighter Future
+          </div>
         </aside>
         
+        <!-- Main Area -->
         <main class="admin-main">
           <header class="admin-header">
-            <div>
-              <h3 id="admin-current-title" style="margin:0; color: var(--slate-800); font-weight: 600; font-size: 1.25rem;">${window.tData('Dashboard')}</h3>
-            </div>
-            <div style="display:flex; align-items:center; gap: 16px;">
-              <div style="text-align: right; line-height: 1.2;">
-                <div style="font-size: 0.875rem; font-weight: 600; color: var(--slate-800);">${window.tData('DRISH KALYAN Admin')}</div>
-                <div style="font-size: 0.75rem; color: var(--slate-500);">admin@drishkalyan.in</div>
+            <div class="header-greeting">
+              <i data-lucide="sun" class="header-greeting-icon" style="width:24px;height:24px;"></i>
+              <div class="header-greeting-text">
+                <h3>Good Morning, Admin</h3>
+                <p>Here's what's happening with your rural screening network today.</p>
               </div>
-              <div style="width: 36px; height: 36px; background: var(--teal-100); color: var(--teal-700); border-radius: 50%; display: flex; align-items: center; justify-content: center; font-weight: bold;">
-                DK
+            </div>
+            
+            <div style="display:flex; align-items:center;">
+              <div class="header-stats">
+                <div style="color:var(--text-muted); font-size:0.7rem; font-weight:600;">System Status</div>
+                <div class="stat-badge"><div class="dot green"></div> All Systems Operational</div>
+                <div class="stat-badge" style="background:transparent; border:none; padding:0; gap:4px;"><i data-lucide="cpu" style="width:12px;height:12px;color:#10b981;"></i> <span style="color:#10b981;">AI Engine Online</span></div>
+                <div class="stat-badge" style="background:transparent; border:none; padding:0; gap:4px;"><i data-lucide="database" style="width:12px;height:12px;color:#10b981;"></i> <span style="color:#10b981;">Database Online</span></div>
+                <div class="stat-badge" style="background:transparent; border:none; padding:0; gap:4px;"><i data-lucide="wifi" style="width:12px;height:12px;color:#10b981;"></i> <span style="color:#10b981;">PHC Sync Online</span></div>
+                <div class="stat-badge"><div class="dot orange"></div> 3 Devices Offline</div>
+              </div>
+              
+              <div class="header-profile">
+                <div class="notification-icon">
+                  <i data-lucide="bell" style="width:20px;height:20px;"></i>
+                  <div class="badge"></div>
+                </div>
+                <div class="profile-info">
+                  <div class="avatar">A</div>
+                  <div class="details">
+                    <h4>Admin</h4>
+                    <p>Super Admin <i data-lucide="chevron-down" style="width:12px;height:12px;vertical-align:middle;"></i></p>
+                  </div>
+                </div>
               </div>
             </div>
           </header>
@@ -80,29 +347,51 @@ export function renderAdminDashboardView(container, onNavigate) {
     `;
 
     const navConfig = [
-      { id: 'dashboard', icon: 'layout-dashboard', label: 'Dashboard' },
-      { id: 'website', icon: 'globe', label: 'Website Management' },
-      { id: 'users', icon: 'users', label: 'User Management' },
-      { id: 'patients', icon: 'user-square-2', label: 'Patient Management' },
+      { id: 'dashboard', icon: 'home', label: 'Dashboard', isTop: true },
+      { id: 'analytics', icon: 'bar-chart-2', label: 'Analytics & Reports', isTop: true },
+      
+      { category: 'HEALTHCARE' },
+      { id: 'patients', icon: 'users', label: 'Patient Management' },
       { id: 'screenings', icon: 'scan-eye', label: 'Screening Management' },
-      { id: 'ai', icon: 'brain-circuit', label: 'AI / Model Management' },
-      { id: 'analytics', icon: 'bar-chart-3', label: 'Analytics & Reports' },
-      { id: 'notifications', icon: 'bell', label: 'Notifications' },
-      { id: 'media', icon: 'image', label: 'Media / Assets' },
+      { id: 'phc', icon: 'building', label: 'PHC Management' },
+      { id: 'doctors', icon: 'stethoscope', label: 'Doctor Management' },
+      
+      { category: 'AI' },
+      { id: 'ai-model', icon: 'cpu', label: 'AI Model Management' },
+      { id: 'ai-perf', icon: 'activity', label: 'AI Performance' },
+      { id: 'ai-xai', icon: 'flask-conical', label: 'Explainability / XAI' },
+      
+      { category: 'SYSTEM' },
+      { id: 'users', icon: 'users-2', label: 'User Management' },
+      { id: 'notifications', icon: 'bell', label: 'Notifications', badge: 3 },
+      { id: 'monitoring', icon: 'activity-square', label: 'System Monitoring' },
+      { id: 'security', icon: 'shield', label: 'Security' },
+      { id: 'backup', icon: 'cloud-download', label: 'Backup & Recovery' },
+      
+      { category: 'CONTENT' },
+      { id: 'website', icon: 'layout', label: 'Website Management' },
       { id: 'content', icon: 'file-text', label: 'Content / Blog' },
-      { id: 'monitoring', icon: 'activity', label: 'System Monitoring' },
-      { id: 'security', icon: 'shield-check', label: 'Security' },
-      { id: 'settings', icon: 'settings', label: 'Site Settings' },
-      { id: 'backup', icon: 'database-backup', label: 'Backup & Recovery' },
-      { id: 'logout', icon: 'log-out', label: 'Logout', isAction: true }
+      { id: 'media', icon: 'image', label: 'Media / Assets' },
+      { id: 'logout', icon: 'log-out', label: 'Logout', isAction: true, style: 'display:none;' }
     ];
 
     const navContainer = container.querySelector('#admin-nav-container');
     navConfig.forEach(item => {
+      if (item.category) {
+        const cat = document.createElement('div');
+        cat.className = 'nav-category';
+        cat.textContent = item.category;
+        navContainer.appendChild(cat);
+        return;
+      }
+
       const el = document.createElement('div');
       el.className = 'admin-nav-item';
+      if (item.style) el.style = item.style;
       el.dataset.id = item.id;
-      el.innerHTML = `<i data-lucide="${item.icon}" style="width:18px;height:18px;"></i> <span>${window.tData(item.label)}</span>`;
+      
+      let badgeHtml = item.badge ? `<div class="nav-badge">${item.badge}</div>` : '';
+      el.innerHTML = `<i data-lucide="${item.icon}" style="width:16px;height:16px;"></i> <span>${item.label}</span> ${badgeHtml}`;
       
       el.addEventListener('click', () => {
         if (item.isAction) {
@@ -124,429 +413,389 @@ export function renderAdminDashboardView(container, onNavigate) {
       const activeNav = navContainer.querySelector(`.admin-nav-item[data-id="${tabId}"]`);
       if (activeNav) activeNav.classList.add('active');
 
-      const config = navConfig.find(n => n.id === tabId);
-      if (config) document.getElementById('admin-current-title').textContent = window.tData(config.label);
-
       const root = document.getElementById('admin-content-root');
-      
-      // Clear previous content
       root.innerHTML = '';
       
-      // Render Content
-      switch(tabId) {
-        case 'dashboard': renderTabDashboard(root); break;
-        case 'website': renderTabWebsite(root); break;
-        case 'users': renderTabUsers(root); break;
-        case 'patients': renderTabPatients(root); break;
-        case 'screenings': renderTabScreenings(root); break;
-        case 'ai': renderTabAI(root); break;
-        case 'analytics': renderTabAnalytics(root); break;
-        case 'notifications': renderTabNotifications(root); break;
-        case 'media': renderTabMedia(root); break;
-        case 'content': renderTabContent(root); break;
-        case 'monitoring': renderTabMonitoring(root); break;
-        case 'security': renderTabSecurity(root); break;
-        case 'settings': renderTabSettings(root); break;
-        case 'backup': renderTabBackup(root); break;
+      if (tabId === 'dashboard') {
+        renderDenseDashboard(root);
+      } else {
+        root.innerHTML = `
+          <div class="dash-card" style="height: 400px; align-items:center; justify-content:center;">
+            <i data-lucide="layout-template" style="width:48px;height:48px;color:#cbd5e1;margin-bottom:16px;"></i>
+            <h3 style="margin:0;color:var(--text-muted);">${tabId} view coming soon</h3>
+          </div>
+        `;
       }
       
       if (window.lucide) window.lucide.createIcons();
     }
 
-    const onLangChangeAdmin = () => {
-      renderAdminDashboardView(container, onNavigate);
-    };
-    window.addEventListener('languageChanged', onLangChangeAdmin, { once: true });
+    function renderDenseDashboard(root) {
+      const kpis = [
+        { title: 'Total Patients', value: '18,429', trend: '12%', trendUp: true, icon: 'users', bg: '#e0f2fe', color: '#0ea5e9' },
+        { title: 'Total Screenings', value: '15,672', trend: '18%', trendUp: true, icon: 'scan-eye', bg: '#ccfbf1', color: '#14b8a6' },
+        { title: 'Positive DR Cases', value: '1,284', trend: '9%', trendUp: true, icon: 'activity', bg: '#fee2e2', color: '#ef4444' },
+        { title: 'High-Risk Cases', value: '684', trend: '14%', trendUp: true, icon: 'alert-triangle', bg: '#ffedd5', color: '#f97316' },
+        { title: 'Active PHCs', value: '126', trend: '6%', trendUp: true, icon: 'building', bg: '#dcfce7', color: '#10b981' },
+        { title: 'Active Doctors', value: '248', trend: '8%', trendUp: true, icon: 'stethoscope', bg: '#dbeafe', color: '#3b82f6' },
+        { title: 'AI Model Accuracy', value: '94.8%', trend: '0.6%', trendUp: true, icon: 'cpu', bg: '#e0e7ff', color: '#6366f1' },
+        { title: 'Pending Reviews', value: '137', trend: '21%', trendUp: false, icon: 'clock', bg: '#ffe4e6', color: '#f43f5e' }
+      ];
 
-    // --- Sub-View Render Functions --- //
-
-    function renderTabDashboard(root) {
-      root.innerHTML = `
-        <div style="margin-bottom: 24px;">
-          <h2 style="margin:0 0 8px 0; color: var(--slate-900);">${window.tData('Explainable AI-powered Diabetic Retinopathy Screening for Rural Healthcare')}</h2>
-          <p style="margin:0; color: var(--slate-500);">${window.tData('Overview of platform activity, screening volume, and AI performance.')}</p>
+      const kpiHtml = kpis.map(k => `
+        <div class="dash-card kpi-card">
+          <div class="kpi-header">
+            <div class="kpi-icon-box" style="background:${k.bg}; color:${k.color};">
+              <i data-lucide="${k.icon}" style="width:16px;height:16px;"></i>
+            </div>
+            ${k.title}
+          </div>
+          <h3>${k.value}</h3>
+          <div class="kpi-trend ${k.trendUp ? 'trend-up' : 'trend-down'}">
+            <i data-lucide="${k.trendUp ? 'arrow-up' : 'arrow-down'}" style="width:10px;height:10px;"></i> ${k.trend} 
+            <span class="trend-text">vs last week</span>
+          </div>
         </div>
+      `).join('');
+
+      root.innerHTML = `
+        <div class="dash-grid-kpi">${kpiHtml}</div>
         
-        <div class="admin-grid" style="margin-bottom: 24px;">
-          ${kpiCard('Users', window.tData('Total Patients'), '12,846')}
-          ${kpiCard('Scan-Eye', window.tData('Screenings Completed'), '18,429')}
-          ${kpiCard('Alert-Triangle', window.tData('Positive DR Cases'), '2,184', 'badge-red')}
-          ${kpiCard('Alert-Octagon', window.tData('High-Risk Cases'), '684', 'badge-red')}
-          ${kpiCard('Building', window.tData('Active PHCs'), '126')}
-          ${kpiCard('Stethoscope', window.tData('Active Doctors'), '84')}
-          ${kpiCard('Brain-Circuit', window.tData('AI Model Accuracy'), '94.8%', 'badge-green')}
-          ${kpiCard('Clock', window.tData('Pending Reviews'), '137', 'badge-yellow')}
-        </div>
-
-        <div class="admin-grid" style="grid-template-columns: 1fr 1fr; margin-bottom: 24px;">
-          <div class="admin-card">
-            <div class="admin-card-header">
-              <h3 class="admin-card-title"><i data-lucide="trending-up"></i> ${window.tData('Screening Trend (Mock Data)')}</h3>
+        <div class="dash-grid-row-2">
+          <!-- Today's Screening Overview -->
+          <div class="dash-card">
+            <div class="card-header">
+              <h3 class="card-title"><i data-lucide="calendar" style="width:16px;height:16px;"></i> Today's Screening Overview</h3>
+              <div class="card-action" style="color:var(--text-muted);"><i data-lucide="calendar-days" style="width:14px;height:14px;"></i> 24 Sep 2025</div>
             </div>
-            <div style="height: 250px; background: #f8fafc; border: 1px dashed var(--border-gray); display:flex; align-items:center; justify-content:center; color: var(--slate-400); border-radius: 4px;">
-              ${window.tData('[ Line Chart Placeholder: Daily Screenings ]')}
+            <div class="overview-flow">
+              <div class="flow-step">
+                <div class="flow-icon" style="background:#f0fdf4; color:#16a34a;"><i data-lucide="users"></i></div>
+                <div class="flow-value">2,846</div>
+                <div class="flow-label">Screened</div>
+              </div>
+              <i data-lucide="arrow-right" class="flow-arrow"></i>
+              <div class="flow-step">
+                <div class="flow-icon" style="background:#f5f3ff; color:#7c3aed;"><i data-lucide="brain"></i></div>
+                <div class="flow-value">184</div>
+                <div class="flow-label">AI Flagged</div>
+              </div>
+              <i data-lucide="arrow-right" class="flow-arrow"></i>
+              <div class="flow-step">
+                <div class="flow-icon" style="background:#ecfdf5; color:#059669;"><i data-lucide="file-text"></i></div>
+                <div class="flow-value">37</div>
+                <div class="flow-label">Referrals</div>
+              </div>
             </div>
-          </div>
-          <div class="admin-card">
-            <div class="admin-card-header">
-              <h3 class="admin-card-title"><i data-lucide="pie-chart"></i> ${window.tData('DR Severity Distribution')}</h3>
+            <div class="overview-timeline">
+              <div class="timeline-step">Screening</div>
+              <div class="timeline-step">AI Analysis</div>
+              <div class="timeline-step">Doctor Review</div>
+              <div class="timeline-step">Referral</div>
             </div>
-            <div style="height: 250px; background: #f8fafc; border: 1px dashed var(--border-gray); display:flex; align-items:center; justify-content:center; color: var(--slate-400); border-radius: 4px;">
-              ${window.tData('[ Donut Chart Placeholder: No DR / Mild / Moderate / Severe / Proliferative ]')}
-            </div>
-          </div>
-        </div>
-        
-        <div class="admin-card">
-           <div class="admin-card-header">
-             <h3 class="admin-card-title"><i data-lucide="map-pin"></i> ${window.tData('Rural Screening Coverage (Mock Data)')}</h3>
-           </div>
-           <table class="admin-table">
-             <thead><tr><th>${window.tData('District')}</th><th>${window.tData('Active PHCs')}</th><th>${window.tData('Total Screenings')}</th><th>${window.tData('Positivity Rate')}</th></tr></thead>
-             <tbody>
-               <tr><td>${window.tData('Bareilly')}</td><td>24</td><td>4,210</td><td>12.4%</td></tr>
-               <tr><td>${window.tData('Lucknow')}</td><td>38</td><td>6,182</td><td>10.2%</td></tr>
-               <tr><td>${window.tData('Prayagraj')}</td><td>18</td><td>3,045</td><td>14.1%</td></tr>
-               <tr><td>${window.tData('Varanasi')}</td><td>22</td><td>2,810</td><td>11.8%</td></tr>
-               <tr><td>${window.tData('Gorakhpur')}</td><td>24</td><td>2,182</td><td>13.5%</td></tr>
-             </tbody>
-           </table>
-        </div>
-      `;
-    }
-
-    function renderTabWebsite(root) {
-      root.innerHTML = `
-        <div class="admin-tabs">
-          <div class="admin-tab active">${window.tData('Homepage')}</div>
-          <div class="admin-tab">${window.tData('About Us')}</div>
-          <div class="admin-tab">${window.tData('Services')}</div>
-          <div class="admin-tab">${window.tData('FAQs')}</div>
-          <div class="admin-tab">${window.tData('Contact Info')}</div>
-          <div class="admin-tab">${window.tData('Announcements')}</div>
-        </div>
-        <div class="admin-card">
-          <h3 class="admin-card-title" style="margin-bottom:20px;">${window.tData('Manage Homepage')}</h3>
-          <p style="color:var(--slate-500); margin-bottom: 20px;">${window.tData('Update hero sections, statistics, and call-to-action buttons here.')}</p>
-          <div style="display:flex; flex-direction:column; gap:16px; max-width: 600px;">
-             <div><label style="display:block;margin-bottom:8px;font-weight:600;font-size:0.875rem;">${window.tData('Hero Title')}</label><input type="text" class="form-input" value="DRISH KALYAN: Har Nazar, Hamari Zimmedari"></div>
-             <div><label style="display:block;margin-bottom:8px;font-weight:600;font-size:0.875rem;">${window.tData('Hero Subtitle')}</label><textarea class="form-input" rows="3">Explainable AI-powered clinical decision support system for faster, accessible Diabetic Retinopathy screening in rural healthcare centres.</textarea></div>
-             <button class="btn btn-primary" style="align-self: flex-start;">${window.tData('Save Changes')}</button>
-          </div>
-        </div>
-      `;
-    }
-
-    function renderTabUsers(root) {
-      root.innerHTML = `
-        <div class="admin-tabs">
-          <div class="admin-tab active">${window.tData('Admins')}</div>
-          <div class="admin-tab">${window.tData('PHC Staff')}</div>
-          <div class="admin-tab">${window.tData('Doctors')}</div>
-        </div>
-        <div class="admin-card">
-           <div class="admin-card-header">
-             <h3 class="admin-card-title">${window.tData('System Administrators')}</h3>
-             <button class="btn btn-primary" style="font-size: 0.8rem; padding: 6px 12px;">${window.tData('+ Add Admin')}</button>
-           </div>
-           <table class="admin-table">
-             <thead><tr><th>${window.tData('Name')}</th><th>${window.tData('Email')}</th><th>${window.tData('Role')}</th><th>${window.tData('Status')}</th><th>${window.tData('Last Login')}</th><th>${window.tData('Actions')}</th></tr></thead>
-             <tbody>
-               <tr><td>${window.tData('DRISH KALYAN Administrator')}</td><td>admin@drishkalyan.in</td><td>${window.tData('Super Admin')}</td><td><span class="admin-badge badge-green">${window.tData('Active')}</span></td><td>${window.tData('Just now')}</td><td><button class="btn btn-outline" style="padding:4px 8px;font-size:0.75rem;">${window.tData('Edit')}</button></td></tr>
-             </tbody>
-           </table>
-        </div>
-      `;
-    }
-
-    function renderTabPatients(root) {
-      root.innerHTML = `
-        <div class="admin-card">
-           <div class="admin-card-header">
-             <h3 class="admin-card-title">${window.tData('Patient Management')}</h3>
-             <input type="text" class="form-input" placeholder="${window.tData('Search Patient ID...')}" style="width:250px;">
-           </div>
-           <table class="admin-table">
-             <thead><tr><th>${window.tData('Patient ID')}</th><th>${window.tData('Age/Gender')}</th><th>${window.tData('Location (PHC)')}</th><th>${window.tData('Screenings')}</th><th>${window.tData('Risk Level')}</th><th>${window.tData('Doctor Status')}</th></tr></thead>
-             <tbody>
-               <tr><td>PT-2026-88A9</td><td>45 / M</td><td>${window.tData('PHC Rampur')}</td><td>2</td><td><span class="admin-badge badge-yellow">${window.tData('Moderate')}</span></td><td>${window.tData('Pending')}</td></tr>
-               <tr><td>PT-2026-11B4</td><td>62 / F</td><td>${window.tData('PHC Varanasi Rural')}</td><td>1</td><td><span class="admin-badge badge-red">${window.tData('High')}</span></td><td>${window.tData('Reviewed')}</td></tr>
-               <tr><td>PT-2026-99C2</td><td>38 / M</td><td>${window.tData('PHC Gorakhpur')}</td><td>3</td><td><span class="admin-badge badge-green">${window.tData('Low')}</span></td><td>-</td></tr>
-             </tbody>
-           </table>
-        </div>
-      `;
-    }
-
-    function renderTabScreenings(root) {
-      root.innerHTML = `
-        <div class="admin-card">
-           <div class="admin-card-header">
-             <h3 class="admin-card-title">${window.tData('Screening Management')}</h3>
-             <div style="display:flex; gap:10px;">
-               <select class="form-input" style="width:150px; padding: 6px;"><option>${window.tData('All PHCs')}</option></select>
-               <select class="form-input" style="width:150px; padding: 6px;"><option>${window.tData('All DR Stages')}</option></select>
-             </div>
-           </div>
-           <table class="admin-table">
-             <thead><tr><th>${window.tData('Screening ID')}</th><th>${window.tData('Patient ID')}</th><th>${window.tData('Date')}</th><th>${window.tData('AI Prediction')}</th><th>${window.tData('Confidence')}</th><th>${window.tData('Review Status')}</th><th>${window.tData('Final Status')}</th></tr></thead>
-             <tbody>
-               <tr><td>SC-00123</td><td>PT-2026-88A9</td><td>${window.tData('Today')}</td><td>${window.tData('Moderate DR')}</td><td>93.6%</td><td>${window.tData('Pending')}</td><td><span class="admin-badge badge-yellow">${window.tData('Requires Review')}</span></td></tr>
-               <tr><td>SC-00124</td><td>PT-2026-11B4</td><td>${window.tData('Today')}</td><td>${window.tData('Severe DR')}</td><td>98.2%</td><td>${window.tData('Reviewed')}</td><td><span class="admin-badge badge-red">${window.tData('Urgent Referral')}</span></td></tr>
-               <tr><td>SC-00125</td><td>PT-2026-99C2</td><td>${window.tData('Yesterday')}</td><td>${window.tData('Normal')}</td><td>99.1%</td><td>-</td><td><span class="admin-badge badge-green">${window.tData('Normal')}</span></td></tr>
-             </tbody>
-           </table>
-        </div>
-      `;
-    }
-
-    function renderTabAI(root) {
-      root.innerHTML = `
-        <div class="admin-grid" style="grid-template-columns: 1fr 1fr; margin-bottom: 24px;">
-          <div class="admin-card">
-             <div class="admin-card-header">
-               <h3 class="admin-card-title"><i data-lucide="cpu"></i> ${window.tData('Model Status')}</h3>
-               <span class="admin-badge badge-green">${window.tData('Online')}</span>
-             </div>
-             <div style="display:flex; flex-direction:column; gap:12px; font-size: 0.9rem;">
-               <div style="display:flex; justify-content:space-between;"><span>${window.tData('Current Model:')}</span> <strong>DRISH-XAI v2.1</strong></div>
-               <div style="display:flex; justify-content:space-between;"><span>${window.tData('Last Updated:')}</span> <strong>Sep 10, 2026</strong></div>
-               <div style="display:flex; justify-content:space-between;"><span>${window.tData('Accuracy:')}</span> <strong>94.8%</strong></div>
-               <div style="display:flex; justify-content:space-between;"><span>${window.tData('Sensitivity:')}</span> <strong>92.5%</strong></div>
-               <div style="display:flex; justify-content:space-between;"><span>${window.tData('Specificity:')}</span> <strong>96.1%</strong></div>
-               <div style="display:flex; justify-content:space-between;"><span>${window.tData('AUC Score:')}</span> <strong>0.982</strong></div>
-             </div>
           </div>
           
-          <div class="admin-card">
-             <div class="admin-card-header">
-               <h3 class="admin-card-title"><i data-lucide="eye"></i> ${window.tData('Explainable AI Monitoring')}</h3>
-             </div>
-             <p style="font-size:0.875rem; color:var(--slate-500); margin-bottom:12px;">${window.tData('Active Explainability Techniques:')}</p>
-             <div style="display:flex; flex-wrap:wrap; gap:8px; margin-bottom:20px;">
-               <span class="admin-badge badge-gray">${window.tData('Grad-CAM')}</span>
-               <span class="admin-badge badge-gray">${window.tData('Heatmap Analysis')}</span>
-               <span class="admin-badge badge-gray">${window.tData('Lesion Localization')}</span>
-               <span class="admin-badge badge-gray">${window.tData('Confidence Score')}</span>
-               <span class="admin-badge badge-gray">${window.tData('Feature Importance')}</span>
-             </div>
-             <div style="background:#f8fafc; padding:16px; border:1px solid var(--border-gray); border-radius:4px; font-size:0.875rem;">
-               <strong style="color:var(--slate-800);">${window.tData('Sample Explainability Output:')}</strong><br>
-               <span style="color:var(--slate-500);">${window.tData('Prediction:')}</span> ${window.tData('Moderate NPDR')} (93.6% Conf.)<br>
-               <span style="color:var(--slate-500);">${window.tData('Affected Region:')}</span> ${window.tData('Retinal lesion detected (Hemorrhage)')}
-             </div>
-             <div style="margin-top: 12px; font-size: 0.75rem; color: var(--slate-400); font-style: italic;">
-               ${window.tData('* AI screening results are intended to support clinical review and should not be considered a standalone medical diagnosis.')}
-             </div>
+          <!-- Admin Alert Center -->
+          <div class="dash-card">
+            <div class="card-header">
+              <h3 class="card-title"><i data-lucide="bell-ring" style="color:#ef4444; width:16px;height:16px;"></i> Admin Alert Center <div class="nav-badge" style="display:inline-flex;position:relative;margin:0 0 0 4px;width:16px;height:16px;font-size:10px;">3</div></h3>
+              <div class="card-action">View All</div>
+            </div>
+            <div style="overflow-y:auto; flex:1; max-height:200px;">
+              <div class="alert-item red">
+                <div class="alert-icon" style="background:#fecaca; color:#b91c1c;"><i data-lucide="alert-triangle" style="width:12px;height:12px;"></i></div>
+                <div class="alert-content">
+                  <div class="alert-title">12 High-risk cases awaiting review</div>
+                  <div class="alert-desc">Require immediate attention from doctors.</div>
+                </div>
+                <div class="alert-time">2h ago</div>
+              </div>
+              <div class="alert-item orange">
+                <div class="alert-icon" style="background:#fde68a; color:#b45309;"><i data-lucide="wifi-off" style="width:12px;height:12px;"></i></div>
+                <div class="alert-content">
+                  <div class="alert-title">8 PHCs haven't synced data today</div>
+                  <div class="alert-desc">Check internet connectivity / device status.</div>
+                </div>
+                <div class="alert-time">4h ago</div>
+              </div>
+              <div class="alert-item orange">
+                <div class="alert-icon" style="background:#fde68a; color:#b45309;"><i data-lucide="image-off" style="width:12px;height:12px;"></i></div>
+                <div class="alert-content">
+                  <div class="alert-title">24 images failed quality check</div>
+                  <div class="alert-desc">Retake images or verify device settings.</div>
+                </div>
+                <div class="alert-time">5h ago</div>
+              </div>
+              <div class="alert-item blue" style="margin-bottom:0;">
+                <div class="alert-icon" style="background:#bfdbfe; color:#1d4ed8;"><i data-lucide="cpu" style="width:12px;height:12px;"></i></div>
+                <div class="alert-content">
+                  <div class="alert-title">AI model requires review for 3 unusual cases</div>
+                  <div class="alert-desc">Predictions need manual verification.</div>
+                </div>
+                <div class="alert-time">6h ago</div>
+              </div>
+            </div>
+          </div>
+          
+          <!-- AI Model Monitoring -->
+          <div class="dash-card">
+            <div class="card-header">
+              <h3 class="card-title"><i data-lucide="crosshair" style="width:16px;height:16px;"></i> AI Model Monitoring</h3>
+              <div class="card-action">View Analytics <i data-lucide="arrow-right" style="width:12px;height:12px;"></i></div>
+            </div>
+            <div class="monitor-chart">
+              <div class="monitor-chart-circle">
+                <div style="font-size:1.5rem; font-weight:700;">94.8%</div>
+                <div style="font-size:0.65rem; color:var(--text-muted);">Accuracy</div>
+              </div>
+              
+              <div style="position:absolute; right:10px; top:10px; display:flex; flex-direction:column; gap:20px;">
+                <div>
+                  <div style="font-size:0.65rem; color:var(--text-muted);">Images Processed</div>
+                  <div style="font-weight:600; font-size:0.85rem;">18,429 <span style="font-size:0.6rem; color:#10b981; margin-left:6px;"><i data-lucide="arrow-up" style="width:8px;height:8px;"></i> 18%</span></div>
+                </div>
+                <div>
+                  <div style="font-size:0.65rem; color:var(--text-muted);">Quality Rejection</div>
+                  <div style="font-weight:600; font-size:0.85rem;">3.2% <span style="font-size:0.6rem; color:#ef4444; margin-left:6px;"><i data-lucide="arrow-down" style="width:8px;height:8px;"></i> 1.1%</span></div>
+                </div>
+              </div>
+            </div>
+            <div class="monitor-stats">
+              <div class="monitor-stat" style="text-align:left;">
+                <div class="monitor-stat-label"><i data-lucide="calendar" style="width:12px;height:12px;vertical-align:middle;margin-right:4px;"></i> Last Model Update</div>
+                <div class="monitor-stat-val" style="justify-content:flex-start; font-size:0.8rem;">Today</div>
+              </div>
+            </div>
+          </div>
+        </div>
+        
+        <div class="dash-grid-row-3">
+          <!-- PHC Performance -->
+          <div class="dash-card" style="padding:0; overflow:hidden;">
+            <div class="card-header" style="padding: 16px 16px 0;">
+              <h3 class="card-title"><i data-lucide="building" style="width:16px;height:16px;"></i> PHC Performance</h3>
+              <div class="card-action">View All PHCs <i data-lucide="arrow-right" style="width:12px;height:12px;"></i></div>
+            </div>
+            <div style="overflow-x:auto;">
+              <table class="admin-table">
+                <thead>
+                  <tr>
+                    <th>PHC Name</th>
+                    <th>District</th>
+                    <th>Screenings</th>
+                    <th>Positive</th>
+                    <th>Pending</th>
+                    <th>Status</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr>
+                    <td>PHC Bithri</td><td>Bareilly</td><td>420</td><td>32</td><td>4</td>
+                    <td><div class="status-pill active"><div class="dot green"></div> Active</div></td>
+                  </tr>
+                  <tr>
+                    <td>PHC Aonla</td><td>Bareilly</td><td>318</td><td>27</td><td>12</td>
+                    <td><div class="status-pill pending"><div class="dot orange"></div> Sync Pending</div></td>
+                  </tr>
+                  <tr>
+                    <td>PHC Fatehganj</td><td>Shahjahanpur</td><td>186</td><td>19</td><td>18</td>
+                    <td><div class="status-pill attention"><div class="dot" style="background:#ef4444;"></div> Needs Attention</div></td>
+                  </tr>
+                  <tr>
+                    <td>PHC Tilhar</td><td>Shahjahanpur</td><td>264</td><td>21</td><td>6</td>
+                    <td><div class="status-pill active"><div class="dot green"></div> Active</div></td>
+                  </tr>
+                  <tr>
+                    <td>PHC Nanpara</td><td>Bahraich</td><td>142</td><td>11</td><td>9</td>
+                    <td><div class="status-pill pending"><div class="dot orange"></div> Sync Pending</div></td>
+                  </tr>
+                  <tr>
+                    <td>PHC Misrikh</td><td>Sitapur</td><td>308</td><td>25</td><td>14</td>
+                    <td><div class="status-pill active"><div class="dot green"></div> Active</div></td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
+          </div>
+          
+          <!-- Rural India PHC Coverage -->
+          <div class="dash-card">
+            <div class="card-header">
+              <h3 class="card-title"><i data-lucide="map" style="width:16px;height:16px;"></i> Rural India PHC Coverage</h3>
+            </div>
+            <div class="map-container">
+              <div class="map-visual">
+                <!-- SVG map outline for India -->
+                <svg viewBox="0 0 100 110" style="width:140px; filter: drop-shadow(0 2px 4px rgba(0,0,0,0.05));">
+                  <path d="M40,0 L60,5 L80,20 L95,40 L100,60 L80,90 L60,110 L40,105 L20,90 L5,70 L0,50 L10,25 Z" fill="#bbf7d0" stroke="#22c55e" stroke-width="0.5" />
+                  <circle cx="45" cy="30" r="2.5" fill="#10b981"/>
+                  <circle cx="65" cy="40" r="2.5" fill="#f59e0b"/>
+                  <circle cx="35" cy="60" r="2.5" fill="#10b981"/>
+                  <circle cx="55" cy="70" r="2.5" fill="#ef4444"/>
+                  <circle cx="75" cy="65" r="2.5" fill="#10b981"/>
+                  <circle cx="40" cy="85" r="2.5" fill="#f59e0b"/>
+                  <circle cx="20" cy="75" r="2.5" fill="#94a3b8"/>
+                </svg>
+              </div>
+              <div class="map-legend">
+                <div class="legend-item"><div class="legend-dot" style="background:#10b981;"></div> Active & Normal</div>
+                <div class="legend-item"><div class="legend-dot" style="background:#f59e0b;"></div> Follow-up Required</div>
+                <div class="legend-item"><div class="legend-dot" style="background:#ef4444;"></div> High-risk Cases</div>
+                <div class="legend-item"><div class="legend-dot" style="background:#94a3b8;"></div> Offline / Sync Pending</div>
+              </div>
+            </div>
+            
+            <div class="district-card">
+              <div>
+                <div class="district-title">Bareilly District</div>
+                <div class="district-stats">
+                  <span>12 PHCs &bull; 486 Screenings</span>
+                  <span>31 Suspected Cases &bull; 7 Referrals Pending</span>
+                </div>
+              </div>
+              <div style="background:rgba(255,255,255,0.2); border-radius:20px; padding: 4px 10px; font-size:0.65rem;">
+                View Details <i data-lucide="arrow-right" style="width:10px;height:10px;vertical-align:middle;"></i>
+              </div>
+            </div>
+          </div>
+          
+          <!-- Right Stack -->
+          <div style="display:flex; flex-direction:column; gap:20px;">
+            <div class="dash-card" style="flex:1;">
+              <div class="card-header">
+                <h3 class="card-title"><i data-lucide="activity" style="width:16px;height:16px;"></i> Referral Priority</h3>
+                <div class="card-action">View Referral Queue <i data-lucide="arrow-right" style="width:12px;height:12px;"></i></div>
+              </div>
+              <div style="display:flex; align-items:center; gap:20px; margin-top: 10px;">
+                <div style="width:90px; height:90px; border-radius:50%; border:8px solid #facc15; border-top-color:#fb923c; border-right-color:#f87171; display:flex; flex-direction:column; align-items:center; justify-content:center;">
+                  <div style="font-size:1.15rem; font-weight:700;">113</div>
+                  <div style="font-size:0.5rem; color:var(--text-muted); text-align:center;">Total Pending</div>
+                </div>
+                <div style="flex:1; display:flex; flex-direction:column; gap:10px;">
+                  <div style="display:flex; justify-content:space-between; font-size:0.7rem;"><span style="display:flex;align-items:center;gap:6px;"><div class="dot" style="background:#ef4444;"></div> Immediate</span> <strong>12</strong></div>
+                  <div style="display:flex; justify-content:space-between; font-size:0.7rem;"><span style="display:flex;align-items:center;gap:6px;"><div class="dot" style="background:#f97316;"></div> Within 7 days</span> <strong>28</strong></div>
+                  <div style="display:flex; justify-content:space-between; font-size:0.7rem;"><span style="display:flex;align-items:center;gap:6px;"><div class="dot" style="background:#eab308;"></div> Routine Follow-up</span> <strong>64</strong></div>
+                </div>
+              </div>
+            </div>
+            
+            <div class="dash-card" style="flex:1;">
+              <div class="card-header">
+                <h3 class="card-title"><i data-lucide="pulse" style="width:16px;height:16px;"></i> System Health</h3>
+              </div>
+              <div style="display:flex; flex-direction:column; gap:12px;">
+                <div>
+                  <div style="display:flex; justify-content:space-between; font-size:0.65rem; font-weight:500;"><span>Server Load</span> <span style="color:#10b981;">32 %</span></div>
+                  <div class="progress-bar-bg"><div class="progress-bar-fill" style="width:32%;"></div></div>
+                </div>
+                <div>
+                  <div style="display:flex; justify-content:space-between; font-size:0.65rem; font-weight:500;"><span>Database Usage</span> <span style="color:#f59e0b;">68 %</span></div>
+                  <div class="progress-bar-bg"><div class="progress-bar-fill" style="width:68%; background:#f59e0b;"></div></div>
+                </div>
+                <div>
+                  <div style="display:flex; justify-content:space-between; font-size:0.65rem; font-weight:500;"><span>Storage Usage</span> <span style="color:#10b981;">41 %</span></div>
+                  <div class="progress-bar-bg"><div class="progress-bar-fill" style="width:41%;"></div></div>
+                </div>
+              </div>
+              <div class="card-action" style="margin-top:16px;">View System Monitoring <i data-lucide="arrow-right" style="width:12px;height:12px;"></i></div>
+            </div>
+          </div>
+        </div>
+        
+        <div class="dash-grid-row-3" style="grid-template-columns: 1.5fr 1.2fr 1fr;">
+          <!-- Screening Trend -->
+          <div class="dash-card">
+             <div class="card-header">
+              <h3 class="card-title"><i data-lucide="line-chart" style="width:16px;height:16px;"></i> Screening Trend <span style="font-weight:400; font-size:0.65rem; color:var(--text-muted); margin-left:4px;">(Last 7 Days)</span></h3>
+              <div style="display:flex; gap:12px; font-size:0.65rem; font-weight:500;">
+                <span style="display:flex;align-items:center;gap:4px;"><div style="width:12px;height:2px;background:#10b981;"></div> Total Screenings</span>
+                <span style="display:flex;align-items:center;gap:4px;"><div style="width:12px;height:2px;background:#ef4444;"></div> Positive Cases</span>
+              </div>
+            </div>
+            <div style="height:150px; position:relative; display:flex; flex-direction:column; justify-content:flex-end;">
+              <svg viewBox="0 0 100 40" preserveAspectRatio="none" style="width:100%; height:80%; overflow:visible;">
+                <path d="M0,35 L16,30 L33,28 L50,22 L66,15 L83,18 L100,10" fill="none" stroke="#10b981" stroke-width="1.5" />
+                <path d="M0,40 L16,40 L33,40 L50,40 L66,40 L83,40 L100,40 L100,10 L83,18 L66,15 L50,22 L33,28 L16,30 L0,35 Z" fill="rgba(16,185,129,0.1)" />
+                <circle cx="0" cy="35" r="1.5" fill="#10b981"/><circle cx="16" cy="30" r="1.5" fill="#10b981"/><circle cx="33" cy="28" r="1.5" fill="#10b981"/><circle cx="50" cy="22" r="1.5" fill="#10b981"/><circle cx="66" cy="15" r="1.5" fill="#10b981"/><circle cx="83" cy="18" r="1.5" fill="#10b981"/><circle cx="100" cy="10" r="1.5" fill="#10b981"/>
+                
+                <path d="M0,38 L16,37 L33,37 L50,35 L66,32 L83,34 L100,30" fill="none" stroke="#ef4444" stroke-width="1" />
+                <circle cx="0" cy="38" r="1" fill="#ef4444"/><circle cx="16" cy="37" r="1" fill="#ef4444"/><circle cx="33" cy="37" r="1" fill="#ef4444"/><circle cx="50" cy="35" r="1" fill="#ef4444"/><circle cx="66" cy="32" r="1" fill="#ef4444"/><circle cx="83" cy="34" r="1" fill="#ef4444"/><circle cx="100" cy="30" r="1" fill="#ef4444"/>
+              </svg>
+              <!-- Grid lines -->
+              <div style="position:absolute; bottom:-15px; width:100%; display:flex; justify-content:space-between; font-size:0.55rem; color:var(--text-muted); border-top:1px solid var(--card-border); padding-top:4px;">
+                <span>18 Sep</span><span>19 Sep</span><span>20 Sep</span><span>21 Sep</span><span>22 Sep</span><span>23 Sep</span><span>24 Sep</span>
+              </div>
+            </div>
+          </div>
+          
+          <!-- DR Severity Distribution -->
+          <div class="dash-card">
+            <div class="card-header">
+              <h3 class="card-title"><i data-lucide="pie-chart" style="width:16px;height:16px;"></i> DR Severity Distribution</h3>
+            </div>
+            <div style="display:flex; align-items:center; gap:16px; height: 100%;">
+              <div style="width:100px; height:100px; border-radius:50%; border:12px solid #10b981; border-right-color:#3b82f6; border-bottom-color:#f59e0b; border-top-color:#ef4444; display:flex; flex-direction:column; align-items:center; justify-content:center; flex-shrink:0;">
+                <div style="font-size:1.15rem; font-weight:700;">1,284</div>
+                <div style="font-size:0.5rem; color:var(--text-muted); text-align:center;">Positive Cases</div>
+              </div>
+              <div style="flex:1; display:flex; flex-direction:column; gap:8px; font-size:0.65rem;">
+                <div style="display:flex; justify-content:space-between;">
+                  <span style="display:flex;align-items:center;gap:6px;"><div class="dot" style="background:#10b981;"></div> No DR</span> <strong>46.2%</strong>
+                </div>
+                <div style="display:flex; justify-content:space-between;">
+                  <span style="display:flex;align-items:center;gap:6px;"><div class="dot" style="background:#3b82f6;"></div> Mild</span> <strong>28.5%</strong>
+                </div>
+                <div style="display:flex; justify-content:space-between;">
+                  <span style="display:flex;align-items:center;gap:6px;"><div class="dot" style="background:#f59e0b;"></div> Moderate</span> <strong>16.7%</strong>
+                </div>
+                <div style="display:flex; justify-content:space-between;">
+                  <span style="display:flex;align-items:center;gap:6px;"><div class="dot" style="background:#ef4444;"></div> Severe</span> <strong>6.3%</strong>
+                </div>
+                <div style="display:flex; justify-content:space-between;">
+                  <span style="display:flex;align-items:center;gap:6px;"><div class="dot" style="background:#b91c1c;"></div> Proliferative</span> <strong>2.3%</strong>
+                </div>
+              </div>
+            </div>
+          </div>
+          
+          <!-- Recent Activity -->
+          <div class="dash-card">
+            <div class="card-header">
+              <h3 class="card-title"><i data-lucide="clock" style="width:16px;height:16px;"></i> Recent Activity</h3>
+              <div class="card-action">View All <i data-lucide="arrow-right" style="width:12px;height:12px;"></i></div>
+            </div>
+            <div style="display:flex; flex-direction:column; gap:14px; margin-top:4px;">
+              <div style="display:flex; align-items:center; gap:10px; font-size:0.65rem;">
+                <div style="width:20px;height:20px;border-radius:50%;background:#dcfce7;color:#10b981;display:flex;align-items:center;justify-content:center;"><i data-lucide="user-plus" style="width:10px;height:10px;"></i></div>
+                <div style="flex:1; color:var(--text-main);">New patient registered - ID 45872</div>
+                <div style="color:var(--text-muted);font-size:0.6rem;">2 min ago</div>
+              </div>
+              <div style="display:flex; align-items:center; gap:10px; font-size:0.65rem;">
+                <div style="width:20px;height:20px;border-radius:50%;background:#e0f2fe;color:#0ea5e9;display:flex;align-items:center;justify-content:center;"><i data-lucide="check-circle" style="width:10px;height:10px;"></i></div>
+                <div style="flex:1; color:var(--text-main);">Screening completed - PHC Bithri</div>
+                <div style="color:var(--text-muted);font-size:0.6rem;">5 min ago</div>
+              </div>
+              <div style="display:flex; align-items:center; gap:10px; font-size:0.65rem;">
+                <div style="width:20px;height:20px;border-radius:50%;background:#fee2e2;color:#ef4444;display:flex;align-items:center;justify-content:center;"><i data-lucide="alert-triangle" style="width:10px;height:10px;"></i></div>
+                <div style="flex:1; color:var(--text-main);">AI flagged - Moderate DR</div>
+                <div style="color:var(--text-muted);font-size:0.6rem;">12 min ago</div>
+              </div>
+              <div style="display:flex; align-items:center; gap:10px; font-size:0.65rem;">
+                <div style="width:20px;height:20px;border-radius:50%;background:#ffedd5;color:#f97316;display:flex;align-items:center;justify-content:center;"><i data-lucide="file-text" style="width:10px;height:10px;"></i></div>
+                <div style="flex:1; color:var(--text-main);">Referral assigned - ID 45821</div>
+                <div style="color:var(--text-muted);font-size:0.6rem;">18 min ago</div>
+              </div>
+              <div style="display:flex; align-items:center; gap:10px; font-size:0.65rem;">
+                <div style="width:20px;height:20px;border-radius:50%;background:#ffe4e6;color:#f43f5e;display:flex;align-items:center;justify-content:center;"><i data-lucide="image-off" style="width:10px;height:10px;"></i></div>
+                <div style="flex:1; color:var(--text-main);">Image quality issue - PHC Tilhar</div>
+                <div style="color:var(--text-muted);font-size:0.6rem;">25 min ago</div>
+              </div>
+            </div>
           </div>
         </div>
       `;
     }
 
-    function renderTabAnalytics(root) {
-      root.innerHTML = `
-        <div class="admin-card">
-           <div class="admin-card-header">
-             <h3 class="admin-card-title">${window.tData('Analytics & Reports')}</h3>
-             <div style="display:flex; gap:10px;">
-               <button class="btn btn-outline" style="padding: 6px 12px; font-size:0.8rem;">${window.tData('Export CSV')}</button>
-               <button class="btn btn-outline" style="padding: 6px 12px; font-size:0.8rem;">${window.tData('Export PDF')}</button>
-               <button class="btn btn-primary" style="padding: 6px 12px; font-size:0.8rem;">${window.tData('Generate Report')}</button>
-             </div>
-           </div>
-           <div style="height: 400px; background: #f8fafc; border: 1px dashed var(--border-gray); display:flex; flex-direction:column; align-items:center; justify-content:center; color: var(--slate-400); border-radius: 4px;">
-              <i data-lucide="bar-chart-2" style="width:48px;height:48px; margin-bottom:16px; opacity:0.5;"></i>
-              <div>${window.tData('Comprehensive Analytics Dashboard Placeholder')}</div>
-           </div>
-        </div>
-      `;
-    }
-
-    function renderTabNotifications(root) {
-      root.innerHTML = `
-        <div class="admin-card">
-           <div class="admin-card-header">
-             <h3 class="admin-card-title">${window.tData('Notifications Center')}</h3>
-           </div>
-           <div style="display:flex; flex-direction:column; gap:12px;">
-             ${notificationRow('alert-triangle', window.tData('High-Risk Screening Detected at PHC Rampur'), window.tData('2 mins ago'), 'badge-red')}
-             ${notificationRow('cpu', window.tData('Model DRISH-XAI v2.1 successfully deployed.'), window.tData('1 hour ago'), 'badge-green')}
-             ${notificationRow('clock', window.tData('12 pending screenings exceed 24hr SLA for doctor review.'), window.tData('3 hours ago'), 'badge-yellow')}
-             ${notificationRow('info', window.tData('System backup completed successfully.'), window.tData('1 day ago'), 'badge-gray')}
-           </div>
-        </div>
-      `;
-    }
-
-    function renderTabMedia(root) {
-      root.innerHTML = `
-        <div class="admin-tabs">
-          <div class="admin-tab active">${window.tData('Images')}</div>
-          <div class="admin-tab">${window.tData('Videos')}</div>
-          <div class="admin-tab">${window.tData('Documents')}</div>
-        </div>
-        <div class="admin-card">
-           <div class="admin-card-header">
-             <h3 class="admin-card-title">${window.tData('Media Library')}</h3>
-             <button class="btn btn-primary" style="font-size: 0.8rem; padding: 6px 12px;"><i data-lucide="upload" style="width:14px;height:14px;margin-right:4px;"></i> ${window.tData('Upload Files')}</button>
-           </div>
-           <div class="admin-grid" style="grid-template-columns: repeat(auto-fill, minmax(150px, 1fr));">
-             <div style="aspect-ratio: 1; background: #f1f5f9; border-radius: 8px; display:flex; align-items:center; justify-content:center;"><i data-lucide="image" style="color:var(--slate-400);"></i></div>
-             <div style="aspect-ratio: 1; background: #f1f5f9; border-radius: 8px; display:flex; align-items:center; justify-content:center;"><i data-lucide="image" style="color:var(--slate-400);"></i></div>
-             <div style="aspect-ratio: 1; background: #f1f5f9; border-radius: 8px; display:flex; align-items:center; justify-content:center;"><i data-lucide="image" style="color:var(--slate-400);"></i></div>
-             <div style="aspect-ratio: 1; background: #f1f5f9; border-radius: 8px; display:flex; align-items:center; justify-content:center;"><i data-lucide="image" style="color:var(--slate-400);"></i></div>
-           </div>
-        </div>
-      `;
-    }
-
-    function renderTabContent(root) {
-      root.innerHTML = `
-        <div class="admin-card">
-           <div class="admin-card-header">
-             <h3 class="admin-card-title">${window.tData('Content / Blog Management')}</h3>
-             <button class="btn btn-primary" style="font-size: 0.8rem; padding: 6px 12px;">${window.tData('+ Create Post')}</button>
-           </div>
-           <table class="admin-table">
-             <thead><tr><th>${window.tData('Title')}</th><th>${window.tData('Category')}</th><th>${window.tData('Status')}</th><th>${window.tData('Date')}</th><th>${window.tData('Actions')}</th></tr></thead>
-             <tbody>
-               <tr><td>${window.tData('Understanding Explainable AI in DR Screening')}</td><td>${window.tData('Technology')}</td><td><span class="admin-badge badge-green">${window.tData('Published')}</span></td><td>Sep 12, 2026</td><td><button class="btn btn-outline" style="padding:4px 8px;font-size:0.75rem;">${window.tData('Edit')}</button></td></tr>
-               <tr><td>${window.tData('Expanding Rural Healthcare Access')}</td><td>${window.tData('Impact')}</td><td><span class="admin-badge badge-yellow">${window.tData('Draft')}</span></td><td>-</td><td><button class="btn btn-outline" style="padding:4px 8px;font-size:0.75rem;">${window.tData('Edit')}</button></td></tr>
-             </tbody>
-           </table>
-        </div>
-      `;
-    }
-
-    function renderTabMonitoring(root) {
-      root.innerHTML = `
-        <div class="admin-grid" style="margin-bottom:24px;">
-          <div class="admin-card" style="margin-bottom:0;">
-             <h3 class="admin-card-title" style="margin-bottom:12px;">${window.tData('Server Status')}</h3>
-             <div style="display:flex; justify-content:space-between; margin-bottom:8px;"><span>${window.tData('CPU Usage')}</span> <strong>32%</strong></div>
-             <div style="display:flex; justify-content:space-between; margin-bottom:8px;"><span>${window.tData('Memory')}</span> <strong>12.4 / 32 GB</strong></div>
-             <div style="display:flex; justify-content:space-between; margin-bottom:8px;"><span>${window.tData('Storage')}</span> <strong>${window.tData('48% Used')}</strong></div>
-             <div style="display:flex; justify-content:space-between;"><span>${window.tData('Uptime')}</span> <strong>99.98% (45 ${window.tData('days')})</strong></div>
-          </div>
-          <div class="admin-card" style="margin-bottom:0;">
-             <h3 class="admin-card-title" style="margin-bottom:12px;">${window.tData('API & Database')}</h3>
-             <div style="display:flex; justify-content:space-between; margin-bottom:8px;"><span>${window.tData('API Availability')}</span> <span class="admin-badge badge-green">${window.tData('Online')}</span></div>
-             <div style="display:flex; justify-content:space-between; margin-bottom:8px;"><span>${window.tData('Avg Response')}</span> <strong>124ms</strong></div>
-             <div style="display:flex; justify-content:space-between; margin-bottom:8px;"><span>${window.tData('Database')}</span> <span class="admin-badge badge-green">${window.tData('Connected')}</span></div>
-             <div style="display:flex; justify-content:space-between;"><span>${window.tData('Active Conns')}</span> <strong>34</strong></div>
-          </div>
-        </div>
-        <div class="admin-card">
-           <div class="admin-card-header">
-             <h3 class="admin-card-title">${window.tData('Recent Error Logs')}</h3>
-           </div>
-           <table class="admin-table">
-             <thead><tr><th>${window.tData('Timestamp')}</th><th>${window.tData('Service')}</th><th>${window.tData('Message')}</th><th>${window.tData('Severity')}</th></tr></thead>
-             <tbody>
-               <tr><td>2026-09-19 14:22</td><td>ImageProcessor</td><td>${window.tData('Failed to parse Dicom tag')}</td><td><span class="admin-badge badge-yellow">${window.tData('Warning')}</span></td></tr>
-               <tr><td>2026-09-18 09:15</td><td>SyncService</td><td>${window.tData('Network timeout during batch upload')}</td><td><span class="admin-badge badge-red">${window.tData('Error')}</span></td></tr>
-             </tbody>
-           </table>
-        </div>
-      `;
-    }
-
-    function renderTabSecurity(root) {
-      root.innerHTML = `
-        <div class="admin-tabs">
-          <div class="admin-tab active">${window.tData('Login Activity')}</div>
-          <div class="admin-tab">${window.tData('Roles & Permissions')}</div>
-          <div class="admin-tab">${window.tData('2FA Settings')}</div>
-        </div>
-        <div class="admin-card">
-           <div class="admin-card-header">
-             <h3 class="admin-card-title">${window.tData('Recent Login Activity')}</h3>
-           </div>
-           <table class="admin-table">
-             <thead><tr><th>${window.tData('User')}</th><th>${window.tData('IP Address')}</th><th>${window.tData('Device')}</th><th>${window.tData('Timestamp')}</th><th>${window.tData('Status')}</th></tr></thead>
-             <tbody>
-               <tr><td>admin@drishkalyan.in</td><td>192.168.1.1</td><td>Windows - Chrome</td><td>${window.tData('Just now')}</td><td><span class="admin-badge badge-green">${window.tData('Success')}</span></td></tr>
-               <tr><td>${window.tData('PHC-001')}</td><td>10.0.0.45</td><td>Android Tablet</td><td>${window.tData('2 hours ago')}</td><td><span class="admin-badge badge-green">${window.tData('Success')}</span></td></tr>
-               <tr><td>unknown@test.com</td><td>145.22.x.x</td><td>Unknown</td><td>${window.tData('5 hours ago')}</td><td><span class="admin-badge badge-red">${window.tData('Failed')}</span></td></tr>
-             </tbody>
-           </table>
-        </div>
-      `;
-    }
-
-    function renderTabSettings(root) {
-      root.innerHTML = `
-        <div class="admin-tabs">
-          <div class="admin-tab active">${window.tData('General')}</div>
-          <div class="admin-tab">${window.tData('Email SMTP')}</div>
-          <div class="admin-tab">${window.tData('Notifications')}</div>
-          <div class="admin-tab">${window.tData('Maintenance')}</div>
-        </div>
-        <div class="admin-card">
-          <h3 class="admin-card-title" style="margin-bottom:20px;">${window.tData('General Settings')}</h3>
-          <div style="display:flex; flex-direction:column; gap:16px; max-width: 600px;">
-             <div><label style="display:block;margin-bottom:8px;font-weight:600;font-size:0.875rem;">${window.tData('Platform Name')}</label><input type="text" class="form-input" value="DRISH KALYAN Admin"></div>
-             <div><label style="display:block;margin-bottom:8px;font-weight:600;font-size:0.875rem;">${window.tData('Contact Email')}</label><input type="email" class="form-input" value="support@drishkalyan.in"></div>
-             <div><label style="display:block;margin-bottom:8px;font-weight:600;font-size:0.875rem;">${window.tData('Timezone')}</label>
-               <select class="form-input"><option>Asia/Kolkata (IST)</option></select>
-             </div>
-             <button class="btn btn-primary" style="align-self: flex-start;">${window.tData('Save Settings')}</button>
-          </div>
-        </div>
-      `;
-    }
-
-    function renderTabBackup(root) {
-      root.innerHTML = `
-        <div class="admin-card">
-           <div class="admin-card-header">
-             <h3 class="admin-card-title">${window.tData('System Backup & Recovery')}</h3>
-           </div>
-           <div style="background: #f8fafc; padding: 20px; border: 1px solid var(--border-gray); border-radius: 8px; margin-bottom: 24px;">
-             <h4 style="margin:0 0 12px 0; color: var(--slate-800);">${window.tData('Current Status')}</h4>
-             <div style="display:flex; flex-direction:column; gap:8px; font-size:0.9rem;">
-               <div><strong>${window.tData('Last Backup:')}</strong> 2026-09-19 02:00 IST</div>
-               <div><strong>${window.tData('Backup Size:')}</strong> 4.2 GB</div>
-               <div><strong>${window.tData('Next Scheduled:')}</strong> 2026-09-20 02:00 IST</div>
-             </div>
-           </div>
-           <div style="display:flex; gap:16px;">
-             <button class="btn btn-primary"><i data-lucide="database-backup" style="width:16px;height:16px;margin-right:6px;"></i> ${window.tData('Create Manual Backup')}</button>
-             <button class="btn btn-outline"><i data-lucide="download" style="width:16px;height:16px;margin-right:6px;"></i> ${window.tData('Download Latest')}</button>
-             <button class="btn btn-outline" style="color:#dc2626; border-color:#dc2626;"><i data-lucide="history" style="width:16px;height:16px;margin-right:6px;"></i> ${window.tData('Restore')}</button>
-           </div>
-        </div>
-      `;
-    }
-
-    // --- Helpers ---
-    function kpiCard(icon, title, value, badgeClass = 'badge-gray') {
-      return `
-        <div class="admin-card" style="padding:16px; margin-bottom:0;">
-          <div style="display:flex; justify-content:space-between; align-items:flex-start; margin-bottom:12px;">
-            <div style="color:var(--slate-500); font-weight:500; font-size:0.875rem;">${title}</div>
-            <i data-lucide="${icon}" style="color:var(--med-teal); width:20px;height:20px;"></i>
-          </div>
-          <div style="font-size:1.75rem; font-weight:700; color:var(--slate-800); margin-bottom:4px;">${value}</div>
-        </div>
-      `;
-    }
-
-    function notificationRow(icon, message, time, badgeClass = 'badge-gray') {
-      return `
-        <div style="display:flex; align-items:center; gap:16px; padding:12px; background:#f8fafc; border:1px solid var(--border-gray); border-radius:6px;">
-          <div class="admin-badge ${badgeClass}" style="width:32px;height:32px; display:flex; align-items:center; justify-content:center; padding:0; border-radius:50%;">
-            <i data-lucide="${icon}" style="width:16px;height:16px;"></i>
-          </div>
-          <div style="flex:1;">
-            <div style="font-size:0.9rem; color:var(--slate-800); font-weight:500;">${message}</div>
-            <div style="font-size:0.75rem; color:var(--slate-500);">${time}</div>
-          </div>
-        </div>
-      `;
-    }
-
-    // Trigger initial tab
     switchTab('dashboard');
   });
 }
