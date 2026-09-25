@@ -297,18 +297,37 @@ export class StorageService {
 
   // --- Admin Authentication ---
   static verifyAdminLogin(email, password) {
-    const ADMIN_EMAIL = 'synapse.official.2026@gmail.com';
-    const ADMIN_PASSWORD = '987654321';
-    
-    if (email === ADMIN_EMAIL && password === ADMIN_PASSWORD) {
+    const normInput = (email || '').trim().toLowerCase();
+    const ALLOWED_ADMINS = [
+      { id: 'ayush.in', name: 'Ayush', email: 'Ayush.in' },
+      { id: 'pawan.in', name: 'Pawan', email: 'Pawan.in' },
+      { id: 'prakhar.in', name: 'Prakhar', email: 'Prakhar.in' },
+      { id: 'ishika.in', name: 'Ishika', email: 'Ishika.in' },
+      { id: 'bhoomi.in', name: 'Bhoomi', email: 'Bhoomi.in' },
+      { id: 'aditya.in', name: 'Aditya', email: 'Aditya.in' },
+      { id: 'admin@drishkalyan.in', name: 'Administrator', email: 'admin@drishkalyan.in' }
+    ];
+
+    const match = ALLOWED_ADMINS.find(a => a.id.toLowerCase() === normInput);
+
+    if (match && (password === '987654321' || password === 'DrishKalyan@Admin2026')) {
       safeSet('drishkalyan_admin_session_v1', JSON.stringify({
-        email,
-        name: 'DRISH KALYAN Administrator',
+        email: match.email,
+        name: match.name,
         timestamp: new Date().toISOString()
       }));
       return { success: true };
     }
     return { success: false, message: 'Invalid admin credentials' };
+  }
+
+  static getAdminSession() {
+    try {
+      const data = localStorage.getItem('drishkalyan_admin_session_v1');
+      return data ? JSON.parse(data) : null;
+    } catch {
+      return null;
+    }
   }
 
   static isAdminLoggedIn() {

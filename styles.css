@@ -111,6 +111,24 @@ h1, h2, h3, h4, h5, h6 {
   padding: 1.5rem 1.25rem 3rem;
 }
 
+/* Full Screen Layout Override for Admin Dashboard View */
+.main-content-wrapper:has(#view-admin-dashboard.active),
+body:has(#view-admin-dashboard.active) .main-content-wrapper {
+  max-width: 100% !important;
+  width: 100vw !important;
+  margin: 0 !important;
+  padding: 0 !important;
+  overflow: hidden !important;
+}
+
+#view-admin-dashboard.active {
+  width: 100vw !important;
+  height: 100vh !important;
+  margin: 0 !important;
+  padding: 0 !important;
+  overflow: hidden !important;
+}
+
 .app-view {
   display: none;
   animation: fadeIn 0.25s ease-out forwards;

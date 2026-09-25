@@ -1,6 +1,6 @@
 /**
  * Drish Kalyan — Clinical Screening Report Modal Component
- * Renders the official Drishti Kalyan PDF report format both on screen and print.
+ * Renders the official Drish Kalyan PDF report format both on screen and print.
  */
 
 import { DR_SEVERITY_LEVELS } from '../types.js';
@@ -44,7 +44,7 @@ export function openReportModal(screeningCase, onClose) {
         </div>
       </div>
 
-      <!-- OFFICIAL DRISHTI KALYAN PDF REPORT BODY (Renders on Screen & PDF Print) -->
+      <!-- OFFICIAL DRISH KALYAN PDF REPORT BODY (Renders on Screen & PDF Print) -->
       <div class="official-pdf-report-wrapper" style="padding:1.5rem 1.75rem 2rem; max-height:82vh; overflow-y:auto; background:#ffffff; font-family:'Inter', sans-serif;">
         
         <!-- HEADER WAVE BANNER -->
