@@ -70,15 +70,28 @@ export const QUALITY_STATUS = {
 export const SCREENING_CENTRES = [
   'PHC Bareilly — Primary Health Centre (District Bareilly)',
   'CHC Nawabganj — Community Health Centre (District Bareilly)',
-  'District Hospital Bareilly — Tele-Ophthalmology Hub',
+  'District Hospital Bareilly — Tele-Ophthalmology Hub (Bareilly)',
   '300 Bed Hospital Bareilly — Super Specialty Hub (District Bareilly)',
-  'CHC Faridpur — Community Health Centre (District Bareilly)',
-  'PHC Rampur — Primary Health Centre (District Ballia)',
-  'CHC Kotdwar — Community Health Centre (Pauri Garhwal)',
-  'Mobile Retinal Van #3 — Kutch Rural Outreach',
-  'Sub-Centre Dharampur — Primary Clinic (Varanasi)',
-  'PHC Sunderbans — Delta Medical Station',
-  'Tele-Ophthalmology Hub — AIIMS Outreach'
+  'CHC Lucknow — Community Health Centre (District Lucknow)',
+  'Sun Eye Hospital & Laser Centre — Tele-Hub (District Lucknow)',
+  'PHC Tilhar — Primary Health Centre (District Shahjahanpur)',
+  'Jagmohan Lal Eye Hospital — Tele-Hub (District Shahjahanpur)',
+  'PHC Misrikh — Primary Health Centre (District Sitapur)',
+  'Sitapur Eye Hospital — Tele-Ophthalmology Hub (District Sitapur)',
+  'PHC Dharampur — Primary Health Centre (District Varanasi)',
+  'Shree Hanumant Vision Care — Tele-Hub (District Varanasi)',
+  'CHC Gorakhpur — Community Health Centre (District Gorakhpur)',
+  'Gorakhpur Eye Hospital — Tele-Hub (District Gorakhpur)',
+  'PHC Badaun — Primary Health Centre (District Badaun)',
+  'District Hospital Badaun — Tele-Ophthalmology Hub (Badaun)',
+  'PHC Pilibhit — Primary Health Centre (District Pilibhit)',
+  'Pilibhit Eye Centre — Tele-Hub (District Pilibhit)',
+  'PHC Hardoi — Primary Health Centre (District Hardoi)',
+  'Hardoi Eye Centre — Tele-Hub (District Hardoi)',
+  'PHC Patna — Primary Health Centre (District Patna)',
+  'Sharp Sight Eye Hospital — Tele-Hub (District Patna)',
+  'PHC Bhopal — Primary Health Centre (District Bhopal)',
+  'Ajwani Eye Care — Tele-Hub (District Bhopal)'
 ];
 
 export const DISTRICT_OPHTHALMOLOGISTS = {

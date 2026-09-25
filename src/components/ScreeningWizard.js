@@ -7,7 +7,7 @@
 import { ImageProcessor } from '../services/imageProcessor.js';
 import { AIService } from '../services/aiService.js';
 import { StorageService } from '../services/storageService.js';
-import { SCREENING_CENTRES, DR_SEVERITY_LEVELS } from '../types.js';
+import { SCREENING_CENTRES, DR_SEVERITY_LEVELS, DISTRICT_OPHTHALMOLOGISTS } from '../types.js';
 import { TransliterationService } from '../services/transliterationService.js';
 
 export function renderScreeningWizard(container, onCompleteScreening, onOpenReport) {
@@ -1418,10 +1418,107 @@ export function renderScreeningWizard(container, onCompleteScreening, onOpenRepo
     });
 
     target.querySelector('#step6-send-doctor-btn').addEventListener('click', () => {
-      if (window.drishKalyan) {
-        window.drishKalyan.showToast(`${window.t('wiz.s6.toastQueued')}`);
+      // Detect district from patient selected centre
+      let detectedDist = 'Bareilly';
+      const centreStr = patientData.centre || '';
+      for (const dKey of Object.keys(DISTRICT_OPHTHALMOLOGISTS)) {
+        if (centreStr.toLowerCase().includes(dKey.toLowerCase())) {
+          detectedDist = dKey;
+          break;
+        }
       }
-      onCompleteScreening(screeningRecord);
+
+      const distData = DISTRICT_OPHTHALMOLOGISTS[detectedDist] || DISTRICT_OPHTHALMOLOGISTS['Bareilly'];
+      const docList = distData.doctors || [{ name: distData.doctorName, hospital: distData.hospital, speciality: distData.speciality, mciNo: distData.mciNo }];
+
+      // Build Tele-Ophthalmologist Selection Modal Overlay
+      const modalOverlay = document.createElement('div');
+      modalOverlay.className = 'modal-overlay';
+      modalOverlay.style.cssText = 'position:fixed; top:0; left:0; right:0; bottom:0; background:rgba(15,23,42,0.65); backdrop-filter:blur(4px); display:flex; align-items:center; justify-content:center; z-index:9999; animation:fadeIn 0.15s ease;';
+
+      modalOverlay.innerHTML = `
+        <div class="card" style="max-width:540px; width:92%; background:white; border-radius:12px; padding:1.5rem; box-shadow:0 20px 25px -5px rgba(0,0,0,0.25);">
+          <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:1rem; border-bottom:1px solid #e2e8f0; padding-bottom:0.75rem;">
+            <div style="display:flex; align-items:center; gap:0.6rem;">
+              <div style="width:36px; height:36px; border-radius:50%; background:#f0fdfa; border:1px solid #10b981; display:flex; align-items:center; justify-content:center; color:#059669;">
+                <i data-lucide="stethoscope" style="width:20px;height:20px;"></i>
+              </div>
+              <div>
+                <h3 style="margin:0; font-size:1.05rem; font-weight:700; color:#0f172a;">Select Empaneled Ophthalmologist</h3>
+                <div style="font-size:0.75rem; color:#64748b;">District Hub: <strong>${distData.district} (${distData.state})</strong></div>
+              </div>
+            </div>
+            <button id="close-doc-modal" style="background:none; border:none; color:#64748b; cursor:pointer; font-size:1.2rem; line-height:1;">✕</button>
+          </div>
+
+          <p style="font-size:0.8125rem; color:#334155; margin-bottom:1rem; line-height:1.4;">
+            Select the specialist retina doctor in <strong>${distData.district}</strong> to route this digital screening for clinical verification & report sign-off:
+          </p>
+
+          <div style="display:flex; flex-direction:column; gap:0.75rem; margin-bottom:1.5rem; max-height:260px; overflow-y:auto; padding-right:4px;">
+            ${docList.map((doc, idx) => `
+              <label class="doc-radio-option" style="display:flex; align-items:flex-start; gap:0.75rem; padding:0.85rem; border:1.5px solid ${idx === 0 ? '#0d9488' : '#cbd5e1'}; border-radius:8px; background:${idx === 0 ? '#f0fdfa' : '#ffffff'}; cursor:pointer; transition:0.15s;">
+                <input type="radio" name="selected-doc-radio" value="${idx}" ${idx === 0 ? 'checked' : ''} style="margin-top:3px; accent-color:#0d9488;">
+                <div>
+                  <div style="font-weight:700; font-size:0.9rem; color:#0f172a;">${doc.name}</div>
+                  <div style="font-size:0.775rem; color:#0d9488; font-weight:600;">🏥 ${doc.hospital}</div>
+                  <div style="font-size:0.7rem; color:#64748b; margin-top:2px;">${doc.speciality} • Reg: ${doc.mciNo}</div>
+                </div>
+              </label>
+            `).join('')}
+          </div>
+
+          <div style="display:flex; justify-content:flex-end; gap:0.75rem; border-top:1px solid #e2e8f0; padding-top:1rem;">
+            <button class="btn btn-secondary" id="cancel-doc-modal">Cancel</button>
+            <button class="btn btn-primary" id="confirm-doc-modal" style="background:#0d9488; border-color:#0d9488;">
+              <i data-lucide="send" style="width:16px;height:16px;"></i> Send Case to Doctor ➔
+            </button>
+          </div>
+        </div>
+      `;
+
+      document.body.appendChild(modalOverlay);
+      if (window.lucide) window.lucide.createIcons();
+
+      // Radio selection styling highlight listener
+      modalOverlay.querySelectorAll('input[name="selected-doc-radio"]').forEach(r => {
+        r.addEventListener('change', () => {
+          modalOverlay.querySelectorAll('.doc-radio-option').forEach(opt => {
+            opt.style.borderColor = '#cbd5e1';
+            opt.style.background = '#ffffff';
+          });
+          const parent = r.closest('.doc-radio-option');
+          if (parent) {
+            parent.style.borderColor = '#0d9488';
+            parent.style.background = '#f0fdfa';
+          }
+        });
+      });
+
+      const closeModal = () => modalOverlay.remove();
+
+      modalOverlay.querySelector('#close-doc-modal').onclick = closeModal;
+      modalOverlay.querySelector('#cancel-doc-modal').onclick = closeModal;
+
+      modalOverlay.querySelector('#confirm-doc-modal').onclick = () => {
+        const selectedRadio = modalOverlay.querySelector('input[name="selected-doc-radio"]:checked');
+        const selectedIdx = selectedRadio ? parseInt(selectedRadio.value) : 0;
+        const chosenDoc = docList[selectedIdx] || docList[0];
+
+        screeningRecord.doctorReview = {
+          status: 'Pending',
+          reviewedBy: `${chosenDoc.name} (${chosenDoc.hospital})`,
+          notes: ''
+        };
+
+        StorageService.saveScreening(screeningRecord);
+        closeModal();
+
+        if (window.drishKalyan) {
+          window.drishKalyan.showToast(`✅ Case routed to ${chosenDoc.name} (${chosenDoc.hospital})`);
+        }
+        onCompleteScreening(screeningRecord);
+      };
     });
   }
 
