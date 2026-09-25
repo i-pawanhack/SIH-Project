@@ -76,8 +76,6 @@ export const SCREENING_CENTRES = [
   'Sun Eye Hospital & Laser Centre — Tele-Hub (District Lucknow)',
   'PHC Tilhar — Primary Health Centre (District Shahjahanpur)',
   'Jagmohan Lal Eye Hospital — Tele-Hub (District Shahjahanpur)',
-  'PHC Misrikh — Primary Health Centre (District Sitapur)',
-  'Sitapur Eye Hospital — Tele-Ophthalmology Hub (District Sitapur)',
   'PHC Dharampur — Primary Health Centre (District Varanasi)',
   'Shree Hanumant Vision Care — Tele-Hub (District Varanasi)',
   'CHC Gorakhpur — Community Health Centre (District Gorakhpur)',
@@ -87,11 +85,7 @@ export const SCREENING_CENTRES = [
   'PHC Pilibhit — Primary Health Centre (District Pilibhit)',
   'Pilibhit Eye Centre — Tele-Hub (District Pilibhit)',
   'PHC Hardoi — Primary Health Centre (District Hardoi)',
-  'Hardoi Eye Centre — Tele-Hub (District Hardoi)',
-  'PHC Patna — Primary Health Centre (District Patna)',
-  'Sharp Sight Eye Hospital — Tele-Hub (District Patna)',
-  'PHC Bhopal — Primary Health Centre (District Bhopal)',
-  'Ajwani Eye Care — Tele-Hub (District Bhopal)'
+  'Hardoi Eye Centre — Tele-Hub (District Hardoi)'
 ];
 
 export const DISTRICT_OPHTHALMOLOGISTS = {
@@ -130,17 +124,6 @@ export const DISTRICT_OPHTHALMOLOGISTS = {
     doctors: [
       { name: 'Dr. Manmohan Lal Gupta', hospital: 'Jagmohan Lal Eye & ENT Hospital', speciality: 'Ophthalmologist', mciNo: 'MCI-UP-39182' },
       { name: 'Dr. Rupesh Seth', hospital: 'Kunti Devi Eye Hospital', speciality: 'Eye Care Specialist', mciNo: 'MCI-UP-49821' }
-    ]
-  },
-  'Sitapur': {
-    district: 'Sitapur',
-    state: 'Uttar Pradesh',
-    doctorName: 'Col. (Dr.) Madhu Bhadauria',
-    hospital: 'Sitapur Eye Hospital',
-    speciality: 'Ophthalmologist & Director',
-    mciNo: 'MCI-UP-61044',
-    doctors: [
-      { name: 'Col. (Dr.) Madhu Bhadauria', hospital: 'Sitapur Eye Hospital', speciality: 'Ophthalmologist & Director', mciNo: 'MCI-UP-61044' }
     ]
   },
   'Varanasi': {
@@ -201,28 +184,6 @@ export const DISTRICT_OPHTHALMOLOGISTS = {
     doctors: [
       { name: 'Dr. Vinod Kumar Kashyap', hospital: 'Hardoi Eye Centre', speciality: 'Eye Specialist', mciNo: 'MCI-UP-46102' },
       { name: 'Dr. Dilpreet Singh', hospital: 'Angel Eyes Institute of Ophthalmology / Eye Care', speciality: 'Retinal & Refractive Specialist', mciNo: 'MCI-UP-59012' }
-    ]
-  },
-  'Patna': {
-    district: 'Patna',
-    state: 'Bihar',
-    doctorName: 'Dr. Rajneesh Sinha',
-    hospital: 'Sharp Sight Eye Hospital',
-    speciality: 'Vitreoretinal Surgeon',
-    mciNo: 'MCI-BR-38291',
-    doctors: [
-      { name: 'Dr. Rajneesh Sinha', hospital: 'Sharp Sight Eye Hospital', speciality: 'Vitreoretinal Surgeon', mciNo: 'MCI-BR-38291' }
-    ]
-  },
-  'Bhopal': {
-    district: 'Bhopal',
-    state: 'Madhya Pradesh',
-    doctorName: 'Dr. M. K. Ajwani',
-    hospital: 'Ajwani Eye Care',
-    speciality: 'Senior Eye Surgeon',
-    mciNo: 'MCI-MP-29104',
-    doctors: [
-      { name: 'Dr. M. K. Ajwani', hospital: 'Ajwani Eye Care', speciality: 'Senior Eye Surgeon', mciNo: 'MCI-MP-29104' }
     ]
   }
 };

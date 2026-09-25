@@ -1000,9 +1000,9 @@ export function renderAdminDashboardView(container, onNavigate) {
                   <td>6</td>
                   <td><span class="dk-badge badge-active">● Active</span></td>
                 </tr>
-                <tr data-phc="Misrikh" data-district="Sitapur">
-                  <td><strong>PHC Misrikh</strong></td>
-                  <td>Sitapur</td>
+                <tr data-phc="Badaun" data-district="Badaun">
+                  <td><strong>PHC Badaun</strong></td>
+                  <td>Badaun</td>
                   <td>308</td>
                   <td>25</td>
                   <td>14</td>
@@ -1170,12 +1170,9 @@ export function renderAdminDashboardView(container, onNavigate) {
         'Shahjahanpur': { state: 'Uttar Pradesh', phcs: 18, screenings: '3,045', suspected: 42, pending: 12, status: 'Needs Attention', color: '#ef4444' },
         'Varanasi': { state: 'Uttar Pradesh', phcs: 22, screenings: '2,810', suspected: 28, pending: 6, status: 'Active', color: '#10b981' },
         'Gorakhpur': { state: 'Uttar Pradesh', phcs: 24, screenings: '2,182', suspected: 35, pending: 9, status: 'Sync Pending', color: '#f59e0b' },
-        'Sitapur': { state: 'Uttar Pradesh', phcs: 10, screenings: '1,890', suspected: 22, pending: 4, status: 'Active', color: '#10b981' },
         'Badaun': { state: 'Uttar Pradesh', phcs: 14, screenings: '2,110', suspected: 25, pending: 5, status: 'Active', color: '#10b981' },
         'Pilibhit': { state: 'Uttar Pradesh', phcs: 11, screenings: '1,720', suspected: 19, pending: 4, status: 'Active', color: '#10b981' },
-        'Hardoi': { state: 'Uttar Pradesh', phcs: 16, screenings: '2,340', suspected: 29, pending: 6, status: 'Active', color: '#10b981' },
-        'Patna': { state: 'Bihar', phcs: 15, screenings: '2,450', suspected: 30, pending: 8, status: 'Active', color: '#10b981' },
-        'Bhopal': { state: 'Madhya Pradesh', phcs: 10, screenings: '1,650', suspected: 18, pending: 3, status: 'Active', color: '#10b981' }
+        'Hardoi': { state: 'Uttar Pradesh', phcs: 16, screenings: '2,340', suspected: 29, pending: 6, status: 'Active', color: '#10b981' }
       };
 
       // FUNCTION TO DYNAMICALLY RENDER THE MAP (INDIA MAP vs DISTRICT POLYGON MAP)
@@ -1200,12 +1197,9 @@ export function renderAdminDashboardView(container, onNavigate) {
                 <option value="Shahjahanpur">Shahjahanpur (UP) — 2 Doctors</option>
                 <option value="Varanasi">Varanasi (UP) — 2 Doctors</option>
                 <option value="Gorakhpur">Gorakhpur (UP) — 2 Doctors</option>
-                <option value="Sitapur">Sitapur (UP) — 1 Doctor</option>
                 <option value="Badaun">Badaun (UP) — 2 Doctors</option>
                 <option value="Pilibhit">Pilibhit (UP) — 2 Doctors</option>
                 <option value="Hardoi">Hardoi (UP) — 2 Doctors</option>
-                <option value="Patna">Patna (Bihar) — 1 Doctor</option>
-                <option value="Bhopal">Bhopal (MP) — 1 Doctor</option>
               </select>
             </div>
 
@@ -1652,7 +1646,7 @@ export function renderAdminDashboardView(container, onNavigate) {
           name: 'Savitri Sharma',
           age: 54,
           gender: 'Female',
-          phc: 'PHC Misrikh (Sitapur)',
+          phc: 'PHC Hardoi (Hardoi)',
           aiStage: 4,
           aiTitle: 'Proliferative DR',
           aiConf: '97.4%',
@@ -2012,16 +2006,7 @@ export function renderAdminDashboardView(container, onNavigate) {
                   <td><span class="dk-badge badge-active">● Active</span></td>
                   <td><button class="dk-btn dk-btn-secondary" style="font-size:0.65rem;">View Profile</button></td>
                 </tr>
-                <tr>
-                  <td><strong>Col. (Dr.) Madhu Bhadauria</strong></td>
-                  <td>Sitapur Eye Hospital (Sitapur)</td>
-                  <td>Ophthalmologist & Director</td>
-                  <td>1,210</td>
-                  <td>12 mins</td>
-                  <td>97.9%</td>
-                  <td><span class="dk-badge badge-active">● Active</span></td>
-                  <td><button class="dk-btn dk-btn-secondary" style="font-size:0.65rem;">View Profile</button></td>
-                </tr>
+
                 <tr>
                   <td><strong>Dr. Praveen Kumar Chaturvedi</strong></td>
                   <td>Shree Hanumant Vision Care (Varanasi)</td>
