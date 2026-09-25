@@ -83,68 +83,134 @@ export const SCREENING_CENTRES = [
 
 export const DISTRICT_OPHTHALMOLOGISTS = {
   'Bareilly': {
-    doctorName: 'Dr. Sanjeev Kohli',
-    hospital: 'Amritsar Eye Centre',
     district: 'Bareilly',
     state: 'Uttar Pradesh',
+    doctorName: 'Dr. Sanjeev Kohli',
+    hospital: 'Amritsar Eye Centre',
     speciality: 'Vitreoretinal Specialist',
-    mciNo: 'MCI-UP-48210'
+    mciNo: 'MCI-UP-48210',
+    doctors: [
+      { name: 'Dr. Sanjeev Kohli', hospital: 'Amritsar Eye Centre', speciality: 'Vitreoretinal Specialist', mciNo: 'MCI-UP-48210' },
+      { name: 'Dr. Vasu Kumar Saxena', hospital: 'Dr. Vasu Eye Hospital', speciality: 'Eye Surgeon & Ophthalmologist', mciNo: 'MCI-UP-52190' },
+      { name: 'Dr. Kapil Agarwal', hospital: 'EyNova Eye Hospital', speciality: 'Cataract & Refractive Specialist', mciNo: 'MCI-UP-58312' }
+    ]
   },
   'Lucknow': {
-    doctorName: 'Dr. Sudhir Srivastava',
-    hospital: 'Sun Eye Hospital and Laser Centre',
     district: 'Lucknow',
     state: 'Uttar Pradesh',
+    doctorName: 'Dr. Sudhir Srivastava',
+    hospital: 'Sun Eye Hospital & Laser Centre',
     speciality: 'Ophthalmologist & Laser Specialist',
-    mciNo: 'MCI-UP-55102'
+    mciNo: 'MCI-UP-55102',
+    doctors: [
+      { name: 'Dr. Sudhir Srivastava', hospital: 'Sun Eye Hospital & Laser Centre', speciality: 'Ophthalmologist & Laser Specialist', mciNo: 'MCI-UP-55102' },
+      { name: 'Dr. Vinay Kumar Garg', hospital: 'Garg Ophthalmic Centre', speciality: 'Senior Eye Specialist', mciNo: 'MCI-UP-41920' }
+    ]
   },
   'Shahjahanpur': {
-    doctorName: 'Dr. Manmohan Lal Gupta',
-    hospital: 'Jagmohan Lal Eye & ENT Hospital',
     district: 'Shahjahanpur',
     state: 'Uttar Pradesh',
+    doctorName: 'Dr. Manmohan Lal Gupta',
+    hospital: 'Jagmohan Lal Eye & ENT Hospital',
     speciality: 'Ophthalmologist',
-    mciNo: 'MCI-UP-39182'
+    mciNo: 'MCI-UP-39182',
+    doctors: [
+      { name: 'Dr. Manmohan Lal Gupta', hospital: 'Jagmohan Lal Eye & ENT Hospital', speciality: 'Ophthalmologist', mciNo: 'MCI-UP-39182' },
+      { name: 'Dr. Rupesh Seth', hospital: 'Kunti Devi Eye Hospital', speciality: 'Eye Care Specialist', mciNo: 'MCI-UP-49821' }
+    ]
   },
   'Sitapur': {
-    doctorName: 'Col. (Dr.) Madhu Bhadauria',
-    hospital: 'Sitapur Eye Hospital',
     district: 'Sitapur',
     state: 'Uttar Pradesh',
+    doctorName: 'Col. (Dr.) Madhu Bhadauria',
+    hospital: 'Sitapur Eye Hospital',
     speciality: 'Ophthalmologist & Director',
-    mciNo: 'MCI-UP-61044'
+    mciNo: 'MCI-UP-61044',
+    doctors: [
+      { name: 'Col. (Dr.) Madhu Bhadauria', hospital: 'Sitapur Eye Hospital', speciality: 'Ophthalmologist & Director', mciNo: 'MCI-UP-61044' }
+    ]
   },
   'Varanasi': {
-    doctorName: 'Dr. Praveen Kumar Chaturvedi',
-    hospital: 'Shree Hanumant Vision Care',
     district: 'Varanasi',
     state: 'Uttar Pradesh',
+    doctorName: 'Dr. Praveen Kumar Chaturvedi',
+    hospital: 'Shree Hanumant Vision Care',
     speciality: 'Retina Specialist',
-    mciNo: 'MCI-UP-44910'
+    mciNo: 'MCI-UP-44910',
+    doctors: [
+      { name: 'Dr. Praveen Kumar Chaturvedi', hospital: 'Shree Hanumant Vision Care', speciality: 'Retina Specialist', mciNo: 'MCI-UP-44910' },
+      { name: 'Dr. Priyanka Jain', hospital: 'Jain Netralaya', speciality: 'Ophthalmologist', mciNo: 'MCI-UP-53210' }
+    ]
   },
   'Gorakhpur': {
-    doctorName: 'Dr. Rahul Agrawal',
-    hospital: 'Gorakhpur Eye Hospital',
     district: 'Gorakhpur',
     state: 'Uttar Pradesh',
+    doctorName: 'Dr. Rahul Agrawal',
+    hospital: 'Gorakhpur Eye Hospital',
     speciality: 'Ophthalmologist',
-    mciNo: 'MCI-UP-51023'
+    mciNo: 'MCI-UP-51023',
+    doctors: [
+      { name: 'Dr. Rahul Agrawal', hospital: 'Gorakhpur Eye Hospital', speciality: 'Ophthalmologist', mciNo: 'MCI-UP-51023' },
+      { name: 'Dr. B. N. Gupta', hospital: 'Gupta Eye Hospital', speciality: 'Eye Surgeon', mciNo: 'MCI-UP-38102' }
+    ]
+  },
+  'Badaun': {
+    district: 'Badaun',
+    state: 'Uttar Pradesh',
+    doctorName: 'Dr. Ashok Kumar',
+    hospital: 'District Hospital / Eye Specialist',
+    speciality: 'Senior Medical Officer / Eye Specialist',
+    mciNo: 'MCI-UP-47120',
+    doctors: [
+      { name: 'Dr. Ashok Kumar', hospital: 'District Hospital / Eye Specialist', speciality: 'Senior Medical Officer / Eye Specialist', mciNo: 'MCI-UP-47120' },
+      { name: 'Dr. Dileep Varshney', hospital: 'Varshney Eye Clinic', speciality: 'Eye Specialist', mciNo: 'MCI-UP-50291' }
+    ]
+  },
+  'Pilibhit': {
+    district: 'Pilibhit',
+    state: 'Uttar Pradesh',
+    doctorName: 'Dr. Dayanand Singh',
+    hospital: 'Pilibhit Eye Centre',
+    speciality: 'Ophthalmologist',
+    mciNo: 'MCI-UP-43290',
+    doctors: [
+      { name: 'Dr. Dayanand Singh', hospital: 'Pilibhit Eye Centre', speciality: 'Ophthalmologist', mciNo: 'MCI-UP-43290' },
+      { name: 'Dr. Vipin Sahani', hospital: 'Kaushalya Devi Eye Hospital', speciality: 'Eye Surgeon', mciNo: 'MCI-UP-57819' }
+    ]
+  },
+  'Hardoi': {
+    district: 'Hardoi',
+    state: 'Uttar Pradesh',
+    doctorName: 'Dr. Vinod Kumar Kashyap',
+    hospital: 'Hardoi Eye Centre',
+    speciality: 'Eye Specialist',
+    mciNo: 'MCI-UP-46102',
+    doctors: [
+      { name: 'Dr. Vinod Kumar Kashyap', hospital: 'Hardoi Eye Centre', speciality: 'Eye Specialist', mciNo: 'MCI-UP-46102' },
+      { name: 'Dr. Dilpreet Singh', hospital: 'Angel Eyes Institute of Ophthalmology / Eye Care', speciality: 'Retinal & Refractive Specialist', mciNo: 'MCI-UP-59012' }
+    ]
   },
   'Patna': {
-    doctorName: 'Dr. Rajneesh Sinha',
-    hospital: 'Sharp Sight Eye Hospital',
     district: 'Patna',
     state: 'Bihar',
+    doctorName: 'Dr. Rajneesh Sinha',
+    hospital: 'Sharp Sight Eye Hospital',
     speciality: 'Vitreoretinal Surgeon',
-    mciNo: 'MCI-BR-38291'
+    mciNo: 'MCI-BR-38291',
+    doctors: [
+      { name: 'Dr. Rajneesh Sinha', hospital: 'Sharp Sight Eye Hospital', speciality: 'Vitreoretinal Surgeon', mciNo: 'MCI-BR-38291' }
+    ]
   },
   'Bhopal': {
-    doctorName: 'Dr. M. K. Ajwani',
-    hospital: 'Ajwani Eye Care',
     district: 'Bhopal',
     state: 'Madhya Pradesh',
+    doctorName: 'Dr. M. K. Ajwani',
+    hospital: 'Ajwani Eye Care',
     speciality: 'Senior Eye Surgeon',
-    mciNo: 'MCI-MP-29104'
+    mciNo: 'MCI-MP-29104',
+    doctors: [
+      { name: 'Dr. M. K. Ajwani', hospital: 'Ajwani Eye Care', speciality: 'Senior Eye Surgeon', mciNo: 'MCI-MP-29104' }
+    ]
   }
 };
 

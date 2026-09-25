@@ -1171,6 +1171,9 @@ export function renderAdminDashboardView(container, onNavigate) {
         'Varanasi': { state: 'Uttar Pradesh', phcs: 22, screenings: '2,810', suspected: 28, pending: 6, status: 'Active', color: '#10b981' },
         'Gorakhpur': { state: 'Uttar Pradesh', phcs: 24, screenings: '2,182', suspected: 35, pending: 9, status: 'Sync Pending', color: '#f59e0b' },
         'Sitapur': { state: 'Uttar Pradesh', phcs: 10, screenings: '1,890', suspected: 22, pending: 4, status: 'Active', color: '#10b981' },
+        'Badaun': { state: 'Uttar Pradesh', phcs: 14, screenings: '2,110', suspected: 25, pending: 5, status: 'Active', color: '#10b981' },
+        'Pilibhit': { state: 'Uttar Pradesh', phcs: 11, screenings: '1,720', suspected: 19, pending: 4, status: 'Active', color: '#10b981' },
+        'Hardoi': { state: 'Uttar Pradesh', phcs: 16, screenings: '2,340', suspected: 29, pending: 6, status: 'Active', color: '#10b981' },
         'Patna': { state: 'Bihar', phcs: 15, screenings: '2,450', suspected: 30, pending: 8, status: 'Active', color: '#10b981' },
         'Bhopal': { state: 'Madhya Pradesh', phcs: 10, screenings: '1,650', suspected: 18, pending: 3, status: 'Active', color: '#10b981' }
       };
@@ -1192,14 +1195,17 @@ export function renderAdminDashboardView(container, onNavigate) {
               </h3>
               <select id="dk-map-district-select" style="font-size:0.65rem; background:#f0fdfa; border:1px solid #99f6e4; padding:2px 6px; border-radius:4px; font-weight:600; color:#0f766e; cursor:pointer;">
                 <option value="" disabled selected>Select District / State ▾</option>
-                <option value="Bareilly">Bareilly (UP)</option>
-                <option value="Lucknow">Lucknow (UP)</option>
-                <option value="Shahjahanpur">Shahjahanpur (UP)</option>
-                <option value="Varanasi">Varanasi (UP)</option>
-                <option value="Gorakhpur">Gorakhpur (UP)</option>
-                <option value="Sitapur">Sitapur (UP)</option>
-                <option value="Patna">Patna (Bihar)</option>
-                <option value="Bhopal">Bhopal (MP)</option>
+                <option value="Bareilly">Bareilly (UP) — 3 Doctors</option>
+                <option value="Lucknow">Lucknow (UP) — 2 Doctors</option>
+                <option value="Shahjahanpur">Shahjahanpur (UP) — 2 Doctors</option>
+                <option value="Varanasi">Varanasi (UP) — 2 Doctors</option>
+                <option value="Gorakhpur">Gorakhpur (UP) — 2 Doctors</option>
+                <option value="Sitapur">Sitapur (UP) — 1 Doctor</option>
+                <option value="Badaun">Badaun (UP) — 2 Doctors</option>
+                <option value="Pilibhit">Pilibhit (UP) — 2 Doctors</option>
+                <option value="Hardoi">Hardoi (UP) — 2 Doctors</option>
+                <option value="Patna">Patna (Bihar) — 1 Doctor</option>
+                <option value="Bhopal">Bhopal (MP) — 1 Doctor</option>
               </select>
             </div>
 
@@ -1947,12 +1953,42 @@ export function renderAdminDashboardView(container, onNavigate) {
                   <td><button class="dk-btn dk-btn-secondary" style="font-size:0.65rem;">View Profile</button></td>
                 </tr>
                 <tr>
+                  <td><strong>Dr. Vasu Kumar Saxena</strong></td>
+                  <td>Dr. Vasu Eye Hospital (Bareilly)</td>
+                  <td>Eye Surgeon & Ophthalmologist</td>
+                  <td>1,120</td>
+                  <td>12 mins</td>
+                  <td>97.8%</td>
+                  <td><span class="dk-badge badge-active">● Active</span></td>
+                  <td><button class="dk-btn dk-btn-secondary" style="font-size:0.65rem;">View Profile</button></td>
+                </tr>
+                <tr>
+                  <td><strong>Dr. Kapil Agarwal</strong></td>
+                  <td>EyNova Eye Hospital (Bareilly)</td>
+                  <td>Cataract & Refractive Specialist</td>
+                  <td>940</td>
+                  <td>15 mins</td>
+                  <td>96.9%</td>
+                  <td><span class="dk-badge badge-active">● Active</span></td>
+                  <td><button class="dk-btn dk-btn-secondary" style="font-size:0.65rem;">View Profile</button></td>
+                </tr>
+                <tr>
                   <td><strong>Dr. Sudhir Srivastava</strong></td>
-                  <td>Sun Eye Hospital and Laser Centre (Lucknow)</td>
+                  <td>Sun Eye Hospital & Laser Centre (Lucknow)</td>
                   <td>Ophthalmologist & Laser Specialist</td>
                   <td>980</td>
                   <td>18 mins</td>
                   <td>96.2%</td>
+                  <td><span class="dk-badge badge-active">● Active</span></td>
+                  <td><button class="dk-btn dk-btn-secondary" style="font-size:0.65rem;">View Profile</button></td>
+                </tr>
+                <tr>
+                  <td><strong>Dr. Vinay Kumar Garg</strong></td>
+                  <td>Garg Ophthalmic Centre (Lucknow)</td>
+                  <td>Senior Eye Specialist</td>
+                  <td>860</td>
+                  <td>16 mins</td>
+                  <td>95.4%</td>
                   <td><span class="dk-badge badge-active">● Active</span></td>
                   <td><button class="dk-btn dk-btn-secondary" style="font-size:0.65rem;">View Profile</button></td>
                 </tr>
@@ -1963,6 +1999,16 @@ export function renderAdminDashboardView(container, onNavigate) {
                   <td>1,150</td>
                   <td>11 mins</td>
                   <td>99.1%</td>
+                  <td><span class="dk-badge badge-active">● Active</span></td>
+                  <td><button class="dk-btn dk-btn-secondary" style="font-size:0.65rem;">View Profile</button></td>
+                </tr>
+                <tr>
+                  <td><strong>Dr. Rupesh Seth</strong></td>
+                  <td>Kunti Devi Eye Hospital (Shahjahanpur)</td>
+                  <td>Eye Care Specialist</td>
+                  <td>790</td>
+                  <td>13 mins</td>
+                  <td>96.1%</td>
                   <td><span class="dk-badge badge-active">● Active</span></td>
                   <td><button class="dk-btn dk-btn-secondary" style="font-size:0.65rem;">View Profile</button></td>
                 </tr>
@@ -1987,12 +2033,92 @@ export function renderAdminDashboardView(container, onNavigate) {
                   <td><button class="dk-btn dk-btn-secondary" style="font-size:0.65rem;">View Profile</button></td>
                 </tr>
                 <tr>
+                  <td><strong>Dr. Priyanka Jain</strong></td>
+                  <td>Jain Netralaya (Varanasi)</td>
+                  <td>Ophthalmologist</td>
+                  <td>830</td>
+                  <td>14 mins</td>
+                  <td>96.7%</td>
+                  <td><span class="dk-badge badge-active">● Active</span></td>
+                  <td><button class="dk-btn dk-btn-secondary" style="font-size:0.65rem;">View Profile</button></td>
+                </tr>
+                <tr>
                   <td><strong>Dr. Rahul Agrawal</strong></td>
                   <td>Gorakhpur Eye Hospital (Gorakhpur)</td>
                   <td>Ophthalmologist</td>
                   <td>890</td>
                   <td>15 mins</td>
                   <td>96.5%</td>
+                  <td><span class="dk-badge badge-active">● Active</span></td>
+                  <td><button class="dk-btn dk-btn-secondary" style="font-size:0.65rem;">View Profile</button></td>
+                </tr>
+                <tr>
+                  <td><strong>Dr. B. N. Gupta</strong></td>
+                  <td>Gupta Eye Hospital (Gorakhpur)</td>
+                  <td>Eye Surgeon</td>
+                  <td>740</td>
+                  <td>17 mins</td>
+                  <td>95.8%</td>
+                  <td><span class="dk-badge badge-active">● Active</span></td>
+                  <td><button class="dk-btn dk-btn-secondary" style="font-size:0.65rem;">View Profile</button></td>
+                </tr>
+                <tr>
+                  <td><strong>Dr. Ashok Kumar</strong></td>
+                  <td>District Hospital / Eye Specialist (Badaun)</td>
+                  <td>Senior Medical Officer / Eye Specialist</td>
+                  <td>910</td>
+                  <td>13 mins</td>
+                  <td>97.1%</td>
+                  <td><span class="dk-badge badge-active">● Active</span></td>
+                  <td><button class="dk-btn dk-btn-secondary" style="font-size:0.65rem;">View Profile</button></td>
+                </tr>
+                <tr>
+                  <td><strong>Dr. Dileep Varshney</strong></td>
+                  <td>Varshney Eye Clinic (Badaun)</td>
+                  <td>Eye Specialist</td>
+                  <td>680</td>
+                  <td>16 mins</td>
+                  <td>96.0%</td>
+                  <td><span class="dk-badge badge-active">● Active</span></td>
+                  <td><button class="dk-btn dk-btn-secondary" style="font-size:0.65rem;">View Profile</button></td>
+                </tr>
+                <tr>
+                  <td><strong>Dr. Dayanand Singh</strong></td>
+                  <td>Pilibhit Eye Centre (Pilibhit)</td>
+                  <td>Ophthalmologist</td>
+                  <td>850</td>
+                  <td>14 mins</td>
+                  <td>96.8%</td>
+                  <td><span class="dk-badge badge-active">● Active</span></td>
+                  <td><button class="dk-btn dk-btn-secondary" style="font-size:0.65rem;">View Profile</button></td>
+                </tr>
+                <tr>
+                  <td><strong>Dr. Vipin Sahani</strong></td>
+                  <td>Kaushalya Devi Eye Hospital (Pilibhit)</td>
+                  <td>Eye Surgeon</td>
+                  <td>620</td>
+                  <td>15 mins</td>
+                  <td>95.5%</td>
+                  <td><span class="dk-badge badge-active">● Active</span></td>
+                  <td><button class="dk-btn dk-btn-secondary" style="font-size:0.65rem;">View Profile</button></td>
+                </tr>
+                <tr>
+                  <td><strong>Dr. Vinod Kumar Kashyap</strong></td>
+                  <td>Hardoi Eye Centre (Hardoi)</td>
+                  <td>Eye Specialist</td>
+                  <td>890</td>
+                  <td>13 mins</td>
+                  <td>97.0%</td>
+                  <td><span class="dk-badge badge-active">● Active</span></td>
+                  <td><button class="dk-btn dk-btn-secondary" style="font-size:0.65rem;">View Profile</button></td>
+                </tr>
+                <tr>
+                  <td><strong>Dr. Dilpreet Singh</strong></td>
+                  <td>Angel Eyes Institute of Ophthalmology / Eye Care (Hardoi)</td>
+                  <td>Retinal & Refractive Specialist</td>
+                  <td>710</td>
+                  <td>14 mins</td>
+                  <td>96.4%</td>
                   <td><span class="dk-badge badge-active">● Active</span></td>
                   <td><button class="dk-btn dk-btn-secondary" style="font-size:0.65rem;">View Profile</button></td>
                 </tr>
