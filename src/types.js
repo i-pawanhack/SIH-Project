@@ -80,3 +80,71 @@ export const SCREENING_CENTRES = [
   'PHC Sunderbans — Delta Medical Station',
   'Tele-Ophthalmology Hub — AIIMS Outreach'
 ];
+
+export const DISTRICT_OPHTHALMOLOGISTS = {
+  'Bareilly': {
+    doctorName: 'Dr. Sanjeev Kohli',
+    hospital: 'Amritsar Eye Centre',
+    district: 'Bareilly',
+    state: 'Uttar Pradesh',
+    speciality: 'Vitreoretinal Specialist',
+    mciNo: 'MCI-UP-48210'
+  },
+  'Lucknow': {
+    doctorName: 'Dr. Sudhir Srivastava',
+    hospital: 'Sun Eye Hospital and Laser Centre',
+    district: 'Lucknow',
+    state: 'Uttar Pradesh',
+    speciality: 'Ophthalmologist & Laser Specialist',
+    mciNo: 'MCI-UP-55102'
+  },
+  'Shahjahanpur': {
+    doctorName: 'Dr. Manmohan Lal Gupta',
+    hospital: 'Jagmohan Lal Eye & ENT Hospital',
+    district: 'Shahjahanpur',
+    state: 'Uttar Pradesh',
+    speciality: 'Ophthalmologist',
+    mciNo: 'MCI-UP-39182'
+  },
+  'Sitapur': {
+    doctorName: 'Col. (Dr.) Madhu Bhadauria',
+    hospital: 'Sitapur Eye Hospital',
+    district: 'Sitapur',
+    state: 'Uttar Pradesh',
+    speciality: 'Ophthalmologist & Director',
+    mciNo: 'MCI-UP-61044'
+  },
+  'Varanasi': {
+    doctorName: 'Dr. Praveen Kumar Chaturvedi',
+    hospital: 'Shree Hanumant Vision Care',
+    district: 'Varanasi',
+    state: 'Uttar Pradesh',
+    speciality: 'Retina Specialist',
+    mciNo: 'MCI-UP-44910'
+  },
+  'Gorakhpur': {
+    doctorName: 'Dr. Rahul Agrawal',
+    hospital: 'Gorakhpur Eye Hospital',
+    district: 'Gorakhpur',
+    state: 'Uttar Pradesh',
+    speciality: 'Ophthalmologist',
+    mciNo: 'MCI-UP-51023'
+  },
+  'Patna': {
+    doctorName: 'Dr. Rajneesh Sinha',
+    hospital: 'Sharp Sight Eye Hospital',
+    district: 'Patna',
+    state: 'Bihar',
+    speciality: 'Vitreoretinal Surgeon',
+    mciNo: 'MCI-BR-38291'
+  },
+  'Bhopal': {
+    doctorName: 'Dr. M. K. Ajwani',
+    hospital: 'Ajwani Eye Care',
+    district: 'Bhopal',
+    state: 'Madhya Pradesh',
+    speciality: 'Senior Eye Surgeon',
+    mciNo: 'MCI-MP-29104'
+  }
+};
+

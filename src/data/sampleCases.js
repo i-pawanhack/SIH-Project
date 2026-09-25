@@ -16,7 +16,7 @@ export const SAMPLE_CASES = [
       gender: 'Male',
       diabetesDuration: '6 Years',
       diabetesStatus: 'Type 2 Diabetes',
-      centre: 'PHC Rampur — Primary Health Centre (District Ballia)',
+      centre: 'PHC Rampur — Primary Health Centre (District Bareilly)',
       contact: '+91 98765 43210'
     },
     stage: 0,
@@ -25,7 +25,7 @@ export const SAMPLE_CASES = [
     aiResult: AIService.evaluateClassification(0),
     doctorReview: {
       status: 'Reviewed',
-      reviewedBy: 'Dr. Ananya Sen (Ophthalmologist, AIIMS)',
+      reviewedBy: 'Dr. Sanjeev Kohli (Amritsar Eye Centre)',
       reviewedAt: '2026-08-28T10:15:00Z',
       doctorGrade: 0,
       overrideReason: 'Agreed with AI. Normal fundus with healthy macula.',
@@ -42,7 +42,7 @@ export const SAMPLE_CASES = [
       gender: 'Female',
       diabetesDuration: '8 Years',
       diabetesStatus: 'Type 2 Diabetes',
-      centre: 'CHC Kotdwar — Community Health Centre (Pauri Garhwal)',
+      centre: 'CHC Kotdwar — Community Health Centre (Lucknow)',
       contact: '+91 94123 78901'
     },
     stage: 1,
@@ -51,7 +51,7 @@ export const SAMPLE_CASES = [
     aiResult: AIService.evaluateClassification(1),
     doctorReview: {
       status: 'Reviewed',
-      reviewedBy: 'Dr. Vivek Saxena (Vitreoretinal Specialist)',
+      reviewedBy: 'Dr. Sudhir Srivastava (Sun Eye Hospital and Laser Centre)',
       reviewedAt: '2026-08-29T14:30:00Z',
       doctorGrade: 1,
       overrideReason: 'Agreed with AI. Few isolated microaneurysms noted in superior arcade.',
@@ -68,7 +68,7 @@ export const SAMPLE_CASES = [
       gender: 'Male',
       diabetesDuration: '14 Years',
       diabetesStatus: 'Type 2 Diabetes',
-      centre: 'Mobile Retinal Van #3 — Kutch Rural Outreach',
+      centre: 'Mobile Retinal Van #3 — Sitapur Rural Outreach',
       contact: '+91 97234 56789'
     },
     stage: 2,
@@ -103,7 +103,7 @@ export const SAMPLE_CASES = [
     aiResult: AIService.evaluateClassification(3),
     doctorReview: {
       status: 'Reviewed',
-      reviewedBy: 'Dr. Ananya Sen (Ophthalmologist, AIIMS)',
+      reviewedBy: 'Dr. Praveen Kumar Chaturvedi (Shree Hanumant Vision Care)',
       reviewedAt: '2026-08-30T16:45:00Z',
       doctorGrade: 3,
       overrideReason: 'Confirmed Severe NPDR. Extensive blot hemorrhages in all 4 quadrants and cotton wool spots.',
@@ -120,7 +120,7 @@ export const SAMPLE_CASES = [
       gender: 'Male',
       diabetesDuration: '22 Years',
       diabetesStatus: 'Type 1 Diabetes',
-      centre: 'PHC Rampur — Primary Health Centre (District Ballia)',
+      centre: 'PHC Rampur — Primary Health Centre (District Sitapur)',
       contact: '+91 98140 98765'
     },
     stage: 4,
@@ -129,7 +129,7 @@ export const SAMPLE_CASES = [
     aiResult: AIService.evaluateClassification(4),
     doctorReview: {
       status: 'Reviewed',
-      reviewedBy: 'Dr. Vivek Saxena (Vitreoretinal Specialist)',
+      reviewedBy: 'Col. (Dr.) Madhu Bhadauria (Sitapur Eye Hospital)',
       reviewedAt: '2026-08-31T11:20:00Z',
       doctorGrade: 4,
       overrideReason: 'High-risk Proliferative DR confirmed. Disc neovascularization (NVD) fronds present.',
@@ -146,7 +146,7 @@ export const SAMPLE_CASES = [
       gender: 'Female',
       diabetesDuration: '11 Years',
       diabetesStatus: 'Type 2 Diabetes',
-      centre: 'PHC Sunderbans — Delta Medical Station',
+      centre: 'PHC Sunderbans — Gorakhpur Station',
       contact: '+91 98300 54321'
     },
     stage: 2,
@@ -155,7 +155,7 @@ export const SAMPLE_CASES = [
     aiResult: null, // No prediction for ungradable images
     doctorReview: {
       status: 'Reviewed',
-      reviewedBy: 'Dr. Ananya Sen (Ophthalmologist, AIIMS)',
+      reviewedBy: 'Dr. Rahul Agrawal (Gorakhpur Eye Hospital)',
       reviewedAt: '2026-08-31T09:10:00Z',
       doctorGrade: 'UNGRADABLE',
       overrideReason: 'Image ungradable due to media opacity / severe camera defocus blur.',

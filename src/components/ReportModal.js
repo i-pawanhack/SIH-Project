@@ -3,7 +3,7 @@
  * Renders the official Drish Kalyan PDF report format both on screen and print.
  */
 
-import { DR_SEVERITY_LEVELS } from '../types.js';
+import { DR_SEVERITY_LEVELS, DISTRICT_OPHTHALMOLOGISTS } from '../types.js';
 import { StorageService } from '../services/storageService.js';
 
 export function openReportModal(screeningCase, onClose) {
@@ -16,6 +16,10 @@ export function openReportModal(screeningCase, onClose) {
   const patient = screeningCase.patient || {};
   const docReview = screeningCase.doctorReview || {};
   const currentUser = StorageService.getCurrentUser();
+
+  const patDistrict = patient.district || (patient.centre ? (patient.centre.match(/\((.*?)\)/)?.[1] || '').replace('District ', '') : 'Bareilly');
+  const assignedDocInfo = DISTRICT_OPHTHALMOLOGISTS[patDistrict] || DISTRICT_OPHTHALMOLOGISTS['Bareilly'];
+  const assignedDoctorName = docReview.reviewedBy || `${assignedDocInfo.doctorName} (${assignedDocInfo.hospital})`;
 
   // Identified findings text
   let evidenceText = 'No microvascular lesions detected. Intact retinal architecture.';
@@ -316,7 +320,7 @@ export function openReportModal(screeningCase, onClose) {
             </li>
             <li style="border-bottom:1px dotted #cce2e0; padding-bottom:4px; display:flex; align-items:center;">
               <span style="color:#0d6b63; font-size:1rem; margin-right:8px;">•</span>
-              <strong>${window.tData('Reviewing Specialist:')}</strong>&nbsp;${window.tData(docReview.reviewedBy || 'Dr. Ananya Sen (Ophthalmologist, AIIMS)')}
+              <strong>${window.tData('Reviewing Specialist:')}</strong>&nbsp;${window.tData(assignedDoctorName)}
             </li>
           </ul>
         </div>
@@ -337,7 +341,7 @@ export function openReportModal(screeningCase, onClose) {
             </div>
             <div>
               <div style="font-size:0.65rem; font-weight:700; text-transform:uppercase; color:#cbd5e1; margin-bottom:4px;">${window.tData('MEDICAL OFFICER')}</div>
-              <div style="border-bottom:1px dotted rgba(255,255,255,0.6); padding-bottom:3px; font-weight:600;">${window.tData(docReview.reviewedBy || 'Dr. Vivek Saxena')}</div>
+              <div style="border-bottom:1px dotted rgba(255,255,255,0.6); padding-bottom:3px; font-weight:600;">${window.tData(assignedDoctorName)}</div>
             </div>
             <div>
               <div style="font-size:0.65rem; font-weight:700; text-transform:uppercase; color:#cbd5e1; margin-bottom:4px;">${window.tData('DATE & STAMP')}</div>

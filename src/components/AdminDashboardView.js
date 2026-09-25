@@ -1000,14 +1000,6 @@ export function renderAdminDashboardView(container, onNavigate) {
                   <td>6</td>
                   <td><span class="dk-badge badge-active">● Active</span></td>
                 </tr>
-                <tr data-phc="Nanpara" data-district="Bahraich">
-                  <td><strong>PHC Nanpara</strong></td>
-                  <td>Bahraich</td>
-                  <td>142</td>
-                  <td>11</td>
-                  <td>9</td>
-                  <td><span class="dk-badge badge-pending">● Sync Pending</span></td>
-                </tr>
                 <tr data-phc="Misrikh" data-district="Sitapur">
                   <td><strong>PHC Misrikh</strong></td>
                   <td>Sitapur</td>
@@ -1178,7 +1170,6 @@ export function renderAdminDashboardView(container, onNavigate) {
         'Shahjahanpur': { state: 'Uttar Pradesh', phcs: 18, screenings: '3,045', suspected: 42, pending: 12, status: 'Needs Attention', color: '#ef4444' },
         'Varanasi': { state: 'Uttar Pradesh', phcs: 22, screenings: '2,810', suspected: 28, pending: 6, status: 'Active', color: '#10b981' },
         'Gorakhpur': { state: 'Uttar Pradesh', phcs: 24, screenings: '2,182', suspected: 35, pending: 9, status: 'Sync Pending', color: '#f59e0b' },
-        'Bahraich': { state: 'Uttar Pradesh', phcs: 8, screenings: '1,420', suspected: 19, pending: 5, status: 'Sync Pending', color: '#f59e0b' },
         'Sitapur': { state: 'Uttar Pradesh', phcs: 10, screenings: '1,890', suspected: 22, pending: 4, status: 'Active', color: '#10b981' },
         'Patna': { state: 'Bihar', phcs: 15, screenings: '2,450', suspected: 30, pending: 8, status: 'Active', color: '#10b981' },
         'Bhopal': { state: 'Madhya Pradesh', phcs: 10, screenings: '1,650', suspected: 18, pending: 3, status: 'Active', color: '#10b981' }
@@ -1206,7 +1197,6 @@ export function renderAdminDashboardView(container, onNavigate) {
                 <option value="Shahjahanpur">Shahjahanpur (UP)</option>
                 <option value="Varanasi">Varanasi (UP)</option>
                 <option value="Gorakhpur">Gorakhpur (UP)</option>
-                <option value="Bahraich">Bahraich (UP)</option>
                 <option value="Sitapur">Sitapur (UP)</option>
                 <option value="Patna">Patna (Bihar)</option>
                 <option value="Bhopal">Bhopal (MP)</option>
@@ -1656,7 +1646,7 @@ export function renderAdminDashboardView(container, onNavigate) {
           name: 'Savitri Sharma',
           age: 54,
           gender: 'Female',
-          phc: 'PHC Nanpara (Bahraich)',
+          phc: 'PHC Misrikh (Sitapur)',
           aiStage: 4,
           aiTitle: 'Proliferative DR',
           aiConf: '97.4%',
@@ -1947,8 +1937,8 @@ export function renderAdminDashboardView(container, onNavigate) {
               </thead>
               <tbody>
                 <tr>
-                  <td><strong>Dr. Rajesh Sharma</strong></td>
-                  <td>Bareilly Medical College</td>
+                  <td><strong>Dr. Sanjeev Kohli</strong></td>
+                  <td>Amritsar Eye Centre (Bareilly)</td>
                   <td>Vitreoretinal Specialist</td>
                   <td>1,420</td>
                   <td>14 mins</td>
@@ -1957,9 +1947,9 @@ export function renderAdminDashboardView(container, onNavigate) {
                   <td><button class="dk-btn dk-btn-secondary" style="font-size:0.65rem;">View Profile</button></td>
                 </tr>
                 <tr>
-                  <td><strong>Dr. Priya Verma</strong></td>
-                  <td>KGMC Lucknow</td>
-                  <td>Ophthalmologist</td>
+                  <td><strong>Dr. Sudhir Srivastava</strong></td>
+                  <td>Sun Eye Hospital and Laser Centre (Lucknow)</td>
+                  <td>Ophthalmologist & Laser Specialist</td>
                   <td>980</td>
                   <td>18 mins</td>
                   <td>96.2%</td>
@@ -1967,9 +1957,9 @@ export function renderAdminDashboardView(container, onNavigate) {
                   <td><button class="dk-btn dk-btn-secondary" style="font-size:0.65rem;">View Profile</button></td>
                 </tr>
                 <tr>
-                  <td><strong>Dr. Ananya Gupta</strong></td>
-                  <td>AIIMS New Delhi</td>
-                  <td>Retina Consultant</td>
+                  <td><strong>Dr. Manmohan Lal Gupta</strong></td>
+                  <td>Jagmohan Lal Eye & ENT Hospital (Shahjahanpur)</td>
+                  <td>Ophthalmologist</td>
                   <td>1,150</td>
                   <td>11 mins</td>
                   <td>99.1%</td>
@@ -1977,13 +1967,53 @@ export function renderAdminDashboardView(container, onNavigate) {
                   <td><button class="dk-btn dk-btn-secondary" style="font-size:0.65rem;">View Profile</button></td>
                 </tr>
                 <tr>
-                  <td><strong>Dr. Vikramaditya Singh</strong></td>
-                  <td>S.N. Medical College Agra</td>
+                  <td><strong>Col. (Dr.) Madhu Bhadauria</strong></td>
+                  <td>Sitapur Eye Hospital (Sitapur)</td>
+                  <td>Ophthalmologist & Director</td>
+                  <td>1,210</td>
+                  <td>12 mins</td>
+                  <td>97.9%</td>
+                  <td><span class="dk-badge badge-active">● Active</span></td>
+                  <td><button class="dk-btn dk-btn-secondary" style="font-size:0.65rem;">View Profile</button></td>
+                </tr>
+                <tr>
+                  <td><strong>Dr. Praveen Kumar Chaturvedi</strong></td>
+                  <td>Shree Hanumant Vision Care (Varanasi)</td>
+                  <td>Retina Specialist</td>
+                  <td>1,080</td>
+                  <td>13 mins</td>
+                  <td>98.7%</td>
+                  <td><span class="dk-badge badge-active">● Active</span></td>
+                  <td><button class="dk-btn dk-btn-secondary" style="font-size:0.65rem;">View Profile</button></td>
+                </tr>
+                <tr>
+                  <td><strong>Dr. Rahul Agrawal</strong></td>
+                  <td>Gorakhpur Eye Hospital (Gorakhpur)</td>
                   <td>Ophthalmologist</td>
-                  <td>840</td>
+                  <td>890</td>
                   <td>15 mins</td>
-                  <td>95.8%</td>
-                  <td><span class="dk-badge badge-pending">● Busy (In OR)</span></td>
+                  <td>96.5%</td>
+                  <td><span class="dk-badge badge-active">● Active</span></td>
+                  <td><button class="dk-btn dk-btn-secondary" style="font-size:0.65rem;">View Profile</button></td>
+                </tr>
+                <tr>
+                  <td><strong>Dr. Rajneesh Sinha</strong></td>
+                  <td>Sharp Sight Eye Hospital (Patna)</td>
+                  <td>Vitreoretinal Surgeon</td>
+                  <td>940</td>
+                  <td>16 mins</td>
+                  <td>97.3%</td>
+                  <td><span class="dk-badge badge-active">● Active</span></td>
+                  <td><button class="dk-btn dk-btn-secondary" style="font-size:0.65rem;">View Profile</button></td>
+                </tr>
+                <tr>
+                  <td><strong>Dr. M. K. Ajwani</strong></td>
+                  <td>Ajwani Eye Care (Bhopal)</td>
+                  <td>Senior Eye Surgeon</td>
+                  <td>780</td>
+                  <td>17 mins</td>
+                  <td>96.8%</td>
+                  <td><span class="dk-badge badge-active">● Active</span></td>
                   <td><button class="dk-btn dk-btn-secondary" style="font-size:0.65rem;">View Profile</button></td>
                 </tr>
               </tbody>
